@@ -9,8 +9,6 @@ import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
-import frc.robot.operator.commands.OperatorCommands;
-import frc.robot.pose.commands.PoseCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -25,7 +23,8 @@ public class OperatorGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        // gamepad.aButton.whileTrue(operatorCommands.aimoperatorDrive(Math.PI * 1 / 2).withName("Snap
+        // gamepad.aButton.whileTrue(operatorCommands.aimoperatorDrive(Math.PI * 1 /
+        // 2).withName("Snap
         // 90"));
         // gamepad.bButton.whileTrue(operatorCommands.fpvoperatorSwerve());
         /*gamepad.bButton.whileTrue(
@@ -52,7 +51,7 @@ public class OperatorGamepad extends Gamepad {
         // rightX.or(rightY).whileTrue(operatorCommands.stickSteer());
 
         // Reorient the robot to the current heading
-        
+
     }
 
     public void setupDisabledButtons() {
