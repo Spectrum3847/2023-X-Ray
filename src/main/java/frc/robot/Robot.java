@@ -46,37 +46,37 @@ public class Robot extends LoggedRobot {
 
     // Intialize subsystems and run their setupDefaultCommand methods here
     private void intializeSystems() {
-        System.out.println("started intit");
+        System.out.println("Started init");
         swerve = new Swerve();
-        System.out.println("started swerve");
+        System.out.println("Started swerve");
         pose = new Pose();
-        System.out.println("started pose");
+        System.out.println("Started pose");
         trajectories = new Trajectories();
-        System.out.println("started trajectories");
+        System.out.println("Started trajectories");
 
         elevator = new Elevator();
-        System.out.println("started elevator");
+        System.out.println("Started elevator");
         intake = new Intake();
-        System.out.println("started intake");
+        System.out.println("Started intake");
         fourBar = new FourBar();
-        System.out.println("started fourBar");
+        System.out.println("Started fourBar");
 
-        vision = new Vision();
-        System.out.println("started vision");
+        // vision = new Vision();
+        // System.out.println("Started vision");
 
         leds = new LEDs();
-        System.out.println("started led");
+        System.out.println("Started led");
         pilotGamepad = new PilotGamepad();
-        System.out.println("started pilotgamepad");
+        System.out.println("Started pilotgamepad");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
-        System.out.println("started robotTelemtry");
+        System.out.println("Started robotTelemetry");
 
         // Set Default Commands, this method should exist for each subsystem that has
         // commands
         PilotCommands.setupDefaultCommand();
-        System.out.println("started Pilot Default Commands");
+        System.out.println("Started Pilot Default Commands");
         SwerveCommands.setupDefaultCommand();
-        System.out.println("started Swerve setupDefaultCommand");
+        System.out.println("Started Swerve setupDefaultCommand");
 
         IntakeCommands.setupDefaultCommand();
         ElevatorCommands.setupDefaultCommand();
