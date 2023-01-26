@@ -1,5 +1,7 @@
 package frc.robot.auton;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -8,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
-import frc.robot.auton.commands.FollowPath;
+import frc.robot.auton.commands.AutoBuilder;
 import java.util.HashMap;
 
 public class Auton {
@@ -26,9 +28,29 @@ public class Auton {
     public static void setupSelectors() {
         autonChooser.setDefaultOption(
                 "Nothing", new PrintCommand("Doing Nothing in Auton").andThen(new WaitCommand(5)));
-        autonChooser.addOption("5 Ball w Balance", new FollowPath("5 Ball w Balance", true));
-        autonChooser.addOption("5 Ball", new FollowPath("5 Ball", false));
-        autonChooser.addOption("1 Meter", new FollowPath("1 Meter", false));
+        // autonChooser.addOption("5 Ball w Balance", new FollowPath("5 Ball w Balance", true));
+        // autonChooser.addOption("5 Ball", new FollowPath("5 Ball", false));
+        autonChooser.addOption(
+                "1 Meter",
+                AutoBuilder.autoBuilder.fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "1 Meter",
+                                new PathConstraints(
+                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "5 Ball",
+                AutoBuilder.autoBuilder.fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "5 Ball",
+                                new PathConstraints(
+                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "Test Path",
+                AutoBuilder.autoBuilder.fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "Test Path",
+                                new PathConstraints(
+                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
@@ -44,14 +66,12 @@ public class Auton {
      */
     public static Command getAutonomousCommand() {
         // return new CharacterizeLauncher(Robot.launcher);
-        // Command auton = autonChooser.getSelected(); //Broken for now
-        Command auton = new FollowPath("1 Meter", true);
-        /*if (auton != null) {
+        Command auton = autonChooser.getSelected();
+        if (auton != null) {
             return auton;
         } else {
             return new PrintCommand("*** AUTON COMMAND IS NULL ***");
-        }*/
-        return auton;
+        }
     }
 
     /** This method is called in AutonInit */

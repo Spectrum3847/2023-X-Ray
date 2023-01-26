@@ -19,6 +19,38 @@ public class SwerveTelemetry {
         tab.addNumber("Heading", () -> swerve.getHeading().getDegrees()).withPosition(0, 0);
         tab.addNumber("Odometry X", () -> swerve.getPoseMeters().getX()).withPosition(0, 1);
         tab.addNumber("Odometry Y", () -> swerve.getPoseMeters().getY()).withPosition(0, 2);
+        /*tab.addNumber(
+                        "Mod 0 Can Angle",
+                        () -> Robot.swerve.mSwerveMods[0].getCanCoderAngle().getDegrees())
+                .withPosition(1, 0);
+        tab.addNumber(
+                        "Mod 1 Can Angle",
+                        () -> Robot.swerve.mSwerveMods[1].getCanCoderAngle().getDegrees())
+                .withPosition(2, 0);
+        tab.addNumber(
+                        "Mod 2 Can Angle",
+                        () -> Robot.swerve.mSwerveMods[2].getCanCoderAngle().getDegrees())
+                .withPosition(3, 0);
+        tab.addNumber(
+                        "Mod 3 Can Angle",
+                        () -> Robot.swerve.mSwerveMods[3].getCanCoderAngle().getDegrees())
+                .withPosition(4, 0);
+        tab.addNumber(
+                        "Mod 0 Integrated Angle",
+                        () -> Robot.swerve.mSwerveMods[0].getState().angle.getDegrees())
+                .withPosition(1, 1);
+        tab.addNumber(
+                        "Mod 1 Integrated Angle",
+                        () -> Robot.swerve.mSwerveMods[1].getState().angle.getDegrees())
+                .withPosition(2, 1);
+        tab.addNumber(
+                        "Mod 2 Integrated Angle",
+                        () -> Robot.swerve.mSwerveMods[2].getState().angle.getDegrees())
+                .withPosition(3, 1);
+        tab.addNumber(
+                        "Mod 3 Integrated Angle",
+                        () -> Robot.swerve.mSwerveMods[3].getState().angle.getDegrees())
+                .withPosition(4, 1);*/
     }
 
     public void testMode() {

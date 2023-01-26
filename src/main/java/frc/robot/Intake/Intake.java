@@ -1,4 +1,4 @@
-package frc.robot.Intake;
+package frc.robot.intake;
 
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;

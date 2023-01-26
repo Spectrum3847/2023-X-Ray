@@ -14,9 +14,11 @@ import java.util.function.DoubleSupplier;
 public class Trajectories extends SubsystemBase {
     public PIDController thetaController;
     public PIDController xController =
-            new PIDController(AutonConfig.kPXController, 0, AutonConfig.kDXController);;
+            new PIDController(
+                    AutonConfig.kPTranslationController, 0, AutonConfig.kDTranslationController);;
     public PIDController yController =
-            new PIDController(AutonConfig.kPYController, 0, AutonConfig.kDYController);;
+            new PIDController(
+                    AutonConfig.kPTranslationController, 0, AutonConfig.kDTranslationController);;
     public Rotation2d startAngle;
 
     /** Creates a new Trajectory. */
