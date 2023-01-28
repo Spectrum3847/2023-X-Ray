@@ -1,4 +1,4 @@
-package frc.robot.FourBar;
+package frc.robot.fourbar;
 
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import frc.SpectrumLib.subsystems.angleMech.AngleMechConfig;

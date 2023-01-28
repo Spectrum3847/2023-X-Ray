@@ -1,4 +1,4 @@
-package frc.robot.FourBar;
+package frc.robot.fourbar;
 
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;

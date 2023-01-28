@@ -1,4 +1,4 @@
-package frc.robot.FourBar;
+package frc.robot.fourbar;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
