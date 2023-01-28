@@ -1,4 +1,4 @@
-package frc.robot.vision.commands;
+package frc.robot.vision;
 
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose3d;
