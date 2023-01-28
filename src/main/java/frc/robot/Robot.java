@@ -16,6 +16,8 @@ import frc.robot.elevator.ElevatorCommands;
 import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.FourBarCommands;
 import frc.robot.leds.LEDs;
+import frc.robot.operator.OperatorGamepad;
+import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.PilotGamepad;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.pose.Pose;
@@ -37,6 +39,7 @@ public class Robot extends LoggedRobot {
     public static Vision vision;
     public static LEDs leds;
     public static PilotGamepad pilotGamepad;
+    public static OperatorGamepad operatorGamepad;
     public static RobotTelemetry telemetry;
 
     public static String MAC = "";
@@ -68,6 +71,7 @@ public class Robot extends LoggedRobot {
         leds = new LEDs();
         System.out.println("Started led");
         pilotGamepad = new PilotGamepad();
+        operatorGamepad = new OperatorGamepad();
         System.out.println("Started pilotgamepad");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
         System.out.println("Started robotTelemetry");
@@ -75,6 +79,7 @@ public class Robot extends LoggedRobot {
         // Set Default Commands, this method should exist for each subsystem that has
         // commands
         PilotCommands.setupDefaultCommand();
+        OperatorCommands.setupDefaultCommand();
         System.out.println("Started Pilot Default Commands");
         SwerveCommands.setupDefaultCommand();
         System.out.println("Started Swerve setupDefaultCommand");
@@ -96,6 +101,7 @@ public class Robot extends LoggedRobot {
 
         // Reset Config for all gamepads and other button bindings
         pilotGamepad.resetConfig();
+        operatorGamepad.resetConfig();
     }
 
     /**
