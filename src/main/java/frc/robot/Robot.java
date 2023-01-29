@@ -50,7 +50,7 @@ public class Robot extends LoggedRobot {
 
     // Intialize subsystems and run their setupDefaultCommand methods here
     private void intializeSystems() {
-        System.out.println("Started init");
+        System.out.println("Started initSubsystems");
         swerve = new Swerve();
         System.out.println("Started swerve");
         pose = new Pose();
@@ -72,21 +72,20 @@ public class Robot extends LoggedRobot {
         System.out.println("Started led");
         pilotGamepad = new PilotGamepad();
         operatorGamepad = new OperatorGamepad();
-        System.out.println("Started pilotgamepad");
+        System.out.println("Started gamepads");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
         System.out.println("Started robotTelemetry");
 
         // Set Default Commands, this method should exist for each subsystem that has
         // commands
-        PilotCommands.setupDefaultCommand();
-        OperatorCommands.setupDefaultCommand();
-        System.out.println("Started Pilot Default Commands");
         SwerveCommands.setupDefaultCommand();
-        System.out.println("Started Swerve setupDefaultCommand");
-
         IntakeCommands.setupDefaultCommand();
         ElevatorCommands.setupDefaultCommand();
         FourBarCommands.setupDefaultCommand();
+        PilotCommands.setupDefaultCommand();
+        OperatorCommands.setupDefaultCommand();
+
+        System.out.println("Finished Setting Up Default Commands");
     }
 
     /**
