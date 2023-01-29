@@ -54,7 +54,8 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.add("Alerts", SmartDashboard.getData("Alerts")).withPosition(4, 0).withSize(2, 2);
         tab.add("MAC Address", Robot.MAC).withPosition(4, 2).withSize(2, 1);
         tab.addString("IP Address", () -> getIP()).withPosition(4, 3).withSize(2, 1);
-        tab.addNumber("ElevatorPos", () -> Robot.elevator.getPosition()).withPosition(5, 0);
+        tab.addNumber("ElevatorPos", () -> Robot.elevator.getPosition()).withPosition(6, 0);
+        tab.addNumber("Elevator kF", () -> Robot.elevator.getKf()).withPosition(6, 1);
     }
 
     public static void createTab(String name) {

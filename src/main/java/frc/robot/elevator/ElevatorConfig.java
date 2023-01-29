@@ -21,5 +21,6 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public ElevatorConfig() {
         super(name);
+        updateTalonFXConfig();
     }
 }
