@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.elevator.ElevatorCommands;
 import frc.robot.fourbar.FourBarCommands;
-import frc.robot.intake.IntakeCommands;
+import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;

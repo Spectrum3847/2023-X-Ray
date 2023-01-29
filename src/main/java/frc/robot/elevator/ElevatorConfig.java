@@ -11,27 +11,18 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
-    public double kP = 0.1; // not accurate value, just testing
-    public double kI = 0; // could be 0
-    public double kD = 0; // could be 0
-    public double kF = 0.1079;
-    public double kIz = 0; // could be 0
-    public double motionCruiseVelocity = 4663;
-    public double motionAcceleration = 4663;
-
     public ElevatorConfig() {
         super(name);
+        this.kP = 0.1; // not accurate value, just testing
+        this.kI = 0; // could be 0
+        this.kD = 0; // could be 0
+        this.kF = 0.1079;
+        this.motionCruiseVelocity = 4663;
+        this.motionAcceleration = 4663;
 
-        super.kP = kP;
-        super.kI = kI;
-        super.kD = kD;
-        super.kF = kF;
-        super.kIz = kIz;
-        super.motionCruiseVelocity = motionCruiseVelocity;
-        super.motionAcceleration = motionAcceleration;
+        this.currentLimit = 20;
+        this.tirggerThresholdLimit = currentLimit;
 
-        /* Not needed currently but this may have to be used if the values aren't being updated because of run-time order */
-        // updateTalonFXConfig();
-
+        updateTalonFXConfig();
     }
 }
