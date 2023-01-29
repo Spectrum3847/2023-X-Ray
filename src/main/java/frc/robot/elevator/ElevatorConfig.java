@@ -7,10 +7,11 @@ public class ElevatorConfig extends LinearMechConfig {
     public static final String name = "Elevator";
     public final double diameterInches = 1.2815; // changed from int, 4
     public final double gearRatio = 62 / 8;
+    public final double maxUpFalconPos = 162116;
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
-    public double kP = 0;
+    public double kP = 0.1;
     public double kI = 0; // could be 0
     public double kD = 0; // could be 0
     public double kF = 0.1079;
