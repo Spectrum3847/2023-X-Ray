@@ -11,7 +11,7 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
-    public double kP = 0.1;
+    public double kP = 0.1; // not accurate value, just testing
     public double kI = 0; // could be 0
     public double kD = 0; // could be 0
     public double kF = 0.1079;
@@ -21,6 +21,17 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public ElevatorConfig() {
         super(name);
-        updateTalonFXConfig();
+
+        super.kP = kP;
+        super.kI = kI;
+        super.kD = kD;
+        super.kF = kF;
+        super.kIz = kIz;
+        super.motionCruiseVelocity = motionCruiseVelocity;
+        super.motionAcceleration = motionAcceleration;
+
+        /* Not needed currently but this may have to be used if the values aren't being updated because of run-time order */
+        // updateTalonFXConfig();
+
     }
 }
