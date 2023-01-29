@@ -2,7 +2,7 @@ package frc.robot.operator;
 
 import edu.wpi.first.wpilibj.util.Color;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.Intake.IntakeCommands;
+import frc.robot.intake.IntakeCommands;
 import frc.robot.elevator.ElevatorCommands;
 import frc.robot.fourbar.FourBarCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
