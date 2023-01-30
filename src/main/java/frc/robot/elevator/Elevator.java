@@ -26,18 +26,23 @@ public class Elevator extends LinearMechSubsystem {
     }
 
     /**
-	 * Converts real height to relative height for the elevator.
+	 * Converts real height to extension for the elevator.
      *  Subtracts the height of the elevator at the bottom.
      *  So that the height of the elevator at the bottom is 0.
      *  Does trigonomic calculations to find the relative height.
 	 * @param meters height in meters
      * @return relative height in meters
-     * @throws IllegalArgumentException if the height is below the starting height or if the height is above the max height
-     * @see #heightToRelativeHeight(double)
+     * @throws IllegalArgumentException if the height is below the starting height or if the Extension is above the max Extension
 	 */
-    public static double heightToRelativeHeight(double meters) {
+    public static double heightToExtension(double meters) {
         meters = meters - config.startingHeight;
-        meters = meters / Math.cos(Math.toRadians(config.angle));
+        if (meters < 0) {
+            throw new IllegalArgumentException("Height is below the starting height.");
+        }
+        meters = meters / Math.sin(Math.toRadians(config.angle));
+        if (meters > config.maxExtension) {
+            throw new IllegalArgumentException("Height is above the max extension.");
+        }
         return meters;
     }
 }
