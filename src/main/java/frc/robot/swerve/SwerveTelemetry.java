@@ -12,13 +12,22 @@ import java.util.Map;
 public class SwerveTelemetry {
     protected ShuffleboardTab tab;
     private Swerve swerve;
+    private double[] odometryPose;
 
     public SwerveTelemetry(Swerve swerve) {
         this.swerve = swerve;
+        odometryPose =
+                new double[] {
+                    swerve.getPoseMeters().getX(),
+                    swerve.getPoseMeters().getY(),
+                    swerve.getHeading().getDegrees()
+                };
         tab = Shuffleboard.getTab("Swerve");
         tab.addNumber("Heading", () -> swerve.getHeading().getDegrees()).withPosition(0, 0);
         tab.addNumber("Odometry X", () -> swerve.getPoseMeters().getX()).withPosition(0, 1);
         tab.addNumber("Odometry Y", () -> swerve.getPoseMeters().getY()).withPosition(0, 2);
+        tab.addDoubleArray("Odometry Pose", () -> odometryPose).withPosition(0, 3).withSize(3, 3);
+
         /*tab.addNumber(
                         "Mod 0 Can Angle",
                         () -> Robot.swerve.mSwerveMods[0].getCanCoderAngle().getDegrees())
