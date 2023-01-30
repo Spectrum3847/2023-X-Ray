@@ -15,6 +15,12 @@ public class Elevator extends LinearMechSubsystem {
         motorLeader.setNeutralMode(NeutralMode.Brake);
         config.updateTalonFXConfig();
         setupFalconLeader();
+        motorLeader.configReverseSoftLimitThreshold(0);
+        motorLeader.configReverseSoftLimitEnable(true);
+    }
+
+    public void zeroElevator() {
+        motorLeader.setSelectedSensorPosition(0);
     }
 
     public double getKf() {

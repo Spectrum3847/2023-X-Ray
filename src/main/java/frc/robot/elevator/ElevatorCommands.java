@@ -2,6 +2,7 @@ package frc.robot.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
 import java.util.function.DoubleSupplier;
 
@@ -27,6 +28,17 @@ public class ElevatorCommands {
 
     public static Command setMMPosition(double position) {
         return new RunCommand(() -> Robot.elevator.setMMPosition(position), Robot.elevator);
+    }
+
+    public static Command zeroElevator() {
+        return new RunCommand(() -> Robot.elevator.zeroElevator(), Robot.elevator);
+    }
+
+    public static Command runDownAndZero() {
+        return new StartEndCommand(
+                () -> Robot.elevator.setManualOutput(-0.1),
+                () -> Robot.elevator.zeroElevator(),
+                Robot.elevator);
     }
 
     // // below doesn't work:((

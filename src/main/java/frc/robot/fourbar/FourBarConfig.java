@@ -1,35 +1,30 @@
 package frc.robot.fourbar;
 
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import frc.SpectrumLib.subsystems.angleMech.AngleMechConfig;
 
 public class FourBarConfig extends AngleMechConfig {
 
-    /* Current Limiting */
-    public int currentLimit = 10;
-    public int tirggerThresholdLimit = 10;
-    public double PeakCurrentDuration = 0.0;
-    public boolean EnableCurrentLimit = true;
-    public SupplyCurrentLimitConfiguration supplyLimit =
-            new SupplyCurrentLimitConfiguration(
-                    EnableCurrentLimit, currentLimit, tirggerThresholdLimit, PeakCurrentDuration);
-
     public boolean kInverted = true;
 
     public final int minAngle = 0;
-    public final int maxAngle = 90;
+    public final int maxAngle = 100;
 
     // Physical Constants
-    public final double pulleyDiameterInches = 2;
-    public final double pulleyDiameterMeters = pulleyDiameterInches * 0.0254;
-
     public final double gearRatio = 1;
-
-    public final double pulleyCircumferenceMeters = pulleyDiameterMeters * Math.PI;
-    public final double pulleyCircumferenceInches = pulleyDiameterInches * Math.PI;
 
     public FourBarConfig() {
         super("FourBar");
+        this.kP = 0.5; // not accurate value, just testing
+        this.kI = 0; // could be 0
+        this.kD = 0; // could be 0
+        this.kF = 0.3;
+        this.motionCruiseVelocity = 4000;
+        this.motionAcceleration = 4000;
+
+        this.currentLimit = 10;
+        this.tirggerThresholdLimit = 10;
+        this.PeakCurrentDuration = 0.0;
+        this.EnableCurrentLimit = true;
         updateTalonFXConfig();
     }
 }
