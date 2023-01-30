@@ -14,12 +14,24 @@ public class Elevator extends LinearMechSubsystem {
         setupFalconLeader();
     }
 
+    /**
+     * Converts meters to falcon units.
+     * @param meters
+     * @param circumference
+     * @param gearRatio
+     * @return falcon units
+     */
     public static double metersToFalcon(double meters, double circumference, double gearRatio) {
         meters = meters / circumference;
         meters = meters * 2048 * gearRatio;
         return meters;
     }
-
+    
+    /**
+     * Converts inches to meters.
+     * @param inches
+     * @return meters
+     */
     public static double inchesToMeters(double inches) {
         double meters = inches * 0.0254;
         return meters;
