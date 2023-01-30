@@ -8,11 +8,10 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double diameterInches = 1.2815; // changed from int, 4
     public final double gearRatio = 62 / 8;
 
-    public final double startingHeight = 0; //TODO: find starting height
-    public final double startingHorizontalExtension = 0; //TODO: find starting horizontal extension
-    public final double maxExtension = 0; //TODO: find max relative extension
+    public final double startingHeight = 0; // TODO: find starting height
+    public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
+    public final double maxExtension = 0; // TODO: find max relative extension
     public final double angle = 60;
-
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 

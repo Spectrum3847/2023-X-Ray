@@ -16,6 +16,7 @@ public class Elevator extends LinearMechSubsystem {
 
     /**
      * Converts meters to falcon units.
+     *
      * @param meters
      * @param circumference
      * @param gearRatio
@@ -26,9 +27,10 @@ public class Elevator extends LinearMechSubsystem {
         meters = meters * 2048 * gearRatio;
         return meters;
     }
-    
+
     /**
      * Converts inches to meters.
+     *
      * @param inches
      * @return meters
      */
@@ -38,16 +40,17 @@ public class Elevator extends LinearMechSubsystem {
     }
 
     /**
-	 * Converts real height to extension for the elevator.
-     *  Subtracts the height of the elevator at the bottom.
-     *  So that the height of the elevator at the bottom is 0.
-     *  Does trigonomic calculations to find the relative height.
-	 * @param meters height in meters
+     * Converts real height to extension for the elevator. Subtracts the height of the elevator at
+     * the bottom. So that the height of the elevator at the bottom is 0. Does trigonomic
+     * calculations to find the relative height.
+     *
+     * @param meters height in meters
      * @return relative height in meters
-     * @throws IllegalArgumentException if the height is below the starting height or if the Extension is above the max Extension
+     * @throws IllegalArgumentException if the height is below the starting height or if the
+     *     Extension is above the max Extension
      * @see #heightToHorizontalExtension(double)
      * @see #extensionToHeight(double)
-	 */
+     */
     public static double heightToExtension(double meters) {
         meters = meters - config.startingHeight;
         if (meters < 0) {
@@ -62,6 +65,7 @@ public class Elevator extends LinearMechSubsystem {
 
     /**
      * converts real height to horizontal extension for the elevator.
+     *
      * @param meters height in meters
      * @return horizontal extension in meters relative to the robot's frame perimeter.
      * @see #heightToExtension(double)
@@ -76,6 +80,7 @@ public class Elevator extends LinearMechSubsystem {
 
     /**
      * converts elevator extension to real height.
+     *
      * @param meters extension in meters
      * @return height in meters
      * @see #heightToExtension(double)
@@ -86,5 +91,4 @@ public class Elevator extends LinearMechSubsystem {
         meters = meters + config.startingHeight;
         return meters;
     }
-
 }
