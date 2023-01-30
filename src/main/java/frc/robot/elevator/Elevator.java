@@ -33,6 +33,8 @@ public class Elevator extends LinearMechSubsystem {
 	 * @param meters height in meters
      * @return relative height in meters
      * @throws IllegalArgumentException if the height is below the starting height or if the Extension is above the max Extension
+     * @see #heightToHorizontalExtension(double)
+     * @see #extensionToHeight(double)
 	 */
     public static double heightToExtension(double meters) {
         meters = meters - config.startingHeight;
@@ -45,4 +47,32 @@ public class Elevator extends LinearMechSubsystem {
         }
         return meters;
     }
+
+    /**
+     * converts real height to horizontal extension for the elevator.
+     * @param meters height in meters
+     * @return horizontal extension in meters relative to the robot's frame perimeter.
+     * @see #heightToExtension(double)
+     * @see #extensionToHeight(double)
+     */
+    public static double heightToHorizontalExtension(double meters) {
+        meters = meters - config.startingHeight;
+        meters = meters / Math.cos(Math.toRadians(config.angle));
+        meters = meters + config.startingHorizontalExtension;
+        return meters;
+    }
+
+    /**
+     * converts elevator extension to real height.
+     * @param meters extension in meters
+     * @return height in meters
+     * @see #heightToExtension(double)
+     * @see #heightToHorizontalExtension(double)
+     */
+    public static double extensionToHeight(double meters) {
+        meters = meters * Math.sin(Math.toRadians(config.angle));
+        meters = meters + config.startingHeight;
+        return meters;
+    }
+
 }
