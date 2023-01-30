@@ -24,4 +24,20 @@ public class Elevator extends LinearMechSubsystem {
         double meters = inches * 0.0254;
         return meters;
     }
+
+    /**
+	 * Converts real height to relative height for the elevator.
+     *  Subtracts the height of the elevator at the bottom.
+     *  So that the height of the elevator at the bottom is 0.
+     *  Does trigonomic calculations to find the relative height.
+	 * @param meters height in meters
+     * @return relative height in meters
+     * @throws IllegalArgumentException if the height is below the starting height or if the height is above the max height
+     * @see #heightToRelativeHeight(double)
+	 */
+    public static double heightToRelativeHeight(double meters) {
+        meters = meters - config.startingHeight;
+        meters = meters / Math.cos(Math.toRadians(config.angle));
+        return meters;
+    }
 }
