@@ -1,6 +1,8 @@
 package frc.robot.intakeLauncher;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -10,13 +12,13 @@ public class Intake extends SubsystemBase {
     int launcher = 42;
     WPI_VictorSPX lowerRollerMotor;
     WPI_VictorSPX upperRollerMotor;
-    WPI_VictorSPX launcherMotor;
+    WPI_TalonFX launcherMotor;
 
     public Intake() {
         super();
         lowerRollerMotor = new WPI_VictorSPX(lowerRoller);
         upperRollerMotor = new WPI_VictorSPX(upperRoller);
-        launcherMotor = new WPI_VictorSPX(launcher);
+        launcherMotor = new WPI_TalonFX(launcher);
         // launcherMotor.setInverted(true);
     }
 
@@ -35,7 +37,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void setLauncher(double speed) {
-        launcherMotor.set(VictorSPXControlMode.PercentOutput, speed);
+        launcherMotor.set(TalonFXControlMode.PercentOutput, speed);
     }
 
     public void stopLowerRoller() {
