@@ -2,6 +2,7 @@ package frc.robot.operator;
 
 import edu.wpi.first.wpilibj.util.Color;
 import frc.SpectrumLib.gamepads.Gamepad;
+import frc.robot.elevator.ElevatorCommands;
 import frc.robot.fourbar.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
@@ -20,17 +21,19 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightStick.setXinvert(OperatorConfig.xInvert);
         gamepad.rightStick.setYinvert(OperatorConfig.yInvert);
     }
-
+    //set up jiggle sometime
     public void setupTeleopButtons() {
         // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
-        // gamepad.rightBumper.whileTrue(
-        //         ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.bButton.whileTrue(FourBarCommands.setMMPosition(37000));
-        gamepad.leftBumper.whileTrue(
-                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
+        // no bumper for operator controls, bumper sets intake position instead
+        // gamepad.rightBumper.whileTrue(
+        
+        ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5);
+        // gamepad.leftBumper.whileTrue(
+        FourBarCommands.setManualOutput(() -> gamepad.leftStick.getY() * 0.1);
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
     }
 
@@ -45,5 +48,10 @@ public class OperatorGamepad extends Gamepad {
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
+    }
+
+    public double getRightStickAngle() {
+        return gamepad.rightStick.getDirectionRadians(
+                gamepad.rightStick.getY(), gamepad.rightStick.getX());
     }
 }
