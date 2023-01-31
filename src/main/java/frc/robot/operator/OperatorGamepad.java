@@ -2,7 +2,6 @@ package frc.robot.operator;
 
 import edu.wpi.first.wpilibj.util.Color;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.elevator.ElevatorCommands;
 import frc.robot.fourbar.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
@@ -29,7 +28,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.yButton.whileTrue(IntakeCommands.eject());
         // gamepad.rightBumper.whileTrue(
         //         ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
-        gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(80000));
+        gamepad.bButton.whileTrue(FourBarCommands.setMMPosition(37000));
         gamepad.leftBumper.whileTrue(
                 FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());

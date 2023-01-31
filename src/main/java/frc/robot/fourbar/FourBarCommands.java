@@ -19,6 +19,10 @@ public class FourBarCommands {
                 () -> Robot.fourBar.setManualOutput(speed.getAsDouble()), Robot.fourBar);
     }
 
+    public static Command setMMPosition(double position) {
+        return new RunCommand(() -> Robot.fourBar.setMMPosition(position), Robot.fourBar);
+    }
+
     public static Command stop() {
         return new RunCommand(() -> Robot.fourBar.stop(), Robot.fourBar);
     }
