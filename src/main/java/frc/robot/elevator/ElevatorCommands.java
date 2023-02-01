@@ -10,7 +10,7 @@ import java.util.function.DoubleSupplier;
 
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
-        Robot.elevator.setDefaultCommand(stop());
+        Robot.elevator.setDefaultCommand(elevatorManualControl());
     }
 
     public static Command stop() {
@@ -32,6 +32,10 @@ public class ElevatorCommands {
 
     public static Command zeroElevator() {
         return new RunCommand(() -> Robot.elevator.zeroElevator(), Robot.elevator);
+    }
+
+    public static Command elevatorManualControl() {
+        return setOutput(() -> Robot.operatorGamepad.getRightFwdPositive() * 0.5);
     }
 
     public static Command runDownAndZero() {

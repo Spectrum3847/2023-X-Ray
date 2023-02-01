@@ -44,6 +44,16 @@ public class OperatorGamepad extends Gamepad {
         gamepad.yButton.whileTrue(new SnowfallLEDCommand("Snowfall", 20, 3));
     }
 
+    public double getDriveFwdPositive() {
+        double fwdPositive = gamepad.leftStick.getY();
+        return fwdPositive;
+    }
+
+    public double getRightFwdPositive() {
+        double fwdPositive = gamepad.rightStick.getY();
+        return fwdPositive;
+    }
+
     public void setupTestButtons() {}
 
     public void rumble(double intensity) {

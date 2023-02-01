@@ -7,7 +7,7 @@ import java.util.function.DoubleSupplier;
 
 public class FourBarCommands {
     public static void setupDefaultCommand() {
-        Robot.fourBar.setDefaultCommand(stop());
+        Robot.fourBar.setDefaultCommand(fourBarManualControl());
     }
 
     public static Command setManualOutput(double speed) {
@@ -19,8 +19,8 @@ public class FourBarCommands {
                 () -> Robot.fourBar.setManualOutput(speed.getAsDouble()), Robot.fourBar);
     }
 
-    public static Command setMMPosition(double position) {
-        return new RunCommand(() -> Robot.fourBar.setMMPosition(position), Robot.fourBar);
+    public static Command fourBarManualControl() {
+        return setManualOutput(() -> Robot.operatorGamepad.getDriveFwdPositive() * 0.1);
     }
 
     public static Command stop() {
