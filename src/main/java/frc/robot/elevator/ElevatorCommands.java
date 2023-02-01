@@ -35,7 +35,7 @@ public class ElevatorCommands {
     }
 
     public static Command elevatorManualControl() {
-        return ElevatorCommands.setOutput(() -> Robot.operatorGamepad.getRightFwdPositive() * 0.5);
+        return setOutput(() -> Robot.operatorGamepad.getRightFwdPositive() * 0.5);
     }
 
     public static Command runDownAndZero() {
