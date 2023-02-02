@@ -17,13 +17,13 @@ public class PathGeneration {
                             new Translation2d(1.0, 1.0),
                             Rotation2d.fromDegrees(0),
                             Rotation2d.fromDegrees(0),
-                            2), // position, heading(direction of travel), holonomic rotation,
+                            0), // position, heading(direction of travel), holonomic rotation,
                     // velocity override
                     new PathPoint(
-                            new Translation2d(5.0, 3.0),
+                            new Translation2d(2.0, 1.0),
                             Rotation2d.fromDegrees(0),
                             Rotation2d.fromDegrees(
-                                    -30)) // position, heading(direction of travel), holonomic
+                                    0)) // position, heading(direction of travel), holonomic
                     // rotation
                     );
 }
