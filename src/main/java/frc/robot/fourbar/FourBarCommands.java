@@ -23,6 +23,10 @@ public class FourBarCommands {
         return setManualOutput(() -> Robot.operatorGamepad.getDriveFwdPositive() * 0.1);
     }
 
+    public static Command setMMPosition(double position) {
+        return new RunCommand(() -> Robot.fourBar.setMMPosition(position), Robot.fourBar);
+    }
+
     public static Command stop() {
         return new RunCommand(() -> Robot.fourBar.stop(), Robot.fourBar);
     }

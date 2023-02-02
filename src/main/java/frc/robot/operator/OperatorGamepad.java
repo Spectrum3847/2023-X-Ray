@@ -9,6 +9,7 @@ import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
+import frc.robot.operator.commands.OperatorCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -21,7 +22,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightStick.setXinvert(OperatorConfig.xInvert);
         gamepad.rightStick.setYinvert(OperatorConfig.yInvert);
     }
-    //set up jiggle sometime
+    // set up jiggle sometime
     public void setupTeleopButtons() {
         // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
         gamepad.aButton.whileTrue(IntakeCommands.intake());
@@ -30,11 +31,12 @@ public class OperatorGamepad extends Gamepad {
         gamepad.bButton.whileTrue(FourBarCommands.setMMPosition(37000));
         // no bumper for operator controls, bumper sets intake position instead
         // gamepad.rightBumper.whileTrue(
-        
+
         ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5);
         // gamepad.leftBumper.whileTrue(
         FourBarCommands.setManualOutput(() -> gamepad.leftStick.getY() * 0.1);
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
+        gamepad.leftTriggerButton.whileTrue(OperatorCommands.cubeIntake());
     }
 
     public void setupDisabledButtons() {
