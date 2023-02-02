@@ -4,8 +4,8 @@ import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import frc.robot.Robot;
 import frc.robot.auton.Auton;
-import frc.robot.auton.AutonConfig;
 import frc.robot.swerve.SwerveConfig;
+import frc.robot.trajectories.TrajectoriesConfig;
 
 public
 class AutoBuilder { // Create the AutoBuilder. This only needs to be created once when robot code
@@ -20,22 +20,24 @@ class AutoBuilder { // Create the AutoBuilder. This only needs to be created onc
                     // beginning of auto
                     SwerveConfig.swerveKinematics, // SwerveDriveKinematics
                     new PIDConstants(
-                            AutonConfig.kPTranslationController,
-                            AutonConfig.kITranslationController,
-                            AutonConfig.kDTranslationController), // PID constants to correct for
+                            TrajectoriesConfig.kPTranslationController,
+                            TrajectoriesConfig.kITranslationController,
+                            TrajectoriesConfig
+                                    .kDTranslationController), // PID constants to correct for
                     // translation error (used to create
                     // the X and Y PID controllers)
                     new PIDConstants(
-                            AutonConfig.kPRotationController,
-                            AutonConfig.kIRotationController,
-                            AutonConfig
+                            TrajectoriesConfig.kPRotationController,
+                            TrajectoriesConfig.kIRotationController,
+                            TrajectoriesConfig
                                     .kDRotationController), // PID constants to correct for rotation
                     // error (used to create the
                     // rotation controller)
                     Robot.swerve
                             ::setModuleStates, // Module states consumer used to output to the drive
                     // subsystem
-                    Auton.eventMap,
+                    Auton.eventMap, // Gets the event map values to use for running addional
+                    // commands during auto
                     true, // Should the path be automatically mirrored depending on
                     // alliance color
                     // Alliance.

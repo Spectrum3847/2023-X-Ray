@@ -11,6 +11,7 @@ import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.pose.commands.PoseCommands;
+import frc.robot.trajectories.TrajectoriesCommands;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -47,6 +48,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
+        gamepad.bButton.whileTrue(TrajectoriesCommands.runGeneratedPathCommand());
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(

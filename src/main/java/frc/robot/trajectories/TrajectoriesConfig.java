@@ -10,10 +10,11 @@ public class TrajectoriesConfig {
     public static final double kMaxAngularSpeedRadiansPerSecondSquared =
             SwerveConfig.maxAngularVelocity;
 
-    public static final double kPXController = 0.6;
-    public static final double kDXController = 0;
-    public static final double kPYController = kPXController;
-    public static final double kDYController = kDXController;
-    public static final double kPThetaController = 4;
-    public static final double kDThetaController = 0.01;
+    // PID Values for 2023
+    public static final double kPTranslationController = 0.6;
+    public static final double kITranslationController = 0;
+    public static final double kDTranslationController = 0;
+    public static final double kPRotationController = 5;
+    public static final double kIRotationController = 0;
+    public static final double kDRotationController = 0.01;
 }
