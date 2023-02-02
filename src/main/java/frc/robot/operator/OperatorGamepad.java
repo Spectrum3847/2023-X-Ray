@@ -36,7 +36,7 @@ public class OperatorGamepad extends Gamepad {
         // gamepad.leftBumper.whileTrue(
         FourBarCommands.setManualOutput(() -> gamepad.leftStick.getY() * 0.1);
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
-        gamepad.leftTriggerButton.whileTrue(OperatorCommands.cubeIntake());
+        gamepad.leftTriggerButton.whileTrue(OperatorCommands.coneStandingIntake());
     }
 
     public void setupDisabledButtons() {

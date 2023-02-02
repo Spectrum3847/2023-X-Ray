@@ -14,8 +14,8 @@ public class FourBarConfig extends AngleMechConfig {
     public final double cubeMid = 60000;
     public final double cubeTop = 70000;
 
-    public final double coneIntake = 20000;
-    public final double coneStandingIntake = 60000;
+    public final double coneIntake = 57389+1484;
+    public final double coneStandingIntake = 32378; 
     public final double coneShelf = 70000;
 
     public final double coneMid = 30000;
