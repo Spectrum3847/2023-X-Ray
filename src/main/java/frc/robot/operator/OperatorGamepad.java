@@ -1,8 +1,10 @@
 package frc.robot.operator;
 
 import edu.wpi.first.wpilibj.util.Color;
+import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.elevator.ElevatorCommands;
+import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
+import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
@@ -32,7 +34,11 @@ public class OperatorGamepad extends Gamepad {
         gamepad.yButton.whileTrue(IntakeCommands.eject());
         gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(80000));
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
-        gamepad.leftTriggerButton.whileTrue(OperatorCommands.coneStandingIntake());
+        gamepad.leftTriggerButton.whileTrue(OperatorCommands.coneIntake());
+        AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
+                .whileTrue(OperatorCommands.manualFourBar());
+        AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
+                .whileTrue(OperatorCommands.manualElevator());
     }
 
     public void setupDisabledButtons() {

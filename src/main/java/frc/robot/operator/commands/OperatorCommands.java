@@ -1,31 +1,25 @@
 package frc.robot.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.elevator.Elevator;
-import frc.robot.elevator.ElevatorCommands;
-import frc.robot.fourbar.FourBar;
-import frc.robot.fourbar.FourBarCommands;
-import frc.robot.intakeLauncher.IntakeCommands;
-
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.FourBar;
+import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.intakeLauncher.IntakeCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {}
 
     public static Command cubeIntake() {
         return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.cubeIntake),
-                        FourBarCommands.setMMPosition(FourBar.config.cubeIntake));
+                .alongWith(ElevatorCommands.setCubeIntake(), FourBarCommands.setCubeIntake());
     }
 
     public static Command coneIntake() {
         return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.coneIntake),
-                        FourBarCommands.setMMPosition(FourBar.config.coneIntake));
+                .alongWith(ElevatorCommands.setConeIntake(), FourBarCommands.setConeIntake());
     }
 
     public static Command coneStandingIntake() {

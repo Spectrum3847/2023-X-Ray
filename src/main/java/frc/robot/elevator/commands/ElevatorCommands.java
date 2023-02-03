@@ -1,17 +1,17 @@
-package frc.robot.elevator;
+package frc.robot.elevator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
-import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.elevator.Elevator;
 import java.util.function.DoubleSupplier;
 
 // above all copied from PilotCommands.java
 
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
-        Robot.elevator.setDefaultCommand(OperatorCommands.manualElevator());
+        Robot.elevator.setDefaultCommand(new ElevatorHoldPosition());
     }
 
     public static Command stop() {

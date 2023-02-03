@@ -1,14 +1,14 @@
-package frc.robot.fourbar;
+package frc.robot.fourbar.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
-import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.fourbar.FourBar;
 import java.util.function.DoubleSupplier;
 
 public class FourBarCommands {
     public static void setupDefaultCommand() {
-        Robot.fourBar.setDefaultCommand(OperatorCommands.manualFourBar());
+        Robot.fourBar.setDefaultCommand(new FourBarHoldPosition());
     }
 
     public static Command setManualOutput(double speed) {
