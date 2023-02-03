@@ -1,5 +1,6 @@
 package frc.robot.intakeLauncher;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -24,6 +25,9 @@ public class Intake extends SubsystemBase {
         lowerRollerMotor.configSupplyCurrentLimit(currentLimit);
         upperRollerMotor.configSupplyCurrentLimit(currentLimit);
         launcherMotor.configSupplyCurrentLimit(currentLimit);
+        lowerRollerMotor.setNeutralMode(NeutralMode.Brake);
+        upperRollerMotor.setNeutralMode(NeutralMode.Brake);
+        launcherMotor.setNeutralMode(NeutralMode.Brake);
         // launcherMotor.setInverted(true);
     }
 
