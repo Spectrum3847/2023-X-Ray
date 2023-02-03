@@ -7,11 +7,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.Robot;
 import frc.robot.trajectories.commands.PathBuilder;
 import frc.robot.trajectories.commands.PathGeneration;
-import java.util.function.BooleanSupplier;
 
 public class TrajectoriesCommands {
-    public static BooleanSupplier runPath;
-
     public static Command resetThetaController() {
         return new InstantCommand(() -> Robot.trajectories.resetTheta(), Robot.trajectories);
     }
@@ -25,17 +22,8 @@ public class TrajectoriesCommands {
         }
     }
 
-    public static Command runGeneratedPathCommand() {
+    public static Command runGeneratedPath() {
         Command generatePath = TrajectoriesCommands.getGeneratedPath();
-        runPath = () -> false;
-        if (generatePath != null) {
-            generatePath.until(runPath);
-        }
         return generatePath;
-    }
-
-    public static Command stopGeneratedPath() {
-        runPath = () -> true;
-        return null;
     }
 }

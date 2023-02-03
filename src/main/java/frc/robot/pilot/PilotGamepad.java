@@ -48,8 +48,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
-        gamepad.bButton.onTrue(TrajectoriesCommands.runGeneratedPathCommand());
-        gamepad.bButton.onFalse(TrajectoriesCommands.stopGeneratedPath());
+        gamepad.bButton.whileTrue(TrajectoriesCommands.runGeneratedPath());
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(
