@@ -55,9 +55,4 @@ public class OperatorGamepad extends Gamepad {
     public double fourBarManual() {
         return gamepad.rightStick.getY() * OperatorConfig.fourBarModifer;
     }
-
-    public double getRightStickAngle() {
-        return gamepad.rightStick.getDirectionRadians(
-                gamepad.rightStick.getY(), gamepad.rightStick.getX());
-    }
 }
