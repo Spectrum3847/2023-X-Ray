@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
-import frc.robot.auton.commands.AutoBuilder;
 import frc.robot.trajectories.TrajectoriesConfig;
+import frc.robot.trajectories.commands.PathBuilder;
 import java.util.HashMap;
 
 public class Auton {
@@ -34,7 +34,7 @@ public class Auton {
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
         autonChooser.addOption(
                 "1 Meter",
-                AutoBuilder.autoBuilder.fullAuto(
+                PathBuilder.pathBuilder.fullAuto(
                         PathPlanner.loadPathGroup(
                                 "1 Meter",
                                 new PathConstraints(
@@ -44,7 +44,7 @@ public class Auton {
         // forward
         autonChooser.addOption(
                 "5 Ball",
-                AutoBuilder.autoBuilder.fullAuto(
+                PathBuilder.pathBuilder.fullAuto(
                         PathPlanner.loadPathGroup(
                                 "5 Ball",
                                 new PathConstraints(
@@ -54,7 +54,7 @@ public class Auton {
         // in pathplanner
         autonChooser.addOption(
                 "Test Path",
-                AutoBuilder.autoBuilder.fullAuto(
+                PathBuilder.pathBuilder.fullAuto(
                         PathPlanner.loadPathGroup(
                                 "Test Path",
                                 new PathConstraints(

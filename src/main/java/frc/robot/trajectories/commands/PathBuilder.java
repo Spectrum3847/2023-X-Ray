@@ -1,4 +1,4 @@
-package frc.robot.auton.commands;
+package frc.robot.trajectories.commands;
 
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
@@ -7,12 +7,8 @@ import frc.robot.auton.Auton;
 import frc.robot.swerve.SwerveConfig;
 import frc.robot.trajectories.TrajectoriesConfig;
 
-public
-class AutoBuilder { // Create the AutoBuilder. This only needs to be created once when robot code
-    // starts, not every
-    // time you want to create an auto command. A good place to put this is in RobotContainer along
-    // with your subsystems.
-    public static final SwerveAutoBuilder autoBuilder =
+public class PathBuilder { // Used to create paths for Autonomus and for On-the-Fly Generation
+    public static final SwerveAutoBuilder pathBuilder =
             new SwerveAutoBuilder(
                     Robot.swerve.odometry::getPoseMeters, // Pose2d supplier
                     Robot.swerve.odometry
