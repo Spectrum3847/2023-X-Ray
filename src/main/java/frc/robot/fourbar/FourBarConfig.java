@@ -9,6 +9,20 @@ public class FourBarConfig extends AngleMechConfig {
     public final int minAngle = 0;
     public final int maxAngle = 100;
 
+    public final int fourbarMaxFalcon = 60000;
+
+    // Positions set as percentage of fourbar
+    public final double cubeIntake = 95;
+    public final double cubeMid = 60;
+    public final double cubeTop = 100;
+
+    public final double coneIntake = 100;
+    public final double coneStandingIntake = 90;
+    public final double coneShelf = 0;
+
+    public final double coneMid = 50;
+    public final double coneTop = 100;
+
     // Physical Constants
     public final double gearRatio = 1;
 

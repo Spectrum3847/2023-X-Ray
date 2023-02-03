@@ -3,7 +3,6 @@ package frc.robot.operator;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.elevator.ElevatorCommands;
-import frc.robot.fourbar.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
@@ -13,8 +12,11 @@ import frc.robot.leds.commands.SnowfallLEDCommand;
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
 
+    OperatorConfig config;
+
     public OperatorGamepad() {
         super("operator", OperatorConfig.port);
+        config = new OperatorConfig();
         gamepad.leftStick.setXinvert(OperatorConfig.xInvert);
         gamepad.leftStick.setYinvert(OperatorConfig.yInvert);
 
@@ -27,11 +29,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
-        // gamepad.rightBumper.whileTrue(
-        //         ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(80000));
-        gamepad.leftBumper.whileTrue(
-                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
     }
 
@@ -42,19 +40,17 @@ public class OperatorGamepad extends Gamepad {
         gamepad.yButton.whileTrue(new SnowfallLEDCommand("Snowfall", 20, 3));
     }
 
-    public double getDriveFwdPositive() {
-        double fwdPositive = gamepad.leftStick.getY();
-        return fwdPositive;
-    }
-
-    public double getRightFwdPositive() {
-        double fwdPositive = gamepad.rightStick.getY();
-        return fwdPositive;
-    }
-
     public void setupTestButtons() {}
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
+    }
+
+    public double elevatorManual() {
+        return gamepad.leftStick.getY() * OperatorConfig.elevatorModifer;
+    }
+
+    public double fourBarManual() {
+        return gamepad.rightStick.getY() * OperatorConfig.fourBarModifer;
     }
 }

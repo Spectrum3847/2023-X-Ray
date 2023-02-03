@@ -4,13 +4,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
+import frc.robot.operator.commands.OperatorCommands;
 import java.util.function.DoubleSupplier;
 
 // above all copied from PilotCommands.java
 
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
-        Robot.elevator.setDefaultCommand(elevatorManualControl());
+        Robot.elevator.setDefaultCommand(OperatorCommands.manualElevator());
     }
 
     public static Command stop() {
@@ -30,12 +31,32 @@ public class ElevatorCommands {
         return new RunCommand(() -> Robot.elevator.setMMPosition(position), Robot.elevator);
     }
 
-    public static Command zeroElevator() {
-        return new RunCommand(() -> Robot.elevator.zeroElevator(), Robot.elevator);
+    public static Command setConeTop() {
+        return setMMPosition(Elevator.config.coneTop);
     }
 
-    public static Command elevatorManualControl() {
-        return setOutput(() -> Robot.operatorGamepad.getRightFwdPositive() * 0.5);
+    public static Command setConeMid() {
+        return setMMPosition(Elevator.config.coneMid);
+    }
+
+    public static Command setConeIntake() {
+        return setMMPosition(Elevator.config.coneIntake);
+    }
+
+    public static Command setCubeTop() {
+        return setMMPosition(Elevator.config.cubeTop);
+    }
+
+    public static Command setCubeMid() {
+        return setMMPosition(Elevator.config.cubeMid);
+    }
+
+    public static Command setCubeIntake() {
+        return setMMPosition(Elevator.config.cubeIntake);
+    }
+
+    public static Command zeroElevator() {
+        return new RunCommand(() -> Robot.elevator.zeroElevator(), Robot.elevator);
     }
 
     public static Command runDownAndZero() {

@@ -9,7 +9,7 @@ public class PilotConfig {
 
     public static final double throttleDeadband = 0.15;
     public static final double throttleExp = 1.5;
-    public static final double throttleScaler = SwerveConfig.maxVelocity * 0.5;
+    public static final double throttleScaler = SwerveConfig.maxVelocity;
     public static final boolean xInvert = true;
     public static final boolean yInvert = true;
 
