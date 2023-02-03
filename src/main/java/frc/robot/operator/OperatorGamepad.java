@@ -8,6 +8,7 @@ import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
+import frc.robot.operator.commands.OperatorCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -23,7 +24,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightStick.setXinvert(OperatorConfig.xInvert);
         gamepad.rightStick.setYinvert(OperatorConfig.yInvert);
     }
-
+    // set up jiggle sometime
     public void setupTeleopButtons() {
         // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
         gamepad.aButton.whileTrue(IntakeCommands.intake());
@@ -31,6 +32,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.yButton.whileTrue(IntakeCommands.eject());
         gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(80000));
         gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
+        gamepad.leftTriggerButton.whileTrue(OperatorCommands.coneStandingIntake());
     }
 
     public void setupDisabledButtons() {
@@ -52,5 +54,10 @@ public class OperatorGamepad extends Gamepad {
 
     public double fourBarManual() {
         return gamepad.rightStick.getY() * OperatorConfig.fourBarModifer;
+    }
+
+    public double getRightStickAngle() {
+        return gamepad.rightStick.getDirectionRadians(
+                gamepad.rightStick.getY(), gamepad.rightStick.getX());
     }
 }
