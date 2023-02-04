@@ -23,6 +23,18 @@ public class Elevator extends LinearMechSubsystem {
         motorLeader.setSelectedSensorPosition(0);
     }
 
+    public void resetSensorPosition(double pos) {
+        motorLeader.setSelectedSensorPosition(pos); // 10 for now, will change later
+    }
+
+    public void softLimitsTrue() {
+        motorLeader.configReverseSoftLimitEnable(true);
+    }
+
+    public void softLimitsFalse() {
+        motorLeader.configReverseSoftLimitEnable(false);
+    }
+
     public double getKf() {
         TalonFXConfiguration FXconfig = new TalonFXConfiguration();
         motorLeader.getAllConfigs(FXconfig);

@@ -21,8 +21,10 @@ public class FourBarConfig extends AngleMechConfig {
     public final double coneStandingIntake = 90;
     public final double coneShelf = 0;
 
-    public final double coneMid = 50;
-    public final double coneTop = 100;
+    public final double coneMid = 18000;
+    public final double coneTop = 54900;
+
+    public final double zeroSpeed = -0.1;
 
     // Physical Constants
     public final double gearRatio = 1;

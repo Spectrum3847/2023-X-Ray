@@ -59,10 +59,15 @@ public class ElevatorCommands {
         return new RunCommand(() -> Robot.elevator.zeroElevator(), Robot.elevator);
     }
 
+    public static Command resetSensorPosition() {
+        return new RunCommand(() -> Robot.elevator.resetSensorPosition(0), Robot.elevator);
+    }
+    // below function is not used
     public static Command runDownAndZero() {
         return new StartEndCommand(
                 () -> Robot.elevator.setManualOutput(-0.1),
                 () -> Robot.elevator.zeroElevator(),
+                // () -> Robot.elevator.resetSensorPosition(),
                 Robot.elevator);
     }
 

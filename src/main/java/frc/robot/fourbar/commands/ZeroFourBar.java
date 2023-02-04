@@ -2,40 +2,43 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.elevator.commands;
+package frc.robot.fourbar.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.fourbar.FourBar;
 
-public class ElevatorHoldPosition extends CommandBase {
-    private double position = 0;
-    /** Creates a new ElevatorHoldPosition. */
-    public ElevatorHoldPosition() {
+public class ZeroFourBar extends CommandBase {
+    /** Creates a new ZerofourBar. */
+    public ZeroFourBar() {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(Robot.elevator);
+        addRequirements(Robot.fourBar);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        position = Robot.elevator.getPosition();
-        System.out.println("Running elevator initialize");
-        System.out.println("intialize" + position);
-        // Robot.elevator.setEncoder(Elevator.config.maxExtension);
-        // Robot.elevator.setMMPosition(0);
-        // moves elevator down to lowest position
+        // Turn off soft limits
+        Robot.fourBar.softLimitsFalse();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Robot.elevator.setMMPosition(position);
-        System.out.println("execute" + position);
+        // Set fourBar to slowly lower
+        Robot.fourBar.setManualOutput(FourBar.config.zeroSpeed);
+        Robot.fourBar.zeroFourBar();
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        // Set fourBar position to zero
+        // enable soft limits
+        Robot.fourBar.resetSensorPosition(-500);
+        Robot.fourBar.softLimitsTrue();
+        Robot.fourBar.setMMPosition(0);
+    }
 
     // Returns true when the command should end.
     @Override

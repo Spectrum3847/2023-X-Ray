@@ -13,13 +13,15 @@ public class OperatorCommands {
     public static void setupDefaultCommand() {}
 
     public static Command cubeIntake() {
-        return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.setCubeIntake(), FourBarCommands.setCubeIntake());
+        return ElevatorCommands.setMMPosition(Elevator.config.cubeIntake)
+                .alongWith(FourBarCommands.setMMPosition(FourBar.config.cubeIntake));
     }
 
     public static Command coneIntake() {
-        return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.setConeIntake(), FourBarCommands.setConeIntake());
+        return ElevatorCommands.setMMPosition(Elevator.config.coneIntake)
+                .alongWith(FourBarCommands.setMMPosition(FourBar.config.coneIntake));
+        // return IntakeCommands.intake()
+        //        .alongWith(ElevatorCommands.setConeIntake(), FourBarCommands.setConeIntake());
     }
 
     public static Command coneStandingIntake() {
@@ -51,17 +53,13 @@ public class OperatorCommands {
     }
 
     public static Command coneMid() {
-        return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.coneMid),
-                        FourBarCommands.setMMPosition(FourBar.config.coneMid));
+        return ElevatorCommands.setMMPosition(Elevator.config.coneMid)
+                .alongWith(FourBarCommands.setMMPosition(FourBar.config.coneMid));
     }
 
     public static Command coneTop() {
-        return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.coneTop),
-                        FourBarCommands.setMMPosition(FourBar.config.coneTop));
+        return ElevatorCommands.setMMPosition(Elevator.config.coneTop)
+                .alongWith(FourBarCommands.setMMPosition(FourBar.config.coneTop));
     }
 
     public static Command manualElevator() {

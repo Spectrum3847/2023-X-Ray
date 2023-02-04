@@ -6,11 +6,11 @@ package frc.robot.elevator.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 
-public class ElevatorHoldPosition extends CommandBase {
-    private double position = 0;
-    /** Creates a new ElevatorHoldPosition. */
-    public ElevatorHoldPosition() {
+public class ZeroElevator extends CommandBase {
+    /** Creates a new ZeroElevator. */
+    public ZeroElevator() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.elevator);
     }
@@ -18,24 +18,27 @@ public class ElevatorHoldPosition extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        position = Robot.elevator.getPosition();
-        System.out.println("Running elevator initialize");
-        System.out.println("intialize" + position);
-        // Robot.elevator.setEncoder(Elevator.config.maxExtension);
-        // Robot.elevator.setMMPosition(0);
-        // moves elevator down to lowest position
+        // Turn off soft limits
+        Robot.elevator.softLimitsFalse();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Robot.elevator.setMMPosition(position);
-        System.out.println("execute" + position);
+        // Set elevator to slowly lower
+        Robot.elevator.setManualOutput(Elevator.config.zeroSpeed);
+        Robot.elevator.zeroElevator();
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        // Set elevator position to zero
+        // enable soft limits
+        Robot.elevator.resetSensorPosition(-500);
+        Robot.elevator.softLimitsTrue();
+        Robot.elevator.setMMPosition(0);
+    }
 
     // Returns true when the command should end.
     @Override

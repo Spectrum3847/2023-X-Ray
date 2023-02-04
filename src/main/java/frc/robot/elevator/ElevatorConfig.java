@@ -15,8 +15,8 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneStandingIntake = 0;
     public final double coneShelf = 130000;
 
-    public final double coneMid = 70000;
-    public final double coneTop = 120000;
+    public final double coneMid = 130000;
+    public final double coneTop = 150000;
 
     public final double diameterInches = 2.0; // changed from int, 4
     public final double gearRatio = 62 / 8;
@@ -24,8 +24,10 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public final double startingHeight = 0; // TODO: find starting height
     public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
-    public final double maxExtension = 0; // TODO: find max relative extension
+    public final double maxExtension = 80000; // TODO: find max relative extension
     public final double angle = 60;
+
+    public final double zeroSpeed = -0.2;
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
