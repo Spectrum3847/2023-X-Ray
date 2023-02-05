@@ -19,8 +19,6 @@ public class ElevatorHoldPosition extends CommandBase {
     @Override
     public void initialize() {
         position = Robot.elevator.getPosition();
-        System.out.println("Running elevator initialize");
-        System.out.println("intialize" + position);
         // Robot.elevator.setEncoder(Elevator.config.maxExtension);
         // Robot.elevator.setMMPosition(0);
         // moves elevator down to lowest position
@@ -30,7 +28,6 @@ public class ElevatorHoldPosition extends CommandBase {
     @Override
     public void execute() {
         Robot.elevator.setMMPosition(position);
-        System.out.println("execute" + position);
     }
 
     // Called once the command ends or is interrupted.

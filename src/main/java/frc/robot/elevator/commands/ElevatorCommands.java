@@ -30,19 +30,19 @@ public class ElevatorCommands {
     public static Command setMMPosition(double position) {
         return new RunCommand(() -> Robot.elevator.setMMPosition(position), Robot.elevator);
     }
-    
+
     public static Command coneIntake() {
         return setMMPosition(Elevator.config.coneIntake);
     }
-    
+
     public static Command coneStandingIntake() {
         return setMMPosition(Elevator.config.coneStandingIntake);
     }
-    
+
     public static Command coneMid() {
         return setMMPosition(Elevator.config.coneMid);
     }
-    
+
     public static Command coneTop() {
         return setMMPosition(Elevator.config.coneTop);
     }
@@ -74,7 +74,7 @@ public class ElevatorCommands {
     public static Command resetSensorPosition() {
         return new RunCommand(() -> Robot.elevator.resetSensorPosition(0), Robot.elevator);
     }
-    
+
     // below function is not used
     public static Command runDownAndZero() {
         return new StartEndCommand(

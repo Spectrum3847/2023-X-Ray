@@ -31,11 +31,11 @@ public class FourBarCommands {
     public static Command coneStandingIntake() {
         return setMMPercent(FourBar.config.coneStandingIntake);
     }
-    
+
     public static Command coneMid() {
         return setMMPercent(FourBar.config.coneMid);
     }
-    
+
     public static Command coneTop() {
         return setMMPercent(FourBar.config.coneTop);
     }

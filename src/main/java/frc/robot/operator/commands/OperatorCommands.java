@@ -18,50 +18,41 @@ public class OperatorCommands {
                         ElevatorCommands.coneStandingIntake(),
                         FourBarCommands.coneStandingIntake());
     }
-    
+
     /* Position Commands */
-    
+
     public static Command coneIntake() {
-        return ElevatorCommands.coneIntake()
-                .alongWith(FourBarCommands.coneIntake());
+        return ElevatorCommands.coneIntake().alongWith(FourBarCommands.coneIntake());
     }
 
     public static Command coneMid() {
-        return ElevatorCommands.coneMid()
-                .alongWith(FourBarCommands.coneMid());
+        return ElevatorCommands.coneMid().alongWith(FourBarCommands.coneMid());
     }
 
     public static Command coneTop() {
-        return ElevatorCommands.coneTop()
-                .alongWith(FourBarCommands.coneTop());
+        return ElevatorCommands.coneTop().alongWith(FourBarCommands.coneTop());
     }
-    
+
     public static Command coneShelf() {
-        return ElevatorCommands.coneShelf()
-                .alongWith(FourBarCommands.coneShelf());
+        return ElevatorCommands.coneShelf().alongWith(FourBarCommands.coneShelf());
     }
 
     public static Command cubeIntake() {
-        return ElevatorCommands.cubeIntake()
-                .alongWith(FourBarCommands.cubeIntake());
+        return ElevatorCommands.cubeIntake().alongWith(FourBarCommands.cubeIntake());
     }
 
     public static Command cubeMid() {
-        return ElevatorCommands.cubeMid()
-                .alongWith(FourBarCommands.cubeMid());
+        return ElevatorCommands.cubeMid().alongWith(FourBarCommands.cubeMid());
     }
 
     public static Command cubeTop() {
-        return ElevatorCommands.cubeTop()
-                .alongWith(FourBarCommands.cubeTop());
+        return ElevatorCommands.cubeTop().alongWith(FourBarCommands.cubeTop());
     }
 
     /** Goes to 0 */
     public static Command homeSystems() {
-        return ElevatorCommands.home()
-                .alongWith(FourBarCommands.home());
+        return ElevatorCommands.home().alongWith(FourBarCommands.home());
     }
-
 
     public static Command manualElevator() {
         return new RunCommand(

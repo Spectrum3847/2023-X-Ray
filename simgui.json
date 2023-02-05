@@ -6,47 +6,18 @@
       }
     },
     "Other Devices": {
-      "CANCoder[3]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Pigeon 2[0]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[1]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[1]/Fwd Limit": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[1]/Rev Limit": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[21]": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[2]/Fwd Limit": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[32]/Integrated Sensor": {
-        "header": {
-          "open": true
-        }
-      },
       "Talon FX[41]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX[43]": {
+        "header": {
+          "open": true
+        },
+        "name": "intake"
+      },
+      "Talon FX[43]/Integrated Sensor": {
         "header": {
           "open": true
         }
