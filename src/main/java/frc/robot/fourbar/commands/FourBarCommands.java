@@ -24,28 +24,40 @@ public class FourBarCommands {
         return new RunCommand(() -> Robot.fourBar.setMMPercent(percent), Robot.fourBar);
     }
 
-    public static Command setConeIntake() {
+    public static Command coneIntake() {
         return setMMPercent(FourBar.config.coneIntake);
     }
 
-    public static Command setConeMid() {
+    public static Command coneStandingIntake() {
+        return setMMPercent(FourBar.config.coneStandingIntake);
+    }
+    
+    public static Command coneMid() {
         return setMMPercent(FourBar.config.coneMid);
     }
-
-    public static Command setConeTop() {
+    
+    public static Command coneTop() {
         return setMMPercent(FourBar.config.coneTop);
     }
 
-    public static Command setCubeIntake() {
+    public static Command coneShelf() {
+        return setMMPercent(FourBar.config.coneShelf);
+    }
+
+    public static Command cubeIntake() {
         return setMMPercent(FourBar.config.cubeIntake);
     }
 
-    public static Command setCubeMid() {
+    public static Command cubeMid() {
         return setMMPercent(FourBar.config.cubeMid);
     }
 
-    public static Command setCubeTop() {
+    public static Command cubeTop() {
         return setMMPercent(FourBar.config.cubeTop);
+    }
+
+    public static Command home() {
+        return setMMPercent(0);
     }
 
     public static Command setMMPosition(double position) {

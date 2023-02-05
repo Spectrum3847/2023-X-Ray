@@ -49,7 +49,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.xButton.whileTrue(IntakeCommands.launch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
         gamepad.bButton.whileTrue(
-                ElevatorCommands.setMMPosition(30000).andThen(new PrintCommand("Hi this ran")));
+                ElevatorCommands.setMMPosition(30000));
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(
