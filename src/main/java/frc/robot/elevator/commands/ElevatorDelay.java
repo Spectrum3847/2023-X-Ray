@@ -30,14 +30,15 @@ public class ElevatorDelay extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {
-        Robot.elevator.setMMPosition(safePos);
-    }
+    public void initialize() {}
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.fourBar.getPosition() <= Robot.fourBar.percentToFalcon(conditionalPercent)) {
+        if (Robot.elevator.getPosition() < safePos) {
+            Robot.elevator.setMMPosition(safePos);
+        }
+        if (Robot.fourBar.getPosition() >= Robot.fourBar.percentToFalcon(conditionalPercent)) {
             Robot.elevator.setMMPosition(finalPos);
         }
     }
