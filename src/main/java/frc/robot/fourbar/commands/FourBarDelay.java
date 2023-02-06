@@ -31,14 +31,17 @@ public class FourBarDelay extends CommandBase {
     @Override
     public void initialize() {
         // may need to be in execute
-        Robot.fourBar.setMMPosition(safePercent);
+        Robot.fourBar.setMMPercent(safePercent);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (Robot.fourBar.getPosition() < Robot.fourBar.percentToFalcon(safePercent)) {
+            Robot.fourBar.setMMPercent(safePercent);
+        }
         if (Robot.elevator.getPosition() >= conditionalPos) {
-            Robot.fourBar.setMMPosition(finalPercent);
+            Robot.fourBar.setMMPercent(finalPercent);
         }
     }
 
