@@ -3,63 +3,55 @@ package frc.robot.operator.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
-import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {}
 
-    public static Command cubeIntake() {
-        return ElevatorCommands.setMMPosition(Elevator.config.cubeIntake)
-                .alongWith(FourBarCommands.setMMPosition(FourBar.config.cubeIntake));
-    }
-
-    public static Command coneIntake() {
-        return ElevatorCommands.setMMPosition(Elevator.config.coneIntake)
-                .alongWith(FourBarCommands.setMMPosition(FourBar.config.coneIntake));
-        // return IntakeCommands.intake()
-        //        .alongWith(ElevatorCommands.setConeIntake(), FourBarCommands.setConeIntake());
-    }
+    /* Intaking Commands */
 
     public static Command coneStandingIntake() {
         return IntakeCommands.intake()
                 .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.coneStandingIntake),
-                        FourBarCommands.setMMPosition(FourBar.config.coneStandingIntake));
+                        ElevatorCommands.coneStandingIntake(),
+                        FourBarCommands.coneStandingIntake());
     }
 
-    public static Command coneShelf() {
-        return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.coneShelf),
-                        FourBarCommands.setMMPosition(FourBar.config.coneShelf));
-    }
+    /* Position Commands */
 
-    public static Command cubeMid() {
-        return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.cubeMid),
-                        FourBarCommands.setMMPosition(FourBar.config.cubeMid));
-    }
-
-    public static Command cubeTop() {
-        return IntakeCommands.intake()
-                .alongWith(
-                        ElevatorCommands.setMMPosition(Elevator.config.cubeTop),
-                        FourBarCommands.setMMPosition(FourBar.config.cubeTop));
+    public static Command coneIntake() {
+        return ElevatorCommands.coneIntake().alongWith(FourBarCommands.coneIntake());
     }
 
     public static Command coneMid() {
-        return ElevatorCommands.setMMPosition(Elevator.config.coneMid)
-                .alongWith(FourBarCommands.setMMPosition(FourBar.config.coneMid));
+        return ElevatorCommands.coneMid().alongWith(FourBarCommands.coneMid());
     }
 
     public static Command coneTop() {
-        return ElevatorCommands.setMMPosition(Elevator.config.coneTop)
-                .alongWith(FourBarCommands.setMMPosition(FourBar.config.coneTop));
+        return ElevatorCommands.coneTop().alongWith(FourBarCommands.coneTop());
+    }
+
+    public static Command coneShelf() {
+        return ElevatorCommands.coneShelf().alongWith(FourBarCommands.coneShelf());
+    }
+
+    public static Command cubeIntake() {
+        return ElevatorCommands.cubeIntake().alongWith(FourBarCommands.cubeIntake());
+    }
+
+    public static Command cubeMid() {
+        return ElevatorCommands.cubeMid().alongWith(FourBarCommands.cubeMid());
+    }
+
+    public static Command cubeTop() {
+        return ElevatorCommands.cubeTop().alongWith(FourBarCommands.cubeTop());
+    }
+
+    /** Goes to 0 */
+    public static Command homeSystems() {
+        return ElevatorCommands.home().alongWith(FourBarCommands.home());
     }
 
     public static Command manualElevator() {

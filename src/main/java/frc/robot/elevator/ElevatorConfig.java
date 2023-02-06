@@ -22,6 +22,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double gearRatio = 62 / 8;
     public final double maxUpFalconPos = 162116;
 
+    public final double safePositionForFourBar = 0; // TODO: find safe position for four bar
     public final double startingHeight = 0; // TODO: find starting height
     public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
     public final double maxExtension = 80000; // TODO: find max relative extension

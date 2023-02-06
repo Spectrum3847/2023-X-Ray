@@ -31,28 +31,40 @@ public class ElevatorCommands {
         return new RunCommand(() -> Robot.elevator.setMMPosition(position), Robot.elevator);
     }
 
-    public static Command setConeTop() {
-        return setMMPosition(Elevator.config.coneTop);
-    }
-
-    public static Command setConeMid() {
-        return setMMPosition(Elevator.config.coneMid);
-    }
-
-    public static Command setConeIntake() {
+    public static Command coneIntake() {
         return setMMPosition(Elevator.config.coneIntake);
     }
 
-    public static Command setCubeTop() {
-        return setMMPosition(Elevator.config.cubeTop);
+    public static Command coneStandingIntake() {
+        return setMMPosition(Elevator.config.coneStandingIntake);
     }
 
-    public static Command setCubeMid() {
+    public static Command coneMid() {
+        return setMMPosition(Elevator.config.coneMid);
+    }
+
+    public static Command coneTop() {
+        return setMMPosition(Elevator.config.coneTop);
+    }
+
+    public static Command coneShelf() {
+        return setMMPosition(Elevator.config.coneShelf);
+    }
+
+    public static Command cubeIntake() {
+        return setMMPosition(Elevator.config.cubeIntake);
+    }
+
+    public static Command cubeMid() {
         return setMMPosition(Elevator.config.cubeMid);
     }
 
-    public static Command setCubeIntake() {
-        return setMMPosition(Elevator.config.cubeIntake);
+    public static Command cubeTop() {
+        return setMMPosition(Elevator.config.cubeTop);
+    }
+
+    public static Command home() {
+        return setMMPosition(0);
     }
 
     public static Command zeroElevator() {
@@ -62,6 +74,7 @@ public class ElevatorCommands {
     public static Command resetSensorPosition() {
         return new RunCommand(() -> Robot.elevator.resetSensorPosition(0), Robot.elevator);
     }
+
     // below function is not used
     public static Command runDownAndZero() {
         return new StartEndCommand(
@@ -70,15 +83,6 @@ public class ElevatorCommands {
                 // () -> Robot.elevator.resetSensorPosition(),
                 Robot.elevator);
     }
-
-    // // below doesn't work:((
-    // public static Command setMMPosition(double positionInches) {
-    //     double posMeters = Elevator.inchesToMeters(positionInches);
-    //     double posFalcon = Elevator.metersToFalcon(posMeters, 4.03391, 7.75);
-    //     RobotTelemetry.print("running: " + posFalcon);
-    //     return new RunCommand(() -> Robot.elevator.setMMPosition(posFalcon), Robot.elevator);
-    //     // set diameter to 1.2815, gear ratio to 62/8
-    // }
 
     public static Command setEncoder(double position) {
         return new RunCommand(() -> Robot.elevator.setEncoder(position), Robot.elevator);
