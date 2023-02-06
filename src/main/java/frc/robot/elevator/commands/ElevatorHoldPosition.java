@@ -30,7 +30,7 @@ public class ElevatorHoldPosition extends CommandBase {
     @Override
     public void execute() {
         Robot.elevator.setMMPosition(position);
-        System.out.println("execute" + position);
+        // System.out.println("execute" + position);
     }
 
     // Called once the command ends or is interrupted.
