@@ -56,7 +56,7 @@ public class Elevator extends LinearMechSubsystem {
         if (meters < 0) {
             throw new IllegalArgumentException("Height is below the starting height.");
         }
-        meters = meters / Math.sin(Math.toRadians(config.angle));
+        meters = 2 * (meters/Math.sqrt(3));
         if (meters > config.maxExtension) {
             throw new IllegalArgumentException("Height is above the max extension.");
         }
@@ -72,8 +72,7 @@ public class Elevator extends LinearMechSubsystem {
      * @see #extensionToHeight(double)
      */
     public static double heightToHorizontalExtension(double meters) {
-        meters = meters - config.startingHeight;
-        meters = meters / Math.cos(Math.toRadians(config.angle));
+        meters = meters/Math.sqrt(3);
         meters = meters + config.startingHorizontalExtension;
         return meters;
     }
@@ -87,7 +86,7 @@ public class Elevator extends LinearMechSubsystem {
      * @see #heightToHorizontalExtension(double)
      */
     public static double extensionToHeight(double meters) {
-        meters = meters * Math.sin(Math.toRadians(config.angle));
+        meters = Math.sqrt(3)*(meters/2);
         meters = meters + config.startingHeight;
         return meters;
     }
