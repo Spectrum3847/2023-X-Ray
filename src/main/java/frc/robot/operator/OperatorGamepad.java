@@ -8,7 +8,9 @@ import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.elevator.commands.ElevatorDelay;
 import frc.robot.elevator.commands.ZeroElevator;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.ZeroFourBar;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
@@ -42,6 +44,11 @@ public class OperatorGamepad extends Gamepad {
         gamepad.leftTriggerButton.whileTrue(OperatorCommands.coneIntake());
         gamepad.Dpad.Up.whileTrue(OperatorCommands.coneMid());
         gamepad.Dpad.Left.whileTrue(OperatorCommands.coneTop());
+        // gamepad.Dpad.Left.whileTrue(
+        //         ElevatorCommands.setMMPosition(50000).alongWith(new FourBarDelay(100, 0,
+        // 80000)));
+        // gamepad.Dpad.Left.whileTrue(
+                // FourBarCommands.setMMPercent(100).alongWith(new ElevatorDelay(20000, 80000, 90)));
         // gamepad.Dpad.Right.whileTrue(OperatorCommands.cubeIntake());
 
         gamepad.Dpad.Down.whileTrue((new ZeroElevator()));

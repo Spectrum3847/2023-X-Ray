@@ -1,7 +1,6 @@
 package frc.robot.pilot;
 
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
@@ -48,8 +47,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
-        gamepad.bButton.whileTrue(
-                ElevatorCommands.setMMPosition(30000).andThen(new PrintCommand("Hi this ran")));
+        gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(30000));
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(

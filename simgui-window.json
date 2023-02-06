@@ -6,7 +6,7 @@
       "style": "0",
       "userScale": "2",
       "width": "1920",
-      "xpos": "0",
+      "xpos": "1920",
       "ypos": "23"
     }
   },
@@ -36,7 +36,7 @@
     },
     "###/SmartDashboard/Scheduler": {
       "Collapsed": "0",
-      "Pos": "574,154",
+      "Pos": "461,52",
       "Size": "400,200"
     },
     "###Addressable LEDs": {
@@ -51,13 +51,18 @@
     },
     "###Joysticks": {
       "Collapsed": "0",
-      "Pos": "250,465",
-      "Size": "796,172"
+      "Pos": "31,726",
+      "Size": "796,206"
     },
     "###Keyboard 0 Settings": {
       "Collapsed": "0",
-      "Pos": "10,50",
+      "Pos": "1538,77",
       "Size": "300,560"
+    },
+    "###Keyboard 1 Settings": {
+      "Collapsed": "0",
+      "Pos": "905,125",
+      "Size": "300,481"
     },
     "###NetworkTables": {
       "Collapsed": "0",
@@ -71,8 +76,8 @@
     },
     "###Other Devices": {
       "Collapsed": "0",
-      "Pos": "1250,139",
-      "Size": "250,695"
+      "Pos": "1276,22",
+      "Size": "250,560"
     },
     "###RoboRIO": {
       "Collapsed": "0",
@@ -81,7 +86,7 @@
     },
     "###System Joysticks": {
       "Collapsed": "0",
-      "Pos": "5,350",
+      "Pos": "32,310",
       "Size": "192,218"
     },
     "###Timing": {
