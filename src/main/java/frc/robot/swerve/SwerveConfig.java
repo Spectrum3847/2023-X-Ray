@@ -30,7 +30,8 @@ public final class SwerveConfig {
 
     public static final double driveGearRatio = (6.75 / 1); // (8.16 / 1.0); // 6.75:1
     public static final double angleGearRatio =
-            (50.0 / 14.0) * (60.0 / 10.0); // (12.8 / 1.0); // (50.0 / 14.0) * (60.0 / 10.0); //12.8:1
+            (50.0 / 14.0)
+                    * (60.0 / 10.0); // (12.8 / 1.0); // (50.0 / 14.0) * (60.0 / 10.0); //12.8:1
     // //(150 / 7)
 
     public static final Translation2d frontLeftLocation =
