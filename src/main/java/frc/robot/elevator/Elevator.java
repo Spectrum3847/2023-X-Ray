@@ -1,5 +1,7 @@
 package frc.robot.elevator;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
 import frc.robot.RobotConfig;
@@ -10,8 +12,33 @@ public class Elevator extends LinearMechSubsystem {
     public Elevator() {
         super(config);
         motorLeader = new WPI_TalonFX(RobotConfig.Motors.elevatorMotor);
-        // motorLeader.setNeutralMode(true);
+        motorLeader.setNeutralMode(NeutralMode.Brake);
+        config.updateTalonFXConfig();
         setupFalconLeader();
+        motorLeader.configReverseSoftLimitThreshold(0);
+        motorLeader.configReverseSoftLimitEnable(true);
+    }
+
+    public void zeroElevator() {
+        motorLeader.setSelectedSensorPosition(0);
+    }
+
+    public void resetSensorPosition(double pos) {
+        motorLeader.setSelectedSensorPosition(pos); // 10 for now, will change later
+    }
+
+    public void softLimitsTrue() {
+        motorLeader.configReverseSoftLimitEnable(true);
+    }
+
+    public void softLimitsFalse() {
+        motorLeader.configReverseSoftLimitEnable(false);
+    }
+
+    public double getKf() {
+        TalonFXConfiguration FXconfig = new TalonFXConfiguration();
+        motorLeader.getAllConfigs(FXconfig);
+        return FXconfig.slot0.kF;
     }
 
     /**
@@ -28,6 +55,10 @@ public class Elevator extends LinearMechSubsystem {
         return meters;
     }
 
+    public static double metersToFalcon(double meters) {
+        return metersToFalcon(meters, config.diameterInches * Math.PI, config.gearRatio);
+    }
+
     /**
      * Converts inches to meters.
      *
@@ -39,6 +70,11 @@ public class Elevator extends LinearMechSubsystem {
         return meters;
     }
 
+    public static double inchesToFalcon(double inches) {
+        double meters = inchesToMeters(inches);
+        double falcon = metersToFalcon(meters);
+        return falcon;
+    }
     /**
      * Converts real height to extension for the elevator. Subtracts the height of the elevator at
      * the bottom. So that the height of the elevator at the bottom is 0. Does trigonomic

@@ -5,4 +5,7 @@ public class OperatorConfig {
 
     public static final boolean xInvert = true;
     public static final boolean yInvert = true;
+
+    public static final double elevatorModifer = 0.5;
+    public static final double fourBarModifer = 0.3;
 }

@@ -16,6 +16,12 @@ import frc.robot.RobotConfig.Motors;
 
 public final class SwerveConfig {
 
+    /* Swerve Module Configurations */
+    public static final double mod0angleOffset = 194.76;
+    public static final double mod1angleOffset = 169.18;
+    public static final double mod2angleOffset = 255.05;
+    public static final double mod3angleOffset = 309.19;
+
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
     /* Drivetrain Constants */
@@ -100,7 +106,7 @@ public final class SwerveConfig {
         public static final int driveMotorID = Motors.driveMotor0;
         public static final int angleMotorID = Motors.angleMotor0;
         public static final int canCoderID = 3;
-        public static final double angleOffsetC = 193.359375;
+        public static final double angleOffsetC = mod0angleOffset;
         public static final double angleOffsetP = 0;
         public static double angleOffset = angleOffsetC;
         public static final SwerveModuleConfig config =
@@ -113,7 +119,7 @@ public final class SwerveConfig {
         public static final int driveMotorID = Motors.driveMotor1;
         public static final int angleMotorID = Motors.angleMotor1;
         public static final int canCoderID = 13;
-        public static final double angleOffsetC = 169.10156;
+        public static final double angleOffsetC = mod1angleOffset;
         public static final double angleOffsetP = 0;
         public static double angleOffset = angleOffsetC;
         public static final SwerveModuleConfig config =
@@ -126,7 +132,7 @@ public final class SwerveConfig {
         public static final int driveMotorID = Motors.driveMotor2;
         public static final int angleMotorID = Motors.angleMotor2;
         public static final int canCoderID = 23;
-        public static final double angleOffsetC = 255.49804687;
+        public static final double angleOffsetC = mod2angleOffset;
         public static final double angleOffsetP = 0;
         public static double angleOffset = angleOffsetC;
         public static final SwerveModuleConfig config =
@@ -139,7 +145,7 @@ public final class SwerveConfig {
         public static final int driveMotorID = Motors.driveMotor3;
         public static final int angleMotorID = Motors.angleMotor3;
         public static final int canCoderID = 33;
-        public static final double angleOffsetC = 309.90234375;
+        public static final double angleOffsetC = mod3angleOffset;
         public static final double angleOffsetP = 0;
         public static double angleOffset = angleOffsetC;
         public static final SwerveModuleConfig config =

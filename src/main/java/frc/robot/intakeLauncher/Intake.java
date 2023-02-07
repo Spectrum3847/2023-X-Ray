@@ -1,22 +1,33 @@
 package frc.robot.intakeLauncher;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
     int lowerRoller = 43;
     int upperRoller = 44;
     int launcher = 42;
-    WPI_VictorSPX lowerRollerMotor;
-    WPI_VictorSPX upperRollerMotor;
-    WPI_VictorSPX launcherMotor;
+    WPI_TalonFX lowerRollerMotor;
+    WPI_TalonFX upperRollerMotor;
+    WPI_TalonFX launcherMotor;
 
     public Intake() {
         super();
-        lowerRollerMotor = new WPI_VictorSPX(lowerRoller);
-        upperRollerMotor = new WPI_VictorSPX(upperRoller);
-        launcherMotor = new WPI_VictorSPX(launcher);
+        lowerRollerMotor = new WPI_TalonFX(lowerRoller);
+        upperRollerMotor = new WPI_TalonFX(upperRoller);
+        launcherMotor = new WPI_TalonFX(launcher);
+
+        SupplyCurrentLimitConfiguration currentLimit =
+                new SupplyCurrentLimitConfiguration(true, 40, 40, 0);
+        lowerRollerMotor.configSupplyCurrentLimit(currentLimit);
+        upperRollerMotor.configSupplyCurrentLimit(currentLimit);
+        launcherMotor.configSupplyCurrentLimit(currentLimit);
+        lowerRollerMotor.setNeutralMode(NeutralMode.Brake);
+        upperRollerMotor.setNeutralMode(NeutralMode.Brake);
+        launcherMotor.setNeutralMode(NeutralMode.Brake);
         // launcherMotor.setInverted(true);
     }
 
@@ -27,15 +38,15 @@ public class Intake extends SubsystemBase {
     }
 
     public void setLowerRoller(double speed) {
-        lowerRollerMotor.set(VictorSPXControlMode.PercentOutput, speed);
+        lowerRollerMotor.set(TalonFXControlMode.PercentOutput, speed);
     }
 
     public void setUpperRoller(double speed) {
-        upperRollerMotor.set(VictorSPXControlMode.PercentOutput, speed);
+        upperRollerMotor.set(TalonFXControlMode.PercentOutput, speed);
     }
 
     public void setLauncher(double speed) {
-        launcherMotor.set(VictorSPXControlMode.PercentOutput, speed);
+        launcherMotor.set(TalonFXControlMode.PercentOutput, speed);
     }
 
     public void stopLowerRoller() {
