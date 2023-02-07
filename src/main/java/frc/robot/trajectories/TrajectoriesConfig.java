@@ -19,14 +19,14 @@ public class TrajectoriesConfig {
     public static final double kDRotationController = 0.01;
 
     // Alliance Positions
-    public static final double bXPosition = 1.8; // This stays constant for all On-The-Fly Paths
-    public static final double bConeRRYPosition = 0.5;
-    public static final double bCubeRYPosition = 1.05;
-    public static final double bConeLRYPosition = 1.6;
-    public static final double bConeRMYPosition = 2.2;
-    public static final double bCubeMYPosition = 2.75;
-    public static final double bConeLMYPosition = 3.3;
-    public static final double bConeRLYPosition = 3.85;
-    public static final double bCubeLYPosition = 4.42;
-    public static final double bConeLLYPosition = 4.95;
+    public static final double XPosition = 1.8; // This stays constant for all On-The-Fly Paths
+    public static final double ConeRRYPosition = 0.5;
+    public static final double CubeRYPosition = 1.05;
+    public static final double ConeLRYPosition = 1.6;
+    public static final double ConeRMYPosition = 2.2;
+    public static final double CubeMYPosition = 2.75;
+    public static final double ConeLMYPosition = 3.3;
+    public static final double ConeRLYPosition = 3.85;
+    public static final double CubeLYPosition = 4.42;
+    public static final double ConeLLYPosition = 4.95;
 }
