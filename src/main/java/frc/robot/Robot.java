@@ -192,6 +192,8 @@ public class Robot extends LoggedRobot {
     @Override
     public void autonomousExit() {
         RobotTelemetry.print("@@ Auton Exit");
+        /** Sets the estimated pose to the given pose */
+        pose.setEstimatedPose(Robot.pose.getOdometryPose());
     }
 
     @Override
