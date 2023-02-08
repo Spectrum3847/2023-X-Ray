@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
@@ -28,6 +29,8 @@ public class GeneratePath extends CommandBase {
     private double finalYPos;
     private double finalHeading;
     private double finalRotation;
+
+    private Command pathFollowingCommmand = null;
 
     /** Creates a new GeneratePath. */
     public GeneratePath() {
@@ -54,37 +57,42 @@ public class GeneratePath extends CommandBase {
 
         path =
                 PathPlanner.generatePath(
-                        new PathConstraints(maxVelocity, maxAcceleration),
+                        new PathConstraints(2, 2),
                         new PathPoint(
                                 new Translation2d(startXPos, startYPos),
                                 Rotation2d.fromDegrees(startHeading),
-                                Rotation2d.fromDegrees(startRotation),
-                                startVelocity), // position, heading(direction of
+                                Rotation2d.fromDegrees(startHeading),
+                                0), // position, heading(direction of
                         // travel), holonomic rotation,
                         // velocity override
                         new PathPoint(
-                                new Translation2d(finalXPos, finalYPos),
-                                Rotation2d.fromDegrees(finalHeading),
+                                new Translation2d(0, 0),
+                                Rotation2d.fromDegrees(startHeading),
                                 Rotation2d.fromDegrees(
-                                        finalRotation)) // position, heading(direction of travel),
+                                        0)) // position, heading(direction of travel),
                         // holonomic
                         // rotation
                         );
+
+        pathFollowingCommmand = PathBuilder.pathBuilder.fullAuto(path);
+        pathFollowingCommmand.initialize();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        PathBuilder.pathBuilder.fullAuto(path);
+        pathFollowingCommmand.execute();
     }
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        pathFollowingCommmand.end(interrupted);
+    }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return pathFollowingCommmand.isFinished();
     }
 }
