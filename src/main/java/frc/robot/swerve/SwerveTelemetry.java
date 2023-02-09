@@ -71,6 +71,10 @@ public class SwerveTelemetry {
         }
     }
 
+    public void logVisionPose() {
+        Robot.log.logger.recordOutput("VisionPose", Robot.vision.botPose);
+    }
+
     public ShuffleboardLayout moduleLayout(String name, int moduleNum, ShuffleboardTab tab) {
         ShuffleboardLayout modLayout = tab.getLayout(name, BuiltInLayouts.kGrid);
         // m_mod0Layout.withSize(1, 2);

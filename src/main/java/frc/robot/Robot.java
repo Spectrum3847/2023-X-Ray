@@ -53,6 +53,8 @@ public class Robot extends LoggedRobot {
         System.out.println("Started initSubsystems");
         swerve = new Swerve();
         System.out.println("Started swerve");
+        vision = new Vision();
+        System.out.println("Started vision");
         pose = new Pose();
         System.out.println("Started pose");
         trajectories = new Trajectories();
@@ -65,8 +67,6 @@ public class Robot extends LoggedRobot {
         fourBar = new FourBar();
         System.out.println("Started fourBar");
 
-        // vision = new Vision();
-        // System.out.println("Started vision");
 
         leds = new LEDs();
         System.out.println("Started led");
@@ -160,6 +160,10 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("## Disabled Init Starting");
         resetCommandsAndButtons();
 
+        if (vision.botPose.getX() >= 0.3) {
+            pose.resetPoseEstimate(Robot.vision.botPose);
+        }   
+
         RobotTelemetry.print("## Disabled Init Complete");
     }
 
@@ -197,6 +201,10 @@ public class Robot extends LoggedRobot {
     public void teleopInit() {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
+
+        if (vision.botPose.getX() >= 0.3) {
+            pose.resetPoseEstimate(Robot.vision.botPose);
+        }
 
         RobotTelemetry.print("$$ Teleop Init Complete");
     }
