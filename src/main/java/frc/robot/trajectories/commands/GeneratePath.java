@@ -49,21 +49,22 @@ public class GeneratePath extends CommandBase {
         points.add(
                 new PathPoint(
                         new Translation2d(
-                                TrajectoriesConfig.firstXPosition,
-                                TrajectoriesConfig.firstYPosition),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.firstHeading),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.finalRotation),
+                                TrajectoriesConfig.topFirstXPosition,
+                                TrajectoriesConfig.topFirstYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.topFirstHeading),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.constantRotation),
                         0));
 
         points.add(
                 new PathPoint(
                         new Translation2d(
-                                TrajectoriesConfig.secondXPosition,
-                                TrajectoriesConfig.secondYPosition),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.secondHeading),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.finalRotation)));
+                                TrajectoriesConfig.topSecondXPosition,
+                                TrajectoriesConfig.topSecondYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.topSecondHeading),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.constantRotation)));
 
         startXPos = Robot.swerve.getPoseMeters().getX();
+        // robot.pose.getmeters()
         startYPos = Robot.swerve.getPoseMeters().getY();
         startHeading = Robot.swerve.getHeading().getDegrees();
         startRotation = Robot.pose.getOdometryPose().getRotation().getDegrees();
