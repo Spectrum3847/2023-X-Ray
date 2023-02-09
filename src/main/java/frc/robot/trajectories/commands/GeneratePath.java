@@ -13,8 +13,13 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.trajectories.TrajectoriesConfig;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GeneratePath extends CommandBase {
+    private List<PathPoint> points = new LinkedList<>();
+
     private double startXPos;
     private double startYPos;
     private double startHeading;
@@ -22,8 +27,8 @@ public class GeneratePath extends CommandBase {
     private double startVelocity;
 
     private PathPlannerTrajectory path;
-    private double maxVelocity;
-    private double maxAcceleration;
+    private double maxVelocity = TrajectoriesConfig.kGenPathMaxSpeed;
+    private double maxAcceleration = TrajectoriesConfig.kGenPathMaxAccel;
 
     private double finalXPos;
     private double finalYPos;
@@ -41,6 +46,23 @@ public class GeneratePath extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        points.add(
+                new PathPoint(
+                        new Translation2d(
+                                TrajectoriesConfig.firstXPosition,
+                                TrajectoriesConfig.firstYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.firstHeading),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.finalRotation),
+                        0));
+
+        points.add(
+                new PathPoint(
+                        new Translation2d(
+                                TrajectoriesConfig.secondXPosition,
+                                TrajectoriesConfig.secondYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.secondHeading),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.finalRotation)));
+
         startXPos = Robot.swerve.getPoseMeters().getX();
         startYPos = Robot.swerve.getPoseMeters().getY();
         startHeading = Robot.swerve.getHeading().getDegrees();
@@ -57,19 +79,8 @@ public class GeneratePath extends CommandBase {
 
         path =
                 PathPlanner.generatePath(
-                        new PathConstraints(2, 2),
-                        new PathPoint(
-                                new Translation2d(startXPos, startYPos),
-                                Rotation2d.fromDegrees(startHeading),
-                                Rotation2d.fromDegrees(startHeading),
-                                0), // position, heading(direction of
-                        // travel), holonomic rotation,
-                        // velocity override
-                        new PathPoint(
-                                new Translation2d(0, 0),
-                                Rotation2d.fromDegrees(startHeading),
-                                Rotation2d.fromDegrees(
-                                        0)) // position, heading(direction of travel),
+                        new PathConstraints(maxVelocity, maxAcceleration),
+                        points // position, heading(direction of travel),
                         // holonomic
                         // rotation
                         );
