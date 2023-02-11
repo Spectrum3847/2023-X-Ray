@@ -3,7 +3,6 @@ package frc.robot.elevator;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
 import frc.robot.RobotConfig;
@@ -92,11 +91,13 @@ public class Elevator extends LinearMechSubsystem {
     public static double heightToExtension(double meters) {
         meters = meters - config.startingHeight;
         if (meters < 0) {
-            DriverStation.reportWarning("Height is below the starting height. See Elevator#heightToExtension", false);
+            DriverStation.reportWarning(
+                    "Height is below the starting height. See Elevator#heightToExtension", false);
         }
         meters = meters / Math.sin(Math.toRadians(config.angle));
         if (meters > config.maxExtension) {
-            DriverStation.reportWarning("Height is above the max extension. See Elevator#heightToExtension", false);
+            DriverStation.reportWarning(
+                    "Height is above the max extension. See Elevator#heightToExtension", false);
         }
         return meters;
     }

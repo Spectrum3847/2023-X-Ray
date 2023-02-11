@@ -98,5 +98,5 @@ public class PilotCommands {
                         })
                 .withName("ResetOdometryPose")
                 .ignoringDisable(true);
-    }    
+    }
 }

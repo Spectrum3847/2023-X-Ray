@@ -67,7 +67,6 @@ public class Robot extends LoggedRobot {
         fourBar = new FourBar();
         System.out.println("Started fourBar");
 
-
         leds = new LEDs();
         System.out.println("Started led");
         pilotGamepad = new PilotGamepad();
@@ -162,7 +161,7 @@ public class Robot extends LoggedRobot {
 
         if (vision.botPose.getX() >= 0.3) {
             pose.resetPoseEstimate(Robot.vision.botPose);
-        }   
+        }
 
         RobotTelemetry.print("## Disabled Init Complete");
     }

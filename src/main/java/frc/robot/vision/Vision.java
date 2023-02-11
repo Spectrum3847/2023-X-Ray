@@ -33,7 +33,6 @@ public class Vision extends SubsystemBase {
     // testing
     private final DecimalFormat df = new DecimalFormat();
 
-    
     public Vision() {
         setName("Vision");
         botPose = new Pose2d(0, 0, new Rotation2d(0));

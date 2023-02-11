@@ -77,7 +77,6 @@ public class PilotGamepad extends Gamepad {
         gamepad.xButton.whileTrue(new RainbowLEDCommand("rainbow", 15, 3));
         gamepad.yButton.whileTrue(new SnowfallLEDCommand("Snowfall", 20, 3));
         gamepad.Dpad.Up.whileTrue(PilotCommands.resetEstimatedPose());
-
     }
 
     public void setupTestButtons() {}
