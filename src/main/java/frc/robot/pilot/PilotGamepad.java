@@ -3,6 +3,7 @@ package frc.robot.pilot;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.Gamepad;
+import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
@@ -19,17 +20,23 @@ public class PilotGamepad extends Gamepad {
     public PilotGamepad() {
         super("PILOT", PilotConfig.port);
         gamepad.leftStick.setDeadband(PilotConfig.throttleDeadband);
-        gamepad.leftStick.configCurves(PilotConfig.throttleExp, PilotConfig.throttleScaler);
+        gamepad.leftStick.configCurves(
+                PilotConfig.throttleExp,
+                PilotConfig.throttleScaler * Robot.swerve.config.tuning.maxVelocity);
         gamepad.leftStick.setXinvert(PilotConfig.xInvert);
         gamepad.leftStick.setYinvert(PilotConfig.yInvert);
 
         gamepad.rightStick.setDeadband(PilotConfig.throttleDeadband);
-        gamepad.rightStick.configCurves(PilotConfig.steeringExp, PilotConfig.steeringScaler);
+        gamepad.rightStick.configCurves(
+                PilotConfig.steeringExp,
+                PilotConfig.steeringScaler * Robot.swerve.config.tuning.maxAngularVelocity);
         gamepad.rightStick.setXinvert(PilotConfig.xInvert);
         gamepad.rightStick.setYinvert(PilotConfig.yInvert);
 
         gamepad.triggers.setTwistDeadband(PilotConfig.steeringDeadband);
-        gamepad.triggers.configTwistCurve(PilotConfig.steeringExp, PilotConfig.steeringScaler);
+        gamepad.triggers.configTwistCurve(
+                PilotConfig.steeringExp,
+                PilotConfig.steeringScaler * Robot.swerve.config.tuning.maxAngularVelocity);
         gamepad.triggers.setTwistInvert(PilotConfig.steeringInvert);
     }
 
