@@ -26,17 +26,6 @@ public class PilotCommands {
                 .withName("PilotSwerve");
     }
 
-    /** Open Loop Drive */
-    public static Command openLoopPilotSwerve() {
-        return new SwerveDrive(
-                        () -> Robot.pilotGamepad.getLeftYRaw(),
-                        () -> Robot.pilotGamepad.getLeftXRaw(),
-                        () -> Robot.pilotGamepad.getDriveCCWPositive(),
-                        true,
-                        true)
-                .withName("OpenLoopPilotSwerve");
-    }
-
     /** Robot Oriented Drive */
     public static Command fpvPilotSwerve() {
         return new SwerveDrive(

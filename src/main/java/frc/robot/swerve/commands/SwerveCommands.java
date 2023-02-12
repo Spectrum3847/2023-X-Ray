@@ -6,6 +6,6 @@ import frc.robot.pilot.commands.PilotCommands;
 
 public class SwerveCommands {
     public static void setupDefaultCommand() {
-        Robot.swerve.setDefaultCommand(PilotCommands.openLoopPilotSwerve());
+        Robot.swerve.setDefaultCommand(PilotCommands.pilotSwerve());
     }
 }
