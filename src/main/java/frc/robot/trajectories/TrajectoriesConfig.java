@@ -6,8 +6,8 @@ public class TrajectoriesConfig {
     /* Swerve Conroller Constants */
     public static final double kMaxSpeed = 2.7;
     public static final double kMaxAccel = 2.4; // 2 worked but took too long
-    public static final double kGenPathMaxSpeed = 2;
-    public static final double kGenPathMaxAccel = 2;
+    public static final double kGenPathMaxSpeed = 0.5;
+    public static final double kGenPathMaxAccel = 0.5;
     public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConfig.maxAngularVelocity;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared =
             SwerveConfig.maxAngularVelocity;
@@ -28,7 +28,7 @@ public class TrajectoriesConfig {
             1.81; // This stays constant for all On-The-Fly Paths
     // Scoring Positions (these stay constant throughout all On-The-Fly Paths)
     public static final double coneTTYPosition = 4.97;
-    public static final double cubeTPosition = 4.42;
+    public static final double cubeTYPosition = 4.42;
     public static final double coneTBYPosition = 3.85;
     public static final double coneMTYPosition = 3.29;
     public static final double cubeMYPosition = 2.75;

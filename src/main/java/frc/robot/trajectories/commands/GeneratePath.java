@@ -24,14 +24,14 @@ public class GeneratePath extends CommandBase {
     private double startYPos;
     private double startHeading;
     private double startRotation;
-    private double startVelocity;
+    private double startVelocity = 0;
 
     private PathPlannerTrajectory path;
     private double maxVelocity = TrajectoriesConfig.kGenPathMaxSpeed;
     private double maxAcceleration = TrajectoriesConfig.kGenPathMaxAccel;
 
-    private double finalXPos;
-    private double finalYPos;
+    private double finalXPos = 0;
+    private double finalYPos = 0;
     private double finalHeading;
     private double finalRotation;
 
@@ -46,22 +46,7 @@ public class GeneratePath extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        points.add(
-                new PathPoint(
-                        new Translation2d(
-                                TrajectoriesConfig.topFirstXPosition,
-                                TrajectoriesConfig.topFirstYPosition),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.topFirstHeading),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.constantRotation),
-                        0));
-
-        points.add(
-                new PathPoint(
-                        new Translation2d(
-                                TrajectoriesConfig.topSecondXPosition,
-                                TrajectoriesConfig.topSecondYPosition),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.topSecondHeading),
-                        Rotation2d.fromDegrees(TrajectoriesConfig.constantRotation)));
+        points = new LinkedList<>();
 
         startXPos = Robot.swerve.getPoseMeters().getX();
         // robot.pose.getmeters()
@@ -78,6 +63,41 @@ public class GeneratePath extends CommandBase {
         finalHeading = 0;
         finalRotation = 0;
 
+        points.add(
+                new PathPoint(
+                        new Translation2d(startXPos, startYPos),
+                        Rotation2d.fromDegrees(startHeading),
+                        Rotation2d.fromDegrees(startRotation),
+                        startVelocity) // position, heading(direction of
+                // travel), holonomic rotation,
+                // velocity override
+                );
+        points.add(
+                new PathPoint(
+                        new Translation2d(finalXPos, finalYPos),
+                        Rotation2d.fromDegrees(finalHeading),
+                        Rotation2d.fromDegrees(
+                                finalRotation)) // position, heading(direction of travel),
+                // holonomic
+                // rotation
+                );
+        /*points.add(
+                new PathPoint(
+                        new Translation2d(
+                                ,
+                                TrajectoriesConfig.topFirstYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.topFirstHeading),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.constantRotation),
+                        0));
+
+        points.add(
+                new PathPoint(
+                        new Translation2d(
+                                TrajectoriesConfig.topSecondXPosition,
+                                TrajectoriesConfig.topSecondYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.topSecondHeading),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.constantRotation)));*/
+
         path =
                 PathPlanner.generatePath(
                         new PathConstraints(maxVelocity, maxAcceleration),
@@ -86,7 +106,7 @@ public class GeneratePath extends CommandBase {
                         // rotation
                         );
 
-        pathFollowingCommmand = PathBuilder.pathBuilder.fullAuto(path);
+        pathFollowingCommmand = PathBuilder.pathBuilder.followPath(path);
         pathFollowingCommmand.initialize();
     }
 
@@ -94,6 +114,7 @@ public class GeneratePath extends CommandBase {
     @Override
     public void execute() {
         pathFollowingCommmand.execute();
+        // pathFollowingCommmand.end(isFinished());
     }
 
     // Called once the command ends or is interrupted.

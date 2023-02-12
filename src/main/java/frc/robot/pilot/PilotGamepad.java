@@ -1,8 +1,11 @@
 package frc.robot.pilot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.Robot;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
@@ -47,10 +50,16 @@ public class PilotGamepad extends Gamepad {
         // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
-        gamepad.yButton.whileTrue(IntakeCommands.eject());
         gamepad.bButton.whileTrue(new GeneratePath());
-        gamepad.rightBumper.whileTrue(
-                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
+        // gamepad.bButton.whileTrue(new GeneratePath());
+        gamepad.yButton.whileTrue(
+                new InstantCommand(
+                        () ->
+                                Robot.swerve.odometry.resetOdometry(
+                                        new Pose2d(0, 0, new Rotation2d(0)))));
+        // gamepad.rightBumper.whileTrue();
+        // gamepad.rightBumper.whileTrue(
+        // ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(
                 FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
 
