@@ -10,7 +10,6 @@ import edu.wpi.first.math.numbers.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.swerve.SwerveConfig;
 
 /** Reports our expected, desired, and actual poses to dashboards */
 public class Pose extends SubsystemBase {
@@ -28,7 +27,7 @@ public class Pose extends SubsystemBase {
 
         poseEstimator =
                 new SwerveDrivePoseEstimator(
-                        SwerveConfig.swerveKinematics,
+                        Robot.swerve.config.swerveKinematics,
                         Robot.swerve.getHeading(),
                         Robot.swerve.getPositions(),
                         new Pose2d(),
@@ -166,7 +165,7 @@ public class Pose extends SubsystemBase {
      * while still accounting for measurement noise.
      *
      * <p>This method can be called as infrequently as you want, as long as you are calling {@link
-     * SwerveDrivePoseEstimator#teleopInit} every loop.
+     * SwerveDrivePoseEstimator#update} every loop.
      *
      * <p>To promote stability of the pose estimate and make it robust to bad vision data, we
      * recommend only adding vision measurements that are already within one meter or so of the

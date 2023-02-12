@@ -82,12 +82,16 @@ public class RobotTelemetry extends TelemetrySubsystem {
 
     private void checkRobotType() {
         switch (Robot.config.getRobotType()) {
-            case COMP:
+            case XRAY2023:
                 CompetitionRobotAlert.set(true);
                 PracticeRobotAlert.set(false);
                 SimRobotAlert.set(false);
                 break;
-            case PRACTICE:
+            case PRACTICE2023:
+            case ALPHA2023:
+            case FLASH2021:
+            case INFRARED3847:
+            case GAMMA2021:
                 CompetitionRobotAlert.set(false);
                 PracticeRobotAlert.set(true);
                 SimRobotAlert.set(false);

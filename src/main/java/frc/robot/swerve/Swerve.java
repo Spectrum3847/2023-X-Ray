@@ -26,7 +26,7 @@ import frc.robot.swerve.gyros.Pigeon2;
 
 public class Swerve extends SubsystemBase {
     public SwerveConfig config;
-    protected Gyro gyro;
+    protected GyroIO gyro;
     public Odometry odometry;
     public SwerveTelemetry telemetry;
     public SwerveModule[] mSwerveMods;
@@ -61,10 +61,10 @@ public class Swerve extends SubsystemBase {
 
         mSwerveMods =
                 new SwerveModule[] {
-                    new SwerveModule(0, config, SwerveConfig.Mod0.config),
-                    new SwerveModule(1, config, SwerveConfig.Mod1.config),
-                    new SwerveModule(2, config, SwerveConfig.Mod2.config),
-                    new SwerveModule(3, config, SwerveConfig.Mod3.config)
+                    new SwerveModule(0, config),
+                    new SwerveModule(1, config),
+                    new SwerveModule(2, config),
+                    new SwerveModule(3, config)
                 };
         resetSteeringToAbsolute();
         odometry = new Odometry(this);
@@ -122,9 +122,9 @@ public class Swerve extends SubsystemBase {
         }
 
         SwerveModuleState[] swerveModuleStates =
-                SwerveConfig.swerveKinematics.toSwerveModuleStates(speeds, centerOfRotationMeters);
+                config.swerveKinematics.toSwerveModuleStates(speeds, centerOfRotationMeters);
 
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConfig.maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, config.tuning.maxVelocity);
 
         telemetry.logModuleStates("SwerveModuleStates/Desired", swerveModuleStates);
         for (SwerveModule mod : mSwerveMods) {
@@ -153,7 +153,7 @@ public class Swerve extends SubsystemBase {
      * @param desiredStates Meters per second and radians per second
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConfig.maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, config.tuning.maxVelocity);
 
         for (SwerveModule mod : mSwerveMods) {
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);

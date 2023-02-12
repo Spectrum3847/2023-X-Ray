@@ -1,7 +1,5 @@
 package frc.robot.trajectories;
 
-import frc.robot.swerve.SwerveConfig;
-
 public class TrajectoriesConfig {
     /* Swerve Conroller Constants */
     public static final double kMaxSpeed = 2.7;

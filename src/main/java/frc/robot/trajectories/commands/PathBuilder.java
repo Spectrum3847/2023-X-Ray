@@ -13,7 +13,7 @@ public class PathBuilder { // Used to create paths for Autonomus and for On-the-
                     Robot.swerve.odometry
                             ::resetOdometry, // Pose2d consumer, used to reset odometry at the
                     // beginning of auto
-                    SwerveConfig.swerveKinematics, // SwerveDriveKinematics
+                    Robot.swerve.config.swerveKinematics, // SwerveDriveKinematics
                     new PIDConstants(
                             TrajectoriesConfig.kPTranslationController,
                             TrajectoriesConfig.kITranslationController,

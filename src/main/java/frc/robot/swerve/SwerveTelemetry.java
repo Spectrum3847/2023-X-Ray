@@ -35,7 +35,7 @@ public class SwerveTelemetry {
     public void logModuleAbsolutePositions() {
         for (SwerveModule mod : swerve.mSwerveMods) {
             Robot.log.logger.recordOutput(
-                    "Mod " + mod.moduleNumber + " Absolute", mod.getCanCoderAngle().getDegrees());
+                    "Mod " + mod.moduleNumber + " Absolute", mod.getAbsoluteAngle().getDegrees());
         }
     }
 
@@ -48,7 +48,7 @@ public class SwerveTelemetry {
         SuppliedValueWidget<Double> mod0CancoderAngleWidget =
                 modLayout.addNumber(
                         "Cancoder Angle",
-                        () -> Robot.swerve.mSwerveMods[moduleNum].getCanCoderAngle().getDegrees());
+                        () -> Robot.swerve.mSwerveMods[moduleNum].getAbsoluteAngle().getDegrees());
         mod0CancoderAngleWidget.withPosition(0, 0);
 
         // mod0 Integrated Angle
