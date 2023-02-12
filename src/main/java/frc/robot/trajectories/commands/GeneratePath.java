@@ -55,13 +55,13 @@ public class GeneratePath extends CommandBase {
         startRotation = Robot.pose.getOdometryPose().getRotation().getDegrees();
         startVelocity = Robot.swerve.mSwerveMods[0].getState().speedMetersPerSecond;
 
-        maxVelocity = 2;
-        maxAcceleration = 2;
+        maxVelocity = 0.5;
+        maxAcceleration = 0.5;
 
-        finalXPos = 0;
-        finalYPos = 0;
-        finalHeading = 0;
-        finalRotation = 0;
+        finalXPos = TrajectoriesConfig.finalXPosition;
+        finalYPos = TrajectoriesConfig.cubeTYPosition;
+        finalHeading = TrajectoriesConfig.topCubeTHeading;
+        finalRotation = TrajectoriesConfig.constantRotation;
 
         points.add(
                 new PathPoint(
@@ -71,6 +71,17 @@ public class GeneratePath extends CommandBase {
                         startVelocity) // position, heading(direction of
                 // travel), holonomic rotation,
                 // velocity override
+                );
+        points.add(
+                new PathPoint(
+                        new Translation2d(
+                                TrajectoriesConfig.topFirstXPosition,
+                                TrajectoriesConfig.topFirstYPosition),
+                        Rotation2d.fromDegrees(TrajectoriesConfig.topFirstHeading),
+                        Rotation2d.fromDegrees(
+                                finalRotation)) // position, heading(direction of travel),
+                // holonomic
+                // rotation
                 );
         points.add(
                 new PathPoint(

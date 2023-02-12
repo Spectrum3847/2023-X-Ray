@@ -56,7 +56,14 @@ public class PilotGamepad extends Gamepad {
                 new InstantCommand(
                         () ->
                                 Robot.swerve.odometry.resetOdometry(
-                                        new Pose2d(0, 0, new Rotation2d(0)))));
+                                        new Pose2d(
+                                                3.80,
+                                                4.43,
+                                                new Rotation2d(
+                                                        Robot.pose
+                                                                .getOdometryPose()
+                                                                .getRotation()
+                                                                .getDegrees())))));
         // gamepad.rightBumper.whileTrue();
         // gamepad.rightBumper.whileTrue(
         // ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
