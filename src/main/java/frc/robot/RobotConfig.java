@@ -13,7 +13,7 @@ public final class RobotConfig {
     public final Pneumatic pneumatic = new Pneumatic();
     public final String pratice2023BotMAC = "00:80:2F:23:E9:01";
     public final String alpha2023BotMAC = "00:80:2F:23:E9:33";
-    public final String flash2021BotMAC = "00:80:2F:23:E9:00";
+    public final String flash2021BotMAC = "00:80:2F:32:FC:79";
     public final ModuleType PowerDistributionType = ModuleType.kCTRE;
 
     public static final int pigeonID = 0;
