@@ -163,19 +163,18 @@ public class Vision extends SubsystemBase {
      * @param values the array of limelight raw values
      */
     public void printDebug(double[] values) {
-        if (values.length == 0) return;
-        SmartDashboard.putString("LimelightX", df.format(values[0]));
-        SmartDashboard.putString("LimelightY", df.format(values[1]));
-        SmartDashboard.putString("LimelightZ", df.format(values[2]));
-        SmartDashboard.putString("LimelightRoll", df.format(values[3]));
-        SmartDashboard.putString("LimelightPitch", df.format(values[4]));
-        SmartDashboard.putString("LimelightYaw", df.format(values[5]));
-
+        if (values.length > 0) {
+            SmartDashboard.putString("LimelightX", df.format(values[0]));
+            SmartDashboard.putString("LimelightY", df.format(values[1]));
+            SmartDashboard.putString("LimelightZ", df.format(values[2]));
+            SmartDashboard.putString("LimelightRoll", df.format(values[3]));
+            SmartDashboard.putString("LimelightPitch", df.format(values[4]));
+            SmartDashboard.putString("LimelightYaw", df.format(values[5]));
+        }
         SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
         SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
         SmartDashboard.putString(
                 "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
-
         SmartDashboard.putString(
                 "Odometry X", df.format(Robot.swerve.odometry.getPoseMeters().getX()));
         SmartDashboard.putString(
