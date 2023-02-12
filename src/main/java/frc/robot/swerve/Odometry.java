@@ -14,9 +14,7 @@ public class Odometry {
         swerve = s;
         swerveOdometry =
                 new SwerveDriveOdometry(
-                        swerve.config.swerveKinematics,
-                        swerve.gyro.getRawYaw(),
-                        swerve.getPositions());
+                        SwerveConfig.swerveKinematics, swerve.gyro.getYaw(), swerve.getPositions());
     }
 
     public SwerveDriveOdometry getSwerveDriveOdometry() {
@@ -24,11 +22,11 @@ public class Odometry {
     }
 
     public void update() {
-        swerveOdometry.update(swerve.gyro.getRawYaw(), swerve.getPositions());
+        swerveOdometry.update(swerve.gyro.getYaw(), swerve.getPositions());
     }
 
     public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(swerve.gyro.getRawYaw(), swerve.getPositions(), pose);
+        swerveOdometry.resetPosition(swerve.gyro.getYaw(), swerve.getPositions(), pose);
     }
 
     public Pose2d getPoseMeters() {

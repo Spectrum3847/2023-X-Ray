@@ -7,6 +7,7 @@ package frc.robot.trajectories.commands;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.commands.PPSwerveControllerCommand;
 import frc.robot.Robot;
+import frc.robot.swerve.SwerveConfig;
 
 public class FollowTrajectory extends PPSwerveControllerCommand {
 
@@ -15,7 +16,7 @@ public class FollowTrajectory extends PPSwerveControllerCommand {
         super(
                 trajectory,
                 Robot.pose::getPosition,
-                Robot.swerve.config.swerveKinematics,
+                SwerveConfig.swerveKinematics,
                 Robot.trajectories.xController,
                 Robot.trajectories.yController,
                 Robot.trajectories.thetaController,

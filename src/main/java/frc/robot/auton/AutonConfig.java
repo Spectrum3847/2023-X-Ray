@@ -1,6 +1,8 @@
 package frc.robot.auton;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import frc.robot.swerve.SwerveConfig;
 
 /** Add your docs here. */
 public final class AutonConfig {
@@ -14,6 +16,9 @@ public final class AutonConfig {
 
     public static final double kMaxSpeed = 2.7;
     public static final double kMaxAccel = 2.4; // 2 worked but took too long
+    public static final double kMaxAngularSpeedRadiansPerSecond = SwerveConfig.maxAngularVelocity;
+    public static final double kMaxAngularSpeedRadiansPerSecondSquared =
+            SwerveConfig.maxAngularVelocity;
 
     // PID Values for 2023
     public static final double kPTranslationController = 0.6;
@@ -22,6 +27,11 @@ public final class AutonConfig {
     public static final double kPRotationController = 5;
     public static final double kIRotationController = 0;
     public static final double kDRotationController = 0.01;
+
+    // Constraint for the motion profilied robot angle controller
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+            new TrapezoidProfile.Constraints(
+                    kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
     public static enum AutoPosition {
         ORIGIN;

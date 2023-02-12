@@ -14,57 +14,26 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
-import frc.robot.swerve.configTemplates.SwerveConfig;
-import frc.robot.swerve.configs.Alpha2023;
-import frc.robot.swerve.configs.Flash2021;
-import frc.robot.swerve.configs.Gamma2021;
-import frc.robot.swerve.configs.Infrared3847;
-import frc.robot.swerve.gyros.GyroIO;
-import frc.robot.swerve.gyros.Pigeon1;
-import frc.robot.swerve.gyros.Pigeon2;
 
 public class Swerve extends SubsystemBase {
     public SwerveConfig config;
-    protected GyroIO gyro;
+    protected Gyro gyro;
     public Odometry odometry;
     public SwerveTelemetry telemetry;
     public SwerveModule[] mSwerveMods;
     private SwerveModuleState[] mSwerveModStates;
 
     public Swerve() {
-        setName("Swerve"); // Check robot type and make the config file
-        switch (Robot.config.getRobotType()) {
-            case GAMMA2021:
-                config = Gamma2021.config;
-                break;
-            case INFRARED3847:
-                config = Infrared3847.config;
-                break;
-            case FLASH2021:
-                config = Flash2021.config;
-                break;
-            default:
-                config = Alpha2023.config;
-                break;
-        }
-
-        switch (config.gyro.type) {
-            case PIGEON1:
-                gyro = new Pigeon1();
-                break;
-            case PIGEON2:
-            default:
-                gyro = new Pigeon2();
-                break;
-        }
+        setName("Swerve");
+        config = new SwerveConfig();
+        gyro = new Gyro();
 
         mSwerveMods =
                 new SwerveModule[] {
-                    new SwerveModule(0, config),
-                    new SwerveModule(1, config),
-                    new SwerveModule(2, config),
-                    new SwerveModule(3, config)
+                    new SwerveModule(0, config, SwerveConfig.Mod0.config),
+                    new SwerveModule(1, config, SwerveConfig.Mod1.config),
+                    new SwerveModule(2, config, SwerveConfig.Mod2.config),
+                    new SwerveModule(3, config, SwerveConfig.Mod3.config)
                 };
         resetSteeringToAbsolute();
         odometry = new Odometry(this);
@@ -123,9 +92,9 @@ public class Swerve extends SubsystemBase {
         }
 
         SwerveModuleState[] swerveModuleStates =
-                config.swerveKinematics.toSwerveModuleStates(speeds, centerOfRotationMeters);
+                SwerveConfig.swerveKinematics.toSwerveModuleStates(speeds, centerOfRotationMeters);
 
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, config.tuning.maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConfig.maxVelocity);
 
         telemetry.logModuleStates("SwerveModuleStates/Desired", swerveModuleStates);
         for (SwerveModule mod : mSwerveMods) {
@@ -154,7 +123,7 @@ public class Swerve extends SubsystemBase {
      * @param desiredStates Meters per second and radians per second
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, config.tuning.maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConfig.maxVelocity);
 
         for (SwerveModule mod : mSwerveMods) {
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
