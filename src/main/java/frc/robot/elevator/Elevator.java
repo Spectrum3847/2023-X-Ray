@@ -83,21 +83,19 @@ public class Elevator extends LinearMechSubsystem {
      *
      * @param meters height in meters
      * @return relative height in meters
-     * @throws IllegalArgumentException if the height is below the starting height or if the
-     *     Extension is above the max Extension
      * @see #heightToHorizontalExtension(double)
      * @see #extensionToHeight(double)
      */
     public static double heightToExtension(double meters) {
         meters = meters - config.startingHeight;
         if (meters < 0) {
-            DriverStation.reportWarning(
-                    "Height is below the starting height. See Elevator#heightToExtension", false);
+            meters = config.startingHeight;
+            DriverStation.reportWarning("Height is below the starting height. See Elevator#heightToExtension", false);
         }
         meters = meters / Math.sin(Math.toRadians(config.angle));
         if (meters > config.maxExtension) {
-            DriverStation.reportWarning(
-                    "Height is above the max extension. See Elevator#heightToExtension", false);
+            meters = config.maxExtension;
+            DriverStation.reportWarning("Height is above the max extension. See Elevator#heightToExtension", false);
         }
         return meters;
     }
