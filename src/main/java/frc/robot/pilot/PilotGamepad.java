@@ -1,8 +1,11 @@
 package frc.robot.pilot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.Robot;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
@@ -11,6 +14,7 @@ import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.pose.commands.PoseCommands;
+import frc.robot.trajectories.commands.GeneratePath;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -46,10 +50,23 @@ public class PilotGamepad extends Gamepad {
         // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
         gamepad.aButton.whileTrue(IntakeCommands.intake());
         gamepad.xButton.whileTrue(IntakeCommands.launch());
-        gamepad.yButton.whileTrue(IntakeCommands.eject());
-        gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(30000));
-        gamepad.rightBumper.whileTrue(
-                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
+        gamepad.bButton.whileTrue(new GeneratePath());
+        // gamepad.bButton.whileTrue(new GeneratePath());
+        gamepad.yButton.whileTrue(
+                new InstantCommand(
+                        () ->
+                                Robot.swerve.odometry.resetOdometry(
+                                        new Pose2d(
+                                                3.80,
+                                                4.43,
+                                                new Rotation2d(
+                                                        Robot.pose
+                                                                .getOdometryPose()
+                                                                .getRotation()
+                                                                .getDegrees())))));
+        // gamepad.rightBumper.whileTrue();
+        // gamepad.rightBumper.whileTrue(
+        // ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(
                 FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
 

@@ -59,6 +59,10 @@ public class Pose extends SubsystemBase {
         odometryPose = pose;
     }
 
+    public Pose2d getOdometryPose() {
+        return odometryPose;
+    }
+
     /** Sets the desired pose of the robot */
     public void setDesiredPose(Pose2d pose) {
         desiredPose = pose;
