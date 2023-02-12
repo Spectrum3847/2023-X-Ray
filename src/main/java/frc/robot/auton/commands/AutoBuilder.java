@@ -5,7 +5,6 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import frc.robot.Robot;
 import frc.robot.auton.Auton;
 import frc.robot.auton.AutonConfig;
-import frc.robot.swerve.SwerveConfig;
 
 public
 class AutoBuilder { // Create the AutoBuilder. This only needs to be created once when robot code
@@ -18,7 +17,7 @@ class AutoBuilder { // Create the AutoBuilder. This only needs to be created onc
                     Robot.swerve.odometry
                             ::resetOdometry, // Pose2d consumer, used to reset odometry at the
                     // beginning of auto
-                    SwerveConfig.swerveKinematics, // SwerveDriveKinematics
+                    Robot.swerve.config.swerveKinematics, // SwerveDriveKinematics
                     new PIDConstants(
                             AutonConfig.kPTranslationController,
                             AutonConfig.kITranslationController,

@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
+    public static IntakeConfig config = new IntakeConfig();
     int lowerRoller = 43;
     int upperRoller = 44;
     int launcher = 42;
@@ -28,6 +29,7 @@ public class Intake extends SubsystemBase {
         lowerRollerMotor.setNeutralMode(NeutralMode.Brake);
         upperRollerMotor.setNeutralMode(NeutralMode.Brake);
         launcherMotor.setNeutralMode(NeutralMode.Brake);
+        config.updateTalonFXConfig();
         // launcherMotor.setInverted(true);
     }
 
