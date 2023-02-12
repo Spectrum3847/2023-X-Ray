@@ -45,8 +45,4 @@ public class VisionCommands {
                     () -> RobotTelemetry.print("PhotonVision doesn't have a pose!"));
         }
     }
-
-    public static Command printEstimatedLimelightPoseInfo() {
-        return new InstantCommand(() -> Robot.vision.printDebug());
-    }
 }

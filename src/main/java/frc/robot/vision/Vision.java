@@ -10,13 +10,13 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.DoubleArrayTopic;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.RobotTelemetry;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -24,12 +24,9 @@ public class Vision extends SubsystemBase {
     public Pose2d botPose;
 
     private NetworkTable table;
-    private NetworkTableEntry tx, ty, ta, tl, tv;
     private DoubleArraySubscriber poseSub;
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
-    private boolean allianceColor = true; // temporary solution -- true is blue || false is red
-    private double latency;
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
@@ -39,18 +36,9 @@ public class Vision extends SubsystemBase {
         botPose = new Pose2d(0, 0, new Rotation2d(0));
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
         table = NetworkTableInstance.getDefault().getTable("limelight");
-        latency = 0;
         /* Creating bot pose sub using set alliance color */
         poseSub = chooseAlliance().subscribe(new double[] {});
-        table.getEntry("ledMode")
-                .setValue(0); // 0 will use the LED Mode set in the pipeline || 1 is force off
-
-        /* Limelight NetworkTable Retrieval */
-        tx = table.getEntry("tx"); // offset from camera in degrees
-        ty = table.getEntry("ty");
-        ta = table.getEntry("ta");
-        tl = table.getEntry("tl");
-        tv = table.getEntry("tv");
+        table.getEntry("ledMode").setValue(0);
 
         /* PhotonVision Setup -- uncomment if running PhotonVision*/
         // photonVision = new PhotonVision();
@@ -61,41 +49,33 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        /* Limelight Pose Estimation
-         *
-         * Current logic:
-         * Sets odometry pose to be vision estimate at the start in teleopInit and disabledInit so odometry has correct starting pose
-         * Will not override odometry with vision if limelight does not see targets (vision thinks it's at origin which doesn't help us)
-         * Will add vision estimate to pose estimator using standard deviation values if 1. odometry has been overridden by vision at least once and 2. vision estimate is within 1 meter of odometry
-         */
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
-        latency = tl.getDouble(0.0);
+        // this method can call update() if vision pose estimation needs to be updated in
+        // Vision.java
+    }
 
+    /**
+     * Vision Pose Estimation
+     *
+     * <p>Limelight pose logic:
+     *
+     * <p>Sets odometry pose to be vision estimate at the start of {@link Robot#teleopInit} and
+     * {@link Robot#disabledInit} so odometry has correct starting pose. Will not override odometry
+     * with vision if limelight does not see targets. Adds vision estimate to pose estimator using
+     * standard deviation values if 1) odometry has been overridden by vision at least once and 2)
+     * vision estimate is within 1 meter of odometry
+     */
+    public void update() {
+        /* Limelight Pose Estimation Retrieval */
+        double latency = table.getEntry("tl").getDouble(0);
         double[] subbedPose = poseSub.get();
         if (subbedPose.length > 0) {
-            SmartDashboard.putString("LimelightX", df.format(subbedPose[0]));
-            SmartDashboard.putString("LimelightY", df.format(subbedPose[1]));
-            SmartDashboard.putString("LimelightZ", df.format(subbedPose[2]));
-            SmartDashboard.putString("LimelightRoll", df.format(subbedPose[3]));
-            SmartDashboard.putString("LimelightPitch", df.format(subbedPose[4]));
-            SmartDashboard.putString("LimelightYaw", df.format(subbedPose[5]));
-
-            /* Creating Transform3d object from raw values*/
-            botPose3d =
-                    new Pose3d(
-                            new Translation3d(subbedPose[0], subbedPose[1], subbedPose[2]),
-                            new Rotation3d(
-                                    Units.degreesToRadians(subbedPose[3]),
-                                    Units.degreesToRadians(subbedPose[4]),
-                                    Units.degreesToRadians(subbedPose[5])));
+            botPose3d = createBotPose3d(subbedPose);
             botPose = botPose3d.toPose2d();
+            /* Adding Limelight estimate to pose if within 1 meter of odometry*/
+            if (isValidPose(Robot.vision.botPose)) {
+                Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
+            }
         }
-
-        SmartDashboard.putString("tagX", df.format(x));
-        SmartDashboard.putString("tagY", df.format(y));
-        SmartDashboard.putString("tagArea", df.format(area));
 
         /* PhotonVision Pose Estimation Retrieval */
         if (photonVision != null) {
@@ -110,24 +90,21 @@ public class Vision extends SubsystemBase {
             }
         }
 
-        // testing || printing estimatedPose to smartDashboard
-        SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
-        SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
-        SmartDashboard.putString(
-                "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
-
-        SmartDashboard.putString(
-                "Odometry X", df.format(Robot.swerve.odometry.getPoseMeters().getX()));
-        SmartDashboard.putString(
-                "Odometry Y", df.format(Robot.swerve.odometry.getPoseMeters().getY()));
-        SmartDashboard.putString(
-                "Odometry Theta",
-                df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
+        printDebug(subbedPose);
     }
 
-    /** @return pipeline latency */
-    public double getLatency() {
-        return latency;
+    /**
+     * Creates Pose3d object from raw limelight values sent through NetworkTables
+     *
+     * @return Pose3d object representing the robot's pose
+     */
+    public Pose3d createBotPose3d(double[] values) {
+        return new Pose3d(
+                new Translation3d(values[0], values[1], values[2]),
+                new Rotation3d(
+                        Units.degreesToRadians(values[3]),
+                        Units.degreesToRadians(values[4]),
+                        Units.degreesToRadians(values[5])));
     }
 
     /**
@@ -137,11 +114,13 @@ public class Vision extends SubsystemBase {
      *     botpose_wpired (red driverstation origin)
      */
     public DoubleArrayTopic chooseAlliance() {
-        if (allianceColor) {
+        if (DriverStation.getAlliance() == Alliance.Blue) {
             return table.getDoubleArrayTopic("botpose_wpiblue");
-        } else {
+        } else if (DriverStation.getAlliance() == Alliance.Red) {
             return table.getDoubleArrayTopic("botpose_wpired");
         }
+        DriverStation.reportWarning("Invalid Team", false);
+        return null;
     }
 
     /**
@@ -152,21 +131,20 @@ public class Vision extends SubsystemBase {
      * @return whether or not pose should be added to estimate or not
      */
     public boolean isValidPose(Pose2d pose) {
-        boolean isTargetInView = (tv.getDouble(0.0) == 1) ? true : false;
-        Pose2d odometryPose = Robot.swerve.getPoseMeters();
         /* Disregard Vision if there are no targets in view */
-        if (!isTargetInView) {
+        if (table.getEntry("tv").getDouble(0.0) != 1) {
             return false;
         }
+
         /* Disregard Vision if odometry has not been set to vision pose yet in teleopInit*/
+        Pose2d odometryPose = Robot.swerve.getPoseMeters();
         if (odometryPose.getX() <= 0.3
                 && odometryPose.getY() <= 0.3
                 && odometryPose.getRotation().getDegrees() <= 1) {
             return false;
-        } else {
-            return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
-                    && (Math.abs(pose.getY() - odometryPose.getY()) <= 1);
         }
+        return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
+                && (Math.abs(pose.getY() - odometryPose.getY()) <= 1);
     }
 
     /**
@@ -179,20 +157,31 @@ public class Vision extends SubsystemBase {
         return Timer.getFPGATimestamp() - (latencyMillis / 1000d);
     }
 
-    public void printDebug() {
-        RobotTelemetry.print(
-                poseSub.getTopic().toString()
-                        + ": \n\tX: "
-                        + botPose3d.getX()
-                        + " || Y: "
-                        + botPose3d.getY()
-                        + " || Z: "
-                        + botPose3d.getZ()
-                        + " || Roll: "
-                        + botPose3d.getRotation().getX()
-                        + " || Pitch: "
-                        + botPose3d.getRotation().getY()
-                        + " || Yaw: "
-                        + botPose3d.getRotation().getZ());
+    /**
+     * Prints the vision, estimated, and odometry pose to SmartDashboard
+     *
+     * @param values the array of limelight raw values
+     */
+    public void printDebug(double[] values) {
+        if (values.length == 0) return;
+        SmartDashboard.putString("LimelightX", df.format(values[0]));
+        SmartDashboard.putString("LimelightY", df.format(values[1]));
+        SmartDashboard.putString("LimelightZ", df.format(values[2]));
+        SmartDashboard.putString("LimelightRoll", df.format(values[3]));
+        SmartDashboard.putString("LimelightPitch", df.format(values[4]));
+        SmartDashboard.putString("LimelightYaw", df.format(values[5]));
+
+        SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
+        SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
+        SmartDashboard.putString(
+                "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
+
+        SmartDashboard.putString(
+                "Odometry X", df.format(Robot.swerve.odometry.getPoseMeters().getX()));
+        SmartDashboard.putString(
+                "Odometry Y", df.format(Robot.swerve.odometry.getPoseMeters().getY()));
+        SmartDashboard.putString(
+                "Odometry Theta",
+                df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
     }
 }

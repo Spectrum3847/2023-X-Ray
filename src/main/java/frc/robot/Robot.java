@@ -52,28 +52,28 @@ public class Robot extends LoggedRobot {
     private void intializeSystems() {
         System.out.println("Started initSubsystems");
         swerve = new Swerve();
-        System.out.println("Started swerve");
+        System.out.println("Started Swerve");
         vision = new Vision();
-        System.out.println("Started vision");
+        System.out.println("Started Vision");
         pose = new Pose();
-        System.out.println("Started pose");
+        System.out.println("Started Pose");
         trajectories = new Trajectories();
-        System.out.println("Started trajectories");
+        System.out.println("Started Trajectories");
 
         elevator = new Elevator();
-        System.out.println("Started elevator");
+        System.out.println("Started Elevator");
         intake = new Intake();
-        System.out.println("Started intake");
+        System.out.println("Started Intake");
         fourBar = new FourBar();
-        System.out.println("Started fourBar");
+        System.out.println("Started FourBar");
 
         leds = new LEDs();
-        System.out.println("Started led");
+        System.out.println("Started Leds");
         pilotGamepad = new PilotGamepad();
         operatorGamepad = new OperatorGamepad();
-        System.out.println("Started gamepads");
+        System.out.println("Started Gamepads");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
-        System.out.println("Started robotTelemetry");
+        System.out.println("Started RobotTelemetry");
 
         // Set Default Commands, this method should exist for each subsystem that has
         // commands

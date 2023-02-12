@@ -46,7 +46,6 @@ public class Swerve extends SubsystemBase {
         mSwerveModStates = getStatesCAN(); // Get the states once a loop
         telemetry.logModuleStates("SwerveModuleStates/Measured", mSwerveModStates);
         telemetry.logModuleAbsolutePositions();
-        telemetry.logVisionPose();
     }
 
     public void drive(

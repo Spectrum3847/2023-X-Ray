@@ -45,17 +45,11 @@ public class Pose extends SubsystemBase {
     @Override
     public void periodic() {
         updateOdometryEstimate();
-        /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-        if (Robot.vision.isValidPose(Robot.vision.botPose)) {
-            Robot.pose.updateOdometryEstimate();
-            Robot.pose.addVisionMeasurement(
-                    Robot.vision.botPose,
-                    Robot.vision.getTimestampSeconds(Robot.vision.getLatency()));
-        }
+        Robot.vision.update();
         setEstimatedPose(getPosition());
         setOdometryPose(Robot.swerve.getPoseMeters());
 
-        // updatePose("DesiredPose", desiredPose);
+        telemetry.updatePoseOnField("VisionPose", Robot.vision.botPose);
         telemetry.updatePoseOnField("OdometryPose", odometryPose);
         telemetry.updatePoseOnField("EstimatedPose", estimatePose);
     }
@@ -168,7 +162,7 @@ public class Pose extends SubsystemBase {
      * while still accounting for measurement noise.
      *
      * <p>This method can be called as infrequently as you want, as long as you are calling {@link
-     * SwerveDrivePoseEstimator#update} every loop.
+     * SwerveDrivePoseEstimator#teleopInit} every loop.
      *
      * <p>To promote stability of the pose estimate and make it robust to bad vision data, we
      * recommend only adding vision measurements that are already within one meter or so of the
