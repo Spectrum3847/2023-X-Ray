@@ -9,7 +9,7 @@ import frc.robot.swerve.configTemplates.PhysicalConfig.AngleSensorType;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
-public class Alpha2023 {
+public class ALPHA20232 {
     /* Angle Offsets */
     public static final double mod0angleOffset = 194.76;
     public static final double mod1angleOffset = 169.18;
@@ -49,7 +49,7 @@ public class Alpha2023 {
             maxVelocity / Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
     static final double maxAngularAcceleration = Math.pow(maxAngularVelocity, 2);
 
-    public static final GyroConfig gyro = Infrared3847.gyro;
+    public static final GyroConfig gyro = INFRARED2022.gyro;
 
     public static final PhysicalConfig physical =
             new PhysicalConfig(

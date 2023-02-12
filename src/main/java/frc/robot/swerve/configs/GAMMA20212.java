@@ -8,7 +8,7 @@ import frc.robot.swerve.configTemplates.PhysicalConfig;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
-public class Gamma2021 {
+public class GAMMA20212 {
     /* Angle Offsets */
     static final double Mod0AngleOffset = 182.54;
     static final double Mod1AngleOffset = 88.69;
