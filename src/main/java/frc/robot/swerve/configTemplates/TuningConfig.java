@@ -57,22 +57,26 @@ public class TuningConfig {
     }
 
     // Must be called in the config file
-    public void configAngleCurrentLimits(
+    public TuningConfig configAngleCurrentLimits(
             int continuousCurrentLimit, int peakCurrentLimit, double peakCurrentDuration) {
         angleContinuousCurrentLimit = continuousCurrentLimit;
         anglePeakCurrentLimit = peakCurrentLimit;
         anglePeakCurrentDuration = peakCurrentDuration;
+        return this;
     }
 
-    public void configDriveCurrentLimits(
+    public TuningConfig configDriveCurrentLimits(
             int continuousCurrentLimit, int peakCurrentLimit, double peakCurrentDuration) {
         driveContinuousCurrentLimit = continuousCurrentLimit;
         drivePeakCurrentLimit = peakCurrentLimit;
         drivePeakCurrentDuration = peakCurrentDuration;
+        return this;
     }
 
-    public void configNeutralModes(NeutralMode angleNeutralMode, NeutralMode driveNeutralMode) {
+    public TuningConfig configNeutralModes(
+            NeutralMode angleNeutralMode, NeutralMode driveNeutralMode) {
         this.angleNeutralMode = angleNeutralMode;
         this.driveNeutralMode = driveNeutralMode;
+        return this;
     }
 }

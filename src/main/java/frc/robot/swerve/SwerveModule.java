@@ -54,6 +54,9 @@ public class SwerveModule extends SubsystemBase {
                 break;
         }
 
+        // Must do this before you configure angle motor correctly
+        mAbsoluteAngle = checkAbsoluteAngle();
+
         /* Angle Motor Config */
         mAngleMotor = new WPI_TalonFX(moduleConfig.angleMotorID);
         configAngleMotor();
@@ -62,6 +65,8 @@ public class SwerveModule extends SubsystemBase {
         mDriveMotor = new WPI_TalonFX(moduleConfig.driveMotorID);
         configDriveMotor();
 
+        mSwerveModState = getCANState();
+        mSwerveModPosition = getCANPosition();
         lastAngle = checkFalconAngle();
     }
 
@@ -114,10 +119,10 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void resetToAbsolute() {
-        double offset = angleOffset;
         double absolutePosition =
                 Conversions.degreesToFalcon(
-                        getAbsoluteAngle().getDegrees() - offset, config.physical.angleGearRatio);
+                        getAbsoluteAngle().getDegrees() - angleOffset,
+                        config.physical.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
 

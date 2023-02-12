@@ -119,6 +119,14 @@ public class PilotGamepad extends Gamepad {
                 gamepad.rightStick.getY(), gamepad.rightStick.getX());
     }
 
+    public double getLeftYRaw() {
+        return gamepad.getRawAxis(1) * -1;
+    }
+
+    public double getLeftXRaw() {
+        return gamepad.getRawAxis(0) * -1;
+    }
+
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
     }

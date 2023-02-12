@@ -1,5 +1,6 @@
 package frc.robot.swerve.configs;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.math.util.Units;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.swerve.configTemplates.GyroConfig;
@@ -65,17 +66,18 @@ public class ALPHA2023 {
 
     public static final TuningConfig tuning =
             new TuningConfig(
-                    angleKP,
-                    angleKD,
-                    driveKP,
-                    driveKD,
-                    driveKS,
-                    driveKV,
-                    driveKA,
-                    maxVelocity,
-                    maxAccel,
-                    maxAngularVelocity,
-                    maxAngularAcceleration);
+                            angleKP,
+                            angleKD,
+                            driveKP,
+                            driveKD,
+                            driveKS,
+                            driveKV,
+                            driveKA,
+                            maxVelocity,
+                            maxAccel,
+                            maxAngularVelocity,
+                            maxAngularAcceleration)
+                    .configNeutralModes(NeutralMode.Brake, NeutralMode.Coast);
 
     /* Module Configs */
     static final ModuleConfig Mod0 =
