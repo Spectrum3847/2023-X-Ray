@@ -1,17 +1,13 @@
-package frc.robot.auton.commands;
+package frc.robot.trajectories.commands;
 
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import frc.robot.Robot;
 import frc.robot.auton.Auton;
-import frc.robot.auton.AutonConfig;
+import frc.robot.trajectories.TrajectoriesConfig;
 
-public
-class AutoBuilder { // Create the AutoBuilder. This only needs to be created once when robot code
-    // starts, not every
-    // time you want to create an auto command. A good place to put this is in RobotContainer along
-    // with your subsystems.
-    public static final SwerveAutoBuilder autoBuilder =
+public class PathBuilder { // Used to create paths for Autonomus and for On-the-Fly Generation
+    public static final SwerveAutoBuilder pathBuilder =
             new SwerveAutoBuilder(
                     Robot.swerve.odometry::getPoseMeters, // Pose2d supplier
                     Robot.swerve.odometry
@@ -19,22 +15,24 @@ class AutoBuilder { // Create the AutoBuilder. This only needs to be created onc
                     // beginning of auto
                     Robot.swerve.config.swerveKinematics, // SwerveDriveKinematics
                     new PIDConstants(
-                            AutonConfig.kPTranslationController,
-                            AutonConfig.kITranslationController,
-                            AutonConfig.kDTranslationController), // PID constants to correct for
+                            TrajectoriesConfig.kPTranslationController,
+                            TrajectoriesConfig.kITranslationController,
+                            TrajectoriesConfig
+                                    .kDTranslationController), // PID constants to correct for
                     // translation error (used to create
                     // the X and Y PID controllers)
                     new PIDConstants(
-                            AutonConfig.kPRotationController,
-                            AutonConfig.kIRotationController,
-                            AutonConfig
+                            TrajectoriesConfig.kPRotationController,
+                            TrajectoriesConfig.kIRotationController,
+                            TrajectoriesConfig
                                     .kDRotationController), // PID constants to correct for rotation
                     // error (used to create the
                     // rotation controller)
                     Robot.swerve
                             ::setModuleStates, // Module states consumer used to output to the drive
                     // subsystem
-                    Auton.eventMap,
+                    Auton.eventMap, // Gets the event map values to use for running addional
+                    // commands during auto
                     true, // Should the path be automatically mirrored depending on
                     // alliance color
                     // Alliance.
