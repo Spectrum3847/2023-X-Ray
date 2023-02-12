@@ -102,7 +102,8 @@ dependencies {
     implementation ('com.github.Spectrum3847:SpectrumLib:2023-SNAPSHOT') {changing = true }
 
     //Include AdvantageKit in the project
-    annotationProcessor "org.littletonrobotics.akit.junction:junction-autolog:2.0.0-beta-1"
+    def akitJson = new groovy.json.JsonSlurper().parseText(new File(projectDir.getAbsolutePath() + "/vendordeps/AdvantageKit.json").text)
+    annotationProcessor "org.littletonrobotics.akit.junction:junction-autolog:$akitJson.version"
 }
 
 test {

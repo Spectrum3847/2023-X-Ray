@@ -24,11 +24,12 @@ public class Vision extends SubsystemBase {
     public Pose2d botPose;
 
     private NetworkTable table;
-    private NetworkTableEntry tx, ty, ta, tl;
+    private NetworkTableEntry tx, ty, ta, tl, tv;
     private DoubleArraySubscriber poseSub;
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
     private boolean allianceColor = true; // temporary solution -- true is blue || false is red
+    private double latency;
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
@@ -38,6 +39,7 @@ public class Vision extends SubsystemBase {
         botPose = new Pose2d(0, 0, new Rotation2d(0));
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        latency = 0;
         /* Creating bot pose sub using set alliance color */
         poseSub = chooseAlliance().subscribe(new double[] {});
         table.getEntry("ledMode")
@@ -48,6 +50,7 @@ public class Vision extends SubsystemBase {
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
         tl = table.getEntry("tl");
+        tv = table.getEntry("tv");
 
         /* PhotonVision Setup -- uncomment if running PhotonVision*/
         // photonVision = new PhotonVision();
@@ -68,7 +71,7 @@ public class Vision extends SubsystemBase {
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
         double area = ta.getDouble(0.0);
-        double latency = tl.getDouble(0.0);
+        latency = tl.getDouble(0.0);
 
         double[] subbedPose = poseSub.get();
         if (subbedPose.length > 0) {
@@ -88,10 +91,6 @@ public class Vision extends SubsystemBase {
                                     Units.degreesToRadians(subbedPose[4]),
                                     Units.degreesToRadians(subbedPose[5])));
             botPose = botPose3d.toPose2d();
-            /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-            if (isValidPose(botPose)) {
-                Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
-            }
         }
 
         SmartDashboard.putString("tagX", df.format(x));
@@ -126,6 +125,11 @@ public class Vision extends SubsystemBase {
                 df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
     }
 
+    /** @return pipeline latency */
+    public double getLatency() {
+        return latency;
+    }
+
     /**
      * Returns the corresponding limelight pose for the current alliance color set in Vision.java
      *
@@ -142,12 +146,18 @@ public class Vision extends SubsystemBase {
 
     /**
      * Comparing vision pose against odometry pose. Does not account for difference in rotation.
+     * Will return false vision if it sees no targets or if the vision estimated pose is too far
+     * from the odometry estimate
      *
-     * @return whether or not the vision estimated pose is within 1 meter of the odometry estimated
-     *     pose
+     * @return whether or not pose should be added to estimate or not
      */
     public boolean isValidPose(Pose2d pose) {
+        boolean isTargetInView = (tv.getDouble(0.0) == 1) ? true : false;
         Pose2d odometryPose = Robot.swerve.getPoseMeters();
+        /* Disregard Vision if there are no targets in view */
+        if (!isTargetInView) {
+            return false;
+        }
         /* Disregard Vision if odometry has not been set to vision pose yet in teleopInit*/
         if (odometryPose.getX() <= 0.3
                 && odometryPose.getY() <= 0.3
