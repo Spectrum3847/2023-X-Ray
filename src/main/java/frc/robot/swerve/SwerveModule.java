@@ -45,6 +45,9 @@ public class SwerveModule {
         angleEncoder = new WPI_CANCoder(moduleConfig.cancoderID);
         configAngleEncoder();
 
+        // Must do this before you configure angle motor correctly
+        mAbsoluteAngle = checkAbsoluteAngle();
+
         /* Angle Motor Config */
         mAngleMotor = new WPI_TalonFX(moduleConfig.angleMotorID);
         configAngleMotor();
@@ -53,7 +56,16 @@ public class SwerveModule {
         mDriveMotor = new WPI_TalonFX(moduleConfig.driveMotorID);
         configDriveMotor();
 
-        lastAngle = getState().angle;
+        mSwerveModState = getCANState();
+        mSwerveModPosition = getCANPosition();
+        lastAngle = checkFalconAngle();
+    }
+
+    @Override
+    public void periodic() {
+        mSwerveModState = getCANState();
+        mSwerveModPosition = getCANPosition();
+        mAbsoluteAngle = checkAbsoluteAngle();
     }
 
     /**
@@ -98,10 +110,10 @@ public class SwerveModule {
     }
 
     public void resetToAbsolute() {
-        double offset = angleOffset;
         double absolutePosition =
                 Conversions.degreesToFalcon(
-                        getCanCoderAngle().getDegrees() - offset, SwerveConfig.angleGearRatio);
+                        getAbsoluteAngle().getDegrees() - angleOffset,
+                        config.physical.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
 

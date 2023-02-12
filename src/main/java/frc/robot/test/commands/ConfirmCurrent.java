@@ -2,20 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.test;
+package frc.robot.test.commands;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.SpectrumLib.util.Util;
 import frc.robot.RobotTelemetry;
 
-public class confirmCurrent extends CommandBase {
+public class ConfirmCurrent extends CommandBase {
     private WPI_TalonFX motor;
     private double current;
     private double targetCurrent;
     private String name;
 
-    public confirmCurrent(String name, WPI_TalonFX motor, double targetCurrent) {
+    public ConfirmCurrent(String name, WPI_TalonFX motor, double targetCurrent) {
         this.motor = motor;
         this.targetCurrent = targetCurrent;
         this.name = name;

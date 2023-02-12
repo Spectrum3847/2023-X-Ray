@@ -4,7 +4,6 @@ import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import frc.robot.Robot;
 import frc.robot.auton.Auton;
-import frc.robot.swerve.SwerveConfig;
 import frc.robot.trajectories.TrajectoriesConfig;
 
 public class PathBuilder { // Used to create paths for Autonomus and for On-the-Fly Generation

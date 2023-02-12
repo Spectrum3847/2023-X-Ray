@@ -14,6 +14,15 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.swerve.configTemplates.SwerveConfig;
+import frc.robot.swerve.configs.ALPHA2023;
+import frc.robot.swerve.configs.FLASH2021;
+import frc.robot.swerve.configs.GAMMA2021;
+import frc.robot.swerve.configs.INFRARED2022;
+import frc.robot.swerve.gyros.GyroIO;
+import frc.robot.swerve.gyros.Pigeon1;
+import frc.robot.swerve.gyros.Pigeon2;
 
 public class Swerve extends SubsystemBase {
     public SwerveConfig config;
@@ -24,9 +33,31 @@ public class Swerve extends SubsystemBase {
     private SwerveModuleState[] mSwerveModStates;
 
     public Swerve() {
-        setName("Swerve");
-        config = new SwerveConfig();
-        gyro = new Gyro();
+        setName("Swerve"); // Check robot type and make the config file
+        switch (Robot.config.getRobotType()) {
+            case GAMMA2021:
+                config = GAMMA2021.config;
+                break;
+            case INFRARED3847:
+                config = INFRARED2022.config;
+                break;
+            case FLASH2021:
+                config = FLASH2021.config;
+                break;
+            default:
+                config = ALPHA2023.config;
+                break;
+        }
+
+        switch (config.gyro.type) {
+            case PIGEON1:
+                gyro = new Pigeon1();
+                break;
+            case PIGEON2:
+            default:
+                gyro = new Pigeon2();
+                break;
+        }
 
         mSwerveMods =
                 new SwerveModule[] {
