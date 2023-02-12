@@ -1,6 +1,7 @@
 package frc.robot.pilot;
 
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
@@ -86,6 +87,10 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTestButtons() {}
+
+    private Trigger leftGrid() {
+        return gamepad.leftBumper.and(gamepad.rightBumper.negate());
+    }
 
     public double getDriveFwdPositive() {
         double fwdPositive = gamepad.leftStick.getY();

@@ -9,6 +9,7 @@ import com.ctre.phoenix.sensors.SensorTimeBase;
 
 /** This is a class for the configuration of a single swerve module. */
 public class ModuleConfig {
+    public final String canBus;
     public final int driveMotorID;
     public final int angleMotorID;
     public final int absAngleSensorID;
@@ -19,12 +20,14 @@ public class ModuleConfig {
     public final CANCoderConfiguration swerveCanCoderConfig;
 
     public ModuleConfig(
+            String canBus,
             int driveMotorID,
             int angleMotorID,
             int AbsAngleSensorID,
             double angleOffset,
             PhysicalConfig physical,
             TuningConfig tuning) {
+        this.canBus = canBus;
         this.driveMotorID = driveMotorID;
         this.angleMotorID = angleMotorID;
         this.absAngleSensorID = AbsAngleSensorID;
@@ -73,5 +76,15 @@ public class ModuleConfig {
         swerveCanCoderConfig.initializationStrategy =
                 SensorInitializationStrategy.BootToAbsolutePosition;
         swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
+    }
+
+    public ModuleConfig(
+            int driveMotorID,
+            int angleMotorID,
+            int absAngleSensorID,
+            double angleOffset,
+            PhysicalConfig physical,
+            TuningConfig tuning) {
+        this("rio", driveMotorID, angleMotorID, absAngleSensorID, angleOffset, physical, tuning);
     }
 }
