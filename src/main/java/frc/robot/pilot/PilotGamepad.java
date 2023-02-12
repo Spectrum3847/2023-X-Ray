@@ -1,11 +1,7 @@
 package frc.robot.pilot;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.IntakeCommands;
@@ -15,7 +11,6 @@ import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.pose.commands.PoseCommands;
-import frc.robot.trajectories.commands.GeneratePath;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
