@@ -60,8 +60,9 @@ public class Vision extends SubsystemBase {
         double latency =
                 LimelightHelpers.getLatency_Pipeline(
                         null); // may need to add LimelightHelpers json parsing delay?
+        double[] poseArray = LimelightHelpers.getLimelightNTDoubleArray(null, "botpose");
 
-        if (LimelightHelpers.getLimelightNTDoubleArray(null, "botpose").length > 0) {
+        if (poseArray.length > 0) {
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
@@ -82,7 +83,7 @@ public class Vision extends SubsystemBase {
                         getTimestampSeconds(photonVisionPose.getSecond().doubleValue()));
             }
         }
-        printDebug();
+        printDebug(poseArray);
     }
 
     /**
@@ -153,17 +154,21 @@ public class Vision extends SubsystemBase {
      *
      * @param values the array of limelight raw values
      */
-    public void printDebug() {
-        SmartDashboard.putString("LimelightX", df.format(botPose3d.getTranslation().getX()));
-        SmartDashboard.putString("LimelightY", df.format(botPose3d.getTranslation().getY()));
-        SmartDashboard.putString("LimelightZ", df.format(botPose3d.getTranslation().getZ()));
-        SmartDashboard.putString(
-                "LimelightRoll", df.format(Units.radiansToDegrees(botPose3d.getRotation().getX())));
-        SmartDashboard.putString(
-                "LimelightPitch",
-                df.format(Units.radiansToDegrees(botPose3d.getRotation().getY())));
-        SmartDashboard.putString(
-                "LimelightYaw", df.format(Units.radiansToDegrees(botPose3d.getRotation().getZ())));
+    public void printDebug(double[] poseArray) {
+        if (poseArray.length > 0) {
+            SmartDashboard.putString("LimelightX", df.format(botPose3d.getTranslation().getX()));
+            SmartDashboard.putString("LimelightY", df.format(botPose3d.getTranslation().getY()));
+            SmartDashboard.putString("LimelightZ", df.format(botPose3d.getTranslation().getZ()));
+            SmartDashboard.putString(
+                    "LimelightRoll",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getX())));
+            SmartDashboard.putString(
+                    "LimelightPitch",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getY())));
+            SmartDashboard.putString(
+                    "LimelightYaw",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getZ())));
+        }
         SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
         SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
         SmartDashboard.putString(
