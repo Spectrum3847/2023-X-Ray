@@ -8,7 +8,7 @@ import frc.robot.swerve.configTemplates.PhysicalConfig;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
-public class GAMMA20212 {
+public class GAMMA2021 {
     /* Angle Offsets */
     static final double Mod0AngleOffset = 182.54;
     static final double Mod1AngleOffset = 88.69;
@@ -20,8 +20,8 @@ public class GAMMA20212 {
     static final int port = 0;
 
     public static final GyroConfig gyro = new GyroConfig(type, port);
-    public static final PhysicalConfig physical = Flash2021.physical;
-    public static final TuningConfig tuning = Flash2021.tuning;
+    public static final PhysicalConfig physical = FLASH2021.physical;
+    public static final TuningConfig tuning = FLASH2021.tuning;
 
     /* Module Configs */
     static final ModuleConfig Mod0 =

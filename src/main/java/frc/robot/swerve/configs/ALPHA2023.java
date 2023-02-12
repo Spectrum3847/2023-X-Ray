@@ -9,7 +9,7 @@ import frc.robot.swerve.configTemplates.PhysicalConfig.AngleSensorType;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
-public class ALPHA20232 {
+public class ALPHA2023 {
     /* Angle Offsets */
     public static final double mod0angleOffset = 194.76;
     public static final double mod1angleOffset = 169.18;

@@ -10,7 +10,7 @@ import frc.robot.swerve.configTemplates.PhysicalConfig.AngleSensorType;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
-public class Infrared3847 {
+public class INFRARED2022 {
     /* Angle Offsets */
     static final double Mod0AngleOffset = 322.822;
     static final double Mod1AngleOffset = 126.826;

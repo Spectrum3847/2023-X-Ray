@@ -10,7 +10,7 @@ import frc.robot.swerve.configTemplates.PhysicalConfig.AngleSensorType;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
-public class Flash2021 {
+public class FLASH2021 {
     /* Angle Offsets */
     static final double Mod0AngleOffset = 182.54;
     static final double Mod1AngleOffset = 88.69;
