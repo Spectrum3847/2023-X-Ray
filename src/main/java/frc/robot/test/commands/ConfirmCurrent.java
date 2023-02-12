@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.SpectrumLib.util.Util;
 import frc.robot.RobotTelemetry;
 
-public class ConfirmCurrents extends CommandBase {
+public class ConfirmCurrent extends CommandBase {
     private WPI_TalonFX motor;
     private double current;
     private double targetCurrent;
     private String name;
 
-    public ConfirmCurrents(String name, WPI_TalonFX motor, double targetCurrent) {
+    public ConfirmCurrent(String name, WPI_TalonFX motor, double targetCurrent) {
         this.motor = motor;
         this.targetCurrent = targetCurrent;
         this.name = name;
