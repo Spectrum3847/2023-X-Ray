@@ -12,10 +12,10 @@ import frc.robot.swerve.configTemplates.TuningConfig;
 
 public class FLASH2021 {
     /* Angle Offsets */
-    static final double Mod0AngleOffset = 182.54;
-    static final double Mod1AngleOffset = 88.69;
-    static final double Mod2AngleOffset = 352.4;
-    static final double Mod3AngleOffset = 350.59;
+    static final double Mod0AngleOffset = 184.39;
+    static final double Mod1AngleOffset = 99;
+    static final double Mod2AngleOffset = 355;
+    static final double Mod3AngleOffset = 342;
 
     /* Physical Configs */
     static final double trackWidth = Units.inchesToMeters(17.5);
