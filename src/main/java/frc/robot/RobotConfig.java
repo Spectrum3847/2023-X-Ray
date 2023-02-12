@@ -11,7 +11,9 @@ public final class RobotConfig {
     public final String Canivore = "3847";
     public final Motors motors = new Motors();
     public final Pneumatic pneumatic = new Pneumatic();
-    public final String praticeBotMAC = "00:80:2F:23:E9:33";
+    public final String pratice2023BotMAC = "00:80:2F:23:E9:33";
+    public final String alpha2023BotMAC = "00:80:2F:23:E9:00";
+    public final String flash2021BotMAC = "00:80:2F:23:E9:00";
     public final ModuleType PowerDistributionType = ModuleType.kCTRE;
 
     public static final int pigeonID = 0;
@@ -47,10 +49,14 @@ public final class RobotConfig {
         RobotTelemetry.createTab(mainTabName);
         checkRobotType();
         switch (getRobotType()) {
-            case COMP:
+            case XRAY2023:
                 break;
-            case PRACTICE:
+            case PRACTICE2023:
                 break;
+            case ALPHA2023:
+            case GAMMA2021:
+            case INFRARED3847:
+            case FLASH2021:
             case SIM:
             case REPLAY:
                 // Set all the constants specifically for the simulation
@@ -63,12 +69,18 @@ public final class RobotConfig {
         if (Robot.isSimulation()) {
             robotType = RobotType.SIM;
             RobotTelemetry.print("Robot Type: Simulation");
-        } else if (Robot.MAC.equals(praticeBotMAC)) {
-            robotType = RobotType.PRACTICE;
-            RobotTelemetry.print("Robot Type: Practice");
+        } else if (Robot.MAC.equals(pratice2023BotMAC)) {
+            robotType = RobotType.PRACTICE2023;
+            RobotTelemetry.print("Robot Type: Practice-2023");
+        } else if (Robot.MAC.equals(alpha2023BotMAC)) {
+            robotType = RobotType.ALPHA2023;
+            RobotTelemetry.print("Robot Type: Alpha-2023");
+        } else if (Robot.MAC.equals(flash2021BotMAC)) {
+            robotType = RobotType.FLASH2021;
+            RobotTelemetry.print("Robot Type: FLASH-2021");
         } else {
-            robotType = RobotType.COMP;
-            RobotTelemetry.print("Robot Type: Competition");
+            robotType = RobotType.XRAY2023;
+            RobotTelemetry.print("Robot Type: X-RAY-2023");
         }
         return robotType;
     }
@@ -78,8 +90,12 @@ public final class RobotConfig {
     }
 
     public enum RobotType {
-        COMP,
-        PRACTICE,
+        XRAY2023,
+        PRACTICE2023,
+        ALPHA2023,
+        FLASH2021,
+        GAMMA2021,
+        INFRARED3847,
         SIM,
         REPLAY
     }

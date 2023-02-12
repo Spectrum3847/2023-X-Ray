@@ -7,8 +7,6 @@ import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import java.util.function.DoubleSupplier;
 
-// above all copied from PilotCommands.java
-
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
         Robot.elevator.setDefaultCommand(new ElevatorHoldPosition());
