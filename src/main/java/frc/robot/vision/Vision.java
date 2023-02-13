@@ -57,12 +57,15 @@ public class Vision extends SubsystemBase {
      */
     public void update() {
         /* Limelight Pose Estimation Retrieval */
-        double latency =
-                LimelightHelpers.getLatency_Pipeline(
-                        null); // may need to add LimelightHelpers json parsing delay?
+        double latency = 0;
         double[] poseArray = LimelightHelpers.getLimelightNTDoubleArray(null, "botpose");
 
         if (poseArray.length > 0) {
+            latency =
+                    (DriverStation.getAlliance() == Alliance.Blue)
+                            ? LimelightHelpers.getBotPose_wpiBlue(null)[6]
+                            : LimelightHelpers.getBotPose_wpiRed(null)[
+                                    6]; // may need to add LimelightHelpers json parsing delay?
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
