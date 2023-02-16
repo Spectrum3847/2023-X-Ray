@@ -45,15 +45,16 @@ public class Pose extends SubsystemBase {
     @Override
     public void periodic() {
         updateOdometryEstimate();
+        Robot.vision.update();
         setEstimatedPose(getPosition());
         setOdometryPose(Robot.swerve.getPoseMeters());
 
-        // updatePose("DesiredPose", desiredPose);
+        telemetry.updatePoseOnField("VisionPose", Robot.vision.botPose);
         telemetry.updatePoseOnField("OdometryPose", odometryPose);
         telemetry.updatePoseOnField("EstimatedPose", estimatePose);
     }
 
-    /** Sets the Odometry Pose to the given post */
+    /** Sets the Odometry Pose to the given pose */
     public void setOdometryPose(Pose2d pose) {
         odometryPose = pose;
     }

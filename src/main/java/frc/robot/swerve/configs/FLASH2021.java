@@ -43,7 +43,8 @@ public class FLASH2021 {
 
     /* Swerve Profiling Values */
     static final double maxVelocity =
-            ((6380 / 60) / angleGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per // second
+            (((6380 / 60) / angleGearRatio) * wheelDiameter * Math.PI * 0.95)
+                    * 0.5; // meters per // second
     static final double maxAccel = maxVelocity * 1.5; // take 1/2 sec to get to max speed.
     static final double maxAngularVelocity =
             maxVelocity / Math.hypot(trackWidth / 2.0, wheelBase / 2.0);

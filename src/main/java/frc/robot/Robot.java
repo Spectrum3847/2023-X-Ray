@@ -50,31 +50,30 @@ public class Robot extends LoggedRobot {
 
     // Intialize subsystems and run their setupDefaultCommand methods here
     private void intializeSystems() {
-        System.out.println("Started initSubsystems");
+        System.out.println("Started InitSubsystems");
+        vision = new Vision();
+        System.out.println("Started Vision");
         swerve = new Swerve();
-        System.out.println("Started swerve");
+        System.out.println("Started Swerve");
         pose = new Pose();
-        System.out.println("Started pose");
+        System.out.println("Started Pose");
         trajectories = new Trajectories();
-        System.out.println("Started trajectories");
+        System.out.println("Started Trajectories");
 
         elevator = new Elevator();
-        System.out.println("Started elevator");
+        System.out.println("Started Elevator");
         intake = new Intake();
-        System.out.println("Started intake");
+        System.out.println("Started Intake");
         fourBar = new FourBar();
-        System.out.println("Started fourBar");
-
-        // vision = new Vision();
-        // System.out.println("Started vision");
+        System.out.println("Started FourBar");
 
         leds = new LEDs();
-        System.out.println("Started led");
+        System.out.println("Started Led");
         pilotGamepad = new PilotGamepad();
         operatorGamepad = new OperatorGamepad();
-        System.out.println("Started gamepads");
+        System.out.println("Started Gamepads");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
-        System.out.println("Started robotTelemetry");
+        System.out.println("Started RobotTelemetry");
 
         // Set Default Commands, this method should exist for each subsystem that has
         // commands
@@ -160,6 +159,10 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("## Disabled Init Starting");
         resetCommandsAndButtons();
 
+        if (vision.botPose.getX() >= 0.3) {
+            pose.resetPoseEstimate(Robot.vision.botPose);
+        }
+
         RobotTelemetry.print("## Disabled Init Complete");
     }
 
@@ -197,6 +200,10 @@ public class Robot extends LoggedRobot {
     public void teleopInit() {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
+
+        if (vision.botPose.getX() >= 0.3) {
+            pose.resetPoseEstimate(Robot.vision.botPose);
+        }
 
         RobotTelemetry.print("$$ Teleop Init Complete");
     }
