@@ -59,7 +59,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(
-                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
+                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.2));
 
         // Right Stick points the robot in that direction
         // Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5,

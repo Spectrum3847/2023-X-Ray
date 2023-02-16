@@ -11,7 +11,7 @@ public final class RobotConfig {
     public final String Canivore = "3847";
     public final Motors motors = new Motors();
     public final Pneumatic pneumatic = new Pneumatic();
-    public final String pratice2023BotMAC = "00:80:2F:23:E9:01";
+    public final String pratice2023BotMAC = "00:80:2F:19:0D:CE";
     public final String alpha2023BotMAC = "00:80:2F:23:E9:33";
     public final String flash2021BotMAC = "00:80:2F:32:FC:79";
     public final ModuleType PowerDistributionType = ModuleType.kCTRE;
@@ -33,10 +33,12 @@ public final class RobotConfig {
         public static final int driveMotor3 = 31;
         public static final int angleMotor3 = 32;
 
-        public static final int launcherMotor = 50; // unused
-        public static final int intakeMotor = 52; // unused
-        public static final int elevatorMotor = 40;
-        public static final int fourBarMotor = 45;
+        public static final int elevatorMotor = 41;
+        public static final int fourBarMotor = 42;
+
+        public static final int lowerIntake = 51;
+        public static final int midIntake = 52;
+        public static final int launcher = 53;
     }
 
     public final class Pneumatic {

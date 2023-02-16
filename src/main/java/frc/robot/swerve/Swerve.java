@@ -20,6 +20,8 @@ import frc.robot.swerve.configs.ALPHA2023;
 import frc.robot.swerve.configs.FLASH2021;
 import frc.robot.swerve.configs.GAMMA2021;
 import frc.robot.swerve.configs.INFRARED2022;
+import frc.robot.swerve.configs.PRACTICE2023;
+import frc.robot.swerve.configs.XRAY2023;
 import frc.robot.swerve.gyros.GyroIO;
 import frc.robot.swerve.gyros.Pigeon1;
 import frc.robot.swerve.gyros.Pigeon2;
@@ -44,8 +46,14 @@ public class Swerve extends SubsystemBase {
             case FLASH2021:
                 config = FLASH2021.config;
                 break;
-            default:
+            case ALPHA2023:
                 config = ALPHA2023.config;
+                break;
+            case PRACTICE2023:
+                config = PRACTICE2023.config;
+                break;
+            default:
+                config = XRAY2023.config;
                 break;
         }
 
@@ -55,7 +63,7 @@ public class Swerve extends SubsystemBase {
                 break;
             case PIGEON2:
             default:
-                gyro = new Pigeon2();
+                gyro = new Pigeon2(config.modules[0].canBus);
                 break;
         }
 
