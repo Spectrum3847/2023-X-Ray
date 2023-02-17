@@ -11,9 +11,13 @@ public class Pigeon2 implements GyroIO {
      * Creates a new Gyro, which is a wrapper for the Pigeon IMU and stores an offset so we don't
      * have to directly zero the gyro
      */
-    public Pigeon2() {
-        pigeon = new WPI_Pigeon2(RobotConfig.pigeonID);
+    public Pigeon2(String canBus) {
+        pigeon = new WPI_Pigeon2(RobotConfig.pigeonID, canBus);
         pigeon.configFactoryDefault();
+    }
+
+    public Pigeon2() {
+        this("rio");
     }
 
     /**

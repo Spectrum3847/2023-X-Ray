@@ -47,7 +47,7 @@ public class SwerveModule extends SubsystemBase {
         /* Angle Encoder Config */
         switch (config.physical.angleSensorType) {
             case CANCoder:
-                angleEncoder = new CanCoder(moduleConfig.absAngleSensorID);
+                angleEncoder = new CanCoder(moduleConfig.absAngleSensorID, moduleConfig.canBus);
                 break;
             case ThriftyEncoder:
                 angleEncoder = new ThriftyEncoder(moduleConfig.absAngleSensorID);
@@ -58,11 +58,11 @@ public class SwerveModule extends SubsystemBase {
         mAbsoluteAngle = checkAbsoluteAngle();
 
         /* Angle Motor Config */
-        mAngleMotor = new WPI_TalonFX(moduleConfig.angleMotorID);
+        mAngleMotor = new WPI_TalonFX(moduleConfig.angleMotorID, moduleConfig.canBus);
         configAngleMotor();
 
         /* Drive Motor Config */
-        mDriveMotor = new WPI_TalonFX(moduleConfig.driveMotorID);
+        mDriveMotor = new WPI_TalonFX(moduleConfig.driveMotorID, moduleConfig.canBus);
         configDriveMotor();
 
         mSwerveModState = getCANState();
