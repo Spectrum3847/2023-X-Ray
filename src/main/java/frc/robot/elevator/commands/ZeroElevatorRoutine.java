@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 
-public class ZeroElevator extends CommandBase {
+public class ZeroElevatorRoutine extends CommandBase {
     /** Creates a new ZeroElevator. */
-    public ZeroElevator() {
+    public ZeroElevatorRoutine() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.elevator);
     }
@@ -27,7 +27,6 @@ public class ZeroElevator extends CommandBase {
     public void execute() {
         // Set elevator to slowly lower
         Robot.elevator.setManualOutput(Elevator.config.zeroSpeed);
-        Robot.elevator.zeroElevator();
     }
 
     // Called once the command ends or is interrupted.
@@ -35,7 +34,7 @@ public class ZeroElevator extends CommandBase {
     public void end(boolean interrupted) {
         // Set elevator position to zero
         // enable soft limits
-        Robot.elevator.resetSensorPosition(-500);
+        Robot.elevator.resetSensorPosition(-300);
         Robot.elevator.softLimitsTrue();
         Robot.elevator.setMMPosition(0);
     }

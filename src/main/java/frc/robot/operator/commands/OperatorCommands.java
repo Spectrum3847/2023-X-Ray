@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.intakeLauncher.IntakeCommands;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {}
@@ -22,7 +22,8 @@ public class OperatorCommands {
     /* Position Commands */
 
     public static Command coneIntake() {
-        return ElevatorCommands.coneIntake().alongWith(FourBarCommands.coneIntake());
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
     }
 
     public static Command coneMid() {
@@ -33,20 +34,22 @@ public class OperatorCommands {
         return ElevatorCommands.coneTop().alongWith(FourBarCommands.coneTop());
     }
 
-    public static Command coneShelf() {
-        return ElevatorCommands.coneShelf().alongWith(FourBarCommands.coneShelf());
+    public static Command coneShelfIntake() {
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
     }
 
     public static Command cubeIntake() {
-        return ElevatorCommands.cubeIntake().alongWith(FourBarCommands.cubeIntake());
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
     public static Command cubeMid() {
-        return ElevatorCommands.cubeMid().alongWith(FourBarCommands.cubeMid());
+        return IntakeCommands.midCubeSpinUp().alongWith(homeSystems());
     }
 
     public static Command cubeTop() {
-        return ElevatorCommands.cubeTop().alongWith(FourBarCommands.cubeTop());
+        return IntakeCommands.topCubeSpinUp().alongWith(homeSystems());
     }
 
     /** Goes to 0 */

@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.fourbar.FourBar;
 
-public class ZeroFourBar extends CommandBase {
+public class ZeroFourBarRoutine extends CommandBase {
     /** Creates a new ZerofourBar. */
-    public ZeroFourBar() {
+    public ZeroFourBarRoutine() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.fourBar);
     }
@@ -27,7 +27,6 @@ public class ZeroFourBar extends CommandBase {
     public void execute() {
         // Set fourBar to slowly lower
         Robot.fourBar.setManualOutput(FourBar.config.zeroSpeed);
-        Robot.fourBar.zeroFourBar();
     }
 
     // Called once the command ends or is interrupted.

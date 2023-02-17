@@ -1,7 +1,6 @@
 package frc.robot.elevator;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
@@ -18,6 +17,7 @@ public class Elevator extends LinearMechSubsystem {
         setupFalconLeader();
         motorLeader.configReverseSoftLimitThreshold(0);
         motorLeader.configReverseSoftLimitEnable(true);
+        motorLeader.configNominalOutputForward(0.03);
     }
 
     public void zeroElevator() {
@@ -34,12 +34,6 @@ public class Elevator extends LinearMechSubsystem {
 
     public void softLimitsFalse() {
         motorLeader.configReverseSoftLimitEnable(false);
-    }
-
-    public double getKf() {
-        TalonFXConfiguration FXconfig = new TalonFXConfiguration();
-        motorLeader.getAllConfigs(FXconfig);
-        return FXconfig.slot0.kF;
     }
 
     /**

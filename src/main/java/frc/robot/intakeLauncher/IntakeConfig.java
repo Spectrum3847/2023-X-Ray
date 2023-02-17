@@ -2,64 +2,50 @@ package frc.robot.intakeLauncher;
 
 public class IntakeConfig {
 
-    double lowerDiameter = 0.8;
-    double frontDiameter = 2.125;
-    double launcherDiamter = 3;
+    public double lowerDiameter = 0.8;
+    public double frontDiameter = 2.125;
+    public double launcherDiamter = 3;
 
-    double lowerGearRatio = 12 / 15;
-    double frontGearRatio = 18 / 22;
-    double launcherGearRatio = 18 / 12;
+    public double lowerGearRatio = 12 / 15;
+    public double frontGearRatio = 18 / 22;
+    public double launcherGearRatio = 18 / 12;
 
-    double falconMaxSpeed = 6380; // RPM
+    public double falconMaxSpeed = 6380; // RPM
 
-    double lowerMaxSpeed = falconMaxSpeed * lowerGearRatio * lowerDiameter * Math.PI;
-    double frontMaxSpeed = falconMaxSpeed * frontGearRatio * frontDiameter * Math.PI;
-    double launcherMaxSpeed = falconMaxSpeed * launcherGearRatio * launcherDiamter * Math.PI;
+    public double lowerMaxSpeed = falconMaxSpeed; // * lowerGearRatio * lowerDiameter * Math.PI;
+    public double frontMaxSpeed = falconMaxSpeed; // * frontGearRatio * frontDiameter * Math.PI;
+    public double launcherMaxSpeed =
+            falconMaxSpeed; // * launcherGearRatio * launcherDiamter * Math.PI;
 
     // Speed settings
-    double lowerIntakeSpeed = lowerMaxSpeed * 0.85;
-    double frontIntakeSpeed = frontMaxSpeed * 0.85;
-    double launcherIntakeSpeed = launcherMaxSpeed * -0.1;
+    public double lowerIntakeSpeed = 6000; // lowerMaxSpeed * 0.85;
+    public double frontIntakeSpeed = 6000; // frontMaxSpeed * 0.85;
+    public double launcherIntakeSpeed = -2000;
 
-    double lowerEjectSpeed = lowerMaxSpeed * -0.5;
-    double frontEjectSpeed = frontMaxSpeed * -0.5;
-    double launcherEjectSpeed = launcherMaxSpeed * 0.5;
+    public double lowerEjectSpeed = -4000;
+    public double frontEjectSpeed = -5000;
+    public double launcherEjectSpeed = 2000;
 
-    double lowerSpinUpSpeed = lowerMaxSpeed * 0.1;
+    public double lowerSpinUpSpeed = 800;
 
-    double lowerFeedSpeed = lowerMaxSpeed * -0.5;
-    double frontMidCubeSpeed = frontMaxSpeed * 0.6;
-    double launcherMidCubeSpeed = launcherMaxSpeed * 0.5;
+    public double lowerFeedSpeed = -3000;
+    public double frontMidCubeSpeed = 3000;
+    public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
-    double frontTopCubeSpeed = frontMaxSpeed * 0.8;
-    double launcherTopCubeSpeed = launcherMaxSpeed * 0.8;
+    public double frontTopCubeSpeed = 4000;
+    public double launcherTopCubeSpeed = frontTopCubeSpeed;
 
-    double frontHybridSpeed = frontMaxSpeed * 0.3;
-    double launcherHybridSpeed = launcherMaxSpeed * 0.3;
+    public double frontHybridSpeed = 2000;
+    public double launcherHybridSpeed = frontHybridSpeed;
 
-    double frontFullLaunchSpeed = frontMaxSpeed * 1.0;
-    double launcherFullLaunchSpeed = launcherMaxSpeed * 1.0;
+    public double frontFullLaunchSpeed = frontMaxSpeed * 1.0;
+    public double launcherFullLaunchSpeed = launcherMaxSpeed * 1.0;
 
-    double frontAutoMidSpeed = frontMaxSpeed * 0.9;
-    double launcherAutoMidSpeed = launcherMaxSpeed * 0.9;
+    public double frontAutoMidSpeed = frontMaxSpeed * 0.9;
+    public double launcherAutoMidSpeed = launcherMaxSpeed * 0.9;
 
-    double lowerSpeedKp = 0.065;
-    double lowerSpeedKf = 0.0519;
-
-    double frontSpeedKp = 0.065;
-    double frontSpeekKf = 0.0519;
-
-    double launcherSpeedKp = 0.065;
-    double launcherSpeedKf = 0.0519;
-
-    double lowerPositionKp = 0.5;
-    double lowerPositionKf = 0.5;
-
-    double frontPositionKp = 0.5;
-    double frontPositionKf = 0.5;
-
-    double launcherPositionKp = 0.5;
-    double launcherPositionKf = 0.5;
+    public double velocityKp = 0.065;
+    public double velocityKf = 0.0519;
 
     public IntakeConfig() {}
 }

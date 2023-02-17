@@ -6,7 +6,7 @@ import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.intakeLauncher.IntakeCommands;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
@@ -53,7 +53,7 @@ public class PilotGamepad extends Gamepad {
         // gamepad.yButton.whileTrue(new SpinMove());
         // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
         gamepad.aButton.whileTrue(IntakeCommands.intake());
-        gamepad.xButton.whileTrue(IntakeCommands.launch());
+        gamepad.xButton.whileTrue(IntakeCommands.manualLaunch());
         gamepad.yButton.whileTrue(IntakeCommands.eject());
         gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(30000));
         gamepad.rightBumper.whileTrue(
