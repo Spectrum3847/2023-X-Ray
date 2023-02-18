@@ -8,7 +8,8 @@ import java.util.function.DoubleSupplier;
 
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
-        Robot.elevator.setDefaultCommand(new ElevatorHoldPosition());
+        Robot.elevator.setDefaultCommand(
+                stop().withTimeout(0.25).andThen(new ElevatorHoldPosition()));
     }
 
     public static Command stop() {

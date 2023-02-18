@@ -8,7 +8,7 @@ import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.elevator.commands.ZeroElevatorRoutine;
+import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
@@ -33,16 +33,16 @@ public class OperatorGamepad extends Gamepad {
     public void setupTeleopButtons() {
         gamepad.aButton.whileTrue(OperatorCommands.cubeMid());
         gamepad.bButton.whileTrue(OperatorCommands.cubeTop());
-        // gamepad.xButton.whileTrue(OperatorCommands.coneMid());
-        // gamepad.yButton.whileTrue(OperatorCommands.coneTop());
+        gamepad.xButton.whileTrue(OperatorCommands.coneMid());
+        gamepad.yButton.whileTrue(OperatorCommands.coneTop());
         gamepad.rightTriggerButton.whileTrue(OperatorCommands.coneIntake());
         gamepad.leftTriggerButton.whileTrue(OperatorCommands.cubeIntake());
         gamepad.rightBumper.whileTrue(OperatorCommands.coneShelfIntake());
         gamepad.leftBumper.whileTrue(OperatorCommands.homeSystems());
         gamepad.Dpad.Up.whileTrue(IntakeCommands.intake());
         gamepad.Dpad.Down.whileTrue(IntakeCommands.eject());
-        gamepad.startButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
-        gamepad.selectButton.whileTrue(new ZeroElevatorRoutine());
+        gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
+        gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .whileTrue(OperatorCommands.manualFourBar());

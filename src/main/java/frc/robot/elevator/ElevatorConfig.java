@@ -13,14 +13,14 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public final double coneIntake = 0;
     public final double coneStandingIntake = 0;
-    public final double coneShelf = 140000;
+    public final double coneShelf = 126200;
 
-    public final double coneMid = 130000;
-    public final double coneTop = 150000;
+    public final double coneMid = 94000;
+    public final double coneTop = 165000;
 
     public final double diameterInches = 2.0; // changed from int, 4
     public final double gearRatio = 9 / 1;
-    public final double maxUpFalconPos = 162116;
+    public final double maxUpFalconPos = 170000;
 
     public final double safePositionForFourBar = 0; // TODO: find safe position for four bar
     public final double startingHeight = 0; // TODO: find starting height
@@ -34,15 +34,15 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public ElevatorConfig() {
         super(name);
-        this.kP = 0.5; // not accurate value, just testing
+        this.kP = 0.4; // not accurate value, just testing
         this.kI = 0; // could be 0
         this.kD = 0; // could be 0
-        this.kF = 0.4;
-        this.motionCruiseVelocity = 50663;
-        this.motionAcceleration = 60663;
+        this.kF = 0.064;
+        this.motionCruiseVelocity = 10500;
+        this.motionAcceleration = 42000;
 
-        this.currentLimit = 25;
-        this.tirggerThresholdLimit = 25;
+        this.currentLimit = 30;
+        this.tirggerThresholdLimit = 30;
         this.PeakCurrentDuration = 0.0;
         this.EnableCurrentLimit = true;
         updateTalonFXConfig();

@@ -19,8 +19,8 @@ public class IntakeConfig {
 
     // Speed settings
     public double lowerIntakeSpeed = 6000; // lowerMaxSpeed * 0.85;
-    public double frontIntakeSpeed = 6000; // frontMaxSpeed * 0.85;
-    public double launcherIntakeSpeed = -2000;
+    public double frontIntakeSpeed = 5000; // frontMaxSpeed * 0.85;
+    public double launcherIntakeSpeed = -500;
 
     public double lowerEjectSpeed = -4000;
     public double frontEjectSpeed = -5000;

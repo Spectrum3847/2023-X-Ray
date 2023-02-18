@@ -27,6 +27,7 @@ public class ZeroFourBarRoutine extends CommandBase {
     public void execute() {
         // Set fourBar to slowly lower
         Robot.fourBar.setManualOutput(FourBar.config.zeroSpeed);
+        Robot.fourBar.zeroFourBar();
     }
 
     // Called once the command ends or is interrupted.
