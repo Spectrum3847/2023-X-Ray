@@ -18,7 +18,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneMid = 94000;
     public final double coneTop = 165000;
 
-    public final double diameterInches = 2.0; // changed from int, 4
+    public final double diameterInches = 2.0051; // changed from int, 4
     public final double gearRatio = 9 / 1;
     public final double maxUpFalconPos = 170000;
 
