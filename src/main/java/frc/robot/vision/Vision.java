@@ -7,10 +7,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.DoubleArraySubscriber;
-import edu.wpi.first.networktables.DoubleArrayTopic;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -23,8 +19,6 @@ public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
     public Pose2d botPose;
 
-    private NetworkTable table;
-    private DoubleArraySubscriber poseSub;
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
 
@@ -35,10 +29,7 @@ public class Vision extends SubsystemBase {
         setName("Vision");
         botPose = new Pose2d(0, 0, new Rotation2d(0));
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
-        table = NetworkTableInstance.getDefault().getTable("limelight");
-        /* Creating bot pose sub using set alliance color */
-        poseSub = chooseAlliance().subscribe(new double[] {});
-        table.getEntry("ledMode").setValue(0);
+        LimelightHelpers.setLEDMode_ForceOff(null);
 
         /* PhotonVision Setup -- uncomment if running PhotonVision*/
         // photonVision = new PhotonVision();
@@ -66,10 +57,16 @@ public class Vision extends SubsystemBase {
      */
     public void update() {
         /* Limelight Pose Estimation Retrieval */
-        double latency = table.getEntry("tl").getDouble(0);
-        double[] subbedPose = poseSub.get();
-        if (subbedPose.length > 0) {
-            botPose3d = createBotPose3d(subbedPose);
+        double latency = 0;
+        double[] poseArray = LimelightHelpers.getLimelightNTDoubleArray(null, "botpose");
+
+        if (poseArray.length > 0) {
+            latency =
+                    (DriverStation.getAlliance() == Alliance.Blue)
+                            ? LimelightHelpers.getBotPose_wpiBlue(null)[6]
+                            : LimelightHelpers.getBotPose_wpiRed(null)[
+                                    6]; // may need to add LimelightHelpers json parsing delay?
+            botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
             if (isValidPose(Robot.vision.botPose)) {
@@ -89,35 +86,19 @@ public class Vision extends SubsystemBase {
                         getTimestampSeconds(photonVisionPose.getSecond().doubleValue()));
             }
         }
-
-        printDebug(subbedPose);
+        printDebug(poseArray);
     }
 
     /**
-     * Creates Pose3d object from raw limelight values sent through NetworkTables
+     * Returns the corresponding limelight pose for the alliance in DriverStation.java
      *
-     * @return Pose3d object representing the robot's pose
+     * @return Pose3d corresponding to blue or red alliance
      */
-    public Pose3d createBotPose3d(double[] values) {
-        return new Pose3d(
-                new Translation3d(values[0], values[1], values[2]),
-                new Rotation3d(
-                        Units.degreesToRadians(values[3]),
-                        Units.degreesToRadians(values[4]),
-                        Units.degreesToRadians(values[5])));
-    }
-
-    /**
-     * Returns the corresponding limelight pose for the current alliance color set in Vision.java
-     *
-     * @return NetworkTableEntry either botpose_wpiblue (blue driverstation origin) or
-     *     botpose_wpired (red driverstation origin)
-     */
-    public DoubleArrayTopic chooseAlliance() {
+    public Pose3d chooseAlliance() {
         if (DriverStation.getAlliance() == Alliance.Blue) {
-            return table.getDoubleArrayTopic("botpose_wpiblue");
+            return LimelightHelpers.getBotPose3d_wpiBlue(null);
         } else if (DriverStation.getAlliance() == Alliance.Red) {
-            return table.getDoubleArrayTopic("botpose_wpired");
+            return LimelightHelpers.getBotPose3d_wpiRed(null);
         }
         DriverStation.reportWarning("Invalid Team", false);
         return null;
@@ -132,7 +113,7 @@ public class Vision extends SubsystemBase {
      */
     public boolean isValidPose(Pose2d pose) {
         /* Disregard Vision if there are no targets in view */
-        if (table.getEntry("tv").getDouble(0.0) != 1) {
+        if (!LimelightHelpers.getTV(null)) {
             return false;
         }
 
@@ -158,18 +139,39 @@ public class Vision extends SubsystemBase {
     }
 
     /**
+     * Creates Pose3d object from raw limelight values sent through NetworkTables
+     *
+     * @param cameraConfig the camera config
+     * @return the camera pair
+     */
+    public Pose3d createBotPose3d(double[] values) {
+        return new Pose3d(
+                new Translation3d(values[0], values[1], values[2]),
+                new Rotation3d(
+                        Units.degreesToRadians(values[3]),
+                        Units.degreesToRadians(values[4]),
+                        Units.degreesToRadians(values[5])));
+    }
+
+    /**
      * Prints the vision, estimated, and odometry pose to SmartDashboard
      *
      * @param values the array of limelight raw values
      */
-    public void printDebug(double[] values) {
-        if (values.length > 0) {
-            SmartDashboard.putString("LimelightX", df.format(values[0]));
-            SmartDashboard.putString("LimelightY", df.format(values[1]));
-            SmartDashboard.putString("LimelightZ", df.format(values[2]));
-            SmartDashboard.putString("LimelightRoll", df.format(values[3]));
-            SmartDashboard.putString("LimelightPitch", df.format(values[4]));
-            SmartDashboard.putString("LimelightYaw", df.format(values[5]));
+    public void printDebug(double[] poseArray) {
+        if (poseArray.length > 0) {
+            SmartDashboard.putString("LimelightX", df.format(botPose3d.getTranslation().getX()));
+            SmartDashboard.putString("LimelightY", df.format(botPose3d.getTranslation().getY()));
+            SmartDashboard.putString("LimelightZ", df.format(botPose3d.getTranslation().getZ()));
+            SmartDashboard.putString(
+                    "LimelightRoll",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getX())));
+            SmartDashboard.putString(
+                    "LimelightPitch",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getY())));
+            SmartDashboard.putString(
+                    "LimelightYaw",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getZ())));
         }
         SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
         SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));

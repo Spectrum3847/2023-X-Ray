@@ -12,7 +12,7 @@ public class Elevator extends LinearMechSubsystem {
 
     public Elevator() {
         super(config);
-        motorLeader = new WPI_TalonFX(RobotConfig.Motors.elevatorMotor);
+        motorLeader = new WPI_TalonFX(RobotConfig.Motors.elevatorMotor, "3847");
         motorLeader.setNeutralMode(NeutralMode.Brake);
         config.updateTalonFXConfig();
         setupFalconLeader();

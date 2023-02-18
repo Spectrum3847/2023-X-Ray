@@ -10,10 +10,10 @@ import frc.robot.swerve.configTemplates.TuningConfig;
 
 public class PRACTICE2023 {
     /* Angle Offsets */
-    public static final double mod0angleOffset = 194.76;
-    public static final double mod1angleOffset = 169.18;
-    public static final double mod2angleOffset = 255.05;
-    public static final double mod3angleOffset = 309.19;
+    public static final double mod0angleOffset = 325.8;
+    public static final double mod1angleOffset = 69.58;
+    public static final double mod2angleOffset = 137.6;
+    public static final double mod3angleOffset = 15.46;
 
     public static final GyroConfig gyro = XRAY2023.gyro;
 
