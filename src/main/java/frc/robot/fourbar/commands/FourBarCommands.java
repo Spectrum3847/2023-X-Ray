@@ -11,6 +11,10 @@ public class FourBarCommands {
         Robot.fourBar.setDefaultCommand(new FourBarHoldPosition());
     }
 
+    public static Command ZeroFourBarRoutine() {
+        return new ZeroFourBarRoutine();
+    }
+
     public static Command setManualOutput(double speed) {
         return setManualOutput(speed);
     }

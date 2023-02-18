@@ -36,8 +36,8 @@ public final class RobotConfig {
         public static final int elevatorMotor = 41;
         public static final int fourBarMotor = 42;
 
-        public static final int lowerIntake = 51;
-        public static final int midIntake = 52;
+        public static final int lowerRoller = 51;
+        public static final int frontRoller = 52;
         public static final int launcher = 53;
     }
 

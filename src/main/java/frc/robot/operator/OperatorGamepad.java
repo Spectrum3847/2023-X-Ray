@@ -8,9 +8,8 @@ import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.elevator.commands.ZeroElevator;
-import frc.robot.fourbar.commands.ZeroFourBar;
-import frc.robot.intakeLauncher.IntakeCommands;
+import frc.robot.fourbar.commands.ZeroFourBarRoutine;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
 import frc.robot.leds.commands.SnowfallLEDCommand;
@@ -32,25 +31,19 @@ public class OperatorGamepad extends Gamepad {
     }
     // set up jiggle sometime
     public void setupTeleopButtons() {
-        // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
-        gamepad.aButton.whileTrue(IntakeCommands.intake());
-        gamepad.xButton.whileTrue(IntakeCommands.launch());
-        gamepad.yButton.whileTrue(IntakeCommands.eject());
-        gamepad.bButton.whileTrue(ElevatorCommands.setMMPosition(80000));
-        gamepad.rightTriggerButton.whileTrue(IntakeCommands.spinUpLauncher());
+        gamepad.aButton.whileTrue(OperatorCommands.cubeMid());
+        gamepad.bButton.whileTrue(OperatorCommands.cubeTop());
+        gamepad.xButton.whileTrue(OperatorCommands.coneMid());
+        gamepad.yButton.whileTrue(OperatorCommands.coneTop());
+        gamepad.rightTriggerButton.whileTrue(OperatorCommands.coneIntake());
+        gamepad.leftTriggerButton.whileTrue(OperatorCommands.cubeIntake());
+        gamepad.rightBumper.whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.leftBumper.whileTrue(OperatorCommands.homeSystems());
+        gamepad.Dpad.Up.whileTrue(IntakeCommands.intake());
+        gamepad.Dpad.Down.whileTrue(IntakeCommands.eject());
+        gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
+        gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 
-        gamepad.leftTriggerButton.whileTrue(OperatorCommands.coneIntake());
-        gamepad.Dpad.Up.whileTrue(OperatorCommands.coneMid());
-        gamepad.Dpad.Left.whileTrue(OperatorCommands.coneTop());
-        // gamepad.Dpad.Left.whileTrue(
-        //         ElevatorCommands.setMMPosition(50000).alongWith(new FourBarDelay(100, 0,
-        // 80000)));
-        // gamepad.Dpad.Left.whileTrue(
-        // FourBarCommands.setMMPercent(100).alongWith(new ElevatorDelay(20000, 80000, 90)));
-        // gamepad.Dpad.Right.whileTrue(OperatorCommands.cubeIntake());
-
-        gamepad.Dpad.Down.whileTrue((new ZeroElevator()));
-        gamepad.Dpad.Right.whileTrue((new ZeroFourBar()));
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .whileTrue(OperatorCommands.manualFourBar());
         AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
