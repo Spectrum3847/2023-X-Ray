@@ -24,4 +24,16 @@ public class Pigeon1 implements GyroIO {
     public Rotation2d getRawYaw() {
         return Rotation2d.fromDegrees(pigeon.getYaw());
     }
+
+    public Rotation2d getRawAngle() {
+        return Rotation2d.fromDegrees(pigeon.getAngle());
+    }
+
+    public Rotation2d getRawPitch() {
+        return Rotation2d.fromDegrees(pigeon.getPitch());
+    }
+
+    public Rotation2d getRawRoll() {
+        return Rotation2d.fromDegrees(pigeon.getRoll());
+    }
 }

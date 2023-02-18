@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.Robot;
+import frc.robot.autoBalance.commands.AutoBalanceCommand;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.leds.commands.RainbowLEDCommand;
@@ -58,6 +59,7 @@ public class PilotGamepad extends Gamepad {
                 () ->
                         Robot.swerve.odometry.resetOdometry(
                                 new Pose2d(3.80, 4.43, new Rotation2d(180)))));*/
+        //gamepad.yButton.whileTrue(new AutoBalanceCommand());
         leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
         leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
         leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());

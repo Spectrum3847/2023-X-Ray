@@ -8,7 +8,7 @@ public class TrajectoriesConfig {
     public static final double kGenPathMaxAccel = 3;
 
     // PID Values for 2023
-    public static final double kPTranslationController = 0;
+    public static final double kPTranslationController = 0.6; //6 for Alpha
     public static final double kITranslationController = 0;
     public static final double kDTranslationController = 0;
     public static final double kPRotationController = 5;
@@ -36,8 +36,8 @@ public class TrajectoriesConfig {
 
     // On-the-Fly Y Positions
     public static final double clearYPosition =
-            4.60; // This stays constant for all clear On-The-Fly Paths
+            4.80; // This stays constant for all clear On-The-Fly Paths
     public static final double bumpYPosition =
-            0.85; // This stays constant for all bump On-The-Fly Paths
+            0.7; // This stays constant for all bump On-The-Fly Paths
     public static final double changeYPositionLine = 2.65;
 }
