@@ -1,18 +1,13 @@
 package frc.robot.operator;
 
 import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
-import frc.robot.Robot;
-import frc.robot.RobotTelemetry;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
-import frc.robot.leds.commands.RainbowLEDCommand;
-import frc.robot.leds.commands.SnowfallLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
@@ -38,9 +33,11 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightTriggerButton.whileTrue(OperatorCommands.coneIntake());
         gamepad.leftTriggerButton.whileTrue(OperatorCommands.cubeIntake());
         gamepad.rightBumper.whileTrue(OperatorCommands.coneShelfIntake());
-        gamepad.leftBumper.whileTrue(OperatorCommands.homeSystems());
+        gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         gamepad.Dpad.Up.whileTrue(IntakeCommands.intake());
         gamepad.Dpad.Down.whileTrue(IntakeCommands.eject());
+        gamepad.Dpad.Left.whileTrue(OperatorCommands.coneFloorLED());
+        gamepad.Dpad.Right.whileTrue(OperatorCommands.cubeLED());
         gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
         gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 
@@ -51,12 +48,7 @@ public class OperatorGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kGreen, "Green", 5, 3));
-        // gamepad.bButton.whileTrue(new BlinkLEDCommand(Color.kPink, "Blink Pink", 10, 3));
-        gamepad.bButton.whileTrue(
-                new InstantCommand(() -> RobotTelemetry.print("" + Robot.elevator.getPosition())));
-        gamepad.xButton.whileTrue(new RainbowLEDCommand("rainbow", 15, 3));
-        gamepad.yButton.whileTrue(new SnowfallLEDCommand("Snowfall", 20, 3));
+        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 3));
     }
 
     public void setupTestButtons() {}

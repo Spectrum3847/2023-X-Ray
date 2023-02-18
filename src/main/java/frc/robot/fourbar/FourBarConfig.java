@@ -17,8 +17,10 @@ public class FourBarConfig extends AngleMechConfig {
     public final int coneStandingIntake = 70;
     public final int coneShelf = 0;
 
-    public final int coneMid = 44; // converted from 1800 angle //24700
+    public final int coneMid = 48; // converted from 1800 angle //24700
     public final int coneTop = 100; // converted from 54900 angle
+
+    public final int safePositionForElevator = 61;
 
     public final double zeroSpeed = -0.1;
 

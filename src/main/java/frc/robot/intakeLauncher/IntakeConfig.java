@@ -18,6 +18,10 @@ public class IntakeConfig {
             falconMaxSpeed; // * launcherGearRatio * launcherDiamter * Math.PI;
 
     // Speed settings
+    public double lowerSlowSpeed = 1000;
+    public double frontSlowSpeed = 800;
+    public double launcherSlowSpeed = 0;
+
     public double lowerIntakeSpeed = 6000; // lowerMaxSpeed * 0.85;
     public double frontIntakeSpeed = 5000; // frontMaxSpeed * 0.85;
     public double launcherIntakeSpeed = -500;
@@ -28,14 +32,14 @@ public class IntakeConfig {
 
     public double lowerSpinUpSpeed = 800;
 
-    public double lowerFeedSpeed = -3000;
-    public double frontMidCubeSpeed = 3000;
+    public double lowerFeedSpeed = -6000;
+    public double frontMidCubeSpeed = 1500;
     public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
-    public double frontTopCubeSpeed = 4000;
+    public double frontTopCubeSpeed = 2500;
     public double launcherTopCubeSpeed = frontTopCubeSpeed;
 
-    public double frontHybridSpeed = 2000;
+    public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed;
 
     public double frontFullLaunchSpeed = frontMaxSpeed * 1.0;
