@@ -12,6 +12,7 @@ import java.util.Map;
 public class SwerveTelemetry {
     protected ShuffleboardTab tab;
     private Swerve swerve;
+    boolean intailized = false;
 
     public SwerveTelemetry(Swerve swerve) {
         this.swerve = swerve;
@@ -22,10 +23,13 @@ public class SwerveTelemetry {
     }
 
     public void testMode() {
-        moduleLayout("Mod 0", 0, tab).withPosition(1, 0);
-        moduleLayout("Mod 1", 1, tab).withPosition(2, 0);
-        moduleLayout("Mod 2", 2, tab).withPosition(3, 0);
-        moduleLayout("Mod 3", 3, tab).withPosition(4, 0);
+        if (!intailized) {
+            moduleLayout("Mod 0", 0, tab).withPosition(1, 0);
+            moduleLayout("Mod 1", 1, tab).withPosition(2, 0);
+            moduleLayout("Mod 2", 2, tab).withPosition(3, 0);
+            moduleLayout("Mod 3", 3, tab).withPosition(4, 0);
+            intailized = true;
+        }
     }
 
     public void logModuleStates(String key, SwerveModuleState[] states) {

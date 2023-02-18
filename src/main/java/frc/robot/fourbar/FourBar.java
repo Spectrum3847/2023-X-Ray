@@ -16,6 +16,8 @@ public class FourBar extends AngleMechSubsystem {
         motorLeader.configSupplyCurrentLimit(config.supplyLimit);
         motorLeader.configReverseSoftLimitThreshold(0);
         motorLeader.configReverseSoftLimitEnable(true);
+        motorLeader.configForwardSoftLimitThreshold(config.fourbarMaxFalcon);
+        motorLeader.configForwardSoftLimitEnable(true);
     }
 
     public void zeroFourBar() {
@@ -28,6 +30,10 @@ public class FourBar extends AngleMechSubsystem {
 
     public double percentToFalcon(double percent) {
         return config.fourbarMaxFalcon * (percent / 100);
+    }
+
+    public double getPercentAngle() {
+        return motorLeader.getSelectedSensorPosition() / config.fourbarMaxFalcon * 100;
     }
 
     public void setMMPercent(double percent) {
