@@ -25,6 +25,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double safePositionForFourBar = 121000; // TODO: find safe position for four bar
     public final double startingHeight = 0; // TODO: find starting height
     public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
+    public final double safeIntakeHeight = 10000;
     public final double maxExtension = 160000; // TODO: find max relative extension
     public final double angle = 60;
 

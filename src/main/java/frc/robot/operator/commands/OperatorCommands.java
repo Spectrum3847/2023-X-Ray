@@ -2,10 +2,15 @@ package frc.robot.operator.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.elevator.commands.ElevatorDelay;
+import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.fourbar.commands.FourBarDelay;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
@@ -25,8 +30,11 @@ public class OperatorCommands {
     /* Position Commands */
 
     public static Command coneIntake() {
-        return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
+        if (Robot.elevator.getPosition() <= Elevator.config.safeIntakeHeight) {
+            return IntakeCommands.intake()
+                    .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
+        }
+        return new PrintCommand("this printed");
     }
 
     public static Command coneMid() {
@@ -36,7 +44,12 @@ public class OperatorCommands {
 
     public static Command coneTop() {
         return IntakeCommands.slowIntake()
-                .alongWith(ElevatorCommands.coneTop(), FourBarCommands.coneTop());
+                .alongWith(
+                        ElevatorCommands.coneTop(),
+                        new FourBarDelay(
+                                FourBar.config.safePositionForElevator,
+                                FourBar.config.coneTop,
+                                Elevator.config.safePositionForFourBar));
     }
 
     public static Command coneShelfIntake() {
@@ -63,7 +76,12 @@ public class OperatorCommands {
 
     /** Goes to 0 */
     private static Command homeSystems() {
-        return ElevatorCommands.home().alongWith(FourBarCommands.home());
+        return FourBarCommands.home()
+                .alongWith(
+                        new ElevatorDelay(
+                                Elevator.config.safePositionForFourBar,
+                                0,
+                                FourBar.config.safePositionForElevator));
     }
 
     public static Command manualElevator() {
