@@ -19,6 +19,7 @@ public class Pose extends SubsystemBase {
     Pose2d desiredPose = new Pose2d();
     Pose2d estimatePose = new Pose2d();
 
+    //    private final SwerveDrivePoseEstimator<N7, N7, N5> poseEstimator;
     private final SwerveDrivePoseEstimator poseEstimator;
 
     public Pose() {
@@ -44,16 +45,15 @@ public class Pose extends SubsystemBase {
     @Override
     public void periodic() {
         updateOdometryEstimate();
-        Robot.vision.update();
         setEstimatedPose(getPosition());
         setOdometryPose(Robot.swerve.getPoseMeters());
 
-        telemetry.updatePoseOnField("VisionPose", Robot.vision.botPose);
+        // updatePose("DesiredPose", desiredPose);
         telemetry.updatePoseOnField("OdometryPose", odometryPose);
         telemetry.updatePoseOnField("EstimatedPose", estimatePose);
     }
 
-    /** Sets the Odometry Pose to the given pose */
+    /** Sets the Odometry Pose to the given post */
     public void setOdometryPose(Pose2d pose) {
         odometryPose = pose;
     }
@@ -81,6 +81,7 @@ public class Pose extends SubsystemBase {
      * reset the pose estimator
      *
      * @param poseMeters
+     * @param gyroAngle
      */
     public void resetPoseEstimate(Pose2d poseMeters) {
         Robot.swerve.odometry.resetOdometry(poseMeters);
@@ -118,10 +119,6 @@ public class Pose extends SubsystemBase {
 
     public Translation2d getLocation() {
         return estimatePose.getTranslation();
-    }
-
-    public Pose2d getEstimatedPose() {
-        return estimatePose;
     }
 
     /**

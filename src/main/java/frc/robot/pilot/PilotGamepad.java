@@ -15,7 +15,6 @@ import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.LockSwerve;
-import frc.robot.trajectories.commands.PositionPaths;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -25,21 +24,21 @@ public class PilotGamepad extends Gamepad {
         gamepad.leftStick.setDeadband(PilotConfig.throttleDeadband);
         gamepad.leftStick.configCurves(
                 PilotConfig.throttleExp,
-                PilotConfig.throttleScaler * Robot.swerve.config.tuning.maxVelocity);
+                Robot.swerve.config.tuning.maxVelocity * PilotConfig.throttleScaler);
         gamepad.leftStick.setXinvert(PilotConfig.xInvert);
         gamepad.leftStick.setYinvert(PilotConfig.yInvert);
 
         gamepad.rightStick.setDeadband(PilotConfig.throttleDeadband);
         gamepad.rightStick.configCurves(
                 PilotConfig.steeringExp,
-                PilotConfig.steeringScaler * Robot.swerve.config.tuning.maxAngularVelocity);
+                Robot.swerve.config.tuning.maxAngularVelocity * PilotConfig.steeringScaler);
         gamepad.rightStick.setXinvert(PilotConfig.xInvert);
         gamepad.rightStick.setYinvert(PilotConfig.yInvert);
 
         gamepad.triggers.setTwistDeadband(PilotConfig.steeringDeadband);
         gamepad.triggers.configTwistCurve(
                 PilotConfig.steeringExp,
-                PilotConfig.steeringScaler * Robot.swerve.config.tuning.maxAngularVelocity);
+                Robot.swerve.config.tuning.maxAngularVelocity * PilotConfig.steeringScaler);
         gamepad.triggers.setTwistInvert(PilotConfig.steeringInvert);
     }
 
@@ -48,20 +47,10 @@ public class PilotGamepad extends Gamepad {
         gamepad.yButton.whileTrue(IntakeCommands.launch()).and(noBumpers());
         gamepad.aButton.whileTrue(IntakeCommands.eject()).and(noBumpers());
         gamepad.bButton.whileTrue(OperatorCommands.homeAndSlowIntake()).and(noBumpers());
-        // gamepad.rightBumper.whileTrue(
-        //         ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
-        // gamepad.leftBumper.whileTrue(
-        //         FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
-
-        leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
-        leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
-        leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
-        middleGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid2Left());
-        middleGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid2Middle());
-        middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
-        rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
-        rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
-        rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());                
+        gamepad.rightBumper.whileTrue(
+                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
+        gamepad.leftBumper.whileTrue(
+                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
 
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
         stickSteerTriggers();
@@ -87,18 +76,8 @@ public class PilotGamepad extends Gamepad {
 
     public void setupTestButtons() {}
 
-    
-
     private Trigger leftGrid() {
         return gamepad.leftBumper.and(gamepad.rightBumper.negate());
-    }
-
-    private Trigger rightGrid() {
-        return gamepad.rightBumper.and(gamepad.leftBumper.negate());
-    }
-
-    private Trigger middleGrid() {
-        return gamepad.rightBumper.and(gamepad.leftBumper);
     }
 
     public double getDriveFwdPositive() {

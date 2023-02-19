@@ -43,27 +43,6 @@ public class Auton {
                                                 .kMaxAccel)))); // sets an auto to drive one meter
         // forward
         autonChooser.addOption(
-                "3 Meters",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "3 Meters",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
-        // forward
-        autonChooser.addOption(
-                "5 Meters",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "5 Meters",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
-        // forward
-
-        autonChooser.addOption(
                 "5 Ball",
                 PathBuilder.pathBuilder.fullAuto(
                         PathPlanner.loadPathGroup(

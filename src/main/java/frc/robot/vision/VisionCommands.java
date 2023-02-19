@@ -15,34 +15,29 @@ public class VisionCommands {
                 () ->
                         RobotTelemetry.print(
                                 "Yaw (D): "
-                                        + Robot.vision.photonVision.getYaw()
+                                        + Robot.vision.getYaw()
                                         + "|| gyro (D): "
                                         + Robot.swerve.getHeading().getDegrees()
                                         + " || Aiming at: "
-                                        + (Robot.vision.photonVision.getYaw()
+                                        + (Robot.vision.getYaw()
                                                 + Robot.swerve.getHeading().getDegrees())));
     }
 
-    public static Command printEstimatedPhotonPoseInfo() {
-        if (Robot.vision.photonVision.currentPose != null) {
-            Pair<Pose3d, Double> pose = Robot.vision.photonVision.currentPose;
-            return new InstantCommand(
-                    () ->
-                            RobotTelemetry.print(
-                                    "Estimated Pose: | X: "
-                                            + pose.getFirst().getTranslation().getX()
-                                            + " | Y: "
-                                            + pose.getFirst().getTranslation().getY()
-                                            + " | Z: "
-                                            + pose.getFirst().getTranslation().getZ()
-                                            + " | Rotation (D): "
-                                            + Units.radiansToDegrees(
-                                                    pose.getFirst().getRotation().getZ())
-                                            + " | Latency: "
-                                            + pose.getSecond().doubleValue()));
-        } else {
-            return new InstantCommand(
-                    () -> RobotTelemetry.print("PhotonVision doesn't have a pose!"));
-        }
+    public static Command printEstimatedPoseInfo() {
+        Pair<Pose3d, Double> pose = Robot.vision.currentPose;
+        return new InstantCommand(
+                () ->
+                        RobotTelemetry.print(
+                                "Estimated Pose: | X: "
+                                        + pose.getFirst().getTranslation().getX()
+                                        + " | Y: "
+                                        + pose.getFirst().getTranslation().getY()
+                                        + " | Z: "
+                                        + pose.getFirst().getTranslation().getZ()
+                                        + " | Rotation (D): "
+                                        + Units.radiansToDegrees(
+                                                pose.getFirst().getRotation().getZ())
+                                        + " | Latency: "
+                                        + pose.getSecond().doubleValue()));
     }
 }
