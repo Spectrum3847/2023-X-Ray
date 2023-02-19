@@ -39,8 +39,7 @@ public class FourBarDelay extends CommandBase {
     public void execute() {
         if (Robot.fourBar.getPosition() < Robot.fourBar.percentToFalcon(safePercent)) {
             Robot.fourBar.setMMPercent(safePercent);
-        }
-        if (Robot.elevator.getPosition() >= conditionalPos) {
+        } else if (Robot.elevator.getPosition() >= conditionalPos) {
             Robot.fourBar.setMMPercent(finalPercent);
         }
     }

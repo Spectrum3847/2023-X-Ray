@@ -57,12 +57,15 @@ public class Vision extends SubsystemBase {
      */
     public void update() {
         /* Limelight Pose Estimation Retrieval */
-        double latency =
-                LimelightHelpers.getLatency_Pipeline(
-                        null); // may need to add LimelightHelpers json parsing delay?
+        double latency = 0;
         double[] poseArray = LimelightHelpers.getLimelightNTDoubleArray(null, "botpose");
 
         if (poseArray.length > 0) {
+            latency =
+                    (DriverStation.getAlliance() == Alliance.Blue)
+                            ? LimelightHelpers.getBotPose_wpiBlue(null)[6]
+                            : LimelightHelpers.getBotPose_wpiRed(null)[
+                                    6]; // may need to add LimelightHelpers json parsing delay?
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
@@ -138,7 +141,8 @@ public class Vision extends SubsystemBase {
     /**
      * Creates Pose3d object from raw limelight values sent through NetworkTables
      *
-     * @return Pose3d object representing the robot's pose
+     * @param cameraConfig the camera config
+     * @return the camera pair
      */
     public Pose3d createBotPose3d(double[] values) {
         return new Pose3d(
@@ -154,8 +158,8 @@ public class Vision extends SubsystemBase {
      *
      * @param values the array of limelight raw values
      */
-    public void printDebug(double[] values) {
-        if (values.length > 0) {
+    public void printDebug(double[] poseArray) {
+        if (poseArray.length > 0) {
             SmartDashboard.putString("LimelightX", df.format(botPose3d.getTranslation().getX()));
             SmartDashboard.putString("LimelightY", df.format(botPose3d.getTranslation().getY()));
             SmartDashboard.putString("LimelightZ", df.format(botPose3d.getTranslation().getZ()));
