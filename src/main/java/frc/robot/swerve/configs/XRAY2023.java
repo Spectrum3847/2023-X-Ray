@@ -23,7 +23,7 @@ public class XRAY2023 {
     /* Physical Configs */
     static final double trackWidth = Units.inchesToMeters(18.5);
     static final double wheelBase = Units.inchesToMeters(21.5);
-    static final double wheelDiameter = Units.inchesToMeters(4);
+    static final double wheelDiameter = Units.inchesToMeters(4.092);
     static final double driveGearRatio = (6.75 / 1.0);
     static final double angleGearRatio = (50.0 / 14.0) * (60.0 / 10.0);
     static final boolean driveMotorInvert = true;

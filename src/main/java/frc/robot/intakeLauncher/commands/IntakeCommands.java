@@ -11,6 +11,13 @@ public class IntakeCommands {
         Robot.intake.setDefaultCommand(stopAllMotors().withTimeout(1).andThen(new holdCone()));
     }
 
+    public static Command slowIntake() {
+        return setVelocities(
+                Intake.config.lowerSlowSpeed,
+                Intake.config.frontSlowSpeed,
+                Intake.config.launcherSlowSpeed);
+    }
+
     public static Command intake() {
         return setVelocities(
                 Intake.config.lowerIntakeSpeed,
