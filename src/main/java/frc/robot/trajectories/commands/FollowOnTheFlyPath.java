@@ -86,17 +86,18 @@ public class FollowOnTheFlyPath extends CommandBase {
             }
         }
 
-        pathToGetSecondPoints = PathPlanner.generatePath(
-            new PathConstraints(maxVelocity, maxAcceleration),
-            fullPath // position, heading(direction of travel),
-            // holonomic
-            // rotation
-            ); // This is only used to get the second points of the OTF path
+        pathToGetSecondPoints =
+                PathPlanner.generatePath(
+                        new PathConstraints(maxVelocity, maxAcceleration),
+                        fullPath // position, heading(direction of travel),
+                        // holonomic
+                        // rotation
+                        ); // This is only used to get the second points of the OTF path
 
         secondXPos = pathToGetSecondPoints.getInitialPose().getX();
         secondYPos = pathToGetSecondPoints.getInitialPose().getY();
 
-        if(startVelocity == 0){
+        if (startVelocity == 0) {
             startHeading = getStoppedHeading(secondXPos, secondYPos);
         }
 
@@ -123,7 +124,7 @@ public class FollowOnTheFlyPath extends CommandBase {
                     // velocity override
                     );
         }
-        
+
         path =
                 PathPlanner.generatePath(
                         new PathConstraints(maxVelocity, maxAcceleration),
@@ -155,8 +156,10 @@ public class FollowOnTheFlyPath extends CommandBase {
         return pathFollowingCommmand.isFinished();
     }
 
-    private double getStoppedHeading(double secondXPos, double secondYPos){
-        Translation2d heading = new Translation2d(secondXPos, secondYPos).minus(new Translation2d(startXPos, startYPos));
+    private double getStoppedHeading(double secondXPos, double secondYPos) {
+        Translation2d heading =
+                new Translation2d(secondXPos, secondYPos)
+                        .minus(new Translation2d(startXPos, startYPos));
         return heading.getAngle().getDegrees();
     }
 }
