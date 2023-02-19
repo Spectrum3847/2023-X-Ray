@@ -7,7 +7,6 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 import frc.robot.swerve.configs.XRAY2023;
-import frc.robot.trajectories.TrajectoriesConfig;
 
 /** This is a class for the configuration of a single swerve module. */
 public class ModuleConfig {
@@ -68,7 +67,7 @@ public class ModuleConfig {
         swerveDriveFXConfig.slot0.kD = tuning.driveKD;
         swerveDriveFXConfig.slot0.kF =
                 1023
-                        / (XRAY2023.maxVelocity / TrajectoriesConfig.swerveMetersPerPulse);
+                        / (XRAY2023.maxVelocity / PhysicalConfig.swerveMetersPerPulse);
         swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
         swerveDriveFXConfig.initializationStrategy = SensorInitializationStrategy.BootToZero;
         swerveDriveFXConfig.openloopRamp = 0.0;

@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -17,9 +18,9 @@ import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.LinkedList;
 
 public class FollowOnTheFlyPath extends CommandBase {
-
     private LinkedList<PathPoint> endPoints = new LinkedList<>();
     private PathPlannerTrajectory path;
+    private PathPlannerTrajectory pathToGetSecondPoints;
 
     private double maxVelocity;
     private double maxAcceleration;
@@ -29,6 +30,8 @@ public class FollowOnTheFlyPath extends CommandBase {
     private double startHeading;
     private double startRotation;
     private double startVelocity;
+    private double secondXPos;
+    private double secondYPos;
 
     private Command pathFollowingCommmand = null;
 
@@ -83,6 +86,20 @@ public class FollowOnTheFlyPath extends CommandBase {
             }
         }
 
+        pathToGetSecondPoints = PathPlanner.generatePath(
+            new PathConstraints(maxVelocity, maxAcceleration),
+            fullPath // position, heading(direction of travel),
+            // holonomic
+            // rotation
+            ); // This is only used to get the second points of the OTF path
+
+        secondXPos = pathToGetSecondPoints.getInitialPose().getX();
+        secondYPos = pathToGetSecondPoints.getInitialPose().getY();
+
+        if(startVelocity == 0){
+            startHeading = getStoppedHeading(secondXPos, secondYPos);
+        }
+
         fullPath.add(
                 0,
                 new PathPoint(
@@ -94,6 +111,19 @@ public class FollowOnTheFlyPath extends CommandBase {
                 // velocity override
                 );
 
+        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+            fullPath.set(
+                    0,
+                    new PathPoint(
+                            new Translation2d(startXPos, TrajectoriesConfig.fieldWidth - startYPos),
+                            Rotation2d.fromDegrees(-startHeading),
+                            Rotation2d.fromDegrees(-startRotation),
+                            startVelocity) // position, heading(direction of
+                    // travel), holonomic rotation,
+                    // velocity override
+                    );
+        }
+        
         path =
                 PathPlanner.generatePath(
                         new PathConstraints(maxVelocity, maxAcceleration),
@@ -101,6 +131,7 @@ public class FollowOnTheFlyPath extends CommandBase {
                         // holonomic
                         // rotation
                         );
+
         pathFollowingCommmand = PathBuilderEstimatedPose.pathBuilder.followPath(path);
         pathFollowingCommmand.initialize();
     }
@@ -122,5 +153,10 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     public boolean isFinished() {
         return pathFollowingCommmand.isFinished();
+    }
+
+    private double getStoppedHeading(double secondXPos, double secondYPos){
+        Translation2d heading = new Translation2d(secondXPos, secondYPos).minus(new Translation2d(startXPos, startYPos));
+        return heading.getAngle().getDegrees();
     }
 }
