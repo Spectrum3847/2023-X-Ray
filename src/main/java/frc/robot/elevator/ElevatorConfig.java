@@ -6,27 +6,27 @@ import frc.robot.RobotConfig.Motors;
 public class ElevatorConfig extends LinearMechConfig {
     public static final String name = "Elevator";
 
-    // All these are made up and need to be changed
+    // All these are in inches
     public final double cubeIntake = 0;
     public final double cubeMid = 0;
     public final double cubeTop = 0;
 
     public final double coneIntake = 0;
     public final double coneStandingIntake = 0;
-    public final double coneShelf = 126200;
+    public final double coneShelf = 43.13; // 126200 falcon
 
-    public final double coneMid = 95000;
-    public final double coneTop = 165000;
+    public final double coneMid = 32.47; // 95000 falcon
+    public final double coneTop = 56.39; // 165000 falcon
 
     public final double diameterInches = 2.0051; // changed from int, 4
     public final double gearRatio = 9 / 1;
-    public final double maxUpFalconPos = 170000;
+    public final double maxUpFalconPos = 58.1; // 170000 falcon
 
-    public final double safePositionForFourBar = 121000;
+    public final double safePositionForFourBar = 41.35; // 121000 falcon
     public final double startingHeight = 0;
     public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
-    public final double safeIntakeHeight = 10000;
-    public final double maxExtension = 160000; // TODO: find max relative extension
+    public final double safeIntakeHeight = 3.42; // 10000 falcon
+    public final double maxExtension = 0; // TODO: find max relative extension
     public final double angle = 60;
 
     public final double zeroSpeed = -0.2;

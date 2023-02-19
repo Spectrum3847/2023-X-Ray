@@ -2,6 +2,7 @@ package frc.robot.elevator;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
 import frc.robot.RobotConfig;
@@ -40,7 +41,7 @@ public class Elevator extends LinearMechSubsystem {
      * Converts meters to falcon units.
      *
      * @param meters
-     * @param circumference
+     * @param circumference in meters
      * @param gearRatio
      * @return falcon units
      */
@@ -51,7 +52,8 @@ public class Elevator extends LinearMechSubsystem {
     }
 
     public static double metersToFalcon(double meters) {
-        return metersToFalcon(meters, config.diameterInches * Math.PI, config.gearRatio);
+        return metersToFalcon(
+                meters, Units.inchesToMeters(config.diameterInches) * Math.PI, config.gearRatio);
     }
 
     /**
@@ -70,6 +72,7 @@ public class Elevator extends LinearMechSubsystem {
         double falcon = metersToFalcon(meters);
         return falcon;
     }
+    
     /**
      * Converts real height to extension for the elevator. Subtracts the height of the elevator at
      * the bottom. So that the height of the elevator at the bottom is 0. Does trigonomic

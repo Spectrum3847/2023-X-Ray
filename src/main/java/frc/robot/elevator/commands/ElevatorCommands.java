@@ -35,36 +35,45 @@ public class ElevatorCommands {
                 FourBar.config.safePositionForElevator);
     }
 
+    public static Command setMMPositionFromInches(double inches) {
+        return setMMPosition(Elevator.inchesToFalcon(inches));
+    }
+
     public static Command coneIntake() {
-        return setMMPosition(Elevator.config.coneIntake);
+        return setMMPositionFromInches(Elevator.config.coneIntake);
     }
 
     public static Command coneStandingIntake() {
-        return setMMPosition(Elevator.config.coneStandingIntake);
+        return setMMPositionFromInches(Elevator.config.coneStandingIntake);
     }
 
     public static Command coneMid() {
-        return setMMPosition(Elevator.config.coneMid);
+        return setMMPositionFromInches(Elevator.config.coneMid);
     }
 
     public static Command coneTop() {
-        return setMMPosition(Elevator.config.coneTop);
+        return setMMPositionFromInches(Elevator.config.coneTop);
     }
 
     public static Command coneShelf() {
-        return setMMPosition(Elevator.config.coneShelf);
+        return setMMPositionFromInches(Elevator.config.coneShelf);
     }
 
     public static Command cubeIntake() {
-        return setMMPosition(Elevator.config.cubeIntake);
+        return setMMPositionFromInches(Elevator.config.cubeIntake);
     }
 
     public static Command cubeMid() {
-        return setMMPosition(Elevator.config.cubeMid);
+        return setMMPositionFromInches(Elevator.config.cubeMid);
     }
 
     public static Command cubeTop() {
-        return setMMPosition(Elevator.config.cubeTop);
+        return setMMPositionFromInches(Elevator.config.cubeTop);
+    }
+
+    public static Command safeHome() {
+        return new ElevatorDelay(
+                Elevator.config.safePositionForFourBar, 0, FourBar.config.safePositionForElevator);
     }
 
     public static Command home() {
@@ -73,10 +82,5 @@ public class ElevatorCommands {
 
     public static Command zeroElevatorRoutine() {
         return new ZeroElevatorRoutine();
-    }
-
-    public static Command safeHome() {
-        return new ElevatorDelay(
-                Elevator.config.safePositionForFourBar, 0, FourBar.config.safePositionForElevator);
     }
 }

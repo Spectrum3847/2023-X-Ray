@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.SpectrumLib.util.Conversions;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -42,6 +44,18 @@ public class Vision extends SubsystemBase {
     public void periodic() {
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
+    }
+
+    private void doThings(String output, double input) {
+        System.out.println(
+                output
+                        + ": "
+                        + Units.metersToInches(
+                                Conversions.FalconToMeters(
+                                        input,
+                                        Units.inchesToMeters(Elevator.config.diameterInches)
+                                                * Math.PI,
+                                        Elevator.config.gearRatio)));
     }
 
     /**
