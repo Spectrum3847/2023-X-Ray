@@ -48,9 +48,7 @@ public class ModuleConfig {
                         tuning.anglePeakCurrentDuration);
 
         swerveAngleFXConfig.slot0.kP = tuning.angleKP;
-        swerveAngleFXConfig.slot0.kI =
-                XRAY2023.wheelDiameter
-                        / (XRAY2023.maxVelocity / TrajectoriesConfig.swerveMetersPerPulse);
+        swerveAngleFXConfig.slot0.kI = 0;
         swerveAngleFXConfig.slot0.kD = tuning.angleKD;
         swerveAngleFXConfig.slot0.kF = 0;
         swerveAngleFXConfig.slot0.allowableClosedloopError = 0.0;
@@ -68,7 +66,9 @@ public class ModuleConfig {
         swerveDriveFXConfig.slot0.kP = tuning.driveKP;
         swerveDriveFXConfig.slot0.kI = 0;
         swerveDriveFXConfig.slot0.kD = tuning.driveKD;
-        swerveDriveFXConfig.slot0.kF = 0;
+        swerveDriveFXConfig.slot0.kF =
+                XRAY2023.wheelDiameter
+                        / (XRAY2023.maxVelocity / TrajectoriesConfig.swerveMetersPerPulse);
         swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
         swerveDriveFXConfig.initializationStrategy = SensorInitializationStrategy.BootToZero;
         swerveDriveFXConfig.openloopRamp = 0.0;
