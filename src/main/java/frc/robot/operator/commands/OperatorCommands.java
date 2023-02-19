@@ -30,11 +30,8 @@ public class OperatorCommands {
     /* Position Commands */
 
     public static Command coneIntake() {
-        if (Robot.elevator.getPosition() <= Elevator.config.safeIntakeHeight) {
-            return IntakeCommands.intake()
-                    .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
-        }
-        return new PrintCommand("this printed");
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
     }
 
     public static Command coneMid() {
@@ -77,11 +74,7 @@ public class OperatorCommands {
     /** Goes to 0 */
     private static Command homeSystems() {
         return FourBarCommands.home()
-                .alongWith(
-                        new ElevatorDelay(
-                                Elevator.config.safePositionForFourBar,
-                                0,
-                                FourBar.config.safePositionForElevator));
+                .alongWith(ElevatorCommands.safeHome());
     }
 
     public static Command manualElevator() {

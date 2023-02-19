@@ -32,17 +32,20 @@ public class ElevatorDelay extends CommandBase {
     @Override
     public void initialize() {}
 
-    // Called every time the scheduler runs while the command is scheduled.
-    /*
- * 
- * if elevator current position is less than final position you can just go straight up (fourbar could be out but the operator should clearly see that and put fourbar in before trying to go up)
- * if elevator is going down AND fourbar is out too far AND elevator is greater than safeposition THEN go to safe position
- * ELSE just go straight down 
- * 
- */
+    /* Called every time the scheduler runs while the command is scheduled.
+     *
+     * if elevator is going down and fourbar is out too far and elevator is greater than safepos then go to safe position
+     * otherwise just go straight down
+     */
     @Override
     public void execute() {
-        if()
+        if (Robot.elevator.getPosition() > finalPos
+                && Robot.fourBar.getPosition() > Robot.fourBar.percentToFalcon(conditionalPercent)
+                && Robot.elevator.getPosition() > safePos) {
+            Robot.elevator.setMMPosition(safePos);
+        } else {
+            Robot.elevator.setMMPosition(finalPos);
+        }
     }
 
     // Called once the command ends or is interrupted.
