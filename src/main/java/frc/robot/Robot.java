@@ -14,7 +14,7 @@ import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
-import frc.robot.intakeLauncher.IntakeCommands;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.LEDs;
 import frc.robot.operator.OperatorGamepad;
 import frc.robot.operator.commands.OperatorCommands;
@@ -222,6 +222,7 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("~~ Test Init Starting");
         resetCommandsAndButtons();
         swerve.telemetry.testMode();
+        intake.telemetry.testMode();
 
         RobotTelemetry.print("~~ Test Init Complete");
     }

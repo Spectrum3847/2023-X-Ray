@@ -55,7 +55,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.add("MAC Address", Robot.MAC).withPosition(4, 2).withSize(2, 1);
         tab.addString("IP Address", () -> getIP()).withPosition(4, 3).withSize(2, 1);
         tab.addNumber("ElevatorPos", () -> Robot.elevator.getPosition()).withPosition(6, 0);
-        tab.addNumber("FourBarPos", () -> Robot.fourBar.getPosition())
+        tab.addNumber("FourBarPercentAngle", () -> Robot.fourBar.getPercentAngle())
                 .withPosition(6, 1); // 72000 is max
         // tab.addNumber("Elevator kF", () -> Robot.elevator.getKf()).withPosition(6, 1);
     }

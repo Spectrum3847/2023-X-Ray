@@ -1,11 +1,14 @@
 package frc.robot.operator.commands;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.intakeLauncher.IntakeCommands;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.leds.commands.BlinkLEDCommand;
+import frc.robot.leds.commands.OneColorLEDCommand;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {}
@@ -22,35 +25,44 @@ public class OperatorCommands {
     /* Position Commands */
 
     public static Command coneIntake() {
-        return ElevatorCommands.coneIntake().alongWith(FourBarCommands.coneIntake());
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
     }
 
     public static Command coneMid() {
-        return ElevatorCommands.coneMid().alongWith(FourBarCommands.coneMid());
+        return IntakeCommands.slowIntake()
+                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid());
     }
 
     public static Command coneTop() {
-        return ElevatorCommands.coneTop().alongWith(FourBarCommands.coneTop());
+        return IntakeCommands.slowIntake()
+                .alongWith(ElevatorCommands.coneTop(), FourBarCommands.coneTop());
     }
 
-    public static Command coneShelf() {
-        return ElevatorCommands.coneShelf().alongWith(FourBarCommands.coneShelf());
+    public static Command coneShelfIntake() {
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
     }
 
     public static Command cubeIntake() {
-        return ElevatorCommands.cubeIntake().alongWith(FourBarCommands.cubeIntake());
+        return IntakeCommands.intake()
+                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
     public static Command cubeMid() {
-        return ElevatorCommands.cubeMid().alongWith(FourBarCommands.cubeMid());
+        return IntakeCommands.midCubeSpinUp().alongWith(homeSystems());
     }
 
     public static Command cubeTop() {
-        return ElevatorCommands.cubeTop().alongWith(FourBarCommands.cubeTop());
+        return IntakeCommands.topCubeSpinUp().alongWith(homeSystems());
+    }
+
+    public static Command homeAndSlowIntake() {
+        return IntakeCommands.slowIntake().alongWith(homeSystems());
     }
 
     /** Goes to 0 */
-    public static Command homeSystems() {
+    private static Command homeSystems() {
         return ElevatorCommands.home().alongWith(FourBarCommands.home());
     }
 
@@ -64,5 +76,17 @@ public class OperatorCommands {
         return new RunCommand(
                 () -> Robot.fourBar.setManualOutput(Robot.operatorGamepad.fourBarManual()),
                 Robot.fourBar);
+    }
+
+    public static Command coneFloorLED() {
+        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99, 3);
+    }
+
+    public static Command coneShelfLED() {
+        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", 99, 3);
+    }
+
+    public static Command cubeLED() {
+        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99, 3);
     }
 }

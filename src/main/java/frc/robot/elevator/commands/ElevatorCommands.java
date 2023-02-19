@@ -2,7 +2,6 @@ package frc.robot.elevator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import java.util.function.DoubleSupplier;
@@ -11,7 +10,8 @@ import java.util.function.DoubleSupplier;
 
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
-        Robot.elevator.setDefaultCommand(new ElevatorHoldPosition());
+        Robot.elevator.setDefaultCommand(
+                stop().withTimeout(0.25).andThen(new ElevatorHoldPosition()));
     }
 
     public static Command stop() {
@@ -67,28 +67,7 @@ public class ElevatorCommands {
         return setMMPosition(0);
     }
 
-    public static Command zeroElevator() {
-        return new RunCommand(() -> Robot.elevator.zeroElevator(), Robot.elevator);
-    }
-
-    public static Command resetSensorPosition() {
-        return new RunCommand(() -> Robot.elevator.resetSensorPosition(0), Robot.elevator);
-    }
-
-    // below function is not used
-    public static Command runDownAndZero() {
-        return new StartEndCommand(
-                () -> Robot.elevator.setManualOutput(-0.1),
-                () -> Robot.elevator.zeroElevator(),
-                // () -> Robot.elevator.resetSensorPosition(),
-                Robot.elevator);
-    }
-
-    public static Command setEncoder(double position) {
-        return new RunCommand(() -> Robot.elevator.setEncoder(position), Robot.elevator);
-    }
-
-    public static Command resetEncoder() {
-        return setEncoder(0);
+    public static Command zeroElevatorRoutine() {
+        return new ZeroElevatorRoutine();
     }
 }
