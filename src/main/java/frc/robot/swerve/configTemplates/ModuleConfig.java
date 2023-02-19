@@ -67,7 +67,7 @@ public class ModuleConfig {
         swerveDriveFXConfig.slot0.kI = 0;
         swerveDriveFXConfig.slot0.kD = tuning.driveKD;
         swerveDriveFXConfig.slot0.kF =
-                XRAY2023.wheelDiameter
+                1023
                         / (XRAY2023.maxVelocity / TrajectoriesConfig.swerveMetersPerPulse);
         swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
         swerveDriveFXConfig.initializationStrategy = SensorInitializationStrategy.BootToZero;
