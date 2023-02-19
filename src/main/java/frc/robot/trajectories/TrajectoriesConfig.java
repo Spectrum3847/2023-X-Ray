@@ -17,6 +17,7 @@ public class TrajectoriesConfig {
 
     public static final double fieldWidth = 8.02;
 
+    public static final double swerveMetersPerPulse = 0.00002226;
     // Constant Values
     public static final double constantRotation = 180; // This is constant for all On-the-Fly Paths
     // Heading values for On-the-Fly Generations

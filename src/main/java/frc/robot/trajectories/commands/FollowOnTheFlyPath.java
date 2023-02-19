@@ -54,7 +54,7 @@ public class FollowOnTheFlyPath extends CommandBase {
         startYPos = Robot.pose.getPosition().getY();
         startHeading = Robot.swerve.getHeading().getDegrees();
         startRotation = Robot.pose.getOdometryPose().getRotation().getDegrees();
-        startVelocity = Robot.swerve.mSwerveMods[0].getState().speedMetersPerSecond;
+        startVelocity = Robot.swerve.mSwerveMods[0].mDriveMotor.getSelectedSensorVelocity() * TrajectoriesConfig.swerveMetersPerPulse * 10;
 
         double constantRotation;
         double constantHeading;
