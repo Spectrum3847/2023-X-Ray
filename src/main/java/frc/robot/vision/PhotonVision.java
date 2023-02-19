@@ -97,7 +97,7 @@ public class PhotonVision {
      * @return Yaw in radians
      */
     public double getRadiansToTarget() {
-        return Units.degreesToRadians(yaw) + Robot.swerve.getHeading().getRadians();
+        return Units.degreesToRadians(yaw) + Robot.swerve.getRotation().getRadians();
     }
 
     public double getYaw() {
@@ -150,7 +150,7 @@ public class PhotonVision {
         }
     }
 
-    private void printDebug() {
+    void printDebug() {
         RobotTelemetry.print(
                 "Target ID: "
                         + targetId

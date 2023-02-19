@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
+import frc.SpectrumLib.util.Conversions;
 import frc.robot.RobotConfig;
 
 public class Elevator extends LinearMechSubsystem {

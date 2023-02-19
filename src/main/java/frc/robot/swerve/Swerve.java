@@ -32,6 +32,7 @@ public class Swerve extends SubsystemBase {
     public Odometry odometry;
     public SwerveTelemetry telemetry;
     public SwerveModule[] mSwerveMods;
+    public ChassisSpeeds chassisSpeeds;
     private SwerveModuleState[] mSwerveModStates;
 
     public Swerve() {
@@ -75,12 +76,15 @@ public class Swerve extends SubsystemBase {
                     new SwerveModule(3, config)
                 };
         resetSteeringToAbsolute();
+        mSwerveModStates = getStatesCAN(); // Get the states once a loop
+        chassisSpeeds = config.swerveKinematics.toChassisSpeeds(mSwerveModStates);
         odometry = new Odometry(this);
         telemetry = new SwerveTelemetry(this);
     }
 
     @Override
     public void periodic() {
+        chassisSpeeds = config.swerveKinematics.toChassisSpeeds(mSwerveModStates);
         odometry.update();
         mSwerveModStates = getStatesCAN(); // Get the states once a loop
         telemetry.logModuleStates("SwerveModuleStates/Measured", mSwerveModStates);
@@ -124,7 +128,7 @@ public class Swerve extends SubsystemBase {
         if (fieldRelative) {
             speeds =
                     ChassisSpeeds.fromFieldRelativeSpeeds(
-                            fwdPositive, leftPositive, omegaRadiansPerSecond, getHeading());
+                            fwdPositive, leftPositive, omegaRadiansPerSecond, getRotation());
         } else {
             speeds = new ChassisSpeeds(fwdPositive, leftPositive, omegaRadiansPerSecond);
         }
@@ -147,8 +151,31 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public Rotation2d getHeading() {
-        return odometry.getHeading();
+    public ChassisSpeeds getChassisSpeeds() {
+        return chassisSpeeds;
+    }
+
+    public ChassisSpeeds getFieldRelativeSpeeds() {
+        return ChassisSpeeds.fromFieldRelativeSpeeds(
+                chassisSpeeds,
+                getRotation().unaryMinus()); // Negative Angle to rotate back from robot relative to
+        // field relative
+    }
+
+    public double getFieldRelativeMagnitude() {
+        return Math.hypot(
+                getFieldRelativeSpeeds().vxMetersPerSecond,
+                getFieldRelativeSpeeds().vyMetersPerSecond);
+    }
+
+    public double getFieldRelativeHeading() {
+        return Math.atan2(
+                getFieldRelativeSpeeds().vxMetersPerSecond,
+                getFieldRelativeSpeeds().vyMetersPerSecond);
+    }
+
+    public Rotation2d getRotation() {
+        return odometry.getRotation();
     }
 
     public Pose2d getPoseMeters() {

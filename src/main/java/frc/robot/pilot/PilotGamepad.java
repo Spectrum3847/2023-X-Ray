@@ -7,8 +7,6 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
-import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;
@@ -61,7 +59,7 @@ public class PilotGamepad extends Gamepad {
         middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
         rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
         rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
-        rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());                
+        rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
 
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
         stickSteerTriggers();
@@ -86,8 +84,6 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTestButtons() {}
-
-    
 
     private Trigger leftGrid() {
         return gamepad.leftBumper.and(gamepad.rightBumper.negate());

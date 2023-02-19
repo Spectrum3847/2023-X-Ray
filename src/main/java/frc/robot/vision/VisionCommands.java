@@ -17,10 +17,10 @@ public class VisionCommands {
                                 "Yaw (D): "
                                         + Robot.vision.photonVision.getYaw()
                                         + "|| gyro (D): "
-                                        + Robot.swerve.getHeading().getDegrees()
+                                        + Robot.swerve.getRotation().getDegrees()
                                         + " || Aiming at: "
                                         + (Robot.vision.photonVision.getYaw()
-                                                + Robot.swerve.getHeading().getDegrees())));
+                                                + Robot.swerve.getRotation().getDegrees())));
     }
 
     public static Command printEstimatedPhotonPoseInfo() {

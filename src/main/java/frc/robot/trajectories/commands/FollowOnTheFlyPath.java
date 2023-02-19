@@ -17,6 +17,7 @@ import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.LinkedList;
 
 public class FollowOnTheFlyPath extends CommandBase {
+    
     private LinkedList<PathPoint> endPoints = new LinkedList<>();
     private PathPlannerTrajectory path;
 
@@ -34,25 +35,26 @@ public class FollowOnTheFlyPath extends CommandBase {
     /*Creates a new GeneratePath.
      * * @param firstPoints*/
     public FollowOnTheFlyPath(LinkedList<PathPoint> fullPath) {
-        endPoints = new LinkedList<>();
+        endPoints = new LinkedList<PathPoint>();
         endPoints = fullPath;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.swerve);
     }
 
     // Called when the command is initially scheduled.
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void initialize() {
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();
+       
         maxVelocity = TrajectoriesConfig.kGenPathMaxSpeed;
         maxAcceleration = TrajectoriesConfig.kGenPathMaxAccel;
 
         startXPos = Robot.pose.getPosition().getX();
         startYPos = Robot.pose.getPosition().getY();
-        startHeading = Robot.swerve.getHeading().getDegrees();
-        startRotation = Robot.pose.getOdometryPose().getRotation().getDegrees();
-        startVelocity = Robot.swerve.mSwerveMods[0].getState().speedMetersPerSecond;
+        startHeading = Robot.swerve.getFieldRelativeHeading().getDegrees();
+        startRotation = Robot.swerve.getRotation().getDegrees();
+        startVelocity = Robot.swerve.getFieldRelativeMagnitude();
 
         double constantRotation;
         double constantHeading;

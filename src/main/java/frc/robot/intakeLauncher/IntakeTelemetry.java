@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 public class IntakeTelemetry {
 
     protected ShuffleboardTab tab;
+    @SuppressWarnings("unused")
     private Intake intake;
     boolean intailized = false;
 
