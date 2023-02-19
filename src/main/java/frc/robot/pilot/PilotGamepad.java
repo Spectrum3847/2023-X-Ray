@@ -42,14 +42,14 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        gamepad.xButton.whileTrue(new LockSwerve()).and(noBumpers());
-        gamepad.yButton.whileTrue(IntakeCommands.launch()).and(noBumpers());
-        gamepad.aButton.whileTrue(IntakeCommands.eject()).and(noBumpers());
-        gamepad.bButton.whileTrue(OperatorCommands.homeAndSlowIntake()).and(noBumpers());
-        // gamepad.rightBumper.whileTrue(
-        //         ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
-        // gamepad.leftBumper.whileTrue(
-        //         FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
+        gamepad.xButton.and(noBumpers()).whileTrue(new LockSwerve());
+        gamepad.yButton.and(noBumpers()).whileTrue(IntakeCommands.launch());
+        gamepad.aButton.and(noBumpers()).whileTrue(IntakeCommands.eject());
+        gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
+        gamepad.rightBumper.whileTrue(
+                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
+        gamepad.leftBumper.whileTrue(
+                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
 
         leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
         leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
@@ -65,18 +65,14 @@ public class PilotGamepad extends Gamepad {
         stickSteerTriggers();
 
         // Reorient the robot to the current heading
-        gamepad.Dpad.Up.whileTrue(
-                        PoseCommands.resetHeading(0).alongWith(PilotCommands.rumble(0.5, 1)))
-                .and(noBumpers());
-        gamepad.Dpad.Left.whileTrue(
-                        PoseCommands.resetHeading(90).alongWith(PilotCommands.rumble(0.5, 1)))
-                .and(noBumpers());
-        gamepad.Dpad.Down.whileTrue(
-                        PoseCommands.resetHeading(180).alongWith(PilotCommands.rumble(0.5, 1)))
-                .and(noBumpers());
-        gamepad.Dpad.Right.whileTrue(
-                        PoseCommands.resetHeading(270).alongWith(PilotCommands.rumble(0.5, 1)))
-                .and(noBumpers());
+        gamepad.Dpad.Up.and(noBumpers())
+                .whileTrue(PoseCommands.resetHeading(0).alongWith(PilotCommands.rumble(0.5, 1)));
+        gamepad.Dpad.Left.and(noBumpers())
+                .whileTrue(PoseCommands.resetHeading(90).alongWith(PilotCommands.rumble(0.5, 1)));
+        gamepad.Dpad.Down.and(noBumpers())
+                .whileTrue(PoseCommands.resetHeading(180).alongWith(PilotCommands.rumble(0.5, 1)));
+        gamepad.Dpad.Right.and(noBumpers())
+                .whileTrue(PoseCommands.resetHeading(270).alongWith(PilotCommands.rumble(0.5, 1)));
     }
 
     public void setupDisabledButtons() {
@@ -132,7 +128,7 @@ public class PilotGamepad extends Gamepad {
     }
 
     private Trigger noBumpers() {
-        return gamepad.rightBumper.negate().and(gamepad.rightBumper.negate());
+        return gamepad.rightBumper.negate().and(gamepad.leftBumper.negate());
     }
 
     public double getLeftYRaw() {
