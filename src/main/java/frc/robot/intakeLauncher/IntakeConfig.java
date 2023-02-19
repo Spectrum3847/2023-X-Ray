@@ -22,9 +22,9 @@ public class IntakeConfig {
     public double frontSlowSpeed = 800;
     public double launcherSlowSpeed = 0;
 
-    public double lowerIntakeSpeed = 5200; // lowerMaxSpeed * 0.85;
-    public double frontIntakeSpeed = 4000; // frontMaxSpeed * 0.85;
-    public double launcherIntakeSpeed = -430;
+    public double lowerIntakeSpeed = 5000; // lowerMaxSpeed * 0.85;
+    public double frontIntakeSpeed = 3500; // frontMaxSpeed * 0.85;
+    public double launcherIntakeSpeed = -1000;
 
     public double lowerEjectSpeed = -4000;
     public double frontEjectSpeed = -5000;
@@ -36,7 +36,7 @@ public class IntakeConfig {
     public double frontMidCubeSpeed = 1500;
     public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
-    public double frontTopCubeSpeed = 2500;
+    public double frontTopCubeSpeed = 2300;
     public double launcherTopCubeSpeed = frontTopCubeSpeed;
 
     public double frontHybridSpeed = 800;
