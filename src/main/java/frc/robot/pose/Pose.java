@@ -28,7 +28,7 @@ public class Pose extends SubsystemBase {
         poseEstimator =
                 new SwerveDrivePoseEstimator(
                         Robot.swerve.config.swerveKinematics,
-                        Robot.swerve.getHeading(),
+                        Robot.swerve.getRotation(),
                         Robot.swerve.getPositions(),
                         new Pose2d(),
                         createStateStdDevs(
@@ -74,7 +74,7 @@ public class Pose extends SubsystemBase {
 
     /** Updates the field relative position of the robot. */
     public void updateOdometryEstimate() {
-        poseEstimator.update(Robot.swerve.getHeading(), Robot.swerve.getPositions());
+        poseEstimator.update(Robot.swerve.getRotation(), Robot.swerve.getPositions());
     }
 
     /**
@@ -85,7 +85,7 @@ public class Pose extends SubsystemBase {
     public void resetPoseEstimate(Pose2d poseMeters) {
         Robot.swerve.odometry.resetOdometry(poseMeters);
         poseEstimator.resetPosition(
-                Robot.swerve.getHeading(), Robot.swerve.getPositions(), poseMeters);
+                Robot.swerve.getRotation(), Robot.swerve.getPositions(), poseMeters);
     }
 
     public void resetHeading(Rotation2d angle) {

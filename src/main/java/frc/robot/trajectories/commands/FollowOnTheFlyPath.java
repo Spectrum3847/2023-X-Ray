@@ -10,7 +10,6 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -18,6 +17,7 @@ import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.LinkedList;
 
 public class FollowOnTheFlyPath extends CommandBase {
+
     private LinkedList<PathPoint> endPoints = new LinkedList<>();
     private PathPlannerTrajectory path;
 
@@ -35,7 +35,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     /*Creates a new GeneratePath.
      * * @param firstPoints*/
     public FollowOnTheFlyPath(LinkedList<PathPoint> fullPath) {
-        endPoints = new LinkedList<>();
+        endPoints = new LinkedList<PathPoint>();
         endPoints = fullPath;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.swerve);
@@ -43,20 +43,19 @@ public class FollowOnTheFlyPath extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
+    @SuppressWarnings("unchecked")
     public void initialize() {
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();
+
         maxVelocity = TrajectoriesConfig.kGenPathMaxSpeed;
         maxAcceleration = TrajectoriesConfig.kGenPathMaxAccel;
 
         startXPos = Robot.pose.getPosition().getX();
         startYPos = Robot.pose.getPosition().getY();
-        startHeading = Robot.swerve.getHeading().getDegrees();
-        startRotation = Robot.pose.getOdometryPose().getRotation().getDegrees();
-        startVelocity =
-                Robot.swerve.mSwerveMods[0].mDriveMotor.getSelectedSensorVelocity()
-                        * TrajectoriesConfig.swerveMetersPerPulse
-                        * 10;
+        startHeading = Robot.swerve.getFieldRelativeHeading().getDegrees();
+        startRotation = Robot.swerve.getRotation().getDegrees();
+        startVelocity = Robot.swerve.getFieldRelativeMagnitude();
 
         double constantRotation;
         double constantHeading;
@@ -94,18 +93,6 @@ public class FollowOnTheFlyPath extends CommandBase {
                 // travel), holonomic rotation,
                 // velocity override
                 );
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            fullPath.set(
-                    0,
-                    new PathPoint(
-                            new Translation2d(startXPos, TrajectoriesConfig.fieldWidth - startYPos),
-                            Rotation2d.fromDegrees(-startHeading),
-                            Rotation2d.fromDegrees(-startRotation),
-                            startVelocity) // position, heading(direction of
-                    // travel), holonomic rotation,
-                    // velocity override
-                    );
-        }
 
         path =
                 PathPlanner.generatePath(

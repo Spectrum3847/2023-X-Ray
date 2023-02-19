@@ -18,12 +18,12 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneMid = 95000;
     public final double coneTop = 165000;
 
-    public final double diameterInches = 2.0; // changed from int, 4
+    public final double diameterInches = 2.0051; // changed from int, 4
     public final double gearRatio = 9 / 1;
     public final double maxUpFalconPos = 170000;
 
-    public final double safePositionForFourBar = 121000; // TODO: find safe position for four bar
-    public final double startingHeight = 0; // TODO: find starting height
+    public final double safePositionForFourBar = 121000;
+    public final double startingHeight = 0;
     public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
     public final double safeIntakeHeight = 10000;
     public final double maxExtension = 160000; // TODO: find max relative extension

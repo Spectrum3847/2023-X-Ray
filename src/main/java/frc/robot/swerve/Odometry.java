@@ -39,7 +39,7 @@ public class Odometry {
         return swerveOdometry.getPoseMeters().getTranslation();
     }
 
-    public Rotation2d getHeading() {
+    public Rotation2d getRotation() {
         return getPoseMeters().getRotation();
     }
 

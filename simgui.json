@@ -6,6 +6,16 @@
       }
     },
     "Other Devices": {
+      "Talon FX[2]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX[2]/Integrated Sensor": {
+        "header": {
+          "open": true
+        }
+      },
       "Talon FX[41]": {
         "header": {
           "open": true

@@ -19,7 +19,7 @@ public class IntakeMotor {
         motor.configFactoryDefault();
 
         SupplyCurrentLimitConfiguration currentLimit =
-                new SupplyCurrentLimitConfiguration(true, 40, 40, 0);
+                new SupplyCurrentLimitConfiguration(true, 20, 40, 0);
         motor.configSupplyCurrentLimit(currentLimit);
         motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         motor.setInverted(inverted);
