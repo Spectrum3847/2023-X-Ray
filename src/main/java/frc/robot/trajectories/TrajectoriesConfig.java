@@ -8,7 +8,7 @@ public class TrajectoriesConfig {
     public static final double kGenPathMaxAccel = 3;
 
     // PID Values for 2023
-    public static final double kPTranslationController = 0.6; //6 for Alpha
+    public static final double kPTranslationController = 0.6; // 6 for Alpha
     public static final double kITranslationController = 0;
     public static final double kDTranslationController = 0;
     public static final double kPRotationController = 5;
