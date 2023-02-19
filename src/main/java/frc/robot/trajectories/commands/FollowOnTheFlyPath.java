@@ -4,7 +4,6 @@
 
 package frc.robot.trajectories.commands;
 
-
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -54,7 +53,10 @@ public class FollowOnTheFlyPath extends CommandBase {
         startYPos = Robot.pose.getPosition().getY();
         startHeading = Robot.swerve.getHeading().getDegrees();
         startRotation = Robot.pose.getOdometryPose().getRotation().getDegrees();
-        startVelocity = Robot.swerve.mSwerveMods[0].mDriveMotor.getSelectedSensorVelocity() * TrajectoriesConfig.swerveMetersPerPulse * 10;
+        startVelocity =
+                Robot.swerve.mSwerveMods[0].mDriveMotor.getSelectedSensorVelocity()
+                        * TrajectoriesConfig.swerveMetersPerPulse
+                        * 10;
 
         double constantRotation;
         double constantHeading;

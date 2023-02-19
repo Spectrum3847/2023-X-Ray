@@ -6,6 +6,8 @@ import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
+import frc.robot.swerve.configs.XRAY2023;
+import frc.robot.trajectories.TrajectoriesConfig;
 
 /** This is a class for the configuration of a single swerve module. */
 public class ModuleConfig {
@@ -46,7 +48,9 @@ public class ModuleConfig {
                         tuning.anglePeakCurrentDuration);
 
         swerveAngleFXConfig.slot0.kP = tuning.angleKP;
-        swerveAngleFXConfig.slot0.kI = 0;
+        swerveAngleFXConfig.slot0.kI =
+                XRAY2023.wheelDiameter
+                        / (XRAY2023.maxVelocity / TrajectoriesConfig.swerveMetersPerPulse);
         swerveAngleFXConfig.slot0.kD = tuning.angleKD;
         swerveAngleFXConfig.slot0.kF = 0;
         swerveAngleFXConfig.slot0.allowableClosedloopError = 0.0;
