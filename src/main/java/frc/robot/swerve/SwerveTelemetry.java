@@ -17,7 +17,7 @@ public class SwerveTelemetry {
     public SwerveTelemetry(Swerve swerve) {
         this.swerve = swerve;
         tab = Shuffleboard.getTab("Swerve");
-        tab.addNumber("Heading", () -> swerve.getHeading().getDegrees()).withPosition(0, 0);
+        tab.addNumber("Heading", () -> swerve.getRotation().getDegrees()).withPosition(0, 0);
         tab.addNumber("Odometry X", () -> swerve.getPoseMeters().getX()).withPosition(0, 1);
         tab.addNumber("Odometry Y", () -> swerve.getPoseMeters().getY()).withPosition(0, 2);
     }
