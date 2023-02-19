@@ -17,7 +17,7 @@ import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.LinkedList;
 
 public class FollowOnTheFlyPath extends CommandBase {
-    
+
     private LinkedList<PathPoint> endPoints = new LinkedList<>();
     private PathPlannerTrajectory path;
 
@@ -42,11 +42,12 @@ public class FollowOnTheFlyPath extends CommandBase {
     }
 
     // Called when the command is initially scheduled.
-    @Override @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings("unchecked")
     public void initialize() {
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();
-       
+
         maxVelocity = TrajectoriesConfig.kGenPathMaxSpeed;
         maxAcceleration = TrajectoriesConfig.kGenPathMaxAccel;
 

@@ -7,6 +7,8 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;

@@ -168,10 +168,11 @@ public class Swerve extends SubsystemBase {
                 getFieldRelativeSpeeds().vyMetersPerSecond);
     }
 
-    public double getFieldRelativeHeading() {
-        return Math.atan2(
-                getFieldRelativeSpeeds().vxMetersPerSecond,
-                getFieldRelativeSpeeds().vyMetersPerSecond);
+    public Rotation2d getFieldRelativeHeading() {
+        return Rotation2d.fromRadians(
+                Math.atan2(
+                        getFieldRelativeSpeeds().vxMetersPerSecond,
+                        getFieldRelativeSpeeds().vyMetersPerSecond));
     }
 
     public Rotation2d getRotation() {
