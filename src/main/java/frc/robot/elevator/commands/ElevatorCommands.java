@@ -27,7 +27,10 @@ public class ElevatorCommands {
     }
 
     public static Command setMMPosition(double position) {
-        return new ElevatorDelay(Elevator.config.safePositionForFourBar, position, FourBar.config.safePositionForElevator);
+        return new ElevatorDelay(
+                Elevator.config.safePositionForFourBar,
+                position,
+                FourBar.config.safePositionForElevator);
     }
 
     public static Command coneIntake() {

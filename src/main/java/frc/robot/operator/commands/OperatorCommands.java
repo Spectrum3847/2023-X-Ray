@@ -2,12 +2,10 @@ package frc.robot.operator.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.elevator.commands.ElevatorDelay;
 import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.FourBarDelay;
@@ -73,8 +71,7 @@ public class OperatorCommands {
 
     /** Goes to 0 */
     private static Command homeSystems() {
-        return FourBarCommands.home()
-                .alongWith(ElevatorCommands.safeHome());
+        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
     }
 
     public static Command manualElevator() {
