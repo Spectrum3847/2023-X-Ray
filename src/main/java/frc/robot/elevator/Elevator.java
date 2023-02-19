@@ -72,7 +72,7 @@ public class Elevator extends LinearMechSubsystem {
         double falcon = metersToFalcon(meters);
         return falcon;
     }
-    
+
     /**
      * Converts real height to extension for the elevator. Subtracts the height of the elevator at
      * the bottom. So that the height of the elevator at the bottom is 0. Does trigonomic

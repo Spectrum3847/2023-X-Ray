@@ -46,8 +46,6 @@ public class Vision extends SubsystemBase {
         // Vision.java
     }
 
-
-
     /**
      * Vision Pose Estimation
      *
