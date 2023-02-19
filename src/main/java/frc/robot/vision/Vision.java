@@ -46,17 +46,7 @@ public class Vision extends SubsystemBase {
         // Vision.java
     }
 
-    private void doThings(String output, double input) {
-        System.out.println(
-                output
-                        + ": "
-                        + Units.metersToInches(
-                                Conversions.FalconToMeters(
-                                        input,
-                                        Units.inchesToMeters(Elevator.config.diameterInches)
-                                                * Math.PI,
-                                        Elevator.config.gearRatio)));
-    }
+
 
     /**
      * Vision Pose Estimation
