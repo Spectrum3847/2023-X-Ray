@@ -10,4 +10,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 public interface GyroIO {
 
     public Rotation2d getRawYaw();
+
+    public Rotation2d getRawAngle();
+
+    public Rotation2d getRawPitch();
+
+    public Rotation2d getRawRoll();
 }

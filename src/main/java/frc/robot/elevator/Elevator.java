@@ -84,14 +84,12 @@ public class Elevator extends LinearMechSubsystem {
         meters = meters - config.startingHeight;
         if (meters < 0) {
             meters = config.startingHeight;
-            DriverStation.reportWarning(
-                    "Height is below the starting height. See Elevator#heightToExtension", false);
+            DriverStation.reportWarning("Height is below the starting height.", false);
         }
         meters = meters / Math.sin(Math.toRadians(config.angle));
         if (meters > config.maxExtension) {
             meters = config.maxExtension;
-            DriverStation.reportWarning(
-                    "Height is above the max extension. See Elevator#heightToExtension", false);
+            DriverStation.reportWarning("Height is above the max extension.", false);
         }
         return meters;
     }

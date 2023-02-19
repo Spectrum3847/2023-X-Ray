@@ -24,21 +24,21 @@ public class PilotGamepad extends Gamepad {
         gamepad.leftStick.setDeadband(PilotConfig.throttleDeadband);
         gamepad.leftStick.configCurves(
                 PilotConfig.throttleExp,
-                Robot.swerve.config.tuning.maxVelocity * PilotConfig.throttleScaler);
+                PilotConfig.throttleScaler * Robot.swerve.config.tuning.maxVelocity);
         gamepad.leftStick.setXinvert(PilotConfig.xInvert);
         gamepad.leftStick.setYinvert(PilotConfig.yInvert);
 
         gamepad.rightStick.setDeadband(PilotConfig.throttleDeadband);
         gamepad.rightStick.configCurves(
                 PilotConfig.steeringExp,
-                Robot.swerve.config.tuning.maxAngularVelocity * PilotConfig.steeringScaler);
+                PilotConfig.steeringScaler * Robot.swerve.config.tuning.maxAngularVelocity);
         gamepad.rightStick.setXinvert(PilotConfig.xInvert);
         gamepad.rightStick.setYinvert(PilotConfig.yInvert);
 
         gamepad.triggers.setTwistDeadband(PilotConfig.steeringDeadband);
         gamepad.triggers.configTwistCurve(
                 PilotConfig.steeringExp,
-                Robot.swerve.config.tuning.maxAngularVelocity * PilotConfig.steeringScaler);
+                PilotConfig.steeringScaler * Robot.swerve.config.tuning.maxAngularVelocity);
         gamepad.triggers.setTwistInvert(PilotConfig.steeringInvert);
     }
 
@@ -78,6 +78,14 @@ public class PilotGamepad extends Gamepad {
 
     private Trigger leftGrid() {
         return gamepad.leftBumper.and(gamepad.rightBumper.negate());
+    }
+
+    private Trigger rightGrid() {
+        return gamepad.rightBumper.and(gamepad.leftBumper.negate());
+    }
+
+    private Trigger middleGrid() {
+        return gamepad.rightBumper.and(gamepad.leftBumper);
     }
 
     public double getDriveFwdPositive() {

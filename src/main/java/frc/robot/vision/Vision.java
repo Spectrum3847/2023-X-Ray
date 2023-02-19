@@ -3,65 +3,36 @@ package frc.robot.vision;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.RobotTelemetry;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import org.photonvision.PhotonCamera;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class Vision extends SubsystemBase {
-    public final VisionConfig config;
-    public final RobotPoseEstimator poseEstimator;
-    public final PhotonCamera[] cameras;
-    public Pair<Pose3d, Double> currentPose;
+    public PhotonVision photonVision;
+    public Pose2d botPose;
 
-    private ArrayList<Pair<PhotonCamera, Transform3d>> cameraPairs;
-    private double yaw, pitch, area, poseAmbiguity, captureTime;
-    private int targetId;
-    private NetworkTable table;
-    private NetworkTableEntry tx, ty, ta;
+    private Pose3d botPose3d;
+    private Pair<Pose3d, Double> photonVisionPose;
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
-    private double lastYaw = 0;
-    private boolean targetFound = true;
 
     public Vision() {
         setName("Vision");
-        config = new VisionConfig();
-        table = NetworkTableInstance.getDefault().getTable("limelight");
-        cameraPairs = new ArrayList<Pair<PhotonCamera, Transform3d>>();
-        currentPose = new Pair<Pose3d, Double>(new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0)), 0.0);
+        botPose = new Pose2d(0, 0, new Rotation2d(0));
+        botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
+        LimelightHelpers.setLEDMode_ForceOff(null);
 
-        /* Limelight NetworkTable Retrieval */
-        tx = table.getEntry("tx");
-        ty = table.getEntry("ty");
-        ta = table.getEntry("ta");
-
-        cameras =
-                new PhotonCamera[] {VisionConfig.LL.config.camera
-                    /* Add cameras here */
-                };
-        /* setting up the pair(s) of cameras and their 3d transformation from the center of the robot
-        to give to the pose estimator */
-        for (int i = 0; i < cameras.length; i++) {
-            cameraPairs.add(getCameraPair(getCameraConfig(i)));
-        }
-
-        poseEstimator =
-                new RobotPoseEstimator(VisionConfig.tagMap, VisionConfig.strategy, cameraPairs);
+        /* PhotonVision Setup -- uncomment if running PhotonVision*/
+        // photonVision = new PhotonVision();
 
         // printing purposes
         df.setMaximumFractionDigits(2);
@@ -69,158 +40,145 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        currentPose = getEstimatedPose();
-        double x = tx.getDouble(0.0);
-        double y = ty.getDouble(0.0);
-        double area = ta.getDouble(0.0);
+        // this method can call update() if vision pose estimation needs to be updated in
+        // Vision.java
+    }
 
-        double[] dv = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-        double[] robotPose = table.getEntry("botpose").getDoubleArray(dv);
+    /**
+     * Vision Pose Estimation
+     *
+     * <p>Limelight pose logic:
+     *
+     * <p>Sets odometry pose to be vision estimate at the start of {@link Robot#teleopInit} and
+     * {@link Robot#disabledInit} so odometry has correct starting pose. Will not override odometry
+     * with vision if limelight does not see targets. Adds vision estimate to pose estimator using
+     * standard deviation values if 1) odometry has been overridden by vision at least once and 2)
+     * vision estimate is within 1 meter of odometry
+     */
+    public void update() {
+        /* Limelight Pose Estimation Retrieval */
+        double latency =
+                LimelightHelpers.getLatency_Pipeline(
+                        null); // may need to add LimelightHelpers json parsing delay?
+        double[] poseArray = LimelightHelpers.getLimelightNTDoubleArray(null, "botpose");
 
-        if (robotPose.length > 0) {
-            SmartDashboard.putString("BotX", df.format(robotPose[0]));
-            SmartDashboard.putString("BotY", df.format(robotPose[1]));
-            SmartDashboard.putString("BotZ", df.format(robotPose[2]));
-            SmartDashboard.putString("Bot1", df.format(robotPose[3]));
-            SmartDashboard.putString("Bot2", df.format(robotPose[4]));
-            SmartDashboard.putString("Bot3", df.format(robotPose[5]));
-        }
-
-        SmartDashboard.putString("tagX", df.format(x));
-        SmartDashboard.putString("tagY", df.format(y));
-        SmartDashboard.putString("tagArea", df.format(area));
-        /* Adding vision estimate to pose */
-        // if(isValidPose()) {
-        //     Robot.pose.addVisionMeasurement(currentPose.getFirst().toPose2d(),
-        // getTimestampSeconds());
-        // }
-
-        /* get targets & basic data from a single camera */
-        PhotonPipelineResult results = cameras[0].getLatestResult();
-        if (results.hasTargets()) {
-            PhotonTrackedTarget target = results.getBestTarget();
-            // negate it because the target.getYaw is the yaw of the robot from the target which is
-            // the opposite direction. Or photonvision yaw is CW+ CCW-
-            yaw = -target.getYaw();
-            pitch = target.getPitch();
-            area = target.getArea();
-            targetId = target.getFiducialId();
-            poseAmbiguity = target.getPoseAmbiguity();
-            captureTime = Timer.getFPGATimestamp() - (results.getLatencyMillis() / 1000d);
-
-            // printing
-            if (lastYaw == 0) {
-                lastYaw = yaw;
-            }
-
-            /* If robot has moved, print new target data */
-            if (Math.round(lastYaw) != Math.round(yaw)) {
-                // printDebug(targetId, yaw, pitch, area, poseAmbiguity, captureTime);
-            }
-
-            lastYaw = yaw;
-            targetFound = true;
-        } else {
-            // no target found
-            yaw = 0.0;
-            if (targetFound) {
-                RobotTelemetry.print("Lost target");
-                targetFound = false;
+        if (poseArray.length > 0) {
+            botPose3d = chooseAlliance();
+            botPose = botPose3d.toPose2d();
+            /* Adding Limelight estimate to pose if within 1 meter of odometry*/
+            if (isValidPose(Robot.vision.botPose)) {
+                Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
             }
         }
+
+        /* PhotonVision Pose Estimation Retrieval */
+        if (photonVision != null) {
+            photonVision.update();
+            photonVisionPose = photonVision.currentPose;
+            Pose2d photonVisionPose2d = photonVisionPose.getFirst().toPose2d();
+            /* Adding PhotonVision estimate to pose */
+            if (isValidPose(photonVisionPose2d)) {
+                Robot.pose.addVisionMeasurement(
+                        photonVisionPose2d,
+                        getTimestampSeconds(photonVisionPose.getSecond().doubleValue()));
+            }
+        }
+        printDebug(poseArray);
     }
 
     /**
-     * Gets the yaw of the target relative to the field for aiming.
+     * Returns the corresponding limelight pose for the alliance in DriverStation.java
      *
-     * @return Yaw in radians
+     * @return Pose3d corresponding to blue or red alliance
      */
-    public double getRadiansToTarget() {
-        return Units.degreesToRadians(yaw) + Robot.swerve.getHeading().getRadians();
-    }
-
-    public double getYaw() {
-        return yaw;
-    }
-
-    /** Gets the camera capture time in seconds. */
-    public double getTimestampSeconds() {
-        return Timer.getFPGATimestamp() - (currentPose.getSecond().doubleValue() / 1000d);
+    public Pose3d chooseAlliance() {
+        if (DriverStation.getAlliance() == Alliance.Blue) {
+            return LimelightHelpers.getBotPose3d_wpiBlue(null);
+        } else if (DriverStation.getAlliance() == Alliance.Red) {
+            return LimelightHelpers.getBotPose3d_wpiRed(null);
+        }
+        DriverStation.reportWarning("Invalid Team", false);
+        return null;
     }
 
     /**
-     * Gets the estimated pose of the robot.
+     * Comparing vision pose against odometry pose. Does not account for difference in rotation.
+     * Will return false vision if it sees no targets or if the vision estimated pose is too far
+     * from the odometry estimate
      *
-     * @return the estimated pose of the robot
+     * @return whether or not pose should be added to estimate or not
      */
-    private Pair<Pose3d, Double> getEstimatedPose() {
-        return poseEstimator.update();
-    }
+    public boolean isValidPose(Pose2d pose) {
+        /* Disregard Vision if there are no targets in view */
+        if (!LimelightHelpers.getTV(null)) {
+            return false;
+        }
 
-    /**
-     * Projects 3d pose to 2d to compare against odometry estimate. Does not account for difference
-     * in rotation.
-     *
-     * @return whether or not the vision estimated pose is within 1 meter of the odometry estimated
-     *     pose
-     */
-    private boolean isValidPose() {
-        Pose2d pose = currentPose.getFirst().toPose2d();
-        Pose2d odometryPose = Robot.pose.getPosition();
+        /* Disregard Vision if odometry has not been set to vision pose yet in teleopInit*/
+        Pose2d odometryPose = Robot.swerve.getPoseMeters();
+        if (odometryPose.getX() <= 0.3
+                && odometryPose.getY() <= 0.3
+                && odometryPose.getRotation().getDegrees() <= 1) {
+            return false;
+        }
         return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
                 && (Math.abs(pose.getY() - odometryPose.getY()) <= 1);
     }
 
     /**
-     * Gets the camera pair for the pose estimator.
+     * Gets the camera capture time in seconds.
      *
-     * @param cameraConfig the camera config
-     * @return the camera pair
+     * @param latencyMillis the latency of the camera in milliseconds
+     * @return the camera capture time in seconds
      */
-    private Pair<PhotonCamera, Transform3d> getCameraPair(CameraConfig config) {
-        return new Pair<PhotonCamera, Transform3d>(
-                config.camera,
-                new Transform3d(
-                        new Translation3d(
-                                config.cameraToRobotX,
-                                config.cameraToRobotY,
-                                config.cameraToRobotZ),
-                        new Rotation3d(
-                                config.cameraRollRadians,
-                                config.cameraPitchRadians,
-                                config.cameraYawRadians)));
+    public double getTimestampSeconds(double latencyMillis) {
+        return Timer.getFPGATimestamp() - (latencyMillis / 1000d);
     }
 
     /**
-     * Gets the camera config for the camera.
+     * Creates Pose3d object from raw limelight values sent through NetworkTables
      *
-     * @param cameraIndex the camera index
-     * @return the camera config
+     * @return Pose3d object representing the robot's pose
      */
-    private CameraConfig getCameraConfig(int iteration) {
-        switch (iteration) {
-            case 0:
-                return VisionConfig.LL.config;
-                /* add camera configs here */
-            default:
-                RobotTelemetry.print("Something went wrong trying to get camera config");
-                return VisionConfig.LL.config;
-        }
+    public Pose3d createBotPose3d(double[] values) {
+        return new Pose3d(
+                new Translation3d(values[0], values[1], values[2]),
+                new Rotation3d(
+                        Units.degreesToRadians(values[3]),
+                        Units.degreesToRadians(values[4]),
+                        Units.degreesToRadians(values[5])));
     }
 
-    private void printDebug() {
-        RobotTelemetry.print(
-                "Target ID: "
-                        + targetId
-                        + " | Target Yaw: "
-                        + df.format(yaw)
-                        + " | Pitch: "
-                        + df.format(pitch)
-                        + " | Area: "
-                        + df.format(area)
-                        + " | Pose Ambiguity: "
-                        + poseAmbiguity
-                        + " | Capture Time: "
-                        + df.format(captureTime));
+    /**
+     * Prints the vision, estimated, and odometry pose to SmartDashboard
+     *
+     * @param values the array of limelight raw values
+     */
+    public void printDebug(double[] values) {
+        if (values.length > 0) {
+            SmartDashboard.putString("LimelightX", df.format(botPose3d.getTranslation().getX()));
+            SmartDashboard.putString("LimelightY", df.format(botPose3d.getTranslation().getY()));
+            SmartDashboard.putString("LimelightZ", df.format(botPose3d.getTranslation().getZ()));
+            SmartDashboard.putString(
+                    "LimelightRoll",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getX())));
+            SmartDashboard.putString(
+                    "LimelightPitch",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getY())));
+            SmartDashboard.putString(
+                    "LimelightYaw",
+                    df.format(Units.radiansToDegrees(botPose3d.getRotation().getZ())));
+        }
+        SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
+        SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
+        SmartDashboard.putString(
+                "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
+        SmartDashboard.putString(
+                "Odometry X", df.format(Robot.swerve.odometry.getPoseMeters().getX()));
+        SmartDashboard.putString(
+                "Odometry Y", df.format(Robot.swerve.odometry.getPoseMeters().getY()));
+        SmartDashboard.putString(
+                "Odometry Theta",
+                df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
     }
 }
