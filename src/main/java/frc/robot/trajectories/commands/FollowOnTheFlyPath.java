@@ -10,6 +10,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -90,6 +91,18 @@ public class FollowOnTheFlyPath extends CommandBase {
                 // travel), holonomic rotation,
                 // velocity override
                 );
+        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+            fullPath.set(
+                    0,
+                    new PathPoint(
+                            new Translation2d(startXPos, TrajectoriesConfig.fieldWidth - startYPos),
+                            Rotation2d.fromDegrees(-startHeading),
+                            Rotation2d.fromDegrees(-startRotation),
+                            startVelocity) // position, heading(direction of
+                    // travel), holonomic rotation,
+                    // velocity override
+                    );
+        }
 
         path =
                 PathPlanner.generatePath(
