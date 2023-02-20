@@ -23,7 +23,6 @@ public class Vision extends SubsystemBase {
     private Pair<Pose3d, Double> photonVisionPose;
 
     // testing
-    private Pose2d[] hybridSpots;
     private final DecimalFormat df = new DecimalFormat();
 
     public Vision() {
@@ -37,24 +36,12 @@ public class Vision extends SubsystemBase {
 
         // printing purposes
         df.setMaximumFractionDigits(2);
-
-        // WIP
-        hybridSpots =
-                new Pose2d[] {
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0)),
-                    new Pose2d(0, 0, new Rotation2d(0))
-                };
     }
 
     @Override
     public void periodic() {
+        // System.out.println(getThetaToHybrid(0));
+
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -107,7 +94,7 @@ public class Vision extends SubsystemBase {
     /**
      * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
      *     nodes
-     * @return angle between robot heading and hybrid spot
+     * @return angle between robot heading and hybrid spot in degrees
      */
     public double getThetaToHybrid(int hybridSpot) {
         if (botPose.getX() == 0 && botPose.getY() == 0) {
@@ -115,8 +102,8 @@ public class Vision extends SubsystemBase {
                     "Vision cannot localize! Move camera in view of a tag", false);
             return 0;
         }
-        Pose2d hybridPose = hybridSpots[hybridSpot];
-        return botPose.relativeTo(hybridPose).getRotation().getDegrees();
+        Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
+        return botPose.relativeTo(hybridPose).getRotation().getDegrees(); //+ Robot.swerve.getHeading().getDegrees()?
     }
 
     /**

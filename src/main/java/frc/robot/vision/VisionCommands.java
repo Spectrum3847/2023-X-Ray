@@ -12,7 +12,7 @@ import frc.robot.pilot.commands.PilotCommands;
 public class VisionCommands {
 
     public static Command aimToHybridSpot(int spot) {
-        return PilotCommands.aimPilotDrive(() -> Robot.vision.getThetaToHybrid(spot))
+        return PilotCommands.aimPilotDrive(() -> Units.degreesToRadians(Robot.vision.getThetaToHybrid(spot)))
                 .withName("Aim to Hybrid Spot");
     }
 
