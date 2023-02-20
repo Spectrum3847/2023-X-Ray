@@ -11,7 +11,7 @@ public class SwerveCommands {
         Robot.swerve.setDefaultCommand(PilotCommands.pilotSwerve());
     }
 
-    public static Command resetSteeringToAbsolute(){
+    public static Command resetSteeringToAbsolute() {
         return new InstantCommand(() -> Robot.swerve.resetSteeringToAbsolute(), Robot.swerve)
                 .withName("ResetEncodersToAbsolute");
     }

@@ -37,18 +37,25 @@ public class OperatorGamepad extends Gamepad {
         gamepad.xButton.whileTrue(OperatorCommands.coneMid());
         gamepad.yButton.whileTrue(OperatorCommands.coneTop());
 
-        gamepad.rightTriggerButton.whileTrue(OperatorCommands.coneIntake());
-        gamepad.leftTriggerButton.whileTrue(OperatorCommands.cubeIntake());
-        gamepad.rightBumper.whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
+        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeHybrid());
+        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
+        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation());
+        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneHybrid());
+        gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
+        gamepad.rightTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.coneIntake());
+        gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.leftTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeIntake());
+
         gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         coneStandingIntakeButton().whileTrue(OperatorCommands.coneStandingIntake());
-        coneShelfIntakeButton().whileTrue(OperatorCommands.coneShelfIntake());
 
 
-        gamepad.Dpad.Up.whileTrue(IntakeCommands.intake());
-        gamepad.Dpad.Down.whileTrue(IntakeCommands.eject());
-        gamepad.Dpad.Left.whileTrue(OperatorCommands.coneFloorLED());
-        gamepad.Dpad.Right.whileTrue(OperatorCommands.cubeLED());
+        gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
+        gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
+        gamepad.Dpad.Left.and(noRightBumper()).whileTrue(OperatorCommands.coneFloorLED());
+        gamepad.Dpad.Right.and(noRightBumper()).whileTrue(OperatorCommands.cubeLED());
         coneShelfLEDsButton().whileTrue(OperatorCommands.coneShelfLED());
 
 
@@ -62,6 +69,14 @@ public class OperatorGamepad extends Gamepad {
     }
 
     public void setupTestButtons() {}
+
+    private Trigger noRightBumper() {
+        return gamepad.rightBumper.negate();
+    }
+
+    private Trigger rightBumper() {
+        return gamepad.rightBumper;
+    }
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);

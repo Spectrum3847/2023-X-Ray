@@ -76,8 +76,8 @@ public class Swerve extends SubsystemBase {
                     new SwerveModule(2, config),
                     new SwerveModule(3, config)
                 };
-                
-        
+
+        Timer.delay(1);
         resetSteeringToAbsolute();
         mSwerveModStates = getStatesCAN(); // Get the states once a loop
         chassisSpeeds = config.swerveKinematics.toChassisSpeeds(mSwerveModStates);
