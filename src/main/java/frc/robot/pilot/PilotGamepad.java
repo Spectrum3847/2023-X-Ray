@@ -52,9 +52,9 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
 
-        gamepad.rightBumper.whileTrue(
-                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
         gamepad.leftBumper.whileTrue(
+                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
+        gamepad.rightBumper.whileTrue(
                 FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
 
         leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
