@@ -26,6 +26,16 @@ public class PilotCommands {
                 .withName("PilotSwerve");
     }
 
+    public static Command slowMode() {
+        return new SwerveDrive(
+                        () -> Robot.pilotGamepad.getDriveFwdPositive() * PilotConfig.slowModeScaler,
+                        () ->
+                                Robot.pilotGamepad.getDriveLeftPositive()
+                                        * PilotConfig.slowModeScaler,
+                        () -> Robot.pilotGamepad.getDriveCCWPositive() * PilotConfig.slowModeScaler)
+                .withName("SlowMode");
+    }
+
     /** Robot Oriented Drive */
     public static Command fpvPilotSwerve() {
         return new SwerveDrive(
@@ -34,6 +44,17 @@ public class PilotCommands {
                         () -> Robot.pilotGamepad.getDriveCCWPositive(),
                         false)
                 .withName("fpvPilotSwerve");
+    }
+
+    public static Command slowModeFPV() {
+        return new SwerveDrive(
+                        () -> Robot.pilotGamepad.getDriveFwdPositive() * PilotConfig.slowModeScaler,
+                        () ->
+                                Robot.pilotGamepad.getDriveLeftPositive()
+                                        * PilotConfig.slowModeScaler,
+                        () -> Robot.pilotGamepad.getDriveCCWPositive() * PilotConfig.slowModeScaler,
+                        false)
+                .withName("SlowModeFPV");
     }
 
     public static Command snakeDrive() {
