@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
+import frc.robot.fourbar.FourBar;
 import java.util.function.DoubleSupplier;
 
 // above all copied from PilotCommands.java
@@ -28,7 +29,10 @@ public class ElevatorCommands {
     }
 
     public static Command setMMPosition(double position) {
-        return new RunCommand(() -> Robot.elevator.setMMPosition(position), Robot.elevator);
+        return new ElevatorDelay(
+                Elevator.config.safePositionForFourBar,
+                position,
+                FourBar.config.safePositionForElevator);
     }
 
     public static Command coneIntake() {
@@ -69,5 +73,10 @@ public class ElevatorCommands {
 
     public static Command zeroElevatorRoutine() {
         return new ZeroElevatorRoutine();
+    }
+
+    public static Command safeHome() {
+        return new ElevatorDelay(
+                Elevator.config.safePositionForFourBar, 0, FourBar.config.safePositionForElevator);
     }
 }
