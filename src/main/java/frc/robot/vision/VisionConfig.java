@@ -24,18 +24,17 @@ public final class VisionConfig {
             new AprilTag(1, new Pose3d(0.734, 7.286, 1.33, new Rotation3d(0, 0, -Math.PI / 2)));
 
     public static Pose2d[] hybridSpots =
-    new Pose2d[] {
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0)),
-        new Pose2d(0, 0, new Rotation2d(0))
-    };
-
+            new Pose2d[] {
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(0, 0, new Rotation2d(0))
+            };
 
     /* Camera setup
     Robot coordinate plane || away from driverstation is +x, left is +y, up is +z

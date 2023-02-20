@@ -103,7 +103,9 @@ public class Vision extends SubsystemBase {
             return 0;
         }
         Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
-        return botPose.relativeTo(hybridPose).getRotation().getDegrees(); //+ Robot.swerve.getHeading().getDegrees()?
+        return botPose.relativeTo(hybridPose)
+                .getRotation()
+                .getDegrees(); // + Robot.swerve.getHeading().getDegrees()?
     }
 
     /**
