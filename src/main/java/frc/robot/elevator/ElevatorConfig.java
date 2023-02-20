@@ -15,6 +15,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneStandingIntake = 0;
     public final double coneShelf = 126200;
 
+    public final double coneHybrid = 0;
     public final double coneMid = 95000;
     public final double coneTop = 165000;
 

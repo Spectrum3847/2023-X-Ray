@@ -32,6 +32,11 @@ public class OperatorCommands {
                 .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
     }
 
+    public static Command coneHybrid() {
+        return IntakeCommands.slowIntake()
+                .alongWith(ElevatorCommands.coneHybrid(), FourBarCommands.coneHybrid());
+    }
+
     public static Command coneMid() {
         return IntakeCommands.slowIntake()
                 .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid());
@@ -57,12 +62,20 @@ public class OperatorCommands {
                 .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
+    public static Command cubeHybrid() {
+        return IntakeCommands.hybridSpinUp().alongWith(homeSystems());
+    }
+
     public static Command cubeMid() {
         return IntakeCommands.midCubeSpinUp().alongWith(homeSystems());
     }
 
     public static Command cubeTop() {
         return IntakeCommands.topCubeSpinUp().alongWith(homeSystems());
+    }
+
+    public static Command cubeChargeStation() {
+        return IntakeCommands.fullSpinUp().alongWith(homeSystems());
     }
 
     public static Command homeAndSlowIntake() {

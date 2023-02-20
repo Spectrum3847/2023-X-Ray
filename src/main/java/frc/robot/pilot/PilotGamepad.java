@@ -73,7 +73,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new LockSwerve());
-        //Right is free
+        // Right is free
 
         // Reorient the robot to the current heading
         gamepad.Dpad.Up.and(leftBumperOnly())
