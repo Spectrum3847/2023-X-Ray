@@ -12,19 +12,18 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.SpectrumLib.util.Conversions;
 import frc.robot.Robot;
-import frc.robot.elevator.Elevator;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
-    public Pose2d botPose;
+    public Pose2d botPose; // TODO: this may need to be estimated pose instead of botpose L:113
 
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
 
     // testing
+    private Pose2d[] hybridSpots;
     private final DecimalFormat df = new DecimalFormat();
 
     public Vision() {
@@ -38,6 +37,20 @@ public class Vision extends SubsystemBase {
 
         // printing purposes
         df.setMaximumFractionDigits(2);
+
+        // WIP
+        hybridSpots =
+                new Pose2d[] {
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    new Pose2d(0, 0, new Rotation2d(0))
+                };
     }
 
     @Override
@@ -89,6 +102,21 @@ public class Vision extends SubsystemBase {
             }
         }
         printDebug(poseArray);
+    }
+
+    /**
+     * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
+     *     nodes
+     * @return angle between robot heading and hybrid spot
+     */
+    public double getThetaToHybrid(int hybridSpot) {
+        if (botPose.getX() == 0 && botPose.getY() == 0) {
+            DriverStation.reportWarning(
+                    "Vision cannot localize! Move camera in view of a tag", false);
+            return 0;
+        }
+        Pose2d hybridPose = hybridSpots[hybridSpot];
+        return botPose.relativeTo(hybridPose).getRotation().getDegrees();
     }
 
     /**
