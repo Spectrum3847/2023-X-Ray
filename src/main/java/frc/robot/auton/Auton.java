@@ -83,6 +83,14 @@ public class Auton {
                                         TrajectoriesConfig
                                                 .kMaxAccel)))); // run a test path to see how things
         // are supposed to be on the field
+        autonChooser.addOption(
+                "2 Ball Bottom",
+                PathBuilder.pathBuilder.fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "2 Ball Bottom",
+                                new PathConstraints(
+                                        TrajectoriesConfig.kMaxSpeed,
+                                        TrajectoriesConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
