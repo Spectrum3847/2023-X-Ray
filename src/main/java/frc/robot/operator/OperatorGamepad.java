@@ -32,11 +32,6 @@ public class OperatorGamepad extends Gamepad {
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .whileTrue(OperatorCommands.manualFourBar());
 
-        gamepad.aButton.whileTrue(OperatorCommands.cubeMid());
-        gamepad.bButton.whileTrue(OperatorCommands.cubeTop());
-        gamepad.xButton.whileTrue(OperatorCommands.coneMid());
-        gamepad.yButton.whileTrue(OperatorCommands.coneTop());
-
         gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
         gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeHybrid());
         gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
