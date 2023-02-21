@@ -12,6 +12,7 @@ import frc.robot.pilot.commands.PilotCommands;
 public class VisionCommands {
 
     public static Command aimToHybridSpot(int spot) {
+        System.out.println("this ran");
         return PilotCommands.aimPilotDrive(
                         () ->
                                 Robot.pose.getHeading().getRadians()

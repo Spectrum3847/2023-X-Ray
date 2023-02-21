@@ -91,8 +91,11 @@ public class Vision extends SubsystemBase {
     }
 
     /**
-     * Uses trigonometric functions to calculate the angle between the robot heading and the angle required to face the hybrid spot. Will return 0 if the robot cannot see an apriltag. 
-     * More detailed diagram: https://cdn.discordapp.com/attachments/892049282998370386/1077382243091226654/image0.jpg
+     * Uses trigonometric functions to calculate the angle between the robot heading and the angle
+     * required to face the hybrid spot. Will return 0 if the robot cannot see an apriltag. More
+     * detailed diagram:
+     * https://cdn.discordapp.com/attachments/892049282998370386/1077382243091226654/image0.jpg
+     *
      * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
      *     nodes
      * @return angle between robot heading and hybrid spot in degrees
@@ -100,46 +103,47 @@ public class Vision extends SubsystemBase {
     public double getThetaToHybrid(int hybridSpot) {
         if (botPose.getX() == 0 && botPose.getY() == 0) {
             DriverStation.reportWarning(
-                "Vision cannot localize! Move camera in view of a tag", false);
-                return 0;
-            }
+                    "Vision cannot localize! Move camera in view of a tag", false);
+        }
         Transform2d transform = getTransformToHybrid(hybridSpot);
         double hyp = Math.hypot(transform.getX(), transform.getY()); // can this be negative?
         double beta = Math.toDegrees(Math.asin(transform.getX() / hyp));
         // double headingInScope; -- may have to get rotation in scope of -180 to 180 if using gryo
         // heading
         double omega =
-                (transform.getY() >= 0)
-                        ? botPose.getRotation().getDegrees() + 90
-                        : botPose.getRotation().getDegrees()
-                                + 180; // this may break if robot cant see tag so use gyro
+                Robot.pose.getEstimatedPose().getRotation().getDegrees()
+                        + 90; // this may break if robot cant see tag so use gyro
         // heading/estimated heading
         double theta = 360 - (omega + beta);
         // maybe if theta is greater than 360 just subtract 360 so you dont turn over a full
         // rotation
         if (theta > 360) {
             theta -= 360;
-            System.out.println("\u001B[36m needed new theta: \u001B[0m" + theta);
+            System.out.println("needed new theta: " + theta);
         }
         // if thetasupplier doesn't automatically figure out best path to target manually change it
         // by checking: if addition is greater than 180, add (theta - 360) (subtract theta)
 
         aimingPrintDebug(transform, hyp, beta, omega, theta);
 
-        return theta;
+        return theta
+                - 25; // this is the predictable offset behind the chargestation. The error seems to
+        // be predictable and dependent on the Transformation X which we can write a
+        // line of best fit for and it should work very well.
     }
 
     /**
      * Helper function for {@link Vision#getThetaToHybrid}
+     *
      * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
      *     nodes
-     * @return Transform2d representing the x and y distance components between the robot and the hybrid spot
+     * @return Transform2d representing the x and y distance components between the robot and the
+     *     hybrid spot
      */
     private Transform2d getTransformToHybrid(int hybridSpot) {
         Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
-        return botPose.minus(hybridPose);
+        return Robot.pose.getEstimatedPose().minus(hybridPose);
     }
-
 
     /**
      * Returns the corresponding limelight pose for the alliance in DriverStation.java
@@ -240,26 +244,30 @@ public class Vision extends SubsystemBase {
 
     /**
      * Prints useful debug information for theta aiming calculations
+     *
      * @param transform
      * @param hyp
      * @param beta
      * @param omega
      * @param theta
      */
-    private void aimingPrintDebug(Transform2d transform, double hyp, double beta, double omega, double theta) {
+    private void aimingPrintDebug(
+            Transform2d transform, double hyp, double beta, double omega, double theta) {
+        System.out.println(
+                " pose theta: "
+                        + df.format(Robot.pose.getEstimatedPose().getRotation().getDegrees()));
         System.out.print(
-                "\u001B[36mtransform x: \u001B[0m"
-                        + transform.getX()
-                        + "\u001B[36m y: \u001B[0m"
-                        + transform.getY()
-                        + "\t");
-        System.out.print("\u001B[36m hypotenuse: \u001B[0m" + hyp + "\t");
-        System.out.print("\u001B[36m beta: \u001B[0m" + beta + "\t");
-        System.out.print("\u001B[36m omega: \u001B[0m" + omega + "\t");
-        System.out.println("\u001B[36m theta: \u001B[0m" + theta + "\t");
+                "transform x: "
+                        + df.format(transform.getX())
+                        + " y: "
+                        + df.format(transform.getY()));
+        System.out.print(" hypotenuse: " + df.format(hyp));
+        System.out.print(" beta: " + df.format(beta));
+        System.out.print(" omega: " + df.format(omega));
+        System.out.println(" theta: " + df.format(theta));
         if (theta > 360) {
             theta -= 360;
-            System.out.println("\u001B[36m needed new theta: \u001B[0m" + theta);
+            System.out.println(" needed new theta: " + df.format(theta));
         }
     }
 }
