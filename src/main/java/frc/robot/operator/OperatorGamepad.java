@@ -37,6 +37,9 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.coneIntake());
         gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneShelfIntake());
         gamepad.leftTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeIntake());
+        gamepad.leftTriggerButton
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.coneStandingIntake());
 
         gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
@@ -47,9 +50,18 @@ public class OperatorGamepad extends Gamepad {
         gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
+                .and(noRightBumper())
                 .whileTrue(OperatorCommands.manualFourBar());
         AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
+                .and(noRightBumper())
                 .whileTrue(OperatorCommands.manualElevator());
+
+        AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.slowManualFourBar());
+        AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.slowManualElevator());
     }
 
     public void setupDisabledButtons() {

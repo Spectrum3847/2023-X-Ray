@@ -12,6 +12,7 @@ import frc.robot.fourbar.commands.FourBarDelay;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
+import frc.robot.operator.OperatorConfig;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {}
@@ -93,9 +94,27 @@ public class OperatorCommands {
                 Robot.elevator);
     }
 
+    public static Command slowManualElevator() {
+        return new RunCommand(
+                () ->
+                        Robot.elevator.setManualOutput(
+                                Robot.operatorGamepad.elevatorManual()
+                                        * OperatorConfig.slowModeScalar),
+                Robot.elevator);
+    }
+
     public static Command manualFourBar() {
         return new RunCommand(
                 () -> Robot.fourBar.setManualOutput(Robot.operatorGamepad.fourBarManual()),
+                Robot.fourBar);
+    }
+
+    public static Command slowManualFourBar() {
+        return new RunCommand(
+                () ->
+                        Robot.fourBar.setManualOutput(
+                                Robot.operatorGamepad.fourBarManual()
+                                        * OperatorConfig.slowModeScalar),
                 Robot.fourBar);
     }
 

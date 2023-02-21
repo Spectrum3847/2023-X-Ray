@@ -15,6 +15,7 @@ import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.LockSwerve;
+import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.commands.PositionPaths;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
@@ -84,6 +85,7 @@ public class PilotGamepad extends Gamepad {
                 .whileTrue(PoseCommands.resetHeading(180).alongWith(PilotCommands.rumble(0.5, 1)));
         gamepad.Dpad.Right.and(leftBumperOnly())
                 .whileTrue(PoseCommands.resetHeading(270).alongWith(PilotCommands.rumble(0.5, 1)));
+        gamepad.startButton.whileTrue(SwerveCommands.resetSteeringToAbsolute());
     }
 
     public void setupDisabledButtons() {
