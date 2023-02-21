@@ -5,6 +5,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -27,7 +28,7 @@ public class Vision extends SubsystemBase {
 
     public Vision() {
         setName("Vision");
-        botPose = new Pose2d(0, 0, new Rotation2d(0));
+        botPose = new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0)));
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
         LimelightHelpers.setLEDMode_ForceOff(null);
 
@@ -40,8 +41,6 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // System.out.println(getThetaToHybrid(0));
-
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -92,6 +91,8 @@ public class Vision extends SubsystemBase {
     }
 
     /**
+     * Uses trigonometric functions to calculate the angle between the robot heading and the angle required to face the hybrid spot. Will return 0 if the robot cannot see an apriltag. 
+     * More detailed diagram: https://cdn.discordapp.com/attachments/892049282998370386/1077382243091226654/image0.jpg
      * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
      *     nodes
      * @return angle between robot heading and hybrid spot in degrees
@@ -99,14 +100,46 @@ public class Vision extends SubsystemBase {
     public double getThetaToHybrid(int hybridSpot) {
         if (botPose.getX() == 0 && botPose.getY() == 0) {
             DriverStation.reportWarning(
-                    "Vision cannot localize! Move camera in view of a tag", false);
-            return 0;
+                "Vision cannot localize! Move camera in view of a tag", false);
+                return 0;
+            }
+        Transform2d transform = getTransformToHybrid(hybridSpot);
+        double hyp = Math.hypot(transform.getX(), transform.getY()); // can this be negative?
+        double beta = Math.toDegrees(Math.asin(transform.getX() / hyp));
+        // double headingInScope; -- may have to get rotation in scope of -180 to 180 if using gryo
+        // heading
+        double omega =
+                (transform.getY() >= 0)
+                        ? botPose.getRotation().getDegrees() + 90
+                        : botPose.getRotation().getDegrees()
+                                + 180; // this may break if robot cant see tag so use gyro
+        // heading/estimated heading
+        double theta = 360 - (omega + beta);
+        // maybe if theta is greater than 360 just subtract 360 so you dont turn over a full
+        // rotation
+        if (theta > 360) {
+            theta -= 360;
+            System.out.println("\u001B[36m needed new theta: \u001B[0m" + theta);
         }
-        Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
-        return botPose.relativeTo(hybridPose)
-                .getRotation()
-                .getDegrees(); // + Robot.swerve.getHeading().getDegrees()?
+        // if thetasupplier doesn't automatically figure out best path to target manually change it
+        // by checking: if addition is greater than 180, add (theta - 360) (subtract theta)
+
+        aimingPrintDebug(transform, hyp, beta, omega, theta);
+
+        return theta;
     }
+
+    /**
+     * Helper function for {@link Vision#getThetaToHybrid}
+     * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
+     *     nodes
+     * @return Transform2d representing the x and y distance components between the robot and the hybrid spot
+     */
+    private Transform2d getTransformToHybrid(int hybridSpot) {
+        Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
+        return botPose.minus(hybridPose);
+    }
+
 
     /**
      * Returns the corresponding limelight pose for the alliance in DriverStation.java
@@ -203,5 +236,30 @@ public class Vision extends SubsystemBase {
         SmartDashboard.putString(
                 "Odometry Theta",
                 df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
+    }
+
+    /**
+     * Prints useful debug information for theta aiming calculations
+     * @param transform
+     * @param hyp
+     * @param beta
+     * @param omega
+     * @param theta
+     */
+    private void aimingPrintDebug(Transform2d transform, double hyp, double beta, double omega, double theta) {
+        System.out.print(
+                "\u001B[36mtransform x: \u001B[0m"
+                        + transform.getX()
+                        + "\u001B[36m y: \u001B[0m"
+                        + transform.getY()
+                        + "\t");
+        System.out.print("\u001B[36m hypotenuse: \u001B[0m" + hyp + "\t");
+        System.out.print("\u001B[36m beta: \u001B[0m" + beta + "\t");
+        System.out.print("\u001B[36m omega: \u001B[0m" + omega + "\t");
+        System.out.println("\u001B[36m theta: \u001B[0m" + theta + "\t");
+        if (theta > 360) {
+            theta -= 360;
+            System.out.println("\u001B[36m needed new theta: \u001B[0m" + theta);
+        }
     }
 }

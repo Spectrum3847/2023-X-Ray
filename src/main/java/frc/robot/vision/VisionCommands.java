@@ -13,7 +13,11 @@ public class VisionCommands {
 
     public static Command aimToHybridSpot(int spot) {
         return PilotCommands.aimPilotDrive(
-                        () -> Units.degreesToRadians(Robot.vision.getThetaToHybrid(spot)))
+                        () ->
+                                Robot.pose.getHeading().getRadians()
+                                        + Units.degreesToRadians(
+                                                Robot.vision.getThetaToHybrid(
+                                                        spot))) // or Robot.swerve.getRotation()?
                 .withName("Aim to Hybrid Spot");
     }
 
