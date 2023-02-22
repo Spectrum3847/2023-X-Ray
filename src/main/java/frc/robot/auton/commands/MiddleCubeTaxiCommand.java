@@ -4,15 +4,19 @@ package frc.robot.auton.commands;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.swerve.commands.SwerveDrive;
 
 // Wait 5 seconds before driving out of tarmac
-public class TaxiCommand extends ParallelCommandGroup {
+public class MiddleCubeTaxiCommand extends ParallelCommandGroup {
     /** Creates a new TestPathFollowing. */
-    public TaxiCommand() {
+    public MiddleCubeTaxiCommand() {
         addCommands(
-                new WaitCommand(5),
-                new SwerveDrive(() -> -2, () -> 0.0, () -> 0.0, false).withTimeout(1.5));
+                OperatorCommands.cubeTop().withTimeout(2),
+                new WaitCommand(2)
+                        .andThen(
+                                new SwerveDrive(() -> -1.0, () -> 0.0, () -> 0.0, false)
+                                        .withTimeout(3.65)));
     }
 
     Rotation2d finalRotation() {

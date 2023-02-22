@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.auton.commands.LeftCubeTaxiCommand;
+import frc.robot.auton.commands.MiddleCubeTaxiCommand;
+import frc.robot.auton.commands.RightCubeTaxiCommand;
 import frc.robot.auton.commands.TaxiCommand;
 import frc.robot.trajectories.TrajectoriesConfig;
 import frc.robot.trajectories.commands.PathBuilder;
@@ -34,7 +37,9 @@ public class Auton {
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
-        autonChooser.addOption("Cube Taxi", new TaxiCommand());
+        autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
+        autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
+        autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
         autonChooser.addOption(
                 "1 Meter",
                 PathBuilder.pathBuilder.fullAuto(
