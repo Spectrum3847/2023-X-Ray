@@ -3,6 +3,7 @@ package frc.robot.trajectories.commands;
 import com.pathplanner.lib.PathPoint;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.LinkedList;
 
@@ -14,21 +15,28 @@ public class GeneratePathForScoring {
         double constantHeading;
         double constantYPos;
         double lineupXPositionModifier;
-
+        double xPositions[] = new double[] {};
         double finalXPos;
 
-        constantRotation = TrajectoriesConfig.constantRotation;
-        constantHeading = TrajectoriesConfig.constantHeading;
-        lineupXPositionModifier = TrajectoriesConfig.lineupXPositionModifier;
-
+        constantRotation = TrajectoriesConfig.constantBlueRotation;
+        constantHeading = TrajectoriesConfig.constantBlueHeading;
         constantYPos = TrajectoriesConfig.clearYPosition;
+        lineupXPositionModifier = TrajectoriesConfig.lineupXPositionModifier;
+        xPositions = TrajectoriesConfig.blueXPositions;
+        finalXPos = TrajectoriesConfig.finalBlueXPosition;
 
-        finalXPos = TrajectoriesConfig.finalXPosition;
+        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+            finalXPos = TrajectoriesConfig.finalRedXPosition;
+            constantRotation = TrajectoriesConfig.constantRedRotation;
+            constantHeading = TrajectoriesConfig.constantRedHeading;
+            lineupXPositionModifier = -TrajectoriesConfig.lineupXPositionModifier;
+            xPositions = TrajectoriesConfig.redXPositions;
+        }
 
-        for (int i = 0; i < TrajectoriesConfig.xPositions.length; i++) {
+        for (int i = 0; i < xPositions.length; i++) {
             finalPoints.add(
                     new PathPoint(
-                            new Translation2d(TrajectoriesConfig.xPositions[i], constantYPos),
+                            new Translation2d(xPositions[i], constantYPos),
                             Rotation2d.fromDegrees(constantHeading),
                             Rotation2d.fromDegrees(constantRotation)));
         }

@@ -51,6 +51,8 @@ public class FollowOnTheFlyPath extends CommandBase {
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();
 
+        double xPositions[] = new double[] {};
+
         maxVelocity = TrajectoriesConfig.kGenPathMaxSpeed;
         maxAcceleration = TrajectoriesConfig.kGenPathMaxAccel;
 
@@ -64,24 +66,39 @@ public class FollowOnTheFlyPath extends CommandBase {
         double constantHeading;
         double constantYPos;
 
-        constantRotation = TrajectoriesConfig.constantRotation;
-        constantHeading = TrajectoriesConfig.constantHeading;
-
+        constantRotation = TrajectoriesConfig.constantBlueRotation;
+        constantHeading = TrajectoriesConfig.constantBlueHeading;
         constantYPos = TrajectoriesConfig.bumpYPosition;
+        xPositions = TrajectoriesConfig.blueXPositions;
+
+        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+            constantRotation = TrajectoriesConfig.constantRedRotation;
+            constantHeading = TrajectoriesConfig.constantRedHeading;
+            xPositions = TrajectoriesConfig.redXPositions;
+        }
 
         if (startYPos < TrajectoriesConfig.changeYPositionLine) {
-            for (int i = 0; i < TrajectoriesConfig.xPositions.length; i++) {
+            for (int i = 0; i < xPositions.length; i++) {
                 fullPath.set(
                         i,
                         new PathPoint(
-                                new Translation2d(TrajectoriesConfig.xPositions[i], constantYPos),
+                                new Translation2d(xPositions[i], constantYPos),
                                 Rotation2d.fromDegrees(constantHeading),
                                 Rotation2d.fromDegrees(constantRotation)));
+                if (i == 2) {
+                    fullPath.set(
+                            i,
+                            new PathPoint(
+                                    new Translation2d(xPositions[i], constantYPos),
+                                    Rotation2d.fromDegrees(constantHeading),
+                                    Rotation2d.fromDegrees(constantRotation),
+                                    TrajectoriesConfig.kGenPathBumpSpeed));
+                }
             }
         }
 
         for (int i = fullPath.size() - 3; i >= 0; i--) {
-            if (TrajectoriesConfig.xPositions[i] > startXPos) {
+            if (xPositions[i] > startXPos) {
                 fullPath.remove(i);
             }
         }
@@ -112,19 +129,6 @@ public class FollowOnTheFlyPath extends CommandBase {
                 // velocity override
                 );
 
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            fullPath.set(
-                    0,
-                    new PathPoint(
-                            new Translation2d(startXPos, TrajectoriesConfig.fieldWidth - startYPos),
-                            Rotation2d.fromDegrees(-startHeading),
-                            Rotation2d.fromDegrees(-startRotation),
-                            startVelocity) // position, heading(direction of
-                    // travel), holonomic rotation,
-                    // velocity override
-                    );
-        }
-
         path =
                 PathPlanner.generatePath(
                         new PathConstraints(maxVelocity, maxAcceleration),
@@ -148,6 +152,8 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         pathFollowingCommmand.end(interrupted);
+        Robot.swerve.odometry.resetOdometry(
+                Robot.pose.getPosition()); // Resets odometry position to estimated position
     }
 
     // Returns true when the command should end.
