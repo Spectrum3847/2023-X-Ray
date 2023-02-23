@@ -12,11 +12,9 @@ public class MiddleCubeTaxiCommand extends ParallelCommandGroup {
     /** Creates a new TestPathFollowing. */
     public MiddleCubeTaxiCommand() {
         addCommands(
-                OperatorCommands.cubeTop().withTimeout(2),
-                new WaitCommand(2)
-                        .andThen(
-                                new SwerveDrive(() -> -1.0, () -> 0.0, () -> 0.0, false)
-                                        .withTimeout(3.65)));
+                OperatorCommands.cubeTop().withTimeout(2.0),
+                new SwerveDrive(() -> -1.0, () -> 0.0, () -> 0.0, false)
+                                        .withTimeout(3.65));
     }
 
     Rotation2d finalRotation() {
