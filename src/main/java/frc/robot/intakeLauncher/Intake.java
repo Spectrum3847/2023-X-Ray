@@ -50,4 +50,8 @@ public class Intake extends SubsystemBase {
         frontMotor.stop();
         launcherMotor.stop();
     }
+
+    public double getFrontCurrent() {
+        return frontMotor.getCurrent();
+    }
 }

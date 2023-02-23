@@ -55,4 +55,8 @@ public class IntakeMotor {
     public void stop() {
         motor.stopMotor();
     }
+
+    public double getCurrent() {
+        return motor.getSupplyCurrent();
+    }
 }

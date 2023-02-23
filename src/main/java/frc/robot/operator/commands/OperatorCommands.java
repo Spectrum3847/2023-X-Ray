@@ -9,6 +9,7 @@ import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.FourBarDelay;
+import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.BlinkLEDCommand;
 import frc.robot.leds.commands.OneColorLEDCommand;
@@ -59,7 +60,7 @@ public class OperatorCommands {
     }
 
     public static Command cubeIntake() {
-        return IntakeCommands.intake()
+        return new CubeIntake()
                 .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
