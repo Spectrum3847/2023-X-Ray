@@ -86,7 +86,11 @@ public class SwerveModule extends SubsystemBase {
         // Custom optimize command, since default WPILib optimize assumes continuous controller
         // which CTRE is not
         desiredState = CTREModuleState.optimize(desiredState, getState().angle);
+        setAngle(desiredState);
+        setSpeed(desiredState, isOpenLoop);
+    }
 
+    public void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
         if (isOpenLoop) {
             double percentOutput = desiredState.speedMetersPerSecond / config.tuning.maxVelocity;
             mDriveMotor.set(ControlMode.PercentOutput, percentOutput);
@@ -100,7 +104,9 @@ public class SwerveModule extends SubsystemBase {
             // DemandType.ArbitraryFeedForward,
             // feedforward.calculate(desiredState.speedMetersPerSecond));
         }
+    }
 
+    public void setAngle(SwerveModuleState desiredState) {
         // Prevent rotating module if speed is less then 1%
         // Prevents Jittering.
         Rotation2d angle = desiredState.angle;
@@ -115,12 +121,35 @@ public class SwerveModule extends SubsystemBase {
         lastAngle = angle;
     }
 
+    public double makePositiveDegrees(double anAngle) {
+        double degrees = anAngle;
+        degrees = degrees % 360;
+        if (degrees < 0.0) {
+            degrees = degrees + 360;
+        }
+        return degrees;
+    }
+
     public void resetToAbsolute() {
         double absolutePosition =
                 Conversions.degreesToFalcon(
-                        getAbsoluteAngle().getDegrees() - angleOffset,
+                        makePositiveDegrees(getAbsoluteAngle().getDegrees()) - angleOffset,
                         config.physical.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
+
+        // Testing this
+        lastAngle =
+                Rotation2d.fromDegrees(
+                        Conversions.falconToDegrees(
+                                absolutePosition, config.physical.angleGearRatio));
+    }
+
+    public void setLastAngletoCurrentAngle() {
+        double currentFalconAngle = mAngleMotor.getSelectedSensorPosition();
+        lastAngle =
+                Rotation2d.fromDegrees(
+                        Conversions.falconToDegrees(
+                                currentFalconAngle, config.physical.angleGearRatio));
     }
 
     private void configAngleMotor() {

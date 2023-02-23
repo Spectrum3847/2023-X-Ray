@@ -12,35 +12,35 @@ public class IntakeConfig {
 
     public double falconMaxSpeed = 6380; // RPM
 
-    public double lowerMaxSpeed = falconMaxSpeed; // * lowerGearRatio * lowerDiameter * Math.PI;
-    public double frontMaxSpeed = falconMaxSpeed; // * frontGearRatio * frontDiameter * Math.PI;
-    public double launcherMaxSpeed =
-            falconMaxSpeed; // * launcherGearRatio * launcherDiamter * Math.PI;
+    public double lowerMaxSpeed = falconMaxSpeed;
+    public double frontMaxSpeed = falconMaxSpeed;
+    public double launcherMaxSpeed = falconMaxSpeed;
 
     // Speed settings
-    public double lowerSlowSpeed = 1000;
-    public double frontSlowSpeed = 800;
-    public double launcherSlowSpeed = 0;
+    public double lowerSlowSpeed = 200;
+    public double frontSlowSpeed = 200;
+    public double launcherSlowSpeed = -100;
 
-    public double lowerIntakeSpeed = 5000; // lowerMaxSpeed * 0.85;
-    public double frontIntakeSpeed = 3500; // frontMaxSpeed * 0.85;
-    public double launcherIntakeSpeed = -1000;
+    public double lowerIntakeSpeed = 5000;
+    public double frontIntakeSpeed = 4000;
+    public double launcherIntakeSpeed = -3000;
 
-    public double lowerEjectSpeed = -4000;
-    public double frontEjectSpeed = -5000;
+    public double lowerEjectSpeed = -6000;
+    public double frontEjectSpeed = -6000;
     public double launcherEjectSpeed = 2000;
 
-    public double lowerSpinUpSpeed = 800;
+    public double lowerSpinUpSpeed = 200;
 
     public double lowerFeedSpeed = -6000;
-    public double frontMidCubeSpeed = 1500;
-    public double launcherMidCubeSpeed = frontMidCubeSpeed;
-
-    public double frontTopCubeSpeed = 2300;
-    public double launcherTopCubeSpeed = frontTopCubeSpeed;
 
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed;
+
+    public double frontMidCubeSpeed = 1500;
+    public double launcherMidCubeSpeed = frontMidCubeSpeed;
+
+    public double frontTopCubeSpeed = 2600;
+    public double launcherTopCubeSpeed = frontTopCubeSpeed;
 
     public double frontFullLaunchSpeed = frontMaxSpeed * 1.0;
     public double launcherFullLaunchSpeed = launcherMaxSpeed * 1.0;

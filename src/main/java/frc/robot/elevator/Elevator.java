@@ -1,5 +1,7 @@
 package frc.robot.elevator;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,6 +20,24 @@ public class Elevator extends LinearMechSubsystem {
         motorLeader.configReverseSoftLimitThreshold(600);
         motorLeader.configReverseSoftLimitEnable(true);
         motorLeader.configNominalOutputForward(0.03);
+    }
+
+    @Override
+    public void setMMPosition(double position) {
+        motorLeader.set(
+                ControlMode.MotionMagic,
+                position,
+                DemandType.ArbitraryFeedForward,
+                0.1); // calculateKf());
+    }
+
+    private double calculateKf() {
+        double pos = getPosition();
+        if (pos < config.maxCarriageHeight) {
+            return 0.0;
+        } else {
+            return 0.1;
+        }
     }
 
     public void zeroElevator() {
