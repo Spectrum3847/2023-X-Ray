@@ -13,7 +13,6 @@ import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
-import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.commands.PositionPaths;
@@ -76,16 +75,18 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new LockSwerve());
         // Right is free
 
-        // Reorient the robot to the current heading
-        gamepad.Dpad.Up.and(leftBumperOnly())
-                .whileTrue(PoseCommands.resetHeading(0).alongWith(PilotCommands.rumble(0.5, 1)));
-        gamepad.Dpad.Left.and(leftBumperOnly())
-                .whileTrue(PoseCommands.resetHeading(90).alongWith(PilotCommands.rumble(0.5, 1)));
-        gamepad.Dpad.Down.and(leftBumperOnly())
-                .whileTrue(PoseCommands.resetHeading(180).alongWith(PilotCommands.rumble(0.5, 1)));
-        gamepad.Dpad.Right.and(leftBumperOnly())
-                .whileTrue(PoseCommands.resetHeading(270).alongWith(PilotCommands.rumble(0.5, 1)));
-        gamepad.startButton.whileTrue(SwerveCommands.resetSteeringToAbsolute());
+        // Reorient the robot to the current heading, reset swerve ot absolute sensors, and rumble
+        // controller
+        gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));
+        gamepad.Dpad.Left.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(90));
+        gamepad.Dpad.Down.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(180));
+        gamepad.Dpad.Right.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(270));
+
+        // Start and Select Buttons
+        gamepad.startButton.whileTrue(
+                SwerveCommands
+                        .resetSteeringToAbsolute()); // Reset steering if a falcon is being weird
+        // gamepad.selectButton.whileTrue():
     }
 
     public void setupDisabledButtons() {
