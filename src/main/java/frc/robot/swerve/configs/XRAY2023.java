@@ -54,7 +54,7 @@ public class XRAY2023 {
     static final double maxAngularAcceleration = Math.pow(maxAngularVelocity, 2);
 
     /*Rotation Controller*/
-    public static final double kPRotationController = 4.0;
+    public static final double kPRotationController = 6.0;
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.1;
 

@@ -24,11 +24,17 @@ public class RotationController {
                         constraints);
 
         controller.enableContinuousInput(-Math.PI, Math.PI);
-        controller.setTolerance(1);
+        controller.setTolerance(Math.PI / 50);
     }
 
     public double calculate(double goalRadians) {
-        return controller.calculate(swerve.getRotation().getRadians(), goalRadians);
+        double calculatedValue =
+                controller.calculate(swerve.getRotation().getRadians(), goalRadians);
+        if (atSetpoint()) {
+            return 0;
+        } else {
+            return calculatedValue;
+        }
     }
 
     public boolean atSetpoint() {
