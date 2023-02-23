@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.SpectrumLib.util.Conversions;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -41,6 +43,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -70,7 +73,7 @@ public class Vision extends SubsystemBase {
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-            if (isValidPose(Robot.vision.botPose)) {
+            if (isValidPose(botPose)) {
                 Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
             }
         }

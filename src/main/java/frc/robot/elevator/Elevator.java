@@ -34,7 +34,7 @@ public class Elevator extends LinearMechSubsystem {
 
     private double calculateKf() {
         double pos = getPosition();
-        if (pos < config.maxCarriageHeight) {
+        if (pos < Elevator.inchesToFalcon(config.maxCarriageHeight)) {
             return 0.0;
         } else {
             return 0.1;

@@ -17,7 +17,6 @@ import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.commands.PositionPaths;
-import frc.robot.vision.VisionCommands;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -46,8 +45,8 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        fpvButton().whileTrue(VisionCommands.aimToHybridSpot(0));
-        // gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
+        // gamepad.xButton.whileTrue(VisionCommands.aimToHybridSpot(0));
+        fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
         slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
         slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
 
