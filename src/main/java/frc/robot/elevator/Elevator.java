@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
+import frc.SpectrumLib.util.Conversions;
 import frc.robot.RobotConfig;
 
 public class Elevator extends LinearMechSubsystem {
@@ -91,6 +92,20 @@ public class Elevator extends LinearMechSubsystem {
         double meters = inchesToMeters(inches);
         double falcon = metersToFalcon(meters);
         return falcon;
+    }
+
+    /**
+     * Converts falcon units to meters.
+     *
+     * @param falcon
+     * @return inches
+     */
+    public static double falconToInches(double falcon) {
+        return Units.metersToInches(
+            Conversions.FalconToMeters(
+                    falcon,
+                    Units.inchesToMeters(Elevator.config.diameterInches) * Math.PI,
+                    Elevator.config.gearRatio));
     }
 
     /**
