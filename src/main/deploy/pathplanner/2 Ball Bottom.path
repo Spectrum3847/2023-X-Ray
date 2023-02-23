@@ -16,6 +16,33 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
+        "names": [
+          "CloseLaunchCube"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "minimum",
+        "waitTime": 0.5
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 5.75,
+        "y": 0.93
+      },
+      "prevControl": {
+        "x": 5.6815843762834355,
+        "y": 0.93
+      },
+      "nextControl": {
+        "x": 5.831590392188419,
+        "y": 0.93
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
         "names": [],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
@@ -25,15 +52,15 @@
     {
       "anchorPoint": {
         "x": 6.5,
-        "y": 0.9473757129332453
+        "y": 0.93
       },
       "prevControl": {
-        "x": 6.06347324290059,
-        "y": 1.0302623022984665
+        "x": 6.055673772594588,
+        "y": 0.93
       },
       "nextControl": {
-        "x": 6.584061238955439,
-        "y": 0.931414378876363
+        "x": 6.585563170111905,
+        "y": 0.93
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -53,12 +80,12 @@
         "y": 1.0566882951947734
       },
       "prevControl": {
-        "x": 5.242736332842976,
-        "y": 0.8473364636045783
+        "x": 5.464764865675564,
+        "y": 1.0566882951947734
       },
       "nextControl": {
-        "x": 5.264160528321057,
-        "y": 1.2115477867319377
+        "x": 5.099923963300206,
+        "y": 1.0566882951947734
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -66,10 +93,12 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "FarLaunchCube"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "minimum",
+        "waitTime": 0.5
       }
     },
     {
@@ -98,5 +127,18 @@
   "maxVelocity": 2.0,
   "maxAcceleration": 2.0,
   "isReversed": null,
-  "markers": []
+  "markers": [
+    {
+      "position": 1.0,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 2.1,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }

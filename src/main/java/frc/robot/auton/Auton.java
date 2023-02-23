@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.auton.commands.AutonCommands;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
@@ -69,8 +70,17 @@ public class Auton {
                                         TrajectoriesConfig.kMaxSpeed,
                                         TrajectoriesConfig
                                                 .kMaxAccel)))); // sets an auto to drive one meter
+        autonChooser.addOption(
+                "5 Meters w Events",
+                PathBuilder.pathBuilder.followPathGroupWithEvents(
+                        PathPlanner.loadPathGroup(
+                                "5 Meters",
+                                new PathConstraints(
+                                        TrajectoriesConfig.kMaxSpeed,
+                                        TrajectoriesConfig
+                                                .kMaxAccel)))); // sets an auto to drive one meter
         // forward
-
+        // PathPlannerTrajectory.StopEvent
         autonChooser.addOption(
                 "5 Ball",
                 PathBuilder.pathBuilder.fullAuto(
@@ -103,16 +113,10 @@ public class Auton {
 
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
-        eventMap.put(
-                "marker1",
-                new PrintCommand(
-                        "Passed marker 1")); // sample of what the eventmap can do doesn't run
-        // unless there is an event maker with the name marker1
-        eventMap.put(
-                "marker2",
-                new PrintCommand(
-                        "Passed marker 2")); // sample of what the eventmap can do doesn't run
-        // unless there is an event maker with the name marker2
+        eventMap.put("IntakeCube", AutonCommands.intakeCube());
+        eventMap.put("CloseLaunchCube", AutonCommands.closeLaunchCube());
+        eventMap.put("FarLaunchCube", AutonCommands.farLaunchCube());
+        eventMap.put("RetractIntake", AutonCommands.retractIntake());
     }
 
     /**

@@ -2,21 +2,17 @@
 package frc.robot.auton.commands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.operator.commands.OperatorCommands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.swerve.commands.SwerveDrive;
 
 // Wait 5 seconds before driving out of tarmac
-public class LeftCubeTaxiCommand extends ParallelCommandGroup {
+public class LeftCubeTaxiCommand extends SequentialCommandGroup {
     /** Creates a new TestPathFollowing. */
     public LeftCubeTaxiCommand() {
         addCommands(
-                OperatorCommands.cubeTop().withTimeout(2.0),
-                new SwerveDrive(() -> -0.25, () -> -1, () -> 0.0, false)
-                                        .withTimeout(0.5),
-                new SwerveDrive(() -> -2.0, () -> 0.0, () -> 0.0, false)
-                                        .withTimeout(3));
+                AutonCommands.simpleLaunchCube(),
+                new SwerveDrive(() -> -0.25, () -> -1, () -> 0.0, false).withTimeout(0.5),
+                new SwerveDrive(() -> -2.0, () -> 0.0, () -> 0.0, false).withTimeout(3));
     }
 
     Rotation2d finalRotation() {
