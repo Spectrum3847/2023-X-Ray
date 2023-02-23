@@ -102,10 +102,10 @@ public class Elevator extends LinearMechSubsystem {
      */
     public static double falconToInches(double falcon) {
         return Units.metersToInches(
-            Conversions.FalconToMeters(
-                    falcon,
-                    Units.inchesToMeters(Elevator.config.diameterInches) * Math.PI,
-                    Elevator.config.gearRatio));
+                Conversions.FalconToMeters(
+                        falcon,
+                        Units.inchesToMeters(Elevator.config.diameterInches) * Math.PI,
+                        Elevator.config.gearRatio));
     }
 
     /**

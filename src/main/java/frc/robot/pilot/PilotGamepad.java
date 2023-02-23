@@ -17,6 +17,7 @@ import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.commands.PositionPaths;
+import frc.robot.vision.VisionCommands;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -45,7 +46,6 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        // gamepad.xButton.whileTrue(VisionCommands.aimToHybridSpot(0));
         fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
         slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
         slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
@@ -68,6 +68,18 @@ public class PilotGamepad extends Gamepad {
         rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
         rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
         rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
+
+        // hybrid aiming
+        // leftGrid = left bumper
+        rightGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(0));
+        rightGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(1));
+        rightGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(2));
+        middleGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(3));
+        middleGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(4));
+        middleGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(5));
+        leftGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(6));
+        leftGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(7));
+        leftGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(8));
 
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
         stickSteerTriggers();
@@ -109,6 +121,10 @@ public class PilotGamepad extends Gamepad {
 
     private Trigger bothBumpers() {
         return gamepad.rightBumper.and(gamepad.leftBumper);
+    }
+
+    private Trigger bothTriggers() {
+        return gamepad.rightTriggerButton.and(gamepad.leftTriggerButton);
     }
 
     private Trigger leftGrid() {
