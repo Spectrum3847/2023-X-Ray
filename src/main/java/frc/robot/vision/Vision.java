@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.SpectrumLib.util.Conversions;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import java.text.DecimalFormat;
@@ -43,6 +42,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+        // System.out.println(Elevator.inchesToFalcon(Elevator.config.coneMid));
 
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
