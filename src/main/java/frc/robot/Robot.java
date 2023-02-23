@@ -1,6 +1,5 @@
 package frc.robot;
 
-import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -94,8 +93,6 @@ public class Robot extends LoggedRobot {
     public static void resetCommandsAndButtons() {
         CommandScheduler.getInstance().cancelAll(); // Disable any currently running commands
         CommandScheduler.getInstance().getActiveButtonLoop().clear();
-        // LiveWindow.setEnabled(false); // Disable Live Window we don't need that data being sent
-        // LiveWindow.disableAllTelemetry();
 
         // Reset Config for all gamepads and other button bindings
         pilotGamepad.resetConfig();
@@ -123,8 +120,6 @@ public class Robot extends LoggedRobot {
 
         // Initialize all systems, do this after getting the MAC address
         intializeSystems();
-        PathPlannerServer.startServer(
-                5811); // 5811 = port number. adjust this according to your needs
         SmartDashboard.putData(CommandScheduler.getInstance());
         RobotTelemetry.print("--- Robot Init Complete ---");
     }
@@ -158,6 +153,7 @@ public class Robot extends LoggedRobot {
     public void disabledInit() {
         RobotTelemetry.print("## Disabled Init Starting");
         resetCommandsAndButtons();
+        swerve.resetSteeringToAbsolute(); // reset the steering encoders to absolute value
 
         if (vision.botPose.getX() >= 0.3) {
             pose.resetPoseEstimate(Robot.vision.botPose);
@@ -178,6 +174,8 @@ public class Robot extends LoggedRobot {
     public void autonomousInit() {
         RobotTelemetry.print("@@ Auton Init Starting");
         resetCommandsAndButtons();
+        swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
+        // angle
 
         Command autonCommand = Auton.getAutonomousCommand();
         if (autonCommand != null) {
@@ -204,6 +202,8 @@ public class Robot extends LoggedRobot {
         if (vision.botPose.getX() >= 0.3) {
             pose.resetPoseEstimate(Robot.vision.botPose);
         }
+        swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
+        // angle
 
         RobotTelemetry.print("$$ Teleop Init Complete");
     }

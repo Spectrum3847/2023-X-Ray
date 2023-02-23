@@ -15,6 +15,10 @@ public class TuningConfig {
     public final double maxAngularVelocity;
     public final double MaxAngularAcceleration;
 
+    public double kPRotationController = 0.0;
+    public double kIRotationController = 0.0;
+    public double kDRotationController = 0.0;
+
     /* Swerve Current Limiting */
     // Need a way to set these values
     public int angleContinuousCurrentLimit = 20;
@@ -54,6 +58,14 @@ public class TuningConfig {
         this.maxAcceleration = maxAcceleration;
         this.maxAngularVelocity = maxAngularVelocity;
         this.MaxAngularAcceleration = maxAngularAcceleration;
+    }
+
+    public TuningConfig configRotationController(
+            double kPRotationController, double kIRotationController, double kDRotationController) {
+        this.kPRotationController = kPRotationController;
+        this.kIRotationController = kIRotationController;
+        this.kDRotationController = kDRotationController;
+        return this;
     }
 
     // Must be called in the config file

@@ -50,6 +50,11 @@ public class ALPHA2023 {
             maxVelocity / Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
     static final double maxAngularAcceleration = Math.pow(maxAngularVelocity, 2);
 
+    /*Rotation Controller*/
+    public static final double kPRotationController = 4.0;
+    public static final double kIRotationController = 0.0;
+    public static final double kDRotationController = 0.1;
+
     public static final GyroConfig gyro = INFRARED2022.gyro;
 
     public static final PhysicalConfig physical =
@@ -77,7 +82,9 @@ public class ALPHA2023 {
                             maxAccel,
                             maxAngularVelocity,
                             maxAngularAcceleration)
-                    .configNeutralModes(NeutralMode.Brake, NeutralMode.Coast);
+                    .configNeutralModes(NeutralMode.Coast, NeutralMode.Coast)
+                    .configRotationController(
+                            kPRotationController, kIRotationController, kDRotationController);;
 
     /* Module Configs */
     static final ModuleConfig Mod0 =
