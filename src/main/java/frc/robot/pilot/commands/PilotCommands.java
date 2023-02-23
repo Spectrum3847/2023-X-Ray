@@ -89,12 +89,14 @@ public class PilotCommands {
 
     /** Reset the Theata Controller and then run the SwerveDrive command and pass a goal Supplier */
     public static Command aimPilotDrive(DoubleSupplier goalAngleSupplierRadians) {
-        return TrajectoriesCommands.resetThetaController()
+        return SwerveCommands.resetTurnController()
                 .andThen(
                         new SwerveDrive(
                                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
                                 () -> Robot.pilotGamepad.getDriveLeftPositive(),
-                                Robot.trajectories.calculateThetaSupplier(goalAngleSupplierRadians),
+                                () ->
+                                        Robot.swerve.calculateRotationController(
+                                                goalAngleSupplierRadians),
                                 true,
                                 false))
                 .withName("AimPilotDrive");

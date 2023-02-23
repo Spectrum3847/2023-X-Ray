@@ -8,7 +8,7 @@ public class PilotConfig {
 
     public static final double slowModeScaler = 0.3;
 
-    public static final double throttleDeadband = 0.15;
+    public static final double throttleDeadband = 0.2;
     public static final double throttleExp = 1.5;
     public static final double throttleScaler =
             1.0; // Multiples by SwerveMaxVelocity to determine max speed
@@ -16,12 +16,10 @@ public class PilotConfig {
     public static final boolean yInvert = true;
 
     public static final double steeringDeadband = 0.15;
-    public static final double steeringExp = throttleExp;
+    public static final double steeringExp = 2;
     public static final double steeringScaler =
             0.3; // Multiplies by Swerve Max Angular Velocity to determine max steering
     public static final boolean steeringInvert = true;
 
     public static final Translation2d intakeCoRmeters = new Translation2d(0, 0);
-
-    public static final double launcherValue = 0;
 }
