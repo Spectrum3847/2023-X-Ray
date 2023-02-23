@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.swerve.configTemplates.SwerveConfig;
@@ -75,6 +76,8 @@ public class Swerve extends SubsystemBase {
                     new SwerveModule(2, config),
                     new SwerveModule(3, config)
                 };
+
+        Timer.delay(1);
         resetSteeringToAbsolute();
         mSwerveModStates = getStatesCAN(); // Get the states once a loop
         chassisSpeeds = config.swerveKinematics.toChassisSpeeds(mSwerveModStates);

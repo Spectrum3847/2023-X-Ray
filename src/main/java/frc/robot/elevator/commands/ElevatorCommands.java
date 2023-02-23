@@ -47,6 +47,10 @@ public class ElevatorCommands {
         return setMMPositionFromInches(Elevator.config.coneStandingIntake);
     }
 
+    public static Command coneHybrid() {
+        return setMMPosition(Elevator.config.coneHybrid);
+    }
+
     public static Command coneMid() {
         return setMMPositionFromInches(Elevator.config.coneMid);
     }

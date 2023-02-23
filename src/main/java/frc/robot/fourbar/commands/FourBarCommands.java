@@ -36,6 +36,10 @@ public class FourBarCommands {
         return setMMPercent(FourBar.config.coneStandingIntake);
     }
 
+    public static Command coneHybrid() {
+        return setMMPercent(FourBar.config.coneHybrid);
+    }
+
     public static Command coneMid() {
         return setMMPercent(FourBar.config.coneMid);
     }
