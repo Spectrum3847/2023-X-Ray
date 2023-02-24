@@ -34,7 +34,7 @@ class PathBuilderEstimatedPose { // Used to create paths for Autonomus and for O
                     // subsystem
                     Auton.eventMap, // Gets the event map values to use for running addional
                     // commands during auto
-                    false, // Should the path be automatically mirrored depending on
+                    true, // Should the path be automatically mirrored depending on
                     // alliance color
                     // Alliance.
                     Robot.swerve // The drive subsystem. Used to properly set the requirements of
