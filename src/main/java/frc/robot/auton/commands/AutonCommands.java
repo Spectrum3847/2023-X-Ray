@@ -18,7 +18,7 @@ public class AutonCommands {
                 .withTimeout(0.2)
                 .andThen(IntakeCommands.launch())
                 .withTimeout(0.3)
-                .andThen(IntakeCommands.stopAllMotors());
+                .andThen(IntakeCommands.stopAllMotors().withTimeout(0.01));
     }
 
     public static Command farLaunchCube() {
