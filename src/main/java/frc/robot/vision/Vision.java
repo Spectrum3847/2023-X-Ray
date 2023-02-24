@@ -127,6 +127,7 @@ public class Vision extends SubsystemBase {
         // by checking: if addition is greater than 180, add (theta - 360) (subtract theta)
 
         aimingPrintDebug(transform, hyp, beta, omega, theta);
+        System.out.println("Aiming at node " + hybridSpot);
 
         return theta
                 - 25; // this is the predictable offset behind the chargestation. The error seems to

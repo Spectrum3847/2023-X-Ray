@@ -25,15 +25,15 @@ public final class VisionConfig {
 
     public static Pose2d[] hybridSpots =
             new Pose2d[] {
-                new Pose2d(2.82, 1.2, new Rotation2d(0)), // center grid 2nd node
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0)),
-                new Pose2d(0, 0, new Rotation2d(0))
+                new Pose2d(0.46, 1.2, new Rotation2d(0)),
+                new Pose2d(1.13, 1.2, new Rotation2d(0)),
+                new Pose2d(1.7, 1.2, new Rotation2d(0)),
+                new Pose2d(2.25, 1.2, new Rotation2d(0)),
+                new Pose2d(2.82, 1.2, new Rotation2d(0)),
+                new Pose2d(3.4, 1.2, new Rotation2d(0)),
+                new Pose2d(3.92, 1.2, new Rotation2d(0)),
+                new Pose2d(4.49, 1.2, new Rotation2d(0)),
+                new Pose2d(5.26, 1.2, new Rotation2d(0))
             };
 
     /* Camera setup

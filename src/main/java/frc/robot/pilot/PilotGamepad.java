@@ -70,7 +70,6 @@ public class PilotGamepad extends Gamepad {
         rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
 
         // hybrid aiming
-        // leftGrid = left bumper
         rightGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(0));
         rightGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(1));
         rightGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(2));
