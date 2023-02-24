@@ -16,7 +16,7 @@ public class TrajectoriesConfig {
     public static final double kIRotationController = 0;
     public static final double kDRotationController = 0.01; // try to remove
 
-    public static final double fieldWidth = 8.02; // Shouldn't need anymore
+    public static final double fieldWidth = 8.02;
 
     // Constant Values
     public static final double constantBlueRotation = 180;
@@ -29,15 +29,8 @@ public class TrajectoriesConfig {
     // Scoring Positions (these stay constant throughout all On-The-Fly Paths)
     public static final double lineupXPositionModifier = 0.2;
     // These are tuned for the Blue Alliance (everything is opposite in Red Alliance Scoring)
-    public static final double coneTTYPosition = 4.97;
-    public static final double cubeTYPosition = 4.42;
-    public static final double coneTBYPosition = 3.85;
-    public static final double coneMTYPosition = 3.29;
-    public static final double cubeMYPosition = 2.75;
-    public static final double coneMBYPosition = 2.17;
-    public static final double coneBTYPosition = 1.62;
-    public static final double cubeBYPosition = 1.05;
-    public static final double coneBBYPosition = 0.51;
+    public static final double blueYPositions[] =
+            new double[] {4.97, 4.42, 3.85, 3.29, 2.75, 2.17, 1.62, 1.05, 0.51};
     public static final double blueXPositions[] = new double[] {5.20, 5.00, 3.75, 2.45};
     public static final double redXPositions[] = new double[] {11.35, 11.55, 12.80, 14.10};
 

@@ -71,11 +71,11 @@ public class FollowOnTheFlyPath extends CommandBase {
         constantYPos = TrajectoriesConfig.bumpYPosition;
         xPositions = TrajectoriesConfig.blueXPositions;
 
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+        /*if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
             constantRotation = TrajectoriesConfig.constantRedRotation;
             constantHeading = TrajectoriesConfig.constantRedHeading;
             xPositions = TrajectoriesConfig.redXPositions;
-        }
+        }*/
 
         if (startYPos < TrajectoriesConfig.changeYPositionLine) {
             for (int i = 0; i < xPositions.length; i++) {
@@ -90,6 +90,30 @@ public class FollowOnTheFlyPath extends CommandBase {
                             i,
                             new PathPoint(
                                     new Translation2d(xPositions[i], constantYPos),
+                                    Rotation2d.fromDegrees(constantHeading),
+                                    Rotation2d.fromDegrees(constantRotation),
+                                    TrajectoriesConfig.kGenPathBumpSpeed));
+                }
+            }
+        }
+        if (startYPos > TrajectoriesConfig.fieldWidth - TrajectoriesConfig.changeYPositionLine
+                && DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+            for (int i = 0; i < xPositions.length; i++) {
+                fullPath.set(
+                        i,
+                        new PathPoint(
+                                new Translation2d(
+                                        xPositions[i],
+                                        TrajectoriesConfig.fieldWidth - constantYPos),
+                                Rotation2d.fromDegrees(constantHeading),
+                                Rotation2d.fromDegrees(constantRotation)));
+                if (i == 2) {
+                    fullPath.set(
+                            i,
+                            new PathPoint(
+                                    new Translation2d(
+                                            xPositions[i],
+                                            TrajectoriesConfig.fieldWidth - constantYPos),
                                     Rotation2d.fromDegrees(constantHeading),
                                     Rotation2d.fromDegrees(constantRotation),
                                     TrajectoriesConfig.kGenPathBumpSpeed));

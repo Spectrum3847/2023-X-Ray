@@ -78,57 +78,62 @@ public class Auton {
                 "1 Meter",
                 getAutoBuilder()
                         .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "1 Meter",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
+                                PathPlanner.loadPathGroup(
+                                        "1 Meter",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig
+                                                        .kMaxAccel)))); // sets an auto to drive one
+        // meter
         // forward
         autonChooser.addOption(
                 "3 Meters",
                 getAutoBuilder()
                         .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "3 Meters",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
+                                PathPlanner.loadPathGroup(
+                                        "3 Meters",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig
+                                                        .kMaxAccel)))); // sets an auto to drive one
+        // meter
         // forward
         autonChooser.addOption(
                 "5 Meters",
                 getAutoBuilder()
                         .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "5 Meters",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
+                                PathPlanner.loadPathGroup(
+                                        "5 Meters",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig
+                                                        .kMaxAccel)))); // sets an auto to drive one
+        // meter
         // forward
         // PathPlannerTrajectory.StopEvent
         autonChooser.addOption(
                 "5 Ball",
                 getAutoBuilder()
                         .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "5 Ball",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // runs the 5 ball auto that is set
+                                PathPlanner.loadPathGroup(
+                                        "5 Ball",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig
+                                                        .kMaxAccel)))); // runs the 5 ball auto that
+        // is set
         // in pathplanner
         autonChooser.addOption(
                 "Test Path",
                 getAutoBuilder()
                         .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Test Path",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // run a test path to see how things
+                                PathPlanner.loadPathGroup(
+                                        "Test Path",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig
+                                                        .kMaxAccel)))); // run a test path to see
+        // how things
         // are supposed to be on the field
         autonChooser.addOption(
                 "2 Ball Bottom",
