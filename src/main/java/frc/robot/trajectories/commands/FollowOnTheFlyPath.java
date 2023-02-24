@@ -77,7 +77,8 @@ public class FollowOnTheFlyPath extends CommandBase {
             xPositions = TrajectoriesConfig.redXPositions;
         }*/
 
-        if (startYPos < TrajectoriesConfig.changeYPositionLine && DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
+        if (startYPos < TrajectoriesConfig.changeYPositionLine
+                && DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
             for (int i = 0; i < xPositions.length; i++) {
                 fullPath.set(
                         i,
@@ -95,8 +96,8 @@ public class FollowOnTheFlyPath extends CommandBase {
                                     TrajectoriesConfig.kGenPathBumpSpeed));
                 }
             }
-        }
-        else if (startYPos > TrajectoriesConfig.fieldWidth - TrajectoriesConfig.changeYPositionLine
+        } else if (startYPos
+                        > TrajectoriesConfig.fieldWidth - TrajectoriesConfig.changeYPositionLine
                 && DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
             for (int i = 0; i < xPositions.length; i++) {
                 fullPath.set(
