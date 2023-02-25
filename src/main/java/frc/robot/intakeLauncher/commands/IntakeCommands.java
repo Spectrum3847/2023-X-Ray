@@ -67,6 +67,45 @@ public class IntakeCommands {
                 Intake.config.launcherAutoMidSpeed);
     }
 
+    public static Command bumpTopSpinUp() {
+        // testing using shuffleboard
+        return new CubeLaunchTest(Intake.config.frontBumpTopSpeed);
+        /* regular method */
+
+        // return setVelocities(
+        //         Intake.config.lowerSpinUpSpeed,
+        //         Intake.config.frontBumpTopSpeed,
+        //         Intake.config.launcherBumpTopSpeed);
+    }
+
+    public static Command communityMidSpinUp() {
+
+        return new CubeLaunchTest(Intake.config.frontCommunityMidSpeed);
+        // return setVelocities(
+        //         Intake.config.lowerSpinUpSpeed,
+        //         Intake.config.frontCommunityMidSpeed,
+        //         Intake.config.launcherCommunityMidSpeed);
+    }
+
+    public static Command behindStationMidSpinUp() {
+
+        return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeed);
+        // return setVelocities(
+        //         Intake.config.lowerSpinUpSpeed,
+        //         Intake.config.frontBehindRStationMidSpeed,
+        //         Intake.config.launcherBehindRStationMidSpeed);
+    }
+
+    public static Command onStationTopSpinUp() {
+
+        return new CubeLaunchTest(Intake.config.frontOnStationTopSpeed);
+        // return setVelocities(
+        //     Intake.config.lowerSpinUpSpeed,
+        //     Intake.config.frontOnStationTopSpeed,
+        //     Intake.config.launcherOnStationTopSpeed);
+
+    }
+
     public static Command launch() {
         return new RunCommand(() -> Robot.intake.launch(), Robot.intake);
     }

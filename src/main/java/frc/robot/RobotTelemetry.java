@@ -32,6 +32,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
     public RobotTelemetry(String name) {
         super(name);
         logCommands();
+
         // Column 0
         // Setup the auton selector to display on shuffleboard
         Auton.setupSelectors();

@@ -1,39 +1,47 @@
 package frc.robot.auton.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.auton.AutonConfig;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
-import frc.robot.operator.commands.OperatorCommands;
 
 public class AutonCommands {
-    public static Command intakeCube() {
-        return OperatorCommands.cubeIntake();
+
+    public static void setupDefaultCommand() {}
+
+    public static Command rightStationTop() {
+        return spinLauncher(IntakeCommands.bumpTopSpinUp()).andThen(launch(), stopMotors());
     }
 
-    public static Command retractIntake() {
-        return IntakeCommands.stopAllMotors().andThen(OperatorCommands.homeSystems());
+    /* These 3 commands have not been mapped to the operator gamepad */
+    public static Command communityMid() {
+        return spinLauncher(IntakeCommands.communityMidSpinUp()).andThen(launch(), stopMotors());
     }
 
-    public static Command closeLaunchCube() {
-        return IntakeCommands.fullSpinUp()
-                .withTimeout(0.2)
-                .andThen(IntakeCommands.launch())
-                .withTimeout(0.3)
-                .andThen(IntakeCommands.stopAllMotors().withTimeout(0.01));
+    public static Command behindStationMid() {
+        return spinLauncher(IntakeCommands.behindStationMidSpinUp())
+                .andThen(launch(), stopMotors());
     }
 
-    public static Command farLaunchCube() {
-        return closeLaunchCube();
+    public static Command onStationTop() {
+        return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
     }
 
-    public static Command simpleLaunchCube() {
-        return OperatorCommands.cubeTop()
-                .withTimeout(0.5)
-                .andThen(IntakeCommands.launch())
-                .withTimeout(2)
-                .andThen(IntakeCommands.stopAllMotors().withTimeout(0.01));
+    /** Goes to 0 */
+    private static Command homeSystems() {
+        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
     }
 
-    public static Command autoBalance() {
-        return null;
+    private static Command spinLauncher(Command spinCommand) {
+        return spinCommand.withTimeout(AutonConfig.spinUpTime);
+    }
+
+    private static Command launch() {
+        return IntakeCommands.launch().withTimeout(AutonConfig.launchTime);
+    }
+
+    private static Command stopMotors() {
+        return IntakeCommands.stopAllMotors().withTimeout(AutonConfig.stopTime);
     }
 }
