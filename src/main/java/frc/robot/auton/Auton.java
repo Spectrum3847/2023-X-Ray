@@ -142,21 +142,30 @@ public class Auton {
                                                 TrajectoriesConfig.kMaxSpeed,
                                                 TrajectoriesConfig.kMaxAccel))));
         autonChooser.addOption(
-                "3 Ball",
+                "3 Ball Bottom",
                 getAutoBuilder()
                         .fullAuto(
                                 PathPlanner.loadPathGroup(
-                                        "3 Ball",
+                                        "3 Ball Bottom",
                                         new PathConstraints(
                                                 TrajectoriesConfig.kMaxSpeed,
                                                 TrajectoriesConfig.kMaxAccel))));
 
         autonChooser.addOption(
-                "3 Ball w Balance",
+                "3 Ball Bottom w Balance",
                 getAutoBuilder()
                         .fullAuto(
                                 PathPlanner.loadPathGroup(
-                                        "3 Ball w Balance",
+                                        "3 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "IntakeTest",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "IntakeTest",
                                         new PathConstraints(
                                                 TrajectoriesConfig.kMaxSpeed,
                                                 TrajectoriesConfig.kMaxAccel))));
@@ -169,6 +178,7 @@ public class Auton {
         eventMap.put("OnStationTop", AutonCommands.onStationTop());
         eventMap.put("BehindStationMid", AutonCommands.behindStationMid());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
+        eventMap.put("RightStationTop", AutonCommands.rightStationTop());
     }
 
     /**

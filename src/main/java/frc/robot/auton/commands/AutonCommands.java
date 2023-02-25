@@ -1,5 +1,6 @@
 package frc.robot.auton.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auton.AutonConfig;
 import frc.robot.elevator.commands.ElevatorCommands;
@@ -35,7 +36,8 @@ public class AutonCommands {
     }
 
     private static Command spinLauncher(Command spinCommand) {
-        return spinCommand.withTimeout(AutonConfig.spinUpTime);
+        return spinCommand.withTimeout(
+                SmartDashboard.getNumber("spinTime", AutonConfig.spinUpTime));
     }
 
     private static Command launch() {

@@ -3,12 +3,12 @@
     {
       "anchorPoint": {
         "x": 4.35,
-        "y": 1.1
+        "y": 1.05
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.522572624092617,
-        "y": 0.8795770223119402
+        "x": 5.5225726240926125,
+        "y": 0.8295770223119403
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "CloseLaunchCube"
+          "RightStationTop"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -51,16 +51,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.5,
-        "y": 0.93
+        "x": 7.1,
+        "y": 0.92
       },
       "prevControl": {
-        "x": 6.055673772594588,
-        "y": 0.93
+        "x": 6.655673772594588,
+        "y": 0.92
       },
       "nextControl": {
-        "x": 6.585563170111905,
-        "y": 0.93
+        "x": 7.185563170111904,
+        "y": 0.92
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -76,16 +76,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.255051146465929,
-        "y": 1.0566882951947734
+        "x": 5.15,
+        "y": 1.05
       },
       "prevControl": {
-        "x": 5.464764865675564,
-        "y": 1.0566882951947734
+        "x": 5.359713719209635,
+        "y": 1.05
       },
       "nextControl": {
-        "x": 5.099923963300206,
-        "y": 1.0566882951947734
+        "x": 4.9948728168342775,
+        "y": 1.05
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -94,7 +94,7 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "FarLaunchCube"
+          "CommunityMid"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -103,12 +103,12 @@
     },
     {
       "anchorPoint": {
-        "x": 7.632599810654166,
-        "y": 0.9291569492229899
+        "x": 7.1,
+        "y": 0.9158500773141907
       },
       "prevControl": {
-        "x": 7.432193409841365,
-        "y": 0.9018288036576078
+        "x": 6.899593599187199,
+        "y": 0.8885219317488086
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -135,7 +135,7 @@
       ]
     },
     {
-      "position": 2.1,
+      "position": 2.3,
       "names": [
         "RetractIntake"
       ]
