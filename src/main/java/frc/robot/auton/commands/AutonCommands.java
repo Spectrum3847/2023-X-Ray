@@ -20,14 +20,13 @@ public class AutonCommands {
     }
 
     public static Command behindStationMid() {
-        return spinLauncher(IntakeCommands.behindStationMidSpinUp()).andThen(launch(), stopMotors());
+        return spinLauncher(IntakeCommands.behindStationMidSpinUp())
+                .andThen(launch(), stopMotors());
     }
 
     public static Command onStationTop() {
         return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
     }
-
-
 
     /** Goes to 0 */
     private static Command homeSystems() {

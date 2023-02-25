@@ -68,7 +68,7 @@ public class IntakeCommands {
     }
 
     public static Command bumpTopSpinUp() {
-        //testing using shuffleboard
+        // testing using shuffleboard
         return new CubeLaunchTest(Intake.config.frontBumpTopSpeed);
         /* regular method */
 
