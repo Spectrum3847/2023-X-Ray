@@ -4,15 +4,13 @@
 
 package frc.robot.intakeLauncher.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.intakeLauncher.Intake;
 
 public class CubeIntake extends CommandBase {
-    boolean currentLimitReached = false;
+    boolean velocityLimitReached = false;
     int count = 0;
-    double timer = 0;
     boolean runMotors = true;
     /** Creates a new CubeIntake. */
     public CubeIntake() {
@@ -23,35 +21,30 @@ public class CubeIntake extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        currentLimitReached = false;
+        velocityLimitReached = false;
         count = 0;
-        timer = 0;
         runMotors = true;
+
+        Robot.intake.setCurrentLimits(40, 80);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontCurrent() > 50 && currentLimitReached == false) {
+        if (Robot.intake.getFrontRPM() > 3600 && velocityLimitReached == false) {
             count++;
-            currentLimitReached = true;
-        } else if (Robot.intake.getFrontCurrent() <= 50) {
-            currentLimitReached = false;
+            velocityLimitReached = true;
+        } else if (Robot.intake.getFrontRPM() <= 3600) {
+            velocityLimitReached = false;
         }
 
-        if (count >= 2 && timer == 0) {
-            timer = Timer.getFPGATimestamp();
-        }
-
-        if (Timer.getFPGATimestamp() - timer > 0.8  && timer != 0) {
+        if (count >= 2) {
             runMotors = false;
         }
 
         if (runMotors) {
             Robot.intake.setVelocities(
-                    Intake.config.lowerIntakeSpeed,
-                    Intake.config.frontIntakeSpeed,
-                    Intake.config.launcherIntakeSpeed);
+                    3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
         } else {
             Robot.intake.stopAll();
         }
@@ -59,7 +52,9 @@ public class CubeIntake extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
+    }
 
     // Returns true when the command should end.
     @Override

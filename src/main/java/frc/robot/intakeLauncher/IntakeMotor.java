@@ -19,7 +19,8 @@ public class IntakeMotor {
         motor.configFactoryDefault();
 
         SupplyCurrentLimitConfiguration currentLimit =
-                new SupplyCurrentLimitConfiguration(true, 20, 40, 0);
+                new SupplyCurrentLimitConfiguration(
+                        true, Intake.config.currentLimit, Intake.config.threshold, 0);
         motor.configSupplyCurrentLimit(currentLimit);
         motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         motor.setInverted(inverted);
@@ -27,6 +28,12 @@ public class IntakeMotor {
 
         motor.config_kP(0, config.velocityKp);
         motor.config_kF(0, config.velocityKf);
+    }
+
+    public void setCurrentLimit(double limit, double threshold) {
+        SupplyCurrentLimitConfiguration currentLimit =
+                new SupplyCurrentLimitConfiguration(true, limit, threshold, 0);
+        motor.configSupplyCurrentLimit(currentLimit);
     }
 
     public void setVelocity(double speedRPM) {

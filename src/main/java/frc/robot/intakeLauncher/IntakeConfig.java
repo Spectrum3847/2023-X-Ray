@@ -45,8 +45,14 @@ public class IntakeConfig {
     public double frontFullLaunchSpeed = frontMaxSpeed * 1.0;
     public double launcherFullLaunchSpeed = launcherMaxSpeed * 1.0;
 
-    public double frontAutoMidSpeed = frontMaxSpeed * 0.9;
-    public double launcherAutoMidSpeed = launcherMaxSpeed * 0.9;
+    public double frontAutoMidSpeed = frontMaxSpeed;
+    public double launcherAutoMidSpeed = launcherMaxSpeed;
+
+    public double frontBumpTopSpeed = frontMaxSpeed * 0.85;
+    public double launcherBumpTopSpeed = launcherMaxSpeed * 0.85;
+
+    public double currentLimit = 20;
+    public double threshold = 40;
 
     public double velocityKp = 0.065;
     public double velocityKf = 0.0519;

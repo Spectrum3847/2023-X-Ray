@@ -27,6 +27,12 @@ public class Intake extends SubsystemBase {
         telemetry = new IntakeTelemetry(this);
     }
 
+    public void setCurrentLimits(double limit, double threshold) {
+        lowerMotor.setCurrentLimit(limit, threshold);
+        frontMotor.setCurrentLimit(limit, threshold);
+        launcherMotor.setCurrentLimit(limit, threshold);
+    }
+
     public void setVelocities(double lower, double front, double launcher) {
         lowerMotor.setVelocity(lower);
         frontMotor.setVelocity(front);
@@ -53,5 +59,9 @@ public class Intake extends SubsystemBase {
 
     public double getFrontCurrent() {
         return frontMotor.getCurrent();
+    }
+
+    public double getFrontRPM() {
+        return frontMotor.getVelocity();
     }
 }
