@@ -129,8 +129,7 @@ public class Vision extends SubsystemBase {
 
         return theta
                 - 25; // this is the predictable offset behind the chargestation. The error seems to
-        // be predictable and dependent on the Transformation X which we can write a
-        // line of best fit for and it should work very well.
+        // be predictable probably meaning the trig is wrong
     }
 
     /**
