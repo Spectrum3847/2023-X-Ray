@@ -7,8 +7,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.pilot.commands.PilotCommands;
 
 public class VisionCommands {
+
+    public static Command aimToHybridSpot(int spot) {
+        System.out.println("this ran");
+        return PilotCommands.aimPilotDrive(
+                        () ->
+                                Robot.pose.getHeading().getRadians()
+                                        + Units.degreesToRadians(
+                                                Robot.vision.getThetaToHybrid(
+                                                        spot))) // or Robot.swerve.getRotation()?
+                .withName("Aim to Hybrid Spot");
+    }
 
     public static Command printYawInfo() {
         return new InstantCommand(
