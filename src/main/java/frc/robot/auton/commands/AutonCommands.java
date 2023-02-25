@@ -5,6 +5,7 @@ import frc.robot.auton.AutonConfig;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.operator.commands.OperatorCommands;
 
 public class AutonCommands {
 
@@ -43,5 +44,21 @@ public class AutonCommands {
 
     private static Command stopMotors() {
         return IntakeCommands.stopAllMotors().withTimeout(AutonConfig.stopTime);
+    }
+
+    public static Command retractIntake() {
+        return homeSystems();
+    }
+
+    public static Command intakeCube() {
+        return OperatorCommands.cubeIntake().withTimeout(AutonConfig.intakeTime);
+    }
+
+    public static Command simpleLaunchCube() {
+        return OperatorCommands.cubeTop()
+                .withTimeout(0.5)
+                .andThen(IntakeCommands.launch())
+                .withTimeout(2)
+                .andThen(IntakeCommands.stopAllMotors().withTimeout(0.01));
     }
 }

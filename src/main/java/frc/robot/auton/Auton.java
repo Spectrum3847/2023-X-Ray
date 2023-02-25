@@ -112,18 +112,6 @@ public class Auton {
         // forward
         // PathPlannerTrajectory.StopEvent
         autonChooser.addOption(
-                "5 Ball",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "5 Ball",
-                                        new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig
-                                                        .kMaxAccel)))); // runs the 5 ball auto that
-        // is set
-        // in pathplanner
-        autonChooser.addOption(
                 "Test Path",
                 getAutoBuilder()
                         .fullAuto(
@@ -144,13 +132,42 @@ public class Auton {
                                         new PathConstraints(
                                                 TrajectoriesConfig.kMaxSpeed,
                                                 TrajectoriesConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "2 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "2 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "3 Ball",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig.kMaxAccel))));
+
+        autonChooser.addOption(
+                "3 Ball w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball w Balance",
+                                        new PathConstraints(
+                                                TrajectoriesConfig.kMaxSpeed,
+                                                TrajectoriesConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
-        eventMap.put("CloseLaunchCube", AutonCommands.closeLaunchCube());
-        eventMap.put("FarLaunchCube", AutonCommands.farLaunchCube());
+        eventMap.put("CommunityMid", AutonCommands.communityMid());
+        eventMap.put("OnStationTop", AutonCommands.onStationTop());
+        eventMap.put("BehindStationMid", AutonCommands.behindStationMid());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
     }
 
