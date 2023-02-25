@@ -2,10 +2,8 @@ package frc.robot.trajectories;
 
 public class TrajectoriesConfig {
     /* Swerve Conroller Constants */
-    public static final double kMaxSpeed = 2.7;
-    public static final double kMaxAccel = 2.4; // 2 worked but took too long
-    public static final double kGenPathMaxSpeed = 3;
-    public static final double kGenPathMaxAccel = 3;
+    public static final double kGenPathMaxSpeed = 3.5;
+    public static final double kGenPathMaxAccel = 3.5;
     public static final double kGenPathBumpSpeed = 2;
 
     // PID Values for 2023
@@ -31,7 +29,7 @@ public class TrajectoriesConfig {
     // These are tuned for the Blue Alliance (everything is opposite in Red Alliance Scoring)
     public static final double blueYPositions[] =
             new double[] {4.97, 4.42, 3.85, 3.29, 2.75, 2.17, 1.62, 1.05, 0.51};
-    public static final double blueXPositions[] = new double[] {5.20, 5.00, 3.75, 2.45};
+    public static final double blueXPositions[] = new double[] {5.20, 5.00, 4, 2.45};
     public static final double redXPositions[] = new double[] {11.35, 11.55, 12.80, 14.10};
 
     // On-the-Fly Y Positions

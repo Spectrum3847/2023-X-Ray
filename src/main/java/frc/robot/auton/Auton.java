@@ -81,8 +81,8 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "1 Meter",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig
                                                         .kMaxAccel)))); // sets an auto to drive one
         // meter
         // forward
@@ -93,8 +93,8 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "3 Meters",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig
                                                         .kMaxAccel)))); // sets an auto to drive one
         // meter
         // forward
@@ -105,8 +105,8 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "5 Meters",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig
                                                         .kMaxAccel)))); // sets an auto to drive one
         // meter
         // forward
@@ -118,9 +118,8 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "Test Path",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig
-                                                        .kMaxAccel)))); // run a test path to see
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig.kMaxAccel)))); // run a test path to see
         // how things
         // are supposed to be on the field
         autonChooser.addOption(
@@ -130,8 +129,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "2 Ball Bottom",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
                 "2 Ball Bottom w Balance",
                 getAutoBuilder()
@@ -139,8 +137,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "2 Ball Bottom w Balance",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
                 "3 Ball Bottom",
                 getAutoBuilder()
@@ -148,8 +145,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "3 Ball Bottom",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
 
         autonChooser.addOption(
                 "3 Ball Bottom w Balance",
@@ -158,8 +154,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "3 Ball Bottom w Balance",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
                 "IntakeTest",
                 getAutoBuilder()
@@ -167,8 +162,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "IntakeTest",
                                         new PathConstraints(
-                                                TrajectoriesConfig.kMaxSpeed,
-                                                TrajectoriesConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands

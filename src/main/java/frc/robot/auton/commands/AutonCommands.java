@@ -53,7 +53,7 @@ public class AutonCommands {
     }
 
     public static Command intakeCube() {
-        return OperatorCommands.cubeIntake().withTimeout(AutonConfig.intakeTime);
+        return OperatorCommands.cubeIntake();
     }
 
     public static Command simpleLaunchCube() {
