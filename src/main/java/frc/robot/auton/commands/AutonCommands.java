@@ -11,16 +11,31 @@ public class AutonCommands {
     public static void setupDefaultCommand() {}
 
     public static Command rightStationTop() {
-        return rightStationTopSpinUp().andThen(launch(), stopMotors());
+        return spinLauncher(IntakeCommands.bumpTopSpinUp()).andThen(launch(), stopMotors());
     }
+
+    /* These 3 commands have not been mapped to the operator gamepad */
+    public static Command communityMid() {
+        return spinLauncher(IntakeCommands.communityMidSpinUp()).andThen(launch(), stopMotors());
+    }
+
+    public static Command behindStationMid() {
+        return spinLauncher(IntakeCommands.behindStationMidSpinUp()).andThen(launch(), stopMotors());
+    }
+
+    public static Command onStationTop() {
+        return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
+    }
+
+
 
     /** Goes to 0 */
     private static Command homeSystems() {
         return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
     }
 
-    private static Command rightStationTopSpinUp() {
-        return IntakeCommands.bumpTopSpinUp().withTimeout(AutonConfig.spinUpTime);
+    private static Command spinLauncher(Command spinCommand) {
+        return spinCommand.withTimeout(AutonConfig.spinUpTime);
     }
 
     private static Command launch() {

@@ -51,6 +51,17 @@ public class IntakeConfig {
     public double frontBumpTopSpeed = frontMaxSpeed * 0.85;
     public double launcherBumpTopSpeed = launcherMaxSpeed * 0.85;
 
+    //needs to be configed
+    public double frontCommunityMidSpeed = frontMaxSpeed;
+    public double launcherCommunityMidSpeed = frontMaxSpeed;
+
+    public double frontBehindRStationMidSpeed = frontMaxSpeed;
+    public double launcherBehindRStationMidSpeed = frontMaxSpeed;
+
+    public double frontOnStationTopSpeed = frontMaxSpeed;
+    public double launcherOnStationTopSpeed = frontMaxSpeed;
+
+
     public double currentLimit = 20;
     public double threshold = 40;
 
