@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
-    public Pose2d botPose; // TODO: this may need to be estimated pose instead of botpose L:113
+    public Pose2d botPose;
 
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
@@ -41,8 +41,6 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // System.out.println(Elevator.inchesToFalcon(Elevator.config.coneMid));
-
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
