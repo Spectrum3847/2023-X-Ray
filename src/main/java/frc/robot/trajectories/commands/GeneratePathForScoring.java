@@ -33,14 +33,15 @@ public class GeneratePathForScoring {
             xPositions = TrajectoriesConfig.redXPositions;
         }*/
 
-        if(DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {for (int i = 0; i < xPositions.length; i++) {
-            finalPoints.add(
-                    new PathPoint(
-                            new Translation2d(xPositions[i], constantYPos),
-                            Rotation2d.fromDegrees(constantHeading),
-                            Rotation2d.fromDegrees(constantRotation)));
-        }}
-        else if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
+            for (int i = 0; i < xPositions.length; i++) {
+                finalPoints.add(
+                        new PathPoint(
+                                new Translation2d(xPositions[i], constantYPos),
+                                Rotation2d.fromDegrees(constantHeading),
+                                Rotation2d.fromDegrees(constantRotation)));
+            }
+        } else if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
             for (int i = 0; i < xPositions.length; i++) {
                 finalPoints.add(
                         new PathPoint(
