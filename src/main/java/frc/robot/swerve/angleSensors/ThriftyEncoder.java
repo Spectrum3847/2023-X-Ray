@@ -7,7 +7,7 @@ public class ThriftyEncoder extends AngleSensorIO {
     public AnalogInput input;
     public double readVoltageMax;
 
-    private static double standardReadVoltageMax = 4.8;
+    private static double standardReadVoltageMax = 4.8107905230000005;
 
     /**
      * Create a new ThriftyEncoder at this analog input channel
@@ -20,16 +20,21 @@ public class ThriftyEncoder extends AngleSensorIO {
 
     public ThriftyEncoder(AnalogInput input) {
         this.input = input;
-        this.readVoltageMax = ThriftyEncoder.standardReadVoltageMax;
+        this.readVoltageMax = standardReadVoltageMax;
     }
 
-    // get position
+    // get positiond
     public Rotation2d getPosition() {
         return new Rotation2d(this.getPositionRadians());
     }
 
     private double getPositionRadians() {
-        return (input.getVoltage() * 2 * Math.PI) / this.readVoltageMax;
+        double currentVoltage = input.getVoltage();
+        if (this.readVoltageMax < currentVoltage) {
+            this.readVoltageMax = currentVoltage;
+            System.out.println("####!!!!!!New analog max voltage: " + currentVoltage);
+        }
+        return (currentVoltage * 2 * Math.PI) / this.readVoltageMax;
     }
 
     public Rotation2d get() {

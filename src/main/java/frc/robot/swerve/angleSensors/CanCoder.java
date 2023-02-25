@@ -13,8 +13,8 @@ public class CanCoder extends AngleSensorIO {
     private WPI_CANCoder encoder;
     private CANCoderConfiguration swerveCanCoderConfig;
 
-    public CanCoder(int canID) {
-        encoder = new WPI_CANCoder(canID);
+    public CanCoder(int canID, String canBus) {
+        encoder = new WPI_CANCoder(canID, canBus);
 
         swerveCanCoderConfig = new CANCoderConfiguration();
         swerveCanCoderConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
@@ -27,6 +27,10 @@ public class CanCoder extends AngleSensorIO {
         encoder.configAllSettings(swerveCanCoderConfig);
         encoder.setStatusFramePeriod(CANCoderStatusFrame.VbatAndFaults, 249);
         encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, 20);
+    }
+
+    public CanCoder(int canID) {
+        this(canID, "rio");
     }
 
     @Override

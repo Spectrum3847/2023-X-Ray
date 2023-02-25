@@ -4,38 +4,51 @@
 
 package frc.robot.trajectories;
 
+import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.auton.AutonConfig;
 import java.util.function.DoubleSupplier;
 
 public class Trajectories extends SubsystemBase {
     public PIDController thetaController;
     public PIDController xController =
-            new PIDController(AutonConfig.kPXController, 0, AutonConfig.kDXController);;
+            new PIDController(
+                    TrajectoriesConfig.kPTranslationController,
+                    0,
+                    TrajectoriesConfig.kDTranslationController);;
     public PIDController yController =
-            new PIDController(AutonConfig.kPYController, 0, AutonConfig.kDYController);;
+            new PIDController(
+                    TrajectoriesConfig.kPTranslationController,
+                    0,
+                    TrajectoriesConfig.kDTranslationController);;
     public Rotation2d startAngle;
 
     /** Creates a new Trajectory. */
     public Trajectories() {
         thetaController =
                 new PIDController(
-                        TrajectoriesConfig.kPThetaController,
+                        TrajectoriesConfig.kPRotationController,
                         0,
-                        TrajectoriesConfig.kDThetaController);
+                        TrajectoriesConfig.kDRotationController);
         // Setup thetaController used for auton and automatic turns
         thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
         xController =
                 new PIDController(
-                        TrajectoriesConfig.kPXController, 0, TrajectoriesConfig.kDXController);
+                        TrajectoriesConfig.kPTranslationController,
+                        0,
+                        TrajectoriesConfig.kDTranslationController);
 
         yController =
                 new PIDController(
-                        TrajectoriesConfig.kPYController, 0, TrajectoriesConfig.kDYController);
+                        TrajectoriesConfig.kPTranslationController,
+                        0,
+                        TrajectoriesConfig.kDTranslationController);
+
+        PathPlannerServer.startServer(
+                5811); // 5811 = port number. adjust this according to your needs
     }
 
     public void resetTheta() {

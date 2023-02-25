@@ -10,15 +10,17 @@ public class LEDConfig {
 
     public LEDConfig() {
         switch (Robot.config.getRobotType()) {
-            case COMP:
+            case XRAY2023:
                 // Set all the constants specifically for the competition robot
                 break;
-            case PRACTICE:
+            case PRACTICE2023:
                 // Set all the constants specifically for the practice robot
                 break;
             case SIM:
             case REPLAY:
                 // Set all the constants specifically for the simulation
+                break;
+            default:
                 break;
         }
     }

@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.pilot.PilotConfig;
+import frc.robot.pose.commands.PoseCommands;
+import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
 import frc.robot.trajectories.TrajectoriesCommands;
 import java.util.function.DoubleSupplier;
@@ -26,6 +28,16 @@ public class PilotCommands {
                 .withName("PilotSwerve");
     }
 
+    public static Command slowMode() {
+        return new SwerveDrive(
+                        () -> Robot.pilotGamepad.getDriveFwdPositive() * PilotConfig.slowModeScaler,
+                        () ->
+                                Robot.pilotGamepad.getDriveLeftPositive()
+                                        * PilotConfig.slowModeScaler,
+                        () -> Robot.pilotGamepad.getDriveCCWPositive() * PilotConfig.slowModeScaler)
+                .withName("SlowMode");
+    }
+
     /** Robot Oriented Drive */
     public static Command fpvPilotSwerve() {
         return new SwerveDrive(
@@ -34,6 +46,17 @@ public class PilotCommands {
                         () -> Robot.pilotGamepad.getDriveCCWPositive(),
                         false)
                 .withName("fpvPilotSwerve");
+    }
+
+    public static Command slowModeFPV() {
+        return new SwerveDrive(
+                        () -> Robot.pilotGamepad.getDriveFwdPositive() * PilotConfig.slowModeScaler,
+                        () ->
+                                Robot.pilotGamepad.getDriveLeftPositive()
+                                        * PilotConfig.slowModeScaler,
+                        () -> Robot.pilotGamepad.getDriveCCWPositive() * PilotConfig.slowModeScaler,
+                        false)
+                .withName("SlowModeFPV");
     }
 
     public static Command snakeDrive() {
@@ -66,12 +89,14 @@ public class PilotCommands {
 
     /** Reset the Theata Controller and then run the SwerveDrive command and pass a goal Supplier */
     public static Command aimPilotDrive(DoubleSupplier goalAngleSupplierRadians) {
-        return TrajectoriesCommands.resetThetaController()
+        return SwerveCommands.resetTurnController()
                 .andThen(
                         new SwerveDrive(
                                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
                                 () -> Robot.pilotGamepad.getDriveLeftPositive(),
-                                Robot.trajectories.calculateThetaSupplier(goalAngleSupplierRadians),
+                                () ->
+                                        Robot.swerve.calculateRotationController(
+                                                goalAngleSupplierRadians),
                                 true,
                                 false))
                 .withName("AimPilotDrive");
@@ -82,5 +107,27 @@ public class PilotCommands {
         return new RunCommand(() -> Robot.pilotGamepad.rumble(intensity), Robot.pilotGamepad)
                 .withTimeout(durationSeconds)
                 .withName("RumblePilot");
+    }
+
+    /** Reorient the Robot */
+    public static Command reorient(double angle) {
+        return PoseCommands.resetHeading(angle)
+                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute());
+    }
+
+    /**
+     * Overrides Estimated and Odometry Pose to be Vision pose. Should be used at the start of the
+     * match in Disabled when the camera can see at least two tags in order to correctly get the
+     * starting position. Can also be used if odometry is very inaccurate for some reason.
+     */
+    public static Command resetEstimatedPose() {
+        return new RunCommand(
+                        () -> {
+                            if (Robot.vision.botPose.getX() <= 0.3) {
+                                Robot.pose.resetPoseEstimate(Robot.vision.botPose);
+                            }
+                        })
+                .withName("ResetOdometryPose")
+                .ignoringDisable(true);
     }
 }

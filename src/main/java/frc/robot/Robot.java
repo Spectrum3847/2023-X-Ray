@@ -1,19 +1,19 @@
 package frc.robot;
 
-import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.SpectrumLib.sim.PhysicsSim;
-import frc.robot.Intake.Intake;
-import frc.robot.Intake.IntakeCommands;
+import frc.SpectrumLib.util.Network;
 import frc.robot.auton.Auton;
 import frc.robot.elevator.Elevator;
-import frc.robot.elevator.ElevatorCommands;
+import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.FourBar;
-import frc.robot.fourbar.FourBarCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.intakeLauncher.Intake;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.LEDs;
 import frc.robot.operator.OperatorGamepad;
 import frc.robot.operator.commands.OperatorCommands;
@@ -49,43 +49,41 @@ public class Robot extends LoggedRobot {
 
     // Intialize subsystems and run their setupDefaultCommand methods here
     private void intializeSystems() {
-        System.out.println("Started init");
+        System.out.println("Started InitSubsystems");
+        vision = new Vision();
+        System.out.println("Started Vision");
         swerve = new Swerve();
-        System.out.println("Started swerve");
+        System.out.println("Started Swerve");
         pose = new Pose();
-        System.out.println("Started pose");
+        System.out.println("Started Pose");
         trajectories = new Trajectories();
-        System.out.println("Started trajectories");
+        System.out.println("Started Trajectories");
 
         elevator = new Elevator();
-        System.out.println("Started elevator");
+        System.out.println("Started Elevator");
         intake = new Intake();
-        System.out.println("Started intake");
+        System.out.println("Started Intake");
         fourBar = new FourBar();
-        System.out.println("Started fourBar");
-
-        // vision = new Vision();
-        // System.out.println("Started vision");
+        System.out.println("Started FourBar");
 
         leds = new LEDs();
-        System.out.println("Started led");
+        System.out.println("Started Led");
         pilotGamepad = new PilotGamepad();
         operatorGamepad = new OperatorGamepad();
-        System.out.println("Started pilotgamepad");
+        System.out.println("Started Gamepads");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
-        System.out.println("Started robotTelemetry");
+        System.out.println("Started RobotTelemetry");
 
         // Set Default Commands, this method should exist for each subsystem that has
         // commands
-        PilotCommands.setupDefaultCommand();
-        OperatorCommands.setupDefaultCommand();
-        System.out.println("Started Pilot Default Commands");
         SwerveCommands.setupDefaultCommand();
-        System.out.println("Started Swerve setupDefaultCommand");
-
         IntakeCommands.setupDefaultCommand();
         ElevatorCommands.setupDefaultCommand();
         FourBarCommands.setupDefaultCommand();
+        PilotCommands.setupDefaultCommand();
+        OperatorCommands.setupDefaultCommand();
+
+        System.out.println("Finished Setting Up Default Commands");
     }
 
     /**
@@ -95,8 +93,6 @@ public class Robot extends LoggedRobot {
     public static void resetCommandsAndButtons() {
         CommandScheduler.getInstance().cancelAll(); // Disable any currently running commands
         CommandScheduler.getInstance().getActiveButtonLoop().clear();
-        // LiveWindow.setEnabled(false); // Disable Live Window we don't need that data being sent
-        // LiveWindow.disableAllTelemetry();
 
         // Reset Config for all gamepads and other button bindings
         pilotGamepad.resetConfig();
@@ -113,7 +109,7 @@ public class Robot extends LoggedRobot {
         Timer.delay(RobotConfig.robotInitDelay); // Wait for the robot to fully boot up
         // Set the MAC Address for this robot, useful for adjusting comp/practice bot
         // settings
-        // MAC = Network.getMACaddress();
+        MAC = Network.getMACaddress();
         RobotTelemetry.print("Robot MAC: " + MAC);
 
         // Set up the config
@@ -124,8 +120,6 @@ public class Robot extends LoggedRobot {
 
         // Initialize all systems, do this after getting the MAC address
         intializeSystems();
-        PathPlannerServer.startServer(
-                5811); // 5811 = port number. adjust this according to your needs
         SmartDashboard.putData(CommandScheduler.getInstance());
         RobotTelemetry.print("--- Robot Init Complete ---");
     }
@@ -159,6 +153,11 @@ public class Robot extends LoggedRobot {
     public void disabledInit() {
         RobotTelemetry.print("## Disabled Init Starting");
         resetCommandsAndButtons();
+        swerve.resetSteeringToAbsolute(); // reset the steering encoders to absolute value
+
+        if (vision.botPose.getX() >= 0.3) {
+            pose.resetPoseEstimate(Robot.vision.botPose);
+        }
 
         RobotTelemetry.print("## Disabled Init Complete");
     }
@@ -175,14 +174,14 @@ public class Robot extends LoggedRobot {
     public void autonomousInit() {
         RobotTelemetry.print("@@ Auton Init Starting");
         resetCommandsAndButtons();
+        swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
+        // angle
 
         Command autonCommand = Auton.getAutonomousCommand();
-        /*if (autonCommand != null) {
+        if (autonCommand != null) {
             autonCommand.schedule();
             Auton.startAutonTimer();
-        }*/
-        autonCommand.schedule();
-        Auton.startAutonTimer();
+        }
         RobotTelemetry.print("@@ Auton Init Complete");
     }
 
@@ -199,6 +198,12 @@ public class Robot extends LoggedRobot {
     public void teleopInit() {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
+
+        if (vision.botPose.getX() >= 0.3) {
+            pose.resetPoseEstimate(Robot.vision.botPose);
+        }
+        swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
+        // angle
 
         RobotTelemetry.print("$$ Teleop Init Complete");
     }
@@ -217,6 +222,7 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("~~ Test Init Starting");
         resetCommandsAndButtons();
         swerve.telemetry.testMode();
+        intake.telemetry.testMode();
 
         RobotTelemetry.print("~~ Test Init Complete");
     }

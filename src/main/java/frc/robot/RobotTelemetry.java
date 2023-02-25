@@ -32,6 +32,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
     public RobotTelemetry(String name) {
         super(name);
         logCommands();
+
         // Column 0
         // Setup the auton selector to display on shuffleboard
         Auton.setupSelectors();
@@ -54,7 +55,10 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.add("Alerts", SmartDashboard.getData("Alerts")).withPosition(4, 0).withSize(2, 2);
         tab.add("MAC Address", Robot.MAC).withPosition(4, 2).withSize(2, 1);
         tab.addString("IP Address", () -> getIP()).withPosition(4, 3).withSize(2, 1);
-        tab.addNumber("ElevatorPos", () -> Robot.elevator.getPosition()).withPosition(5, 0);
+        tab.addNumber("ElevatorPos", () -> Robot.elevator.getPosition()).withPosition(6, 0);
+        tab.addNumber("FourBarPercentAngle", () -> Robot.fourBar.getPercentAngle())
+                .withPosition(6, 1); // 72000 is max
+        // tab.addNumber("Elevator kF", () -> Robot.elevator.getKf()).withPosition(6, 1);
     }
 
     public static void createTab(String name) {
@@ -79,12 +83,16 @@ public class RobotTelemetry extends TelemetrySubsystem {
 
     private void checkRobotType() {
         switch (Robot.config.getRobotType()) {
-            case COMP:
+            case XRAY2023:
                 CompetitionRobotAlert.set(true);
                 PracticeRobotAlert.set(false);
                 SimRobotAlert.set(false);
                 break;
-            case PRACTICE:
+            case PRACTICE2023:
+            case ALPHA2023:
+            case FLASH2021:
+            case INFRARED3847:
+            case GAMMA2021:
                 CompetitionRobotAlert.set(false);
                 PracticeRobotAlert.set(true);
                 SimRobotAlert.set(false);

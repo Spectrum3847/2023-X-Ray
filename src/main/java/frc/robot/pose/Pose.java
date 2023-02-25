@@ -10,7 +10,6 @@ import edu.wpi.first.math.numbers.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.swerve.SwerveConfig;
 
 /** Reports our expected, desired, and actual poses to dashboards */
 public class Pose extends SubsystemBase {
@@ -20,7 +19,6 @@ public class Pose extends SubsystemBase {
     Pose2d desiredPose = new Pose2d();
     Pose2d estimatePose = new Pose2d();
 
-    //    private final SwerveDrivePoseEstimator<N7, N7, N5> poseEstimator;
     private final SwerveDrivePoseEstimator poseEstimator;
 
     public Pose() {
@@ -29,8 +27,8 @@ public class Pose extends SubsystemBase {
 
         poseEstimator =
                 new SwerveDrivePoseEstimator(
-                        SwerveConfig.swerveKinematics,
-                        Robot.swerve.getHeading(),
+                        Robot.swerve.config.swerveKinematics,
+                        Robot.swerve.getRotation(),
                         Robot.swerve.getPositions(),
                         new Pose2d(),
                         createStateStdDevs(
@@ -46,17 +44,22 @@ public class Pose extends SubsystemBase {
     @Override
     public void periodic() {
         updateOdometryEstimate();
+        Robot.vision.update();
         setEstimatedPose(getPosition());
         setOdometryPose(Robot.swerve.getPoseMeters());
 
-        // updatePose("DesiredPose", desiredPose);
+        telemetry.updatePoseOnField("VisionPose", Robot.vision.botPose);
         telemetry.updatePoseOnField("OdometryPose", odometryPose);
         telemetry.updatePoseOnField("EstimatedPose", estimatePose);
     }
 
-    /** Sets the Odometry Pose to the given post */
+    /** Sets the Odometry Pose to the given pose */
     public void setOdometryPose(Pose2d pose) {
         odometryPose = pose;
+    }
+
+    public Pose2d getOdometryPose() {
+        return odometryPose;
     }
 
     /** Sets the desired pose of the robot */
@@ -71,19 +74,18 @@ public class Pose extends SubsystemBase {
 
     /** Updates the field relative position of the robot. */
     public void updateOdometryEstimate() {
-        poseEstimator.update(Robot.swerve.getHeading(), Robot.swerve.getPositions());
+        poseEstimator.update(Robot.swerve.getRotation(), Robot.swerve.getPositions());
     }
 
     /**
      * reset the pose estimator
      *
      * @param poseMeters
-     * @param gyroAngle
      */
     public void resetPoseEstimate(Pose2d poseMeters) {
         Robot.swerve.odometry.resetOdometry(poseMeters);
         poseEstimator.resetPosition(
-                Robot.swerve.getHeading(), Robot.swerve.getPositions(), poseMeters);
+                Robot.swerve.getRotation(), Robot.swerve.getPositions(), poseMeters);
     }
 
     public void resetHeading(Rotation2d angle) {
@@ -116,6 +118,10 @@ public class Pose extends SubsystemBase {
 
     public Translation2d getLocation() {
         return estimatePose.getTranslation();
+    }
+
+    public Pose2d getEstimatedPose() {
+        return estimatePose;
     }
 
     /**

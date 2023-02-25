@@ -1,96 +1,95 @@
 package frc.robot.operator;
 
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
-import frc.robot.Intake.IntakeCommands;
-import frc.robot.elevator.ElevatorCommands;
-import frc.robot.fourbar.FourBarCommands;
-import frc.robot.leds.commands.BlinkLEDCommand;
+import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
+import frc.robot.auton.commands.AutonCommands;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.ZeroFourBarRoutine;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
-import frc.robot.leds.commands.RainbowLEDCommand;
-import frc.robot.leds.commands.SnowfallLEDCommand;
+import frc.robot.operator.commands.OperatorCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
 
+    OperatorConfig config;
+
     public OperatorGamepad() {
         super("operator", OperatorConfig.port);
+        config = new OperatorConfig();
         gamepad.leftStick.setXinvert(OperatorConfig.xInvert);
         gamepad.leftStick.setYinvert(OperatorConfig.yInvert);
 
         gamepad.rightStick.setXinvert(OperatorConfig.xInvert);
         gamepad.rightStick.setYinvert(OperatorConfig.yInvert);
     }
-
+    // set up jiggle sometime
     public void setupTeleopButtons() {
-        // gamepad.aButton.whileTrue(operatorCommands.aimoperatorDrive(Math.PI * 1 /
-        // 2).withName("Snap
-        // 90"));
-        // gamepad.bButton.whileTrue(operatorCommands.fpvoperatorSwerve());
-        /*gamepad.bButton.whileTrue(
-        operatorCommands.aimoperatorDrive(() -> Robot.vision.getRadiansToTarget())
-                .withName("Aim to target"));*/
-        // gamepad.xButton.whileTrue(new LockSwerve());
-        /* get information about target and robot yaw */
-        // gamepad.xButton.whileTrue(VisionCommands.printYawInfo());
-        // gamepad.yButton.whileTrue(new SpinMove());
-        // gamepad.yButton.whileTrue(VisionCommands.printEstimatedPoseInfo());
-        gamepad.aButton.whileTrue(IntakeCommands.intake());
-        gamepad.xButton.whileTrue(IntakeCommands.launch());
-        gamepad.yButton.whileTrue(IntakeCommands.eject());
-        gamepad.rightBumper.whileTrue(
-                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
-        gamepad.leftBumper.whileTrue(
-                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.1));
+        // gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
+        gamepad.aButton.and(noRightBumper()).whileTrue(AutonCommands.rightStationTop());
 
-        // Right Stick points the robot in that direction
-        // Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5,
-        // ThresholdType.DEADBAND);
-        // Trigger rightY = AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.5,
-        // ThresholdType.DEADBAND);
-        // rightX.or(rightY).whileTrue(operatorCommands.stickSteer());
+        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeHybrid());
+        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
+        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation());
+        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneHybrid());
+        gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
+        gamepad.rightTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.coneIntake());
+        gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.leftTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeIntake());
+        gamepad.leftTriggerButton
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.coneStandingIntake());
 
-        // Reorient the robot to the current heading
+        gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
+        gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
+        gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
+        gamepad.Dpad.Left.and(noRightBumper()).whileTrue(OperatorCommands.coneFloorLED());
+        gamepad.Dpad.Right.and(noRightBumper()).whileTrue(OperatorCommands.cubeLED());
+        gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
+        gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 
+        AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.manualFourBar());
+        AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.manualElevator());
+
+        AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.slowManualFourBar());
+        AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.slowManualElevator());
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kGreen, "Green", 5, 3));
-        gamepad.bButton.whileTrue(new BlinkLEDCommand(Color.kPink, "Blink Pink", 10, 3));
-        gamepad.xButton.whileTrue(new RainbowLEDCommand("rainbow", 15, 3));
-        gamepad.yButton.whileTrue(new SnowfallLEDCommand("Snowfall", 20, 3));
+        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 3));
     }
 
     public void setupTestButtons() {}
 
-    public double getDriveFwdPositive() {
-        double fwdPositive = gamepad.leftStick.getY();
-        return fwdPositive;
+    private Trigger noRightBumper() {
+        return gamepad.rightBumper.negate();
     }
 
-    public double getDriveLeftPositive() {
-        double leftPositive = gamepad.leftStick.getX();
-        return leftPositive;
-    }
-
-    // Positive is counter-clockwise, left Trigger is positive
-    public double getDriveCCWPositive() {
-        double ccwPositive = gamepad.triggers.getTwist();
-        return ccwPositive;
-    }
-
-    // Return the angle created by the left stick in radians, 0 is up, pi/2 is left
-    public Double getDriveAngle() {
-        return gamepad.leftStick.getDirectionRadians(getDriveFwdPositive(), getDriveLeftPositive());
-    }
-
-    // Return the angle created by the right stick in radians, 0 is up, pi/2 is left
-    public double getRightStickAngle() {
-        return gamepad.rightStick.getDirectionRadians(
-                gamepad.rightStick.getY(), gamepad.rightStick.getX());
+    private Trigger rightBumper() {
+        return gamepad.rightBumper;
     }
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
+    }
+
+    public double elevatorManual() {
+        return gamepad.leftStick.getY() * OperatorConfig.elevatorModifer;
+    }
+
+    public double fourBarManual() {
+        return gamepad.rightStick.getY() * OperatorConfig.fourBarModifer;
     }
 }

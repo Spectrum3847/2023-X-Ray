@@ -36,8 +36,12 @@ public class RobotLog {
             // Set up data receivers & replay source
             switch (Robot.config.getRobotType()) {
                     // Running on a comp robot, log to a USB stick
-                case COMP:
-                case PRACTICE:
+                case XRAY2023:
+                case PRACTICE2023:
+                case ALPHA2023:
+                case FLASH2021:
+                case GAMMA2021:
+                case INFRARED3847:
                     logger.addDataReceiver(new WPILOGWriter("/media/sda1/"));
                     logger.addDataReceiver(new NT4Publisher());
                     LoggedPowerDistribution.getInstance(0, Robot.config.PowerDistributionType);

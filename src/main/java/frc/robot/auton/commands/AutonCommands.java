@@ -1,39 +1,47 @@
 package frc.robot.auton.commands;
 
-import com.pathplanner.lib.PathPlannerTrajectory;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.Robot;
+import frc.robot.auton.AutonConfig;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 
 public class AutonCommands {
 
-    public static Command checkFirstPath(PathPlannerTrajectory traj, boolean isFirstPath) {
-        return new InstantCommand(
-                () -> {
-                    // Reset odometry for the first path you run during auto
-                    if (true) {
-                        Robot.swerve.odometry.resetOdometry(traj.getInitialHolonomicPose());
-                    }
-                },
-                Robot.swerve);
+    public static void setupDefaultCommand() {}
+
+    public static Command rightStationTop() {
+        return spinLauncher(IntakeCommands.bumpTopSpinUp()).andThen(launch(), stopMotors());
     }
 
-    public static Command setBrakeMode() {
-        return new RunCommand(() -> Robot.swerve.brakeMode(true));
+    /* These 3 commands have not been mapped to the operator gamepad */
+    public static Command communityMid() {
+        return spinLauncher(IntakeCommands.communityMidSpinUp()).andThen(launch(), stopMotors());
     }
 
-    public static Command setCoastMode() {
-        return new RunCommand(() -> Robot.swerve.brakeMode(false));
+    public static Command behindStationMid() {
+        return spinLauncher(IntakeCommands.behindStationMidSpinUp())
+                .andThen(launch(), stopMotors());
     }
 
-    public static Command setGryoDegrees(double deg) {
-        return new InstantCommand(
-                        () -> Robot.swerve.odometry.resetHeading(Rotation2d.fromDegrees(deg)))
-                .andThen(
-                        new PrintCommand(
-                                "Gyro Degrees: " + Robot.swerve.getHeading().getDegrees()));
+    public static Command onStationTop() {
+        return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
+    }
+
+    /** Goes to 0 */
+    private static Command homeSystems() {
+        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
+    }
+
+    private static Command spinLauncher(Command spinCommand) {
+        return spinCommand.withTimeout(AutonConfig.spinUpTime);
+    }
+
+    private static Command launch() {
+        return IntakeCommands.launch().withTimeout(AutonConfig.launchTime);
+    }
+
+    private static Command stopMotors() {
+        return IntakeCommands.stopAllMotors().withTimeout(AutonConfig.stopTime);
     }
 }

@@ -13,35 +13,85 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.swerve.configTemplates.SwerveConfig;
+import frc.robot.swerve.configs.ALPHA2023;
+import frc.robot.swerve.configs.FLASH2021;
+import frc.robot.swerve.configs.GAMMA2021;
+import frc.robot.swerve.configs.INFRARED2022;
+import frc.robot.swerve.configs.PRACTICE2023;
+import frc.robot.swerve.configs.XRAY2023;
+import frc.robot.swerve.gyros.GyroIO;
+import frc.robot.swerve.gyros.Pigeon1;
+import frc.robot.swerve.gyros.Pigeon2;
+import java.util.function.DoubleSupplier;
 
 public class Swerve extends SubsystemBase {
     public SwerveConfig config;
-    protected Gyro gyro;
+    public GyroIO gyro;
     public Odometry odometry;
     public SwerveTelemetry telemetry;
     public SwerveModule[] mSwerveMods;
+    public ChassisSpeeds chassisSpeeds;
     private SwerveModuleState[] mSwerveModStates;
+    private RotationController rotationController;
 
     public Swerve() {
-        setName("Swerve");
-        config = new SwerveConfig();
-        gyro = new Gyro();
+        setName("Swerve"); // Check robot type and make the config file
+        switch (Robot.config.getRobotType()) {
+            case GAMMA2021:
+                config = GAMMA2021.config;
+                break;
+            case INFRARED3847:
+                config = INFRARED2022.config;
+                break;
+            case FLASH2021:
+                config = FLASH2021.config;
+                break;
+            case ALPHA2023:
+                config = ALPHA2023.config;
+                break;
+            case PRACTICE2023:
+                config = PRACTICE2023.config;
+                break;
+            default:
+                config = XRAY2023.config;
+                break;
+        }
+
+        switch (config.gyro.type) {
+            case PIGEON1:
+                gyro = new Pigeon1();
+                break;
+            case PIGEON2:
+            default:
+                gyro = new Pigeon2(config.modules[0].canBus);
+                break;
+        }
 
         mSwerveMods =
                 new SwerveModule[] {
-                    new SwerveModule(0, config, SwerveConfig.Mod0.config),
-                    new SwerveModule(1, config, SwerveConfig.Mod1.config),
-                    new SwerveModule(2, config, SwerveConfig.Mod2.config),
-                    new SwerveModule(3, config, SwerveConfig.Mod3.config)
+                    new SwerveModule(0, config),
+                    new SwerveModule(1, config),
+                    new SwerveModule(2, config),
+                    new SwerveModule(3, config)
                 };
+
+        rotationController = new RotationController(this);
+
+        Timer.delay(1);
         resetSteeringToAbsolute();
+        mSwerveModStates = getStatesCAN(); // Get the states once a loop
+        chassisSpeeds = config.swerveKinematics.toChassisSpeeds(mSwerveModStates);
         odometry = new Odometry(this);
         telemetry = new SwerveTelemetry(this);
     }
 
     @Override
     public void periodic() {
+        chassisSpeeds = config.swerveKinematics.toChassisSpeeds(mSwerveModStates);
         odometry.update();
         mSwerveModStates = getStatesCAN(); // Get the states once a loop
         telemetry.logModuleStates("SwerveModuleStates/Measured", mSwerveModStates);
@@ -85,15 +135,15 @@ public class Swerve extends SubsystemBase {
         if (fieldRelative) {
             speeds =
                     ChassisSpeeds.fromFieldRelativeSpeeds(
-                            fwdPositive, leftPositive, omegaRadiansPerSecond, getHeading());
+                            fwdPositive, leftPositive, omegaRadiansPerSecond, getRotation());
         } else {
             speeds = new ChassisSpeeds(fwdPositive, leftPositive, omegaRadiansPerSecond);
         }
 
         SwerveModuleState[] swerveModuleStates =
-                SwerveConfig.swerveKinematics.toSwerveModuleStates(speeds, centerOfRotationMeters);
+                config.swerveKinematics.toSwerveModuleStates(speeds, centerOfRotationMeters);
 
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConfig.maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, config.tuning.maxVelocity);
 
         telemetry.logModuleStates("SwerveModuleStates/Desired", swerveModuleStates);
         for (SwerveModule mod : mSwerveMods) {
@@ -108,8 +158,54 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-    public Rotation2d getHeading() {
-        return odometry.getHeading();
+    public void setLastAngleToCurrentAngle() {
+        for (SwerveModule mod : mSwerveMods) {
+            mod.setLastAngletoCurrentAngle();
+        }
+    }
+
+    public void resetRotationController() {
+        rotationController.reset();
+    }
+
+    public double calculateRotationController(DoubleSupplier targetRadians) {
+        return rotationController.calculate(targetRadians.getAsDouble());
+    }
+
+    public double calculateRotationController(double targetRadians) {
+        return calculateRotationController(targetRadians);
+    }
+
+    public boolean atRotationSetpoint() {
+        return rotationController.atSetpoint();
+    }
+
+    public ChassisSpeeds getChassisSpeeds() {
+        return chassisSpeeds;
+    }
+
+    public ChassisSpeeds getFieldRelativeSpeeds() {
+        return ChassisSpeeds.fromFieldRelativeSpeeds(
+                chassisSpeeds,
+                getRotation().unaryMinus()); // Negative Angle to rotate back from robot relative to
+        // field relative
+    }
+
+    public double getFieldRelativeMagnitude() {
+        return Math.hypot(
+                getFieldRelativeSpeeds().vxMetersPerSecond,
+                getFieldRelativeSpeeds().vyMetersPerSecond);
+    }
+
+    public Rotation2d getFieldRelativeHeading() {
+        return Rotation2d.fromRadians(
+                Math.atan2(
+                        getFieldRelativeSpeeds().vxMetersPerSecond,
+                        getFieldRelativeSpeeds().vyMetersPerSecond));
+    }
+
+    public Rotation2d getRotation() {
+        return odometry.getRotation();
     }
 
     public Pose2d getPoseMeters() {
@@ -122,7 +218,7 @@ public class Swerve extends SubsystemBase {
      * @param desiredStates Meters per second and radians per second
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConfig.maxVelocity);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, config.tuning.maxVelocity);
 
         for (SwerveModule mod : mSwerveMods) {
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
