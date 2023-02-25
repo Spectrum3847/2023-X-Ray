@@ -15,4 +15,9 @@ public class SwerveCommands {
         return new InstantCommand(() -> Robot.swerve.resetSteeringToAbsolute(), Robot.swerve)
                 .withName("ResetEncodersToAbsolute");
     }
+
+    public static Command resetTurnController() {
+        return new InstantCommand(() -> Robot.swerve.resetRotationController(), Robot.swerve)
+                .withName("ResetTurnController");
+    }
 }

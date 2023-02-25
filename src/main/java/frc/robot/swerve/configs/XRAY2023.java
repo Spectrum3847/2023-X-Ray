@@ -53,6 +53,11 @@ public class XRAY2023 {
             maxVelocity / Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
     static final double maxAngularAcceleration = Math.pow(maxAngularVelocity, 2);
 
+    /*Rotation Controller*/
+    public static final double kPRotationController = 6.0;
+    public static final double kIRotationController = 0.0;
+    public static final double kDRotationController = 0.1;
+
     public static final GyroType type = GyroType.PIGEON2;
     public static final int port = 0;
     public static final GyroConfig gyro = new GyroConfig(type, port, canBus);
@@ -71,17 +76,19 @@ public class XRAY2023 {
 
     public static final TuningConfig tuning =
             new TuningConfig(
-                    angleKP,
-                    angleKD,
-                    driveKP,
-                    driveKD,
-                    driveKS,
-                    driveKV,
-                    driveKA,
-                    maxVelocity,
-                    maxAccel,
-                    maxAngularVelocity,
-                    maxAngularAcceleration);
+                            angleKP,
+                            angleKD,
+                            driveKP,
+                            driveKD,
+                            driveKS,
+                            driveKV,
+                            driveKA,
+                            maxVelocity,
+                            maxAccel,
+                            maxAngularVelocity,
+                            maxAngularAcceleration)
+                    .configRotationController(
+                            kPRotationController, kIRotationController, kDRotationController);
 
     /* Module Configs */
     static final ModuleConfig Mod0 =

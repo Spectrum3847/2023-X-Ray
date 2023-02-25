@@ -12,41 +12,57 @@ public class IntakeConfig {
 
     public double falconMaxSpeed = 6380; // RPM
 
-    public double lowerMaxSpeed = falconMaxSpeed; // * lowerGearRatio * lowerDiameter * Math.PI;
-    public double frontMaxSpeed = falconMaxSpeed; // * frontGearRatio * frontDiameter * Math.PI;
-    public double launcherMaxSpeed =
-            falconMaxSpeed; // * launcherGearRatio * launcherDiamter * Math.PI;
+    public double lowerMaxSpeed = falconMaxSpeed;
+    public double frontMaxSpeed = falconMaxSpeed;
+    public double launcherMaxSpeed = falconMaxSpeed;
 
     // Speed settings
     public double lowerSlowSpeed = 200;
-    public double frontSlowSpeed = 400;
+    public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
-    public double lowerIntakeSpeed = 5000; // lowerMaxSpeed * 0.85;
-    public double frontIntakeSpeed = 4000; // frontMaxSpeed * 0.85;
+    public double lowerIntakeSpeed = 5000;
+    public double frontIntakeSpeed = 4000;
     public double launcherIntakeSpeed = -3000;
 
-    public double lowerEjectSpeed = -4000;
-    public double frontEjectSpeed = -5000;
+    public double lowerEjectSpeed = -6000;
+    public double frontEjectSpeed = -6000;
     public double launcherEjectSpeed = 2000;
 
     public double lowerSpinUpSpeed = 200;
 
     public double lowerFeedSpeed = -6000;
+
+    public double frontHybridSpeed = 800;
+    public double launcherHybridSpeed = frontHybridSpeed;
+
     public double frontMidCubeSpeed = 1500;
     public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
     public double frontTopCubeSpeed = 2600;
     public double launcherTopCubeSpeed = frontTopCubeSpeed;
 
-    public double frontHybridSpeed = 800;
-    public double launcherHybridSpeed = frontHybridSpeed;
-
     public double frontFullLaunchSpeed = frontMaxSpeed * 1.0;
     public double launcherFullLaunchSpeed = launcherMaxSpeed * 1.0;
 
-    public double frontAutoMidSpeed = frontMaxSpeed * 0.9;
-    public double launcherAutoMidSpeed = launcherMaxSpeed * 0.9;
+    public double frontAutoMidSpeed = frontMaxSpeed;
+    public double launcherAutoMidSpeed = launcherMaxSpeed;
+
+    public double frontBumpTopSpeed = frontMaxSpeed * 0.85;
+    public double launcherBumpTopSpeed = launcherMaxSpeed * 0.85;
+
+    // needs to be configed
+    public double frontCommunityMidSpeed = frontMaxSpeed;
+    public double launcherCommunityMidSpeed = frontMaxSpeed;
+
+    public double frontBehindRStationMidSpeed = frontMaxSpeed;
+    public double launcherBehindRStationMidSpeed = frontMaxSpeed;
+
+    public double frontOnStationTopSpeed = frontMaxSpeed;
+    public double launcherOnStationTopSpeed = frontMaxSpeed;
+
+    public double currentLimit = 20;
+    public double threshold = 40;
 
     public double velocityKp = 0.065;
     public double velocityKf = 0.0519;

@@ -4,6 +4,7 @@
 
 package frc.robot.trajectories;
 
+import com.pathplanner.lib.server.PathPlannerServer;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -45,6 +46,9 @@ public class Trajectories extends SubsystemBase {
                         TrajectoriesConfig.kPTranslationController,
                         0,
                         TrajectoriesConfig.kDTranslationController);
+
+        PathPlannerServer.startServer(
+                5811); // 5811 = port number. adjust this according to your needs
     }
 
     public void resetTheta() {

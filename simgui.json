@@ -125,12 +125,8 @@
         },
         "Scheduler": {
           "open": true
-        },
-        "open": true
+        }
       }
     }
-  },
-  "NetworkTables View": {
-    "visible": false
   }
 }

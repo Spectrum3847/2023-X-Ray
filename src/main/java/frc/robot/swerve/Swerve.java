@@ -26,6 +26,7 @@ import frc.robot.swerve.configs.XRAY2023;
 import frc.robot.swerve.gyros.GyroIO;
 import frc.robot.swerve.gyros.Pigeon1;
 import frc.robot.swerve.gyros.Pigeon2;
+import java.util.function.DoubleSupplier;
 
 public class Swerve extends SubsystemBase {
     public SwerveConfig config;
@@ -35,6 +36,7 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public ChassisSpeeds chassisSpeeds;
     private SwerveModuleState[] mSwerveModStates;
+    private RotationController rotationController;
 
     public Swerve() {
         setName("Swerve"); // Check robot type and make the config file
@@ -76,6 +78,8 @@ public class Swerve extends SubsystemBase {
                     new SwerveModule(2, config),
                     new SwerveModule(3, config)
                 };
+
+        rotationController = new RotationController(this);
 
         Timer.delay(1);
         resetSteeringToAbsolute();
@@ -152,6 +156,28 @@ public class Swerve extends SubsystemBase {
         for (SwerveModule mod : mSwerveMods) {
             mod.resetToAbsolute();
         }
+    }
+
+    public void setLastAngleToCurrentAngle() {
+        for (SwerveModule mod : mSwerveMods) {
+            mod.setLastAngletoCurrentAngle();
+        }
+    }
+
+    public void resetRotationController() {
+        rotationController.reset();
+    }
+
+    public double calculateRotationController(DoubleSupplier targetRadians) {
+        return rotationController.calculate(targetRadians.getAsDouble());
+    }
+
+    public double calculateRotationController(double targetRadians) {
+        return calculateRotationController(targetRadians);
+    }
+
+    public boolean atRotationSetpoint() {
+        return rotationController.atSetpoint();
     }
 
     public ChassisSpeeds getChassisSpeeds() {
