@@ -16,7 +16,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneShelf = 43.13; // 126200 falcon
 
     public final double coneHybrid = 0;
-    public final double coneMid = 32.774; // 95900  falcon
+    public final double coneMid = 33.774; // 95900  falcon
     public final double coneTop = 57.415; // 168000 falcon
 
     public final double diameterInches = 2.0051; // changed from int, 4
@@ -24,7 +24,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double maxUpFalconPos = 58.1; // 170000 falcon
     public final double maxCarriageHeight = 29.732; // 87000 falcon
 
-    public final double safePositionForFourBar = 41.35; // 121000 falcon
+    public final double safePositionForFourBar = 42; // 121000 falcon
     public final double startingHeight = 0;
     public final double startingHorizontalExtension = 0; // TODO: find starting horizontal extension
     public final double safeIntakeHeight = 3.42; // 10000 falcon

@@ -6,6 +6,7 @@ package frc.robot.fourbar.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 
 public class FourBarDelay extends CommandBase {
     private double safePercent;
@@ -39,7 +40,7 @@ public class FourBarDelay extends CommandBase {
     public void execute() {
         if (Robot.fourBar.getPosition() < Robot.fourBar.percentToFalcon(safePercent)) {
             Robot.fourBar.setMMPercent(safePercent);
-        } else if (Robot.elevator.getPosition() >= conditionalPos) {
+        } else if (Robot.elevator.getPosition() >= Elevator.inchesToFalcon(conditionalPos)) {
             Robot.fourBar.setMMPercent(finalPercent);
         }
     }
