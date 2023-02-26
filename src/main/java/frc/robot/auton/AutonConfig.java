@@ -11,5 +11,5 @@ public class AutonConfig {
 
     // speeds
     public static final double kMaxSpeed = 2;
-    public static final double kMaxAccel = 1.25; // 2 worked but took too long
+    public static final double kMaxAccel = 2; // 2 worked but took too long
 }

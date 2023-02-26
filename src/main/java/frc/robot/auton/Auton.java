@@ -163,6 +163,14 @@ public class Auton {
                                         "IntakeTest",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "4 Ball Bottom",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "4 Ball Bottom",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands

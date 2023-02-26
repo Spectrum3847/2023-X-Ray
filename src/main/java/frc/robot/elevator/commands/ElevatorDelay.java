@@ -6,7 +6,6 @@ package frc.robot.elevator.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.elevator.Elevator;
 
 public class ElevatorDelay extends CommandBase {
     private double safePos;
@@ -42,11 +41,11 @@ public class ElevatorDelay extends CommandBase {
     public void execute() {
         if (Robot.elevator.getPosition() > finalPos
                 && Robot.fourBar.getPosition() > Robot.fourBar.percentToFalcon(conditionalPercent)
-                && Robot.elevator.getPosition() > Elevator.inchesToFalcon(safePos)) {
-            Robot.elevator.setMMPosition(Elevator.inchesToFalcon(safePos));
+                && Robot.elevator.getPosition() > safePos) {
+            Robot.elevator.setMMPosition(safePos);
 
         } else {
-            Robot.elevator.setMMPosition(Elevator.inchesToFalcon(finalPos));
+            Robot.elevator.setMMPosition(finalPos);
         }
     }
 
