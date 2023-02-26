@@ -14,7 +14,6 @@ import frc.robot.leds.commands.LEDCommands;
 
 public class Elevator extends LinearMechSubsystem {
     public static ElevatorConfig config = new ElevatorConfig();
-    private Command elevatorHeightLED = LEDCommands.elevatorHeightLED();
 
     public Elevator() {
         super(config);
@@ -34,15 +33,6 @@ public class Elevator extends LinearMechSubsystem {
                 position,
                 DemandType.ArbitraryFeedForward,
                 0.1); // calculateKf());
-    }
-
-    @Override
-    public void periodic() {
-        if(inchesToFalcon(getPosition()) >= config.LEDheight) {
-            elevatorHeightLED.schedule();
-        } else {
-            elevatorHeightLED.cancel();
-        }
     }
 
     private double calculateKf() {
