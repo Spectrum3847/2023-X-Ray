@@ -7,8 +7,7 @@ import frc.robot.Robot;
 /** All of the commands to schedule LEDs */
 public class LEDCommands {
     public static void setupDefaultCommand() {
-        Robot.leds.setDefaultCommand(
-                new OneColorLEDCommand(new Color(30, 3, 85), "LED Default", 2));
+        Robot.leds.setDefaultCommand(new ChaseLEDCommand("LED Default", 2));
     }
 
     public static Command purpleSolid(int priority, int timeout) {
