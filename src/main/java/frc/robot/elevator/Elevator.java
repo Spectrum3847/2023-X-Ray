@@ -6,12 +6,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
 import frc.SpectrumLib.util.Conversions;
 import frc.robot.RobotConfig;
+import frc.robot.leds.commands.LEDCommands;
 
 public class Elevator extends LinearMechSubsystem {
     public static ElevatorConfig config = new ElevatorConfig();
+    private Command elevatorHeightLED = LEDCommands.elevatorHeightLED();
 
     public Elevator() {
         super(config);
@@ -31,6 +34,15 @@ public class Elevator extends LinearMechSubsystem {
                 position,
                 DemandType.ArbitraryFeedForward,
                 0.1); // calculateKf());
+    }
+
+    @Override
+    public void periodic() {
+        if(inchesToFalcon(getPosition()) >= config.LEDheight) {
+            elevatorHeightLED.schedule();
+        } else {
+            elevatorHeightLED.cancel();
+        }
     }
 
     private double calculateKf() {
