@@ -10,6 +10,7 @@ import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.pilot.commands.PilotCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -31,7 +32,10 @@ public class OperatorGamepad extends Gamepad {
         // gamepad.aButton.and(noRightBumper()).whileTrue(AutonCommands.rightStationTop());
         gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeHybrid());
         gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
-        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation());
+        gamepad.bButton
+                .and(rightBumper())
+                .whileTrue(
+                        OperatorCommands.cubeChargeStation().alongWith(PilotCommands.rumble(1, 2)));
         gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
         gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneHybrid());
         gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());

@@ -47,7 +47,7 @@ public class CubeIntake extends CommandBase {
                     3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
         } else {
             Robot.intake.stopAll();
-            Robot.pilotGamepad.rumble(0.5);
+            Robot.operatorGamepad.rumble(0.5);
         }
     }
 
@@ -55,7 +55,7 @@ public class CubeIntake extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
-        Robot.pilotGamepad.rumble(0);
+        Robot.operatorGamepad.rumble(0);
     }
 
     // Returns true when the command should end.
