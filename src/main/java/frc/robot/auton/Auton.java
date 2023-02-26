@@ -111,15 +111,6 @@ public class Auton {
         // meter
         // forward
         // PathPlannerTrajectory.StopEvent
-        autonChooser.addOption(
-                "Test Path",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Test Path",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig.kMaxAccel)))); // run a test path to see
         // how things
         // are supposed to be on the field
         autonChooser.addOption(
