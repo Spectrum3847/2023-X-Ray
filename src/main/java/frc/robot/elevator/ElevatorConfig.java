@@ -31,7 +31,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double maxExtension = 0; // TODO: find max relative extension
     public final double angle = 60;
 
-    public final double zeroSpeed = -0.2;
+    public final double zeroSpeed = -0.8;
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
