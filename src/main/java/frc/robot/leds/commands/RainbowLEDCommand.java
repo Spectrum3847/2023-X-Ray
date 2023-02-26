@@ -15,6 +15,12 @@ public class RainbowLEDCommand extends LEDCommandBase {
         this.rainbowFirstPixelHue = 20;
     }
 
+    public RainbowLEDCommand(String name, int priority) {
+        super(name, priority);
+        this.ledSubsystem = Robot.leds;
+        this.rainbowFirstPixelHue = 20;
+    }
+
     public void ledInitialize() {}
 
     // Called when the command is initially scheduled.

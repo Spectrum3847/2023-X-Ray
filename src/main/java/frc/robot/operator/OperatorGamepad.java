@@ -69,7 +69,7 @@ public class OperatorGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 300));
+        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5));
     }
 
     public void setupTestButtons() {}

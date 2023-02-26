@@ -27,6 +27,16 @@ public class OneColorLEDCommand extends LEDCommandBase {
                 timeout);
     }
 
+    public OneColorLEDCommand(Color color, String name, int priority) {
+        this(
+                new Color8Bit(color).red,
+                new Color8Bit(color).green,
+                new Color8Bit(color).blue,
+                name,
+                priority,
+                -100);
+    }
+
     @Override
     public void ledInitialize() {
         for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {

@@ -19,6 +19,14 @@ public class SnowfallLEDCommand extends LEDCommandBase {
         stage = 0;
     }
 
+    public SnowfallLEDCommand(String name, int priority) {
+        super(name, priority);
+        ledSubsystem = Robot.leds;
+        this.waitTime = 100;
+        this.startTime = System.currentTimeMillis();
+        stage = 0;
+    }
+
     // Called when the command is initially scheduled.
     @Override
     public void ledInitialize() {

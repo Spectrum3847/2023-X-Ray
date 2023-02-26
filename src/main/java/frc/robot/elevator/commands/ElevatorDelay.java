@@ -6,6 +6,8 @@ package frc.robot.elevator.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
+import frc.robot.leds.commands.LEDCommands;
 
 public class ElevatorDelay extends CommandBase {
     private double safePos;
@@ -30,7 +32,9 @@ public class ElevatorDelay extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+        checkHeight();
+    }
 
     /* Called every time the scheduler runs while the command is scheduled.
      *
@@ -50,11 +54,21 @@ public class ElevatorDelay extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        checkHeight();
+    }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    public void checkHeight() {
+        if (Elevator.falconToInches(Robot.elevator.getPosition()) >= Elevator.config.LEDheight) {
+            LEDCommands.elevatorHeightLED().schedule();
+        } else {
+            LEDCommands.elevatorHeightLED().cancel();
+        }
     }
 }

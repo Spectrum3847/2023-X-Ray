@@ -19,6 +19,14 @@ public class ChaseLEDCommand extends LEDCommandBase {
         onLEDIndex = 0;
     }
 
+    public ChaseLEDCommand(String name, int priority) {
+        super(name, priority);
+        ledSubsystem = Robot.leds;
+        this.waitTime = 1;
+        this.startTime = System.currentTimeMillis();
+        onLEDIndex = 0;
+    }
+
     // Called when the command is initially scheduled.
     @Override
     public void ledInitialize() {

@@ -33,6 +33,8 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public final double zeroSpeed = -0.2;
 
+    public final double LEDheight = 24;
+
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
     public ElevatorConfig() {

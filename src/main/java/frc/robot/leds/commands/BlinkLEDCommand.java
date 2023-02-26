@@ -40,6 +40,10 @@ public class BlinkLEDCommand extends LEDCommandBase {
         this(500, color, name, priority, timeout);
     }
 
+    public BlinkLEDCommand(Color color, String name, int priority) {
+        this(500, color, name, priority, -100);
+    }
+
     private long getTime() {
         return (long) Units.secondsToMilliseconds(Util.getTime());
     }
