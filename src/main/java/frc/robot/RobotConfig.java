@@ -14,6 +14,7 @@ public final class RobotConfig {
     public final String pratice2023BotMAC = "00:80:2F:19:0D:CE";
     public final String alpha2023BotMAC = "00:80:2F:23:E9:33";
     public final String flash2021BotMAC = "00:80:2F:32:FC:79";
+    public final String xray2023BotMAC = "00:80:2F:22:50:6D";
     public final ModuleType PowerDistributionType = ModuleType.kCTRE;
 
     public static final int pigeonID = 0;
