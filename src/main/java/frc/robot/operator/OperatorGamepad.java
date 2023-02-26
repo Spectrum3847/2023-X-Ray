@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
-import frc.robot.auton.commands.AutonCommands;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;

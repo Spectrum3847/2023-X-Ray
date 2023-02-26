@@ -28,9 +28,9 @@ public class ElevatorCommands {
                 () -> Robot.elevator.setManualOutput(value.getAsDouble()), Robot.elevator);
     }
 
-    public static Command setMMPosition(double position) {
+    private static Command setMMPosition(double position) {
         return new ElevatorDelay(
-                Elevator.config.safePositionForFourBar,
+                Elevator.inchesToFalcon(Elevator.config.safePositionForFourBar),
                 position,
                 FourBar.config.safePositionForElevator);
     }
