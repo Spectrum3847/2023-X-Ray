@@ -118,16 +118,4 @@ public class OperatorCommands {
                                         * OperatorConfig.slowModeScalar),
                 Robot.fourBar);
     }
-
-    public static Command coneFloorLED() {
-        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99, 3);
-    }
-
-    public static Command coneShelfLED() {
-        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", 99, 3);
-    }
-
-    public static Command cubeLED() {
-        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99, 3);
-    }
 }

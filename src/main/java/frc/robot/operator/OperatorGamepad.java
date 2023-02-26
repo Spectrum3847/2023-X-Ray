@@ -9,6 +9,7 @@ import frc.robot.auton.commands.AutonCommands;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.leds.commands.LEDCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;
 
@@ -47,8 +48,8 @@ public class OperatorGamepad extends Gamepad {
         gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
         gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
-        gamepad.Dpad.Left.and(noRightBumper()).whileTrue(OperatorCommands.coneFloorLED());
-        gamepad.Dpad.Right.and(noRightBumper()).whileTrue(OperatorCommands.cubeLED());
+        gamepad.Dpad.Left.and(noRightBumper()).whileTrue(LEDCommands.coneFloorLED());
+        gamepad.Dpad.Right.and(noRightBumper()).whileTrue(LEDCommands.cubeLED());
         gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
         gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 
@@ -68,7 +69,7 @@ public class OperatorGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 3));
+        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 300));
     }
 
     public void setupTestButtons() {}
