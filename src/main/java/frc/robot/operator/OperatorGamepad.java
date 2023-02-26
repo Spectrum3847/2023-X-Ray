@@ -28,14 +28,14 @@ public class OperatorGamepad extends Gamepad {
     }
     // set up jiggle sometime
     public void setupTeleopButtons() {
-        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
+        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
         // gamepad.aButton.and(noRightBumper()).whileTrue(AutonCommands.rightStationTop());
-        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeHybrid());
-        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
+        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeHybrid().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.rumble(1, 99)));
         gamepad.bButton
                 .and(rightBumper())
                 .whileTrue(
-                        OperatorCommands.cubeChargeStation().alongWith(PilotCommands.rumble(1, 2)));
+                        OperatorCommands.cubeChargeStation().alongWith(PilotCommands.rumble(1, 99)));
         gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
         gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneHybrid());
         gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
