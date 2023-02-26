@@ -172,6 +172,7 @@ public class Auton {
         eventMap.put("OnStationTop", AutonCommands.onStationTop());
         eventMap.put("BehindStationMid", AutonCommands.behindStationMid());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
+        eventMap.put("RetractIntakeWTimeout", AutonCommands.retractIntake().withTimeout(2));
         eventMap.put("RightStationTop", AutonCommands.rightStationTop());
     }
 

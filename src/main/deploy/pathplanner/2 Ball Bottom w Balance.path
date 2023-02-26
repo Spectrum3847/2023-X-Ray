@@ -2,13 +2,13 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 4.5,
-        "y": 1.0566882951947734
+        "x": 4.35,
+        "y": 1.05
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.626363737808769,
-        "y": 0.6467254216755605
+        "x": 5.5225726240926125,
+        "y": 0.8295770223119403
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "CloseLaunchCube"
+          "RightStationTop"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -51,16 +51,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.5,
-        "y": 0.93
+        "x": 7.1,
+        "y": 0.92
       },
       "prevControl": {
-        "x": 6.055673772594588,
-        "y": 0.93
+        "x": 6.655673772594588,
+        "y": 0.92
       },
       "nextControl": {
-        "x": 6.585563170111905,
-        "y": 0.93
+        "x": 7.185563170111904,
+        "y": 0.92
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -76,16 +76,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.255051146465929,
-        "y": 1.0566882951947734
+        "x": 5.15,
+        "y": 1.05
       },
       "prevControl": {
-        "x": 5.286486527405854,
-        "y": 1.0830657117473819
+        "x": 5.299867246185168,
+        "y": 1.05
       },
       "nextControl": {
-        "x": 5.209786082160258,
-        "y": 1.018706396430669
+        "x": 5.066508006728038,
+        "y": 1.05
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -94,7 +94,8 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "FarLaunchCube"
+          "RetractIntake",
+          "CommunityMid"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -103,16 +104,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.685801371602744,
-        "y": 1.9949734636311385
+        "x": 5.549777415344305,
+        "y": 1.0518740335726287
       },
       "prevControl": {
-        "x": 5.868201479851842,
-        "y": 1.565265737085989
+        "x": 5.658973770962138,
+        "y": 1.0518740335726287
       },
       "nextControl": {
-        "x": 5.6397390835297,
-        "y": 2.1034894139632745
+        "x": 5.414967983009625,
+        "y": 1.0518740335726287
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -128,16 +129,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.277729502827427,
-        "y": 2.25
+        "x": 5.53164088784318,
+        "y": 2.0675195736356393
       },
       "prevControl": {
-        "x": 5.364117726287399,
-        "y": 2.25
+        "x": 5.586800982799963,
+        "y": 2.0675195736356393
       },
       "nextControl": {
-        "x": 5.199721348437756,
-        "y": 2.25
+        "x": 5.420948622033798,
+        "y": 2.0675195736356393
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -153,12 +154,12 @@
     },
     {
       "anchorPoint": {
-        "x": 3.8630803577396633,
-        "y": 2.25
+        "x": 3.799602511485725,
+        "y": 2.1037926286378896
       },
       "prevControl": {
-        "x": 4.100419532978583,
-        "y": 2.25
+        "x": 4.089928608549029,
+        "y": 2.1037926286378896
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -174,5 +175,18 @@
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 1.0,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 2.3,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }
