@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "RightStationTop"
+          "CommunityTop"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -94,7 +94,7 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "CommunityMid"
+          "RightStationMid"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",

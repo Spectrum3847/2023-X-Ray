@@ -23,7 +23,7 @@ public class FourBarConfig extends AngleMechConfig {
 
     public final int safePositionForElevator = 60;
 
-    public final double zeroSpeed = -0.1;
+    public final double zeroSpeed = -0.2;
 
     // Physical Constants
     public final double gearRatio = 1;

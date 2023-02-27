@@ -189,7 +189,7 @@ public class Auton {
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
         // Cube Shooting Commmands
-        eventMap.put("CommunityTop", AutonCommands.communityMid());
+        eventMap.put("CommunityTop", AutonCommands.communityTop());
         eventMap.put("RightStationMid", AutonCommands.behindStationMid());
         eventMap.put("BehindStationTop", AutonCommands.onStationTop());
         eventMap.put("BehindStationMid", AutonCommands.behindStationMid());

@@ -17,8 +17,8 @@ public class AutonCommands {
     }
 
     /* These 3 commands have not been mapped to the operator gamepad */
-    public static Command communityMid() {
-        return spinLauncher(IntakeCommands.communityMidSpinUp()).andThen(launch(), stopMotors());
+    public static Command communityTop() {
+        return spinLauncher(IntakeCommands.communityTopSpinUp()).andThen(launch(), stopMotors());
     }
 
     public static Command behindStationMid() {

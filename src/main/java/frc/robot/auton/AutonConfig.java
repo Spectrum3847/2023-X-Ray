@@ -6,7 +6,7 @@ public class AutonConfig {
     public static final double intakeTime = 0.75;
     public static final double retractTime = 1.5;
     public static final double spinUpTime = 0.3;
-    public static final double launchTime = 0.1;
+    public static final double launchTime = 0.3;
     public static final double stopTime = 0.001;
 
     // speeds

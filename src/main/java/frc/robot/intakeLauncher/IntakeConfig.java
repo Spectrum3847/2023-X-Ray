@@ -51,15 +51,14 @@ public class IntakeConfig {
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 
-    // needs to be configed
-    public double frontCommunityTopSpeed = 4820;
-    public double launcherCommunityTopSpeed = 4820;
+    public double frontCommunityTopSpeed = 4820; //correct
+    public double launcherCommunityTopSpeed = 4820; //correct
 
-    public double frontBehindRStationMidSpeed = 4805;
-    public double launcherBehindRStationMidSpeed = 4805;
+    public double frontBehindRStationMidSpeed = 4000; // correct w/distance = .135 from tape line and .18
+    public double launcherBehindRStationMidSpeed = 4000; // correct w/distance = .135 from tape line and .18
 
-    public double frontBehindMStationTopSpeed = 5200; // Not Calibrated
-    public double launcherBehindMStationTopSpeed = 5200; // Not Calibrated
+    public double frontBehindMStationTopSpeed = 6000; // correct when touching charge station with .5 sec spin up time
+    public double launcherBehindMStationTopSpeed = 6000; // correct when touching charge station with .5 sec spin up time
 
     public double currentLimit = 20;
     public double threshold = 40;
