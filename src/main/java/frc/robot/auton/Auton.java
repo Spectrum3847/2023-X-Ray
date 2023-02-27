@@ -158,7 +158,7 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         // Advanced comp autos with vision
-        
+
         // Path length tests (not used at comp)
         autonChooser.addOption(
                 "1 Meter",
