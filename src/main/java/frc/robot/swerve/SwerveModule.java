@@ -4,7 +4,6 @@
 package frc.robot.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -101,11 +100,9 @@ public class SwerveModule extends SubsystemBase {
                             desiredState.speedMetersPerSecond,
                             config.physical.wheelCircumference,
                             config.physical.driveGearRatio);
-            mDriveMotor.set(
-                    ControlMode.Velocity,
-                    velocity,
-                    DemandType.ArbitraryFeedForward,
-                    feedforward.calculate(desiredState.speedMetersPerSecond));
+            mDriveMotor.set(ControlMode.Velocity, velocity); // ,
+            // DemandType.ArbitraryFeedForward,
+            // feedforward.calculate(desiredState.speedMetersPerSecond));
         }
     }
 

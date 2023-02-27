@@ -85,7 +85,7 @@ public class OperatorCommands {
     }
 
     /** Goes to 0 */
-    private static Command homeSystems() {
+    public static Command homeSystems() {
         return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
     }
 
