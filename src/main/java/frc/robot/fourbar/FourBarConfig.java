@@ -1,5 +1,6 @@
 package frc.robot.fourbar;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.SpectrumLib.subsystems.angleMech.AngleMechConfig;
 
 public class FourBarConfig extends AngleMechConfig {
@@ -41,6 +42,7 @@ public class FourBarConfig extends AngleMechConfig {
         this.tirggerThresholdLimit = 10;
         this.PeakCurrentDuration = 0.0;
         this.EnableCurrentLimit = true;
+        this.kNeutralMode = NeutralMode.Brake;
         updateTalonFXConfig();
     }
 }
