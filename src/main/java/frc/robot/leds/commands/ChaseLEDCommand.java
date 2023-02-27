@@ -16,7 +16,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
     public ChaseLEDCommand(String name, int priority, int timeout) {
         super(name, priority, timeout);
         ledSubsystem = Robot.leds;
-        this.waitTime = 1;
+        this.waitTime = 0;
         this.startTime = System.currentTimeMillis();
         onLEDIndex = 0;
     }
@@ -24,7 +24,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
     public ChaseLEDCommand(String name, int priority) {
         super(name, priority);
         ledSubsystem = Robot.leds;
-        this.waitTime = 1;
+        this.waitTime = 0;
         this.startTime = System.currentTimeMillis();
         onLEDIndex = 0;
     }

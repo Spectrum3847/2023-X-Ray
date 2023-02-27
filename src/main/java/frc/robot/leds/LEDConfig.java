@@ -6,7 +6,7 @@ import frc.robot.RobotConfig;
 /** Add your docs here. */
 public class LEDConfig {
     public final int ADDRESSABLE_LED = RobotConfig.ledPWMport;
-    public final int LED_COUNT = 60;
+    public final int LED_COUNT = 47;
 
     public LEDConfig() {
         switch (Robot.config.getRobotType()) {

@@ -2,12 +2,10 @@ package frc.robot.leds.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 
 /** All of the commands to schedule LEDs */
 public class LEDCommands {
     public static void setupDefaultCommand() {
-        Robot.leds.setDefaultCommand(new ChaseLEDCommand("LED Default", 2));
     }
 
     public static Command purpleSolid(int priority, int timeout) {

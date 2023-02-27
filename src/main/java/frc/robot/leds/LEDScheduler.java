@@ -5,10 +5,9 @@
 package frc.robot.leds;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.RobotTelemetry;
+import frc.robot.leds.commands.ChaseLEDCommand;
 import frc.robot.leds.commands.LEDCommandBase;
-import frc.robot.leds.commands.OneColorLEDCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,9 +32,7 @@ public class LEDScheduler {
     }
 
     private void intialAnimation() {
-        setDefaultAnimation(
-                "Default LED Animation",
-                new OneColorLEDCommand(new Color(30, 3, 85), "Default", 1, -101));
+        setDefaultAnimation("Default LED Animation", new ChaseLEDCommand("LED Default", 1, -101));
     }
 
     private void runScheduler() {
