@@ -64,55 +64,50 @@ public class Auton {
                 );
     }
 
+    static SwerveAutoBuilder getVisionAutoBuilder() {
+        return new SwerveAutoBuilder(
+                Robot.pose::getEstimatedPose, // Pose2d supplier
+                Robot.swerve.odometry
+                        ::resetOdometry, // Pose2d consumer, used to reset odometry at the
+                // beginning of auto
+                Robot.swerve.config.swerveKinematics, // SwerveDriveKinematics
+                new PIDConstants(
+                        TrajectoriesConfig.kPTranslationController,
+                        TrajectoriesConfig.kITranslationController,
+                        TrajectoriesConfig.kDTranslationController), // PID constants to correct for
+                // translation error (used to create
+                // the X and Y PID controllers)
+                new PIDConstants(
+                        TrajectoriesConfig.kPRotationController,
+                        TrajectoriesConfig.kIRotationController,
+                        TrajectoriesConfig
+                                .kDRotationController), // PID constants to correct for rotation
+                // error (used to create the
+                // rotation controller)
+                Robot.swerve::setModuleStates, // Module states consumer used to output to the drive
+                // subsystem
+                Auton.eventMap, // Gets the event map values to use for running addional
+                // commands during auto
+                true, // Should the path be automatically mirrored depending on
+                // alliance color
+                // Alliance.
+                Robot.swerve // The drive subsystem. Used to properly set the requirements of
+                // path following commands
+                );
+    }
+
     // A chooser for autonomous commands
     public static void setupSelectors() {
         autonChooser.setDefaultOption(
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        // Simple comp autos
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
         autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
         autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
-        autonChooser.addOption(
-                "1 Meter",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "1 Meter",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig
-                                                        .kMaxAccel)))); // sets an auto to drive one
-        // meter
-        // forward
-        autonChooser.addOption(
-                "3 Meters",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "3 Meters",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig
-                                                        .kMaxAccel)))); // sets an auto to drive one
-        // meter
-        // forward
-        autonChooser.addOption(
-                "5 Meters",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "5 Meters",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig
-                                                        .kMaxAccel)))); // sets an auto to drive one
-        // meter
-        // forward
-        // PathPlannerTrajectory.StopEvent
-        // how things
-        // are supposed to be on the field
+        // Advanced comp autos with odometry
         autonChooser.addOption(
                 "2 Ball Bottom",
                 getAutoBuilder()
@@ -162,17 +157,46 @@ public class Auton {
                                         "4 Ball Bottom",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        // Advanced comp autos with vision
+        
+        // Path length tests (not used at comp)
+        autonChooser.addOption(
+                "1 Meter",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "1 Meter",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "3 Meters",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Meters",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "5 Meters",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "5 Meters",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
-        eventMap.put("IntakeCube", AutonCommands.intakeCube());
-        eventMap.put("CommunityMid", AutonCommands.communityMid());
-        eventMap.put("OnStationTop", AutonCommands.onStationTop());
+        // Cube Shooting Commmands
+        eventMap.put("CommunityTop", AutonCommands.communityMid());
+        eventMap.put("RightStationMid", AutonCommands.behindStationMid());
+        eventMap.put("BehindStationTop", AutonCommands.onStationTop());
         eventMap.put("BehindStationMid", AutonCommands.behindStationMid());
+        eventMap.put("LeftStationTop", AutonCommands.behindStationMid());
+        // Intake Commands
+        eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
-        eventMap.put("RetractIntakeWTimeout", AutonCommands.retractIntake().withTimeout(2));
-        eventMap.put("RightStationTop", AutonCommands.rightStationTop());
     }
 
     /**
