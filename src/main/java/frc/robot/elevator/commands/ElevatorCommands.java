@@ -2,6 +2,7 @@ package frc.robot.elevator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import frc.robot.fourbar.FourBar;
@@ -17,6 +18,13 @@ public class ElevatorCommands {
 
     public static Command stop() {
         return new RunCommand(() -> Robot.elevator.stop(), Robot.elevator);
+    }
+
+    public static Command coastMode() {
+        return new StartEndCommand(
+                () -> Robot.elevator.setBrakeMode(false),
+                () -> Robot.elevator.setBrakeMode(true),
+                Robot.elevator);
     }
 
     public static Command setOutput(double value) {

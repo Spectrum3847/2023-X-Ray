@@ -1,5 +1,6 @@
 package frc.robot.elevator;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechConfig;
 import frc.robot.RobotConfig.Motors;
 
@@ -31,7 +32,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double maxExtension = 0; // TODO: find max relative extension
     public final double angle = 60;
 
-    public final double zeroSpeed = -0.8;
+    public final double zeroSpeed = -0.3;
 
     public static final int elevatorMotorID = Motors.elevatorMotor;
 
@@ -48,6 +49,7 @@ public class ElevatorConfig extends LinearMechConfig {
         this.tirggerThresholdLimit = 30;
         this.PeakCurrentDuration = 0.0;
         this.EnableCurrentLimit = true;
+        this.kNeutralMode = NeutralMode.Brake;
         updateTalonFXConfig();
     }
 }

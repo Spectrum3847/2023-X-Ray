@@ -6,6 +6,7 @@ import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
@@ -78,6 +79,8 @@ public class OperatorGamepad extends Gamepad {
 
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 3));
+        gamepad.bButton.whileTrue(
+                ElevatorCommands.coastMode().alongWith(FourBarCommands.coastMode()));
     }
 
     public void setupTestButtons() {}
