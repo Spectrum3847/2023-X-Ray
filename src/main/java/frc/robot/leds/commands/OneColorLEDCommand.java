@@ -38,13 +38,13 @@ public class OneColorLEDCommand extends LEDCommandBase {
     }
 
     @Override
-    public void ledInitialize() {
+    public void ledInitialize() {}
+
+    @Override
+    public void ledExecute() {
         for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
             ledSubsystem.setRGB(i, r, g, b);
         }
         ledSubsystem.sendData();
     }
-
-    @Override
-    public void ledExecute() {}
 }
