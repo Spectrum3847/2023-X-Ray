@@ -2,6 +2,7 @@ package frc.robot.fourbar.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.Robot;
 import frc.robot.fourbar.FourBar;
 import java.util.function.DoubleSupplier;
@@ -9,6 +10,14 @@ import java.util.function.DoubleSupplier;
 public class FourBarCommands {
     public static void setupDefaultCommand() {
         Robot.fourBar.setDefaultCommand(new FourBarHoldPosition());
+    }
+
+    public static Command coastMode() {
+        return new StartEndCommand(
+                        () -> Robot.fourBar.setBrakeMode(false),
+                        () -> Robot.fourBar.setBrakeMode(true),
+                        Robot.fourBar)
+                .ignoringDisable(true);
     }
 
     public static Command ZeroFourBarRoutine() {

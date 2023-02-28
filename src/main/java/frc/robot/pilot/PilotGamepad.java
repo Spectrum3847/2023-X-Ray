@@ -50,6 +50,7 @@ public class PilotGamepad extends Gamepad {
         slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
 
         // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
+        gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
 
         gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
 
@@ -102,7 +103,7 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5, 3));
+        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5));
     }
 
     public void setupTestButtons() {}

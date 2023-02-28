@@ -1,5 +1,6 @@
 package frc.robot.fourbar;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.SpectrumLib.subsystems.angleMech.AngleMechSubsystem;
@@ -11,10 +12,10 @@ public class FourBar extends AngleMechSubsystem {
     public FourBar() {
         super(config);
         motorLeader = new WPI_TalonFX(RobotConfig.Motors.fourBarMotor);
+        config.updateTalonFXConfig();
         setupFalconLeader();
-        motorLeader.setInverted(TalonFXInvertType.Clockwise);
-        motorLeader.configSupplyCurrentLimit(config.supplyLimit);
-        motorLeader.configReverseSoftLimitThreshold(0);
+        motorLeader.setInverted(TalonFXInvertType.Clockwise); // Should be done in config
+        motorLeader.configReverseSoftLimitThreshold(200);
         motorLeader.configReverseSoftLimitEnable(true);
         motorLeader.configForwardSoftLimitThreshold(config.fourbarMaxFalcon);
         motorLeader.configForwardSoftLimitEnable(true);
@@ -22,6 +23,14 @@ public class FourBar extends AngleMechSubsystem {
 
     public void zeroFourBar() {
         motorLeader.setSelectedSensorPosition(0);
+    }
+
+    public void setBrakeMode(Boolean brake) {
+        if (brake) {
+            motorLeader.setNeutralMode(NeutralMode.Brake);
+        } else {
+            motorLeader.setNeutralMode(NeutralMode.Coast);
+        }
     }
 
     public void resetSensorPosition(double pos) {

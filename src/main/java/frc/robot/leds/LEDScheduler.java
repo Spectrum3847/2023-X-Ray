@@ -5,10 +5,10 @@
 package frc.robot.leds;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.leds.commands.ChaseLEDCommand;
 import frc.robot.leds.commands.LEDCommandBase;
-import frc.robot.leds.commands.OneColorLEDCommand;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,19 +33,20 @@ public class LEDScheduler {
     }
 
     private void intialAnimation() {
-        setDefaultAnimation(
-                "Default LED Animation",
-                new OneColorLEDCommand(new Color(30, 3, 85), "Default", 1, -101));
+        setDefaultAnimation("Default LED Animation", new ChaseLEDCommand("LED Default", 1, -101));
     }
 
     private void runScheduler() {
         if (top == null) {
             intialAnimation();
         }
-        // It the top animation isn't scheduled, schedule it
-        if (!top.getCommand().isScheduled()) {
-            top.getCommand().schedule();
-        }
+        // It the top animation isn't scheduled, schedule it. EDIT: I know why this exists but
+        // apparently it doesn't affect anything and it breaks the ending function of commands so
+        // I'm commenting it out
+        // if (!top.getCommand().isScheduled()) {
+        //     top.getCommand().schedule();
+        // }
+
         // Increment through all the Animations
         for (int j = 0; j < animationArrary.size(); j++) {
             Animation animation = animationArrary.get(j);
@@ -67,7 +68,9 @@ public class LEDScheduler {
             top = animationArrary.get(0);
             top.getCommand().schedule();
             top.getCommand().ledInitialize();
-            RobotTelemetry.print("LEDs Set To: " + top.getName());
+            if (Robot.isSimulation()) {
+                RobotTelemetry.print("LEDs Set To: " + top.getName());
+            }
         }
 
         if (top.getPriority() > 1) {
@@ -90,6 +93,14 @@ public class LEDScheduler {
         }
         animation.getCommand().setName(animation.name);
         animationArrary.add(animation);
+    }
+
+    public void removeAnimation(String name) {
+        for (int i = 0; i < animationArrary.size(); i++) {
+            if (animationArrary.get(i).getName() == name) {
+                animationArrary.remove(i);
+            }
+        }
     }
 
     class Animation {

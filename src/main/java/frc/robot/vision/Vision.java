@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.leds.commands.LEDCommands;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -207,6 +208,16 @@ public class Vision extends SubsystemBase {
                         Units.degreesToRadians(values[3]),
                         Units.degreesToRadians(values[4]),
                         Units.degreesToRadians(values[5])));
+    }
+
+    public boolean targetSeen() {
+        boolean targetSeen = !(botPose.getX() == 0 && botPose.getY() == 0);
+        if (targetSeen) {
+            LEDCommands.success().schedule();
+        } else {
+            LEDCommands.failure().schedule();
+        }
+        return targetSeen;
     }
 
     /**

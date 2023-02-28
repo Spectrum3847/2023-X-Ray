@@ -6,15 +6,24 @@ import frc.robot.Robot;
 public abstract class LEDCommandBase extends CommandBase {
     String name;
     int priority;
-    int timeout;
+    double timeout;
 
-    public LEDCommandBase(String name, int priority, int timeout) {
+    public LEDCommandBase(String name, int priority, double timeout) {
         super();
         setName(name);
         addRequirements(Robot.leds);
         this.name = name;
         this.priority = priority;
         this.timeout = timeout;
+    }
+
+    public LEDCommandBase(String name, int priority) {
+        super();
+        setName(name);
+        addRequirements(Robot.leds);
+        this.name = name;
+        this.priority = priority;
+        this.timeout = -101;
     }
 
     @Override
@@ -32,7 +41,9 @@ public abstract class LEDCommandBase extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        Robot.leds.scheduler.removeAnimation(name);
+    }
 
     // Returns true when the command should end.
     @Override
