@@ -2,10 +2,18 @@ package frc.robot.leds.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 
 /** All of the commands to schedule LEDs */
 public class LEDCommands {
     public static void setupDefaultCommand() {}
+
+    public static void setupLEDTriggers() {
+        Trigger elevatorUp = new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 24);
+        elevatorUp.whileTrue(elevatorHeightLED());
+    }
 
     public static Command purpleSolid(int priority, int timeout) {
         return new OneColorLEDCommand(new Color(100, 10, 255), null, priority, timeout);
