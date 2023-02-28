@@ -6,9 +6,9 @@ import frc.robot.Robot;
 public abstract class LEDCommandBase extends CommandBase {
     String name;
     int priority;
-    int timeout;
+    double timeout;
 
-    public LEDCommandBase(String name, int priority, int timeout) {
+    public LEDCommandBase(String name, int priority, double timeout) {
         super();
         setName(name);
         addRequirements(Robot.leds);
@@ -23,7 +23,7 @@ public abstract class LEDCommandBase extends CommandBase {
         addRequirements(Robot.leds);
         this.name = name;
         this.priority = priority;
-        this.timeout = -100;
+        this.timeout = -101;
     }
 
     @Override

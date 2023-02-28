@@ -11,6 +11,14 @@ public class LEDCommands {
         return new OneColorLEDCommand(new Color(100, 10, 255), null, priority, timeout);
     }
 
+    public static Command success() {
+        return new OneColorLEDCommand(Color.kGreen, "LED Success", 99, 1.5);
+    }
+
+    public static Command failure() {
+        return new OneColorLEDCommand(Color.kRed, "LED Fail", 99, 1.5);
+    }
+
     public static Command coneFloorLED() {
         return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99);
     }

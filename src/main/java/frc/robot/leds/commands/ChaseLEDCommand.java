@@ -13,7 +13,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
     int onLEDIndex;
     boolean backwards = false;
 
-    public ChaseLEDCommand(String name, int priority, int timeout) {
+    public ChaseLEDCommand(String name, int priority, double timeout) {
         super(name, priority, timeout);
         ledSubsystem = Robot.leds;
         this.waitTime = 0;
