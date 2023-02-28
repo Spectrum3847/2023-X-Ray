@@ -11,7 +11,8 @@ public class LEDCommands {
     public static void setupDefaultCommand() {}
 
     public static void setupLEDTriggers() {
-        Trigger elevatorUp = new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 24);
+        Trigger elevatorUp =
+                new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 24);
         elevatorUp.whileTrue(elevatorHeightLED());
     }
 

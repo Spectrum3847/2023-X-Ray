@@ -17,7 +17,6 @@ import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
 import frc.robot.auton.commands.TaxiCommand;
-import frc.robot.swerve.Swerve;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.HashMap;
@@ -119,7 +118,10 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "2 Ball Bottom",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))); // Written correctly needs testing
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig
+                                                        .kMaxAccel)))); // Written correctly needs
+        // testing
         autonChooser.addOption(
                 "2 Ball Bottom w Balance",
                 getAutoBuilder()
@@ -187,7 +189,8 @@ public class Auton {
         eventMap.put("CommunityTop", AutonCommands.communityTop()); // Tuned correctly
         eventMap.put("RightStationMid", AutonCommands.behindStationMid()); // Tuned Correctly
         eventMap.put("BehindStationTop", AutonCommands.onStationTop()); // Tuned Correctly
-        eventMap.put("BehindStationMid", AutonCommands.behindStationMid()); // Need to be tuned to run
+        eventMap.put(
+                "BehindStationMid", AutonCommands.behindStationMid()); // Need to be tuned to run
         // Intake Commands
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
