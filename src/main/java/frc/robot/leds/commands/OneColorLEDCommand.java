@@ -9,7 +9,7 @@ public class OneColorLEDCommand extends LEDCommandBase {
     private final LEDs ledSubsystem;
     private final int r, g, b;
 
-    public OneColorLEDCommand(int r, int g, int b, String name, int priority, int timeout) {
+    public OneColorLEDCommand(int r, int g, int b, String name, int priority, double timeout) {
         super(name, priority, timeout);
         ledSubsystem = Robot.leds;
         this.r = r;
@@ -17,7 +17,7 @@ public class OneColorLEDCommand extends LEDCommandBase {
         this.b = b;
     }
 
-    public OneColorLEDCommand(Color color, String name, int priority, int timeout) {
+    public OneColorLEDCommand(Color color, String name, int priority, double timeout) {
         this(
                 new Color8Bit(color).red,
                 new Color8Bit(color).green,

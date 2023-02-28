@@ -5,6 +5,7 @@
 package frc.robot.leds;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.leds.commands.ChaseLEDCommand;
 import frc.robot.leds.commands.LEDCommandBase;
@@ -67,7 +68,9 @@ public class LEDScheduler {
             top = animationArrary.get(0);
             top.getCommand().schedule();
             top.getCommand().ledInitialize();
-            RobotTelemetry.print("LEDs Set To: " + top.getName());
+            if (Robot.isSimulation()) {
+                RobotTelemetry.print("LEDs Set To: " + top.getName());
+            }
         }
 
         if (top.getPriority() > 1) {

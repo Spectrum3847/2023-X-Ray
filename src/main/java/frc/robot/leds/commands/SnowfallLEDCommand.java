@@ -11,7 +11,7 @@ public class SnowfallLEDCommand extends LEDCommandBase {
     long startTime;
     int stage;
 
-    public SnowfallLEDCommand(String name, int priority, int timeout) {
+    public SnowfallLEDCommand(String name, int priority, double timeout) {
         super(name, priority, timeout);
         ledSubsystem = Robot.leds;
         this.waitTime = 100;

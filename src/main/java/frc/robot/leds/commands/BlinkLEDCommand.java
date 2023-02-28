@@ -15,7 +15,7 @@ public class BlinkLEDCommand extends LEDCommandBase {
     boolean on = true;
 
     public BlinkLEDCommand(
-            int waitTimeMS, int r, int g, int b, String name, int priority, int timeout) {
+            int waitTimeMS, int r, int g, int b, String name, int priority, double timeout) {
         super(name, priority, timeout);
         this.ledSubsystem = Robot.leds;
         this.startTime = (long) Units.secondsToMilliseconds(Util.getTime());
@@ -25,7 +25,7 @@ public class BlinkLEDCommand extends LEDCommandBase {
         this.b = b;
     }
 
-    public BlinkLEDCommand(int waitTime, Color color, String name, int priority, int timeout) {
+    public BlinkLEDCommand(int waitTime, Color color, String name, int priority, double timeout) {
         this(
                 waitTime,
                 new Color8Bit(color).red,
@@ -36,7 +36,7 @@ public class BlinkLEDCommand extends LEDCommandBase {
                 timeout);
     }
 
-    public BlinkLEDCommand(Color color, String name, int priority, int timeout) {
+    public BlinkLEDCommand(Color color, String name, int priority, double timeout) {
         this(500, color, name, priority, timeout);
     }
 
