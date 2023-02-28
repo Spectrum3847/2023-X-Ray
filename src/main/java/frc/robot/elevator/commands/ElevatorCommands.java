@@ -22,9 +22,10 @@ public class ElevatorCommands {
 
     public static Command coastMode() {
         return new StartEndCommand(
-                () -> Robot.elevator.setBrakeMode(false),
-                () -> Robot.elevator.setBrakeMode(true),
-                Robot.elevator);
+                        () -> Robot.elevator.setBrakeMode(false),
+                        () -> Robot.elevator.setBrakeMode(true),
+                        Robot.elevator)
+                .ignoringDisable(true);
     }
 
     public static Command setOutput(double value) {
@@ -36,27 +37,37 @@ public class ElevatorCommands {
                 () -> Robot.elevator.setManualOutput(value.getAsDouble()), Robot.elevator);
     }
 
-    private static Command setMMPosition(double position) {
+    private static Command setMMPositionWithDelay(double positionFalconUnits) {
         return new ElevatorDelay(
                 Elevator.inchesToFalcon(Elevator.config.safePositionForFourBar),
-                position,
+                positionFalconUnits,
                 FourBar.config.safePositionForElevator);
     }
 
     public static Command setMMPositionFromInches(double inches) {
-        return setMMPosition(Elevator.inchesToFalcon(inches));
+        return setMMPositionWithDelay(Elevator.inchesToFalcon(inches));
     }
 
     public static Command coneIntake() {
-        return setMMPositionFromInches(Elevator.config.coneIntake);
+        return hopElevator(Elevator.config.coneIntake);
     }
 
     public static Command coneStandingIntake() {
         return setMMPositionFromInches(Elevator.config.coneStandingIntake);
     }
 
+    public static Command hopElevator(double inches) {
+        return ElevatorCommands.setMMPositionFromInches(Elevator.config.hopHeight)
+                .withTimeout(Elevator.config.hopTime)
+                .andThen(setMMPositionWithDelay(inches));
+    }
+
+    public static Command hopElevator() {
+        return hopElevator(0);
+    }
+
     public static Command coneHybrid() {
-        return setMMPosition(Elevator.config.coneHybrid);
+        return setMMPositionFromInches(Elevator.config.coneHybrid);
     }
 
     public static Command coneMid() {
@@ -72,7 +83,7 @@ public class ElevatorCommands {
     }
 
     public static Command cubeIntake() {
-        return setMMPositionFromInches(Elevator.config.cubeIntake);
+        return hopElevator(Elevator.config.cubeIntake);
     }
 
     public static Command cubeMid() {
@@ -89,7 +100,7 @@ public class ElevatorCommands {
     }
 
     public static Command home() {
-        return setMMPosition(0);
+        return setMMPositionWithDelay(0);
     }
 
     public static Command zeroElevatorRoutine() {

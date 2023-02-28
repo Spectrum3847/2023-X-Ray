@@ -1,5 +1,6 @@
 package frc.robot.operator;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
@@ -79,8 +80,9 @@ public class OperatorGamepad extends Gamepad {
 
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kYellow, "Yellow", 5, 3));
-        gamepad.bButton.whileTrue(
-                ElevatorCommands.coastMode().alongWith(FourBarCommands.coastMode()));
+        gamepad.bButton.toggleOnTrue(
+                ElevatorCommands.coastMode()
+                        .alongWith(FourBarCommands.coastMode().ignoringDisable(true)));
     }
 
     public void setupTestButtons() {}

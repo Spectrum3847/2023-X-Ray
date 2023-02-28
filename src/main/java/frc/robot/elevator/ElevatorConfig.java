@@ -8,6 +8,9 @@ public class ElevatorConfig extends LinearMechConfig {
     public static final String name = "Elevator";
 
     // All these are in inches
+    public final double hopHeight = 1;
+    public final double hopTime = 0.5;
+
     public final double cubeIntake = 0;
     public final double cubeMid = 0;
     public final double cubeTop = 0;
@@ -16,8 +19,8 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneStandingIntake = 0;
     public final double coneShelf = 43.13; // 126200 falcon
 
-    public final double coneHybrid = 0;
-    public final double coneMid = 33.774; // 95900  falcon
+    public final double coneHybrid = 2;
+    public final double coneMid = 34.5; // 95900  falcon
     public final double coneTop = 58.4;
 
     public final double diameterInches = 2.0051; // changed from int, 4
@@ -38,12 +41,12 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public ElevatorConfig() {
         super(name);
-        this.kP = 0.4; // not accurate value, just testing
+        this.kP = 0.43;
         this.kI = 0; // could be 0
         this.kD = 0; // could be 0
         this.kF = 0.064;
-        this.motionCruiseVelocity = 10500;
-        this.motionAcceleration = 42000;
+        this.motionCruiseVelocity = 24500;
+        this.motionAcceleration = 40000;
 
         this.currentLimit = 30;
         this.tirggerThresholdLimit = 30;

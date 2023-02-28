@@ -14,9 +14,10 @@ public class FourBarCommands {
 
     public static Command coastMode() {
         return new StartEndCommand(
-                () -> Robot.fourBar.setBrakeMode(false),
-                () -> Robot.fourBar.setBrakeMode(true),
-                Robot.fourBar);
+                        () -> Robot.fourBar.setBrakeMode(false),
+                        () -> Robot.fourBar.setBrakeMode(true),
+                        Robot.fourBar)
+                .ignoringDisable(true);
     }
 
     public static Command ZeroFourBarRoutine() {

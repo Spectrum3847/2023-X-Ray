@@ -10,16 +10,16 @@ public class FourBarConfig extends AngleMechConfig {
     public final int fourbarMaxFalcon = 44000;
 
     // Positions set as percentage of fourbar
-    public final int cubeIntake = 73;
+    public final int cubeIntake = 72;
     public final int cubeMid = 0;
     public final int cubeTop = 0;
 
-    public final int coneIntake = 93;
+    public final int coneIntake = 94;
     public final int coneStandingIntake = 40;
     public final int coneShelf = 0;
 
     public final int coneHybrid = 30;
-    public final int coneMid = 53; // converted from 1800 angle //24700
+    public final int coneMid = 68; // converted from 1800 angle //24700
     public final int coneTop = 100; // converted from 54900 angle
 
     public final int safePositionForElevator = 60;
