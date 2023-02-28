@@ -30,7 +30,7 @@ public class CubeIntake extends CommandBase {
         thresholdCount = 0;
         runMotors = true;
 
-        Robot.intake.setCurrentLimits(40, 80);
+        //Robot.intake.setCurrentLimits(40, 80);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -62,7 +62,7 @@ public class CubeIntake extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
+        //Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
         Robot.operatorGamepad.rumble(0);
         ElevatorCommands.hopElevator().schedule();
         FourBarCommands.home().schedule();
