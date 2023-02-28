@@ -23,6 +23,8 @@ public class PhysicalConfig {
     public final Translation2d backLeftLocation;
     public final Translation2d backRightLocation;
 
+    public static final double swerveMetersPerPulse = 0.00002226;
+
     public static enum AngleSensorType {
         CANCoder,
         ThriftyEncoder

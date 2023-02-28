@@ -41,6 +41,7 @@ public class Robot extends LoggedRobot {
     public static PilotGamepad pilotGamepad;
     public static OperatorGamepad operatorGamepad;
     public static RobotTelemetry telemetry;
+    public static Auton auton;
 
     public static String MAC = "";
 
@@ -74,6 +75,8 @@ public class Robot extends LoggedRobot {
         System.out.println("Started Gamepads");
         telemetry = new RobotTelemetry(RobotConfig.mainTabName);
         System.out.println("Started RobotTelemetry");
+        auton = new Auton();
+        System.out.println("Started Auton");
 
         // Set Default Commands, this method should exist for each subsystem that has
         // commands
@@ -162,6 +165,7 @@ public class Robot extends LoggedRobot {
         }
 
         RobotTelemetry.print("## Disabled Init Complete");
+        SwerveCommands.brakeMode(10).schedule(); // Brake mode for the first 10 seconds of disabled
     }
 
     @Override

@@ -1,11 +1,9 @@
 package frc.robot.elevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.SpectrumLib.subsystems.linearMech.LinearMechSubsystem;
 import frc.SpectrumLib.util.Conversions;
 import frc.robot.RobotConfig;
@@ -16,29 +14,23 @@ public class Elevator extends LinearMechSubsystem {
     public Elevator() {
         super(config);
         motorLeader = new WPI_TalonFX(RobotConfig.Motors.elevatorMotor, "3847");
-        motorLeader.setNeutralMode(NeutralMode.Brake);
         config.updateTalonFXConfig();
         setupFalconLeader();
         motorLeader.configReverseSoftLimitThreshold(600);
         motorLeader.configReverseSoftLimitEnable(true);
-        motorLeader.configNominalOutputForward(0.03);
+        motorLeader.configNominalOutputForward(0.06);
     }
 
     @Override
     public void setMMPosition(double position) {
-        motorLeader.set(
-                ControlMode.MotionMagic,
-                position,
-                DemandType.ArbitraryFeedForward,
-                0.1); // calculateKf());
+        motorLeader.set(ControlMode.MotionMagic, position);
     }
 
-    private double calculateKf() {
-        double pos = getPosition();
-        if (pos < Elevator.inchesToFalcon(config.maxCarriageHeight)) {
-            return 0.0;
+    public void setBrakeMode(Boolean brake) {
+        if (brake) {
+            motorLeader.setNeutralMode(NeutralMode.Brake);
         } else {
-            return 0.1;
+            motorLeader.setNeutralMode(NeutralMode.Coast);
         }
     }
 
@@ -95,7 +87,7 @@ public class Elevator extends LinearMechSubsystem {
     }
 
     /**
-     * Converts falcon units to meters.
+     * Converts falcon units to inches.
      *
      * @param falcon
      * @return inches
@@ -106,58 +98,5 @@ public class Elevator extends LinearMechSubsystem {
                         falcon,
                         Units.inchesToMeters(Elevator.config.diameterInches) * Math.PI,
                         Elevator.config.gearRatio));
-    }
-
-    /**
-     * Converts real height to extension for the elevator. Subtracts the height of the elevator at
-     * the bottom. So that the height of the elevator at the bottom is 0. Does trigonomic
-     * calculations to find the relative height.
-     *
-     * @param meters height in meters
-     * @return relative height in meters
-     * @see #heightToHorizontalExtension(double)
-     * @see #extensionToHeight(double)
-     */
-    public static double heightToExtension(double meters) {
-        meters = meters - config.startingHeight;
-        if (meters < 0) {
-            meters = config.startingHeight;
-            DriverStation.reportWarning("Height is below the starting height.", false);
-        }
-        meters = meters / Math.sin(Math.toRadians(config.angle));
-        if (meters > config.maxExtension) {
-            meters = config.maxExtension;
-            DriverStation.reportWarning("Height is above the max extension.", false);
-        }
-        return meters;
-    }
-
-    /**
-     * converts real height to horizontal extension for the elevator.
-     *
-     * @param meters height in meters
-     * @return horizontal extension in meters relative to the robot's frame perimeter.
-     * @see #heightToExtension(double)
-     * @see #extensionToHeight(double)
-     */
-    public static double heightToHorizontalExtension(double meters) {
-        meters = meters - config.startingHeight;
-        meters = meters / Math.cos(Math.toRadians(config.angle));
-        meters = meters + config.startingHorizontalExtension;
-        return meters;
-    }
-
-    /**
-     * converts elevator extension to real height.
-     *
-     * @param meters extension in meters
-     * @return height in meters
-     * @see #heightToExtension(double)
-     * @see #heightToHorizontalExtension(double)
-     */
-    public static double extensionToHeight(double meters) {
-        meters = meters * Math.sin(Math.toRadians(config.angle));
-        meters = meters + config.startingHeight;
-        return meters;
     }
 }

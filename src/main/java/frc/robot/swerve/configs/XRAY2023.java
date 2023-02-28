@@ -12,10 +12,10 @@ import frc.robot.swerve.configTemplates.TuningConfig;
 
 public class XRAY2023 {
     /* Angle Offsets */
-    public static final double mod0angleOffset = 194.76;
-    public static final double mod1angleOffset = 169.18;
-    public static final double mod2angleOffset = 255.05;
-    public static final double mod3angleOffset = 309.19;
+    public static final double mod0angleOffset = 124.41512306521186;
+    public static final double mod1angleOffset = 272.3978;
+    public static final double mod2angleOffset = 61.8421;
+    public static final double mod3angleOffset = 225.993;
 
     /* CanBus Name */
     public static final String canBus = "3847";
@@ -45,7 +45,7 @@ public class XRAY2023 {
     static final double driveKA = (0.193 / 12);
 
     /* Swerve Profiling Values */
-    static final double maxVelocity =
+    public static final double maxVelocity =
             ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per //
     // second
     static final double maxAccel = maxVelocity * 1.5; // take 1/2 sec to get to max speed.

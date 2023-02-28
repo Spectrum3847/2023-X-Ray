@@ -20,15 +20,25 @@ public class OperatorCommands {
     public static Command coneStandingIntake() {
         return IntakeCommands.intake()
                 .alongWith(
-                        ElevatorCommands.coneStandingIntake(),
-                        FourBarCommands.coneStandingIntake());
+                        ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     /* Position Commands */
 
     public static Command coneIntake() {
         return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
+                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
+                .finallyDo((b) -> finishConeIntake());
+    }
+
+    // Called by finally do, to let the intake hop up, and keep intaking for a bit after button
+    // release
+    public static void finishConeIntake() {
+        IntakeCommands.intake()
+                .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
+                .withTimeout(0.75)
+                .schedule();
     }
 
     public static Command coneHybrid() {
@@ -82,7 +92,7 @@ public class OperatorCommands {
     }
 
     /** Goes to 0 */
-    private static Command homeSystems() {
+    public static Command homeSystems() {
         return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
     }
 
