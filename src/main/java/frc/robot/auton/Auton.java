@@ -17,6 +17,8 @@ import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
 import frc.robot.auton.commands.TaxiCommand;
+import frc.robot.swerve.Swerve;
+import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.HashMap;
 
@@ -32,6 +34,7 @@ public class Auton {
         setupSelectors(); // runs the command to start the chooser for auto on shuffleboard
     }
 
+    // Autobuilder only using odometry (running this at Waco)
     public static SwerveAutoBuilder getAutoBuilder() {
         return new SwerveAutoBuilder(
                 Robot.swerve.odometry::getPoseMeters, // Pose2d supplier
@@ -64,6 +67,7 @@ public class Auton {
                 );
     }
 
+    // Autobuilder w/Vision (not run at Waco)
     static SwerveAutoBuilder getVisionAutoBuilder() {
         return new SwerveAutoBuilder(
                 Robot.pose::getEstimatedPose, // Pose2d supplier
@@ -115,7 +119,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "2 Ball Bottom",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))); // Written correctly needs testing
         autonChooser.addOption(
                 "2 Ball Bottom w Balance",
                 getAutoBuilder()
@@ -141,25 +145,8 @@ public class Auton {
                                         "3 Ball Bottom w Balance",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        autonChooser.addOption(
-                "IntakeTest",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "IntakeTest",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        autonChooser.addOption(
-                "4 Ball Bottom",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "4 Ball Bottom",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        // Advanced comp autos with vision
-
-        // Path length tests (not used at comp)
+        // Advanced comp autos with vision (nothing here because we aren't running them at Waco)
+        // Autos for tuning/testing (not used at comp; should comment out before Waco)
         autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
@@ -184,19 +171,28 @@ public class Auton {
                                         "5 Meters",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "IntakeTest",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "IntakeTest",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
         // Cube Shooting Commmands
-        eventMap.put("CommunityTop", AutonCommands.communityTop());
-        eventMap.put("RightStationMid", AutonCommands.behindStationMid());
-        eventMap.put("BehindStationTop", AutonCommands.onStationTop());
-        eventMap.put("BehindStationMid", AutonCommands.behindStationMid());
-        eventMap.put("LeftStationTop", AutonCommands.behindStationMid());
+        eventMap.put("CommunityTop", AutonCommands.communityTop()); // Tuned correctly
+        eventMap.put("RightStationMid", AutonCommands.behindStationMid()); // Tuned Correctly
+        eventMap.put("BehindStationTop", AutonCommands.onStationTop()); // Tuned Correctly
+        eventMap.put("BehindStationMid", AutonCommands.behindStationMid()); // Need to be tuned to run
         // Intake Commands
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
+        // Drivetrain Commands
+        eventMap.put("LockSwerve", new LockSwerve());
     }
 
     /**

@@ -7,8 +7,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.999988454522364,
-        "y": 0.8107349851063351
+        "x": 5.5225726240926125,
+        "y": 0.8295770223119403
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -17,25 +17,25 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "CommunityTop"
+          "RightStationTop"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
-        "waitTime": 0.8
+        "waitTime": 0.5
       }
     },
     {
       "anchorPoint": {
-        "x": 6.05,
-        "y": 0.9158500773141907
+        "x": 5.75,
+        "y": 0.93
       },
       "prevControl": {
-        "x": 5.077519800494146,
-        "y": 0.7651880758306977
+        "x": 5.6815843762834355,
+        "y": 0.93
       },
       "nextControl": {
-        "x": 6.099004697528874,
-        "y": 0.9234421556059079
+        "x": 5.831590392188419,
+        "y": 0.93
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -51,16 +51,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.9,
+        "x": 7.1,
         "y": 0.92
       },
       "prevControl": {
-        "x": 6.9,
-        "y": 0.9502878872734749
+        "x": 6.655673772594588,
+        "y": 0.92
       },
       "nextControl": {
-        "x": 6.9,
-        "y": 0.8197704252769011
+        "x": 7.185563170111904,
+        "y": 0.92
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -76,16 +76,16 @@
     },
     {
       "anchorPoint": {
-        "x": 4.6049999999999995,
+        "x": 5.15,
         "y": 1.05
       },
       "prevControl": {
-        "x": 4.938704600167852,
-        "y": 0.5552625847779913
+        "x": 5.299867246185168,
+        "y": 1.05
       },
       "nextControl": {
-        "x": 4.588760496577258,
-        "y": 1.0740760539225855
+        "x": 5.066508006728038,
+        "y": 1.05
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -94,25 +94,26 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "RightStationMid"
+          "RetractIntake",
+          "CommunityMid"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
-        "waitTime": 0.8
+        "waitTime": 0.5
       }
     },
     {
       "anchorPoint": {
-        "x": 6.165989331978664,
-        "y": 1.7490013161844515
+        "x": 5.549777415344305,
+        "y": 1.0518740335726287
       },
       "prevControl": {
-        "x": 5.714791184275413,
-        "y": 0.7814037659137366
+        "x": 5.658973770962138,
+        "y": 1.0518740335726287
       },
       "nextControl": {
-        "x": 6.25042184296341,
-        "y": 1.9300674203072397
+        "x": 5.414967983009625,
+        "y": 1.0518740335726287
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -128,16 +129,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.25,
-        "y": 2.75
+        "x": 5.53164088784318,
+        "y": 2.0675195736356393
       },
       "prevControl": {
-        "x": 5.373736946010534,
-        "y": 2.75
+        "x": 5.586800982799963,
+        "y": 2.0675195736356393
       },
       "nextControl": {
-        "x": 5.1001880912486675,
-        "y": 2.75
+        "x": 5.420948622033798,
+        "y": 2.0675195736356393
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -153,12 +154,12 @@
     },
     {
       "anchorPoint": {
-        "x": 3.75,
-        "y": 2.75
+        "x": 3.799602511485725,
+        "y": 2.1037926286378896
       },
       "prevControl": {
-        "x": 4.034508624517498,
-        "y": 2.75
+        "x": 4.089928608549029,
+        "y": 2.1037926286378896
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -167,18 +168,13 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "LockSwerve"
-        ],
-        "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
-        "waitTime": 0.2
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
       }
     }
   ],
-  "maxVelocity": 2.0,
-  "maxAcceleration": 2.0,
-  "isReversed": null,
   "markers": [
     {
       "position": 1.0,
@@ -187,7 +183,7 @@
       ]
     },
     {
-      "position": 2.0,
+      "position": 2.3,
       "names": [
         "RetractIntake"
       ]
