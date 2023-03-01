@@ -147,6 +147,14 @@ public class Auton {
                                         "3 Ball Bottom w Balance",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "3 Ball Bottom w Angle",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball Bottom w Angle",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         // Advanced comp autos with vision (nothing here because we aren't running them at Waco)
         // Autos for tuning/testing (not used at comp; should comment out before Waco)
         autonChooser.addOption(

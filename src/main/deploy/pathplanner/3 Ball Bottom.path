@@ -128,15 +128,15 @@
     },
     {
       "anchorPoint": {
-        "x": 7.07324572543882,
+        "x": 6.9,
         "y": 2.1491339473907023
       },
       "prevControl": {
-        "x": 6.722932152724765,
+        "x": 6.549686427285946,
         "y": 2.1491339473907023
       },
       "nextControl": {
-        "x": 7.423559298152875,
+        "x": 7.250313572714055,
         "y": 2.1491339473907023
       },
       "holonomicAngle": 0,
@@ -180,14 +180,17 @@
     },
     {
       "anchorPoint": {
-        "x": 6.3296480978926875,
+        "x": 6.05,
         "y": 3.38
       },
       "prevControl": {
-        "x": 6.166419350382561,
+        "x": 5.886771252489873,
         "y": 3.298385626244936
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 6.213228747510127,
+        "y": 3.4616143737550638
+      },
       "holonomicAngle": 0,
       "isReversal": false,
       "velOverride": null,
@@ -199,10 +202,34 @@
         "waitBehavior": "none",
         "waitTime": 0
       }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.9,
+        "y": 3.38
+      },
+      "prevControl": {
+        "x": 6.831960695930393,
+        "y": 3.38
+      },
+      "nextControl": null,
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "RetractIntake"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "minimum",
+        "waitTime": 0.2
+      }
     }
   ],
   "maxVelocity": 2.0,
-  "maxAcceleration": 2.0,
+  "maxAcceleration": 2.2,
   "isReversed": null,
   "markers": [
     {
@@ -227,6 +254,12 @@
       "position": 5.0,
       "names": [
         "RetractIntake"
+      ]
+    },
+    {
+      "position": 7.0,
+      "names": [
+        "IntakeCube"
       ]
     }
   ]
