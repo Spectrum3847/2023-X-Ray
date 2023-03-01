@@ -1,15 +1,16 @@
 package frc.robot.operator;
 
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
+import frc.robot.auton.commands.AutonCommands;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.leds.commands.LEDCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
@@ -30,10 +31,10 @@ public class OperatorGamepad extends Gamepad {
     }
     // set up jiggle sometime
     public void setupTeleopButtons() {
-        gamepad.aButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
-        // gamepad.aButton.and(noRightBumper()).whileTrue(AutonCommands.rightStationTop());
+        // gamepad.aButton
+        //         .and(noRightBumper())
+        //         .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.aButton.and(noRightBumper()).whileTrue(AutonCommands.rightStationTop());
         gamepad.aButton
                 .and(rightBumper())
                 .whileTrue(OperatorCommands.cubeHybrid().alongWith(PilotCommands.rumble(1, 99)));
@@ -58,8 +59,8 @@ public class OperatorGamepad extends Gamepad {
         gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
         gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
-        gamepad.Dpad.Left.and(noRightBumper()).whileTrue(OperatorCommands.coneFloorLED());
-        gamepad.Dpad.Right.and(noRightBumper()).whileTrue(OperatorCommands.cubeLED());
+        gamepad.Dpad.Left.and(noRightBumper()).whileTrue(LEDCommands.coneFloorLED());
+        gamepad.Dpad.Right.and(noRightBumper()).whileTrue(LEDCommands.cubeLED());
         gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
         gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
 

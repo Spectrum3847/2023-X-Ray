@@ -15,6 +15,7 @@ import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.LEDs;
+import frc.robot.leds.commands.LEDCommands;
 import frc.robot.operator.OperatorGamepad;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.PilotGamepad;
@@ -85,6 +86,7 @@ public class Robot extends LoggedRobot {
         FourBarCommands.setupDefaultCommand();
         PilotCommands.setupDefaultCommand();
         OperatorCommands.setupDefaultCommand();
+        LEDCommands.setupDefaultCommand();
 
         System.out.println("Finished Setting Up Default Commands");
     }

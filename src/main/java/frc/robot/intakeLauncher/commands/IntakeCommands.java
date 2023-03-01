@@ -78,7 +78,7 @@ public class IntakeCommands {
         //         Intake.config.launcherBumpTopSpeed);
     }
 
-    public static Command communityMidSpinUp() {
+    public static Command communityTopSpinUp() {
 
         return new CubeLaunchTest(Intake.config.frontCommunityTopSpeed);
         /*return setVelocities(

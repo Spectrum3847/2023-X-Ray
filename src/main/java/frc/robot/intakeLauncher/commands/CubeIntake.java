@@ -4,6 +4,7 @@
 
 package frc.robot.intakeLauncher.commands;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
@@ -64,8 +65,10 @@ public class CubeIntake extends CommandBase {
     public void end(boolean interrupted) {
         Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
         Robot.operatorGamepad.rumble(0);
-        ElevatorCommands.hopElevator().schedule();
-        FourBarCommands.home().schedule();
+        if (!RobotState.isAutonomous()) {
+            ElevatorCommands.hopElevator().schedule();
+            FourBarCommands.home().schedule();
+        }
     }
 
     // Returns true when the command should end.
