@@ -12,6 +12,7 @@ import frc.SpectrumLib.telemetry.TelemetrySubsystem;
 import frc.SpectrumLib.util.Network;
 import frc.SpectrumLib.util.Util;
 import frc.robot.auton.Auton;
+import frc.robot.elevator.Elevator;
 import java.util.Map;
 
 public class RobotTelemetry extends TelemetrySubsystem {
@@ -55,7 +56,8 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.add("Alerts", SmartDashboard.getData("Alerts")).withPosition(4, 0).withSize(2, 2);
         tab.add("MAC Address", Robot.MAC).withPosition(4, 2).withSize(2, 1);
         tab.addString("IP Address", () -> getIP()).withPosition(4, 3).withSize(2, 1);
-        tab.addNumber("ElevatorPos", () -> Robot.elevator.getPosition()).withPosition(6, 0);
+        tab.addNumber("ElevatorPos", () -> Elevator.falconToInches(Robot.elevator.getPosition()))
+                .withPosition(6, 0);
         tab.addNumber("FourBarPercentAngle", () -> Robot.fourBar.getPercentAngle())
                 .withPosition(6, 1); // 72000 is max
         // tab.addNumber("Elevator kF", () -> Robot.elevator.getKf()).withPosition(6, 1);

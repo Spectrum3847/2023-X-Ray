@@ -6,12 +6,16 @@ package frc.robot.intakeLauncher.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
 
 public class CubeIntake extends CommandBase {
     boolean velocityLimitReached = false;
     int count = 0;
+    int thresholdCount = 0;
     boolean runMotors = true;
+
     /** Creates a new CubeIntake. */
     public CubeIntake() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -23,6 +27,7 @@ public class CubeIntake extends CommandBase {
     public void initialize() {
         velocityLimitReached = false;
         count = 0;
+        thresholdCount = 0;
         runMotors = true;
 
         Robot.intake.setCurrentLimits(60, 60);
@@ -31,9 +36,12 @@ public class CubeIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontRPM() > 3800 && velocityLimitReached == false) {
-            count++;
-            velocityLimitReached = true;
+        if (Robot.intake.getFrontRPM() > 3600) {
+            if (!velocityLimitReached && thresholdCount >= 5) {
+                count++;
+                velocityLimitReached = true;
+            }
+            thresholdCount++;
         } else if (Robot.intake.getFrontRPM() <= 3600) {
             velocityLimitReached = false;
         }
@@ -56,6 +64,8 @@ public class CubeIntake extends CommandBase {
     public void end(boolean interrupted) {
         Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
         Robot.operatorGamepad.rumble(0);
+        ElevatorCommands.hopElevator().schedule();
+        FourBarCommands.home().schedule();
     }
 
     // Returns true when the command should end.

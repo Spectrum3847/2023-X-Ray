@@ -163,6 +163,7 @@ public class Robot extends LoggedRobot {
         }
 
         RobotTelemetry.print("## Disabled Init Complete");
+        SwerveCommands.brakeMode(10).schedule(); // Brake mode for the first 10 seconds of disabled
     }
 
     @Override
