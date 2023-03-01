@@ -17,7 +17,7 @@ public class IntakeConfig {
     public double launcherMaxSpeed = falconMaxSpeed;
 
     // Speed settings
-    public double lowerSlowSpeed = 200;
+    public double lowerSlowSpeed = 0;
     public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
@@ -61,7 +61,7 @@ public class IntakeConfig {
     public double frontBehindMStationTopSpeed = 5200; // Not Calibrated
     public double launcherBehindMStationTopSpeed = 5200; // Not Calibrated
 
-    public double currentLimit = 20;
+    public double currentLimit = 40;
     public double threshold = 40;
 
     public double velocityKp = 0.065;
