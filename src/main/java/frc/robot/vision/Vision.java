@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.leds.commands.LEDCommands;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -23,6 +22,9 @@ public class Vision extends SubsystemBase {
 
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
+    private int targetSeenCount;
+    private boolean targetSeen;
+    private boolean visionIntegrated;
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
@@ -31,6 +33,9 @@ public class Vision extends SubsystemBase {
         setName("Vision");
         botPose = new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0)));
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
+        targetSeenCount = 0;
+        targetSeen = false;
+        visionIntegrated = false;
         LimelightHelpers.setLEDMode_ForceOff(null);
 
         /* PhotonVision Setup -- uncomment if running PhotonVision*/
@@ -42,6 +47,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+        checkTargetHistory();
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -72,7 +78,12 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
             if (isValidPose(botPose)) {
-                Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
+                if (!visionIntegrated && targetSeen) {
+                    Robot.pose.resetPoseEstimate(botPose);
+                    visionIntegrated = true;
+                } else {
+                    Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
+                }
             }
         }
 
@@ -93,9 +104,7 @@ public class Vision extends SubsystemBase {
 
     /**
      * Uses trigonometric functions to calculate the angle between the robot heading and the angle
-     * required to face the hybrid spot. Will return 0 if the robot cannot see an apriltag. More
-     * detailed diagram:
-     * https://cdn.discordapp.com/attachments/892049282998370386/1077382243091226654/image0.jpg
+     * required to face the hybrid spot. Will return 0 if the robot cannot see an apriltag.
      *
      * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
      *     nodes
@@ -107,23 +116,16 @@ public class Vision extends SubsystemBase {
                     "Vision cannot localize! Move camera in view of a tag", false);
         }
         Transform2d transform = getTransformToHybrid(hybridSpot);
-        double hyp = Math.hypot(transform.getX(), transform.getY()); // can this be negative?
+        double hyp = Math.hypot(transform.getX(), transform.getY());
         double beta = Math.toDegrees(Math.asin(transform.getX() / hyp));
         // double headingInScope; -- may have to get rotation in scope of -180 to 180 if using gryo
-        // heading
-        double omega =
-                Robot.pose.getEstimatedPose().getRotation().getDegrees()
-                        + 90; // this may break if robot cant see tag so use gyro
-        // heading/estimated heading
+        double omega = Robot.pose.getEstimatedPose().getRotation().getDegrees() + 90;
         double theta = 360 - (omega + beta);
-        // maybe if theta is greater than 360 just subtract 360 so you dont turn over a full
-        // rotation
+        /* if theta is greater than 360 subtract 360 so you dont turn over a full rotation */
         if (theta > 360) {
             theta -= 360;
             System.out.println("needed new theta: " + theta);
         }
-        // if thetasupplier doesn't automatically figure out best path to target manually change it
-        // by checking: if addition is greater than 180, add (theta - 360) (subtract theta)
 
         aimingPrintDebug(transform, hyp, beta, omega, theta);
         System.out.println("Aiming at node " + hybridSpot);
@@ -210,14 +212,20 @@ public class Vision extends SubsystemBase {
                         Units.degreesToRadians(values[5])));
     }
 
-    public boolean targetSeen() {
-        boolean targetSeen = !(botPose.getX() == 0 && botPose.getY() == 0);
-        if (targetSeen) {
-            LEDCommands.success().schedule();
+    /**
+     * Gets if limelight has seen a target at least once. Attempts to disregard erroneous targets by
+     * checking how many loops the target has been seen in
+     *
+     * @return true if limelight has seen a valid target at least once
+     */
+    public void checkTargetHistory() {
+        // may need to use a sepearate count to avoid a consecutive loop check
+        if (LimelightHelpers.getTV(null)) {
+            targetSeenCount++;
         } else {
-            LEDCommands.failure().schedule();
+            targetSeenCount = 0;
         }
-        return targetSeen;
+        targetSeen = targetSeenCount > 2; // has been seen for 3 loops
     }
 
     /**
