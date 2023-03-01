@@ -78,32 +78,31 @@ public class IntakeCommands {
         //         Intake.config.launcherBumpTopSpeed);
     }
 
-    public static Command communityMidSpinUp() {
+    public static Command communityTopSpinUp() {
 
-        return new CubeLaunchTest(Intake.config.frontCommunityMidSpeed);
-        // return setVelocities(
-        //         Intake.config.lowerSpinUpSpeed,
-        //         Intake.config.frontCommunityMidSpeed,
-        //         Intake.config.launcherCommunityMidSpeed);
+        return new CubeLaunchTest(Intake.config.frontCommunityTopSpeed);
+        /*return setVelocities(
+        Intake.config.lowerSpinUpSpeed,
+        Intake.config.frontCommunityMidSpeed,
+        Intake.config.launcherCommunityMidSpeed);*/
     }
 
     public static Command behindStationMidSpinUp() {
 
         return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeed);
-        // return setVelocities(
-        //         Intake.config.lowerSpinUpSpeed,
-        //         Intake.config.frontBehindRStationMidSpeed,
-        //         Intake.config.launcherBehindRStationMidSpeed);
+        /*return setVelocities(
+        Intake.config.lowerSpinUpSpeed,
+        Intake.config.frontBehindRStationMidSpeed,
+        Intake.config.launcherBehindRStationMidSpeed);*/
     }
 
     public static Command onStationTopSpinUp() {
 
-        return new CubeLaunchTest(Intake.config.frontOnStationTopSpeed);
+        return new CubeLaunchTest(Intake.config.frontBehindMStationTopSpeed);
         // return setVelocities(
-        //     Intake.config.lowerSpinUpSpeed,
-        //     Intake.config.frontOnStationTopSpeed,
-        //     Intake.config.launcherOnStationTopSpeed);
-
+        //         Intake.config.lowerSpinUpSpeed,
+        //         Intake.config.frontOnStationTopSpeed,
+        //         Intake.config.launcherOnStationTopSpeed);
     }
 
     public static Command launch() {

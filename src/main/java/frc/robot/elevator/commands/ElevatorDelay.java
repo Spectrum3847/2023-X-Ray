@@ -43,6 +43,7 @@ public class ElevatorDelay extends CommandBase {
                 && Robot.fourBar.getPosition() > Robot.fourBar.percentToFalcon(conditionalPercent)
                 && Robot.elevator.getPosition() > safePos) {
             Robot.elevator.setMMPosition(safePos);
+
         } else {
             Robot.elevator.setMMPosition(finalPos);
         }

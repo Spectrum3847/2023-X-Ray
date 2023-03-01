@@ -8,7 +8,7 @@ public class PoseConfig {
     public final double kPositionStdDevTheta = 10;
 
     // Increase these numbers to trust global measurements from vision less.
-    public final double kVisionStdDevX = 15;
-    public final double kVisionStdDevY = 15;
-    public final double kVisionStdDevTheta = 1500;
+    public final double kVisionStdDevX = 5;
+    public final double kVisionStdDevY = 5;
+    public final double kVisionStdDevTheta = 500;
 }

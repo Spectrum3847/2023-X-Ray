@@ -3,6 +3,7 @@ package frc.robot.leds;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.leds.commands.LEDCommands;
 
 public class LEDs extends SubsystemBase {
     public LEDConfig config;
@@ -33,7 +34,9 @@ public class LEDs extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+        LEDCommands.setupLEDTriggers();
+    }
 
     public void setHSV(int i, int hue, int saturation, int value) {
         ledBuffer.setHSV(i, hue, saturation, value);

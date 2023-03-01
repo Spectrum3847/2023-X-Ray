@@ -1,5 +1,6 @@
 package frc.robot.leds.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Robot;
 import frc.robot.leds.LEDs;
 
@@ -7,14 +8,23 @@ public class ChaseLEDCommand extends LEDCommandBase {
     /** Creates a new ChaseLEDCommand. */
     private final LEDs ledSubsystem;
 
-    long waitTime;
+    double waitTime;
     long startTime;
     int onLEDIndex;
+    boolean backwards = false;
 
-    public ChaseLEDCommand(String name, int priority, int timeout) {
+    public ChaseLEDCommand(String name, int priority, double timeout) {
         super(name, priority, timeout);
         ledSubsystem = Robot.leds;
-        this.waitTime = 1;
+        this.waitTime = 0;
+        this.startTime = System.currentTimeMillis();
+        onLEDIndex = 0;
+    }
+
+    public ChaseLEDCommand(String name, int priority) {
+        super(name, priority);
+        ledSubsystem = Robot.leds;
+        this.waitTime = 0;
         this.startTime = System.currentTimeMillis();
         onLEDIndex = 0;
     }
@@ -24,7 +34,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
     public void ledInitialize() {
         for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
             if (i == onLEDIndex) {
-                ledSubsystem.setRGB(i, 255, 255, 255);
+                ledSubsystem.setRGB(i, 130, 103, 185);
                 continue;
             }
             ledSubsystem.setRGB(i, 0, 0, 0);
@@ -36,33 +46,60 @@ public class ChaseLEDCommand extends LEDCommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void ledExecute() {
-        if (System.currentTimeMillis() - startTime >= waitTime) {
+        if (DriverStation.isDisabled()) {
             for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
-                if (i == onLEDIndex) {
-                    ledSubsystem.setRGB(i, 255, 255, 255);
-                    continue;
-                }
-                if (i == onLEDIndex + 1) {
-                    ledSubsystem.setRGB(i, 150, 150, 150);
-                    continue;
-                }
-                if (i == onLEDIndex - 1) {
-                    ledSubsystem.setRGB(i, 150, 150, 150);
-                    continue;
-                }
-                if (i == onLEDIndex + 2) {
-                    ledSubsystem.setRGB(i, 75, 75, 75);
-                    continue;
-                }
-                if (i == onLEDIndex - 2) {
-                    ledSubsystem.setRGB(i, 75, 75, 75);
-                    continue;
-                }
-                ledSubsystem.setRGB(i, 0, 0, 0);
+                ledSubsystem.setRGB(i, 30, 3, 85);
             }
             ledSubsystem.sendData();
-            onLEDIndex = onLEDIndex + 1 > ledSubsystem.getBufferLength() ? 0 : onLEDIndex + 1;
-            startTime = System.currentTimeMillis();
+        } else {
+            if (System.currentTimeMillis() - startTime >= waitTime) {
+                for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+                    if (i == onLEDIndex) {
+                        ledSubsystem.setRGB(i, 130, 103, 185);
+                        waitTime = Math.abs(ledSubsystem.getBufferLength() / 2 - i) * 10;
+                        continue;
+                    }
+                    if (i == onLEDIndex + 1) {
+                        ledSubsystem.setRGB(i, 130, 103, 185);
+                        continue;
+                    }
+                    if (i == onLEDIndex - 1) {
+                        ledSubsystem.setRGB(i, 130, 103, 185);
+                        continue;
+                    }
+                    if (i == onLEDIndex - 2) {
+                        ledSubsystem.setRGB(i, 80, 53, 135);
+                        continue;
+                    }
+                    if (i == onLEDIndex + 2) {
+                        ledSubsystem.setRGB(i, 80, 53, 135);
+                        continue;
+                    }
+                    if (i == onLEDIndex + 3) {
+                        ledSubsystem.setRGB(i, 30, 3, 85);
+                        continue;
+                    }
+                    if (i == onLEDIndex - 3) {
+                        ledSubsystem.setRGB(i, 30, 3, 85);
+                        continue;
+                    }
+                    ledSubsystem.setRGB(i, 0, 0, 0);
+                }
+                ledSubsystem.sendData();
+                if (onLEDIndex + 1 > ledSubsystem.getBufferLength()) {
+                    backwards = true;
+                } else if (onLEDIndex - 1 < 0) {
+                    backwards = false;
+                }
+
+                if (backwards) {
+                    onLEDIndex--;
+                } else {
+                    onLEDIndex++;
+                }
+
+                startTime = System.currentTimeMillis();
+            }
         }
     }
 }

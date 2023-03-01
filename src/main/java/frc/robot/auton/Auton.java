@@ -2,6 +2,8 @@ package frc.robot.auton;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -10,8 +12,13 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.auton.commands.AutonCommands;
+import frc.robot.auton.commands.LeftCubeTaxiCommand;
+import frc.robot.auton.commands.MiddleCubeTaxiCommand;
+import frc.robot.auton.commands.RightCubeTaxiCommand;
+import frc.robot.auton.commands.TaxiCommand;
+import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
-import frc.robot.trajectories.commands.PathBuilder;
 import java.util.HashMap;
 
 public class Auton {
@@ -22,8 +29,74 @@ public class Auton {
             new HashMap<>(); // Stores all the values of the event map
 
     public Auton() {
-        setupSelectors(); // runs the command to start the chooser for auto on shuffleboard
         setupEventMap(); // sets the eventmap to run during auto
+        setupSelectors(); // runs the command to start the chooser for auto on shuffleboard
+    }
+
+    // Autobuilder only using odometry (running this at Waco)
+    public static SwerveAutoBuilder getAutoBuilder() {
+        return new SwerveAutoBuilder(
+                Robot.swerve.odometry::getPoseMeters, // Pose2d supplier
+                Robot.swerve.odometry
+                        ::resetOdometry, // Pose2d consumer, used to reset odometry at the
+                // beginning of auto
+                Robot.swerve.config.swerveKinematics, // SwerveDriveKinematics
+                new PIDConstants(
+                        TrajectoriesConfig.kPTranslationController,
+                        TrajectoriesConfig.kITranslationController,
+                        TrajectoriesConfig.kDTranslationController), // PID constants to correct for
+                // translation error (used to create
+                // the X and Y PID controllers)
+                new PIDConstants(
+                        TrajectoriesConfig.kPRotationController,
+                        TrajectoriesConfig.kIRotationController,
+                        TrajectoriesConfig
+                                .kDRotationController), // PID constants to correct for rotation
+                // error (used to create the
+                // rotation controller)
+                Robot.swerve::setModuleStates, // Module states consumer used to output to the drive
+                // subsystem
+                eventMap, // Gets the event map values to use for running addional
+                // commands during auto
+                true, // Should the path be automatically mirrored depending on
+                // alliance color
+                // Alliance.
+                Robot.swerve // The drive subsystem. Used to properly set the requirements of
+                // path following commands
+                );
+    }
+
+    // Autobuilder w/Vision (not run at Waco)
+    static SwerveAutoBuilder getVisionAutoBuilder() {
+        return new SwerveAutoBuilder(
+                Robot.pose::getEstimatedPose, // Pose2d supplier
+                Robot.swerve.odometry
+                        ::resetOdometry, // Pose2d consumer, used to reset odometry at the
+                // beginning of auto
+                Robot.swerve.config.swerveKinematics, // SwerveDriveKinematics
+                new PIDConstants(
+                        TrajectoriesConfig.kPTranslationController,
+                        TrajectoriesConfig.kITranslationController,
+                        TrajectoriesConfig.kDTranslationController), // PID constants to correct for
+                // translation error (used to create
+                // the X and Y PID controllers)
+                new PIDConstants(
+                        TrajectoriesConfig.kPRotationController,
+                        TrajectoriesConfig.kIRotationController,
+                        TrajectoriesConfig
+                                .kDRotationController), // PID constants to correct for rotation
+                // error (used to create the
+                // rotation controller)
+                Robot.swerve::setModuleStates, // Module states consumer used to output to the drive
+                // subsystem
+                Auton.eventMap, // Gets the event map values to use for running addional
+                // commands during auto
+                true, // Should the path be automatically mirrored depending on
+                // alliance color
+                // Alliance.
+                Robot.swerve // The drive subsystem. Used to properly set the requirements of
+                // path following commands
+                );
     }
 
     // A chooser for autonomous commands
@@ -32,71 +105,105 @@ public class Auton {
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        // Simple comp autos
+        autonChooser.addOption("Taxi Simple", new TaxiCommand());
+        autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
+        autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
+        autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
+        // Advanced comp autos with odometry
         autonChooser.addOption(
-                "1 Meter",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "1 Meter",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
-        // forward
+                "2 Ball Bottom",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "2 Ball Bottom",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig
+                                                        .kMaxAccel)))); // Written correctly needs
+        // testing
         autonChooser.addOption(
-                "3 Meters",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "3 Meters",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
-        // forward
+                "2 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "2 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
-                "5 Meters",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "5 Meters",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // sets an auto to drive one meter
-        // forward
+                "3 Ball Bottom",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball Bottom",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
 
         autonChooser.addOption(
-                "5 Ball",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "5 Ball",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // runs the 5 ball auto that is set
-        // in pathplanner
+                "3 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
-                "Test Path",
-                PathBuilder.pathBuilder.fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Test Path",
-                                new PathConstraints(
-                                        TrajectoriesConfig.kMaxSpeed,
-                                        TrajectoriesConfig
-                                                .kMaxAccel)))); // run a test path to see how things
-        // are supposed to be on the field
+                "3 Ball Bottom w Angle",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball Bottom w Angle",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        // Advanced comp autos with vision (nothing here because we aren't running them at Waco)
+        // Autos for tuning/testing (not used at comp; should comment out before Waco)
+        autonChooser.addOption(
+                "1 Meter",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "1 Meter",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "3 Meters",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Meters",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "5 Meters",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "5 Meters",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "IntakeTest",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "IntakeTest",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
+        // Cube Shooting Commmands
+        eventMap.put("CommunityTop", AutonCommands.communityTop()); // Tuned correctly
+        eventMap.put("RightStationMid", AutonCommands.behindStationMid()); // Tuned Correctly
+        eventMap.put("BehindStationTop", AutonCommands.onStationTop()); // Tuned Correctly
         eventMap.put(
-                "marker1",
-                new PrintCommand(
-                        "Passed marker 1")); // sample of what the eventmap can do doesn't run
-        // unless there is an event maker with the name marker1
-        eventMap.put(
-                "marker2",
-                new PrintCommand(
-                        "Passed marker 2")); // sample of what the eventmap can do doesn't run
-        // unless there is an event maker with the name marker2
+                "BehindStationMid", AutonCommands.behindStationMid()); // Need to be tuned to run
+        // Intake Commands
+        eventMap.put("IntakeCube", AutonCommands.intakeCube());
+        eventMap.put("RetractIntake", AutonCommands.retractIntake());
+        // Drivetrain Commands
+        eventMap.put("LockSwerve", new LockSwerve());
     }
 
     /**

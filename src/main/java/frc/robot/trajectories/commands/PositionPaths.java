@@ -7,70 +7,73 @@ public class PositionPaths {
     static double yPos;
 
     public static FollowOnTheFlyPath grid1Left() {
-        yPos = TrajectoriesConfig.coneTTYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[0];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.coneBBYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[8];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid1Middle() {
-        yPos = TrajectoriesConfig.cubeTYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[1];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.cubeBYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[7];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid1Right() {
-        yPos = TrajectoriesConfig.coneTBYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[2];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.coneBTYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[6];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid2Left() {
-        yPos = TrajectoriesConfig.coneMTYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[3];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.coneMBYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[5];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid2Middle() {
-        yPos = TrajectoriesConfig.cubeMYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[4];
+        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[4];
+        }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid2Right() {
-        yPos = TrajectoriesConfig.coneMBYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[5];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.coneMTYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[3];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid3Left() {
-        yPos = TrajectoriesConfig.coneBTYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[6];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.coneTBYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[2];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid3Middle() {
-        yPos = TrajectoriesConfig.cubeBYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[7];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.cubeTYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[1];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }
 
     public static FollowOnTheFlyPath grid3Right() {
-        yPos = TrajectoriesConfig.coneBBYPosition;
+        yPos = TrajectoriesConfig.blueYPositions[8];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.coneTTYPosition;
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[0];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }

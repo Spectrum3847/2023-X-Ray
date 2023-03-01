@@ -48,18 +48,21 @@ public class IntakeConfig {
     public double frontAutoMidSpeed = frontMaxSpeed;
     public double launcherAutoMidSpeed = launcherMaxSpeed;
 
-    public double frontBumpTopSpeed = frontMaxSpeed * 0.85;
-    public double launcherBumpTopSpeed = launcherMaxSpeed * 0.85;
+    public double frontBumpTopSpeed = 4820;
+    public double launcherBumpTopSpeed = 4820;
 
-    // needs to be configed
-    public double frontCommunityMidSpeed = frontMaxSpeed;
-    public double launcherCommunityMidSpeed = frontMaxSpeed;
+    public double frontCommunityTopSpeed = 4820; // correct
+    public double launcherCommunityTopSpeed = 4820; // correct
 
-    public double frontBehindRStationMidSpeed = frontMaxSpeed;
-    public double launcherBehindRStationMidSpeed = frontMaxSpeed;
+    public double frontBehindRStationMidSpeed =
+            4000; // correct w/distance = .135 from tape line and .18
+    public double launcherBehindRStationMidSpeed =
+            4000; // correct w/distance = .135 from tape line and .18
 
-    public double frontOnStationTopSpeed = frontMaxSpeed;
-    public double launcherOnStationTopSpeed = frontMaxSpeed;
+    public double frontBehindMStationTopSpeed =
+            6000; // correct when touching charge station with .5 sec spin up time
+    public double launcherBehindMStationTopSpeed =
+            6000; // correct when touching charge station with .5 sec spin up time
 
     public double currentLimit = 20;
     public double threshold = 40;

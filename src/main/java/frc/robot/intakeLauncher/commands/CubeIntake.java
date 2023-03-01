@@ -4,14 +4,19 @@
 
 package frc.robot.intakeLauncher.commands;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
 
 public class CubeIntake extends CommandBase {
     boolean velocityLimitReached = false;
     int count = 0;
+    int thresholdCount = 0;
     boolean runMotors = true;
+
     /** Creates a new CubeIntake. */
     public CubeIntake() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -23,17 +28,21 @@ public class CubeIntake extends CommandBase {
     public void initialize() {
         velocityLimitReached = false;
         count = 0;
+        thresholdCount = 0;
         runMotors = true;
 
-        Robot.intake.setCurrentLimits(40, 80);
+        // Robot.intake.setCurrentLimits(40, 80);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontRPM() > 3600 && velocityLimitReached == false) {
-            count++;
-            velocityLimitReached = true;
+        if (Robot.intake.getFrontRPM() > 3600) {
+            if (!velocityLimitReached && thresholdCount >= 5) {
+                count++;
+                velocityLimitReached = true;
+            }
+            thresholdCount++;
         } else if (Robot.intake.getFrontRPM() <= 3600) {
             velocityLimitReached = false;
         }
@@ -47,13 +56,19 @@ public class CubeIntake extends CommandBase {
                     3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
         } else {
             Robot.intake.stopAll();
+            Robot.operatorGamepad.rumble(0.5);
         }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
+        // Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
+        Robot.operatorGamepad.rumble(0);
+        if (!RobotState.isAutonomous()) {
+            ElevatorCommands.hopElevator().schedule();
+            FourBarCommands.home().schedule();
+        }
     }
 
     // Returns true when the command should end.

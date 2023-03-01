@@ -1,6 +1,5 @@
 package frc.robot.operator.commands;
 
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
@@ -11,8 +10,6 @@ import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.FourBarDelay;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
-import frc.robot.leds.commands.BlinkLEDCommand;
-import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.operator.OperatorConfig;
 
 public class OperatorCommands {
@@ -23,15 +20,25 @@ public class OperatorCommands {
     public static Command coneStandingIntake() {
         return IntakeCommands.intake()
                 .alongWith(
-                        ElevatorCommands.coneStandingIntake(),
-                        FourBarCommands.coneStandingIntake());
+                        ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     /* Position Commands */
 
     public static Command coneIntake() {
         return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
+                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
+                .finallyDo((b) -> finishConeIntake());
+    }
+
+    // Called by finally do, to let the intake hop up, and keep intaking for a bit after button
+    // release
+    public static void finishConeIntake() {
+        IntakeCommands.intake()
+                .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
+                .withTimeout(0.75)
+                .schedule();
     }
 
     public static Command coneHybrid() {
@@ -85,7 +92,7 @@ public class OperatorCommands {
     }
 
     /** Goes to 0 */
-    private static Command homeSystems() {
+    public static Command homeSystems() {
         return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
     }
 
@@ -117,17 +124,5 @@ public class OperatorCommands {
                                 Robot.operatorGamepad.fourBarManual()
                                         * OperatorConfig.slowModeScalar),
                 Robot.fourBar);
-    }
-
-    public static Command coneFloorLED() {
-        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99, 3);
-    }
-
-    public static Command coneShelfLED() {
-        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", 99, 3);
-    }
-
-    public static Command cubeLED() {
-        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99, 3);
     }
 }
