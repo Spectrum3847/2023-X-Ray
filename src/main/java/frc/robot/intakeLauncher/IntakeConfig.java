@@ -17,7 +17,7 @@ public class IntakeConfig {
     public double launcherMaxSpeed = falconMaxSpeed;
 
     // Speed settings
-    public double lowerSlowSpeed = 200;
+    public double lowerSlowSpeed = 0;
     public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
@@ -64,7 +64,7 @@ public class IntakeConfig {
     public double launcherBehindMStationTopSpeed =
             6000; // correct when touching charge station with .5 sec spin up time
 
-    public double currentLimit = 20;
+    public double currentLimit = 40;
     public double threshold = 40;
 
     public double velocityKp = 0.065;
