@@ -173,7 +173,7 @@ public class LEDScheduler {
                         public void run() {
                             while (true) {
                                 runScheduler();
-                                Timer.delay(0.2); // Loop runs at 5hz
+                                Timer.delay(0.02); // Loop runs at 50hz
                             }
                         }
                     });

@@ -56,7 +56,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
                 for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
                     if (i == onLEDIndex) {
                         ledSubsystem.setRGB(i, 130, 103, 185);
-                        waitTime = Math.abs(ledSubsystem.getBufferLength() / 2 - i) * 10;
+                        // waitTime = Math.abs(ledSubsystem.getBufferLength() / 2 - i) * 5;
                         continue;
                     }
                     if (i == onLEDIndex + 1) {
