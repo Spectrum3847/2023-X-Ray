@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -25,6 +26,7 @@ public class Vision extends SubsystemBase {
     private int targetSeenCount;
     private boolean targetSeen;
     private boolean visionIntegrated;
+    private LimelightHelpers.LimelightResults jsonResults;
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
@@ -48,6 +50,7 @@ public class Vision extends SubsystemBase {
     @Override
     public void periodic() {
         checkTargetHistory();
+        jsonResults = LimelightHelpers.getLatestResults("");
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -77,7 +80,7 @@ public class Vision extends SubsystemBase {
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-            if (isValidPose(botPose)) {
+            if (isValidPose(botPose) && multipleTargetsInView()) {
                 if (!visionIntegrated && targetSeen) {
                     Robot.pose.resetPoseEstimate(botPose);
                     visionIntegrated = true;
@@ -146,6 +149,18 @@ public class Vision extends SubsystemBase {
     private Transform2d getTransformToHybrid(int hybridSpot) {
         Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
         return Robot.pose.getEstimatedPose().minus(hybridPose);
+    }
+
+    /** @return whether the camera sees multiple tags or not */
+    public boolean multipleTargetsInView() {
+        if (jsonResults == null) {
+            return false;
+        }
+        LimelightTarget_Fiducial[] tags = jsonResults.targetingResults.targets_Fiducials;
+        if (tags.length > 1) {
+            return true;
+        }
+        return false;
     }
 
     /**
