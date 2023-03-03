@@ -22,7 +22,7 @@ public class IntakeConfig {
     public double launcherSlowSpeed = -100;
 
     public double lowerIntakeSpeed = 5000;
-    public double frontIntakeSpeed = 4300;
+    public double frontIntakeSpeed = 5000;
     public double launcherIntakeSpeed = -3000;
 
     public double lowerEjectSpeed = -6000;
@@ -51,8 +51,8 @@ public class IntakeConfig {
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 
-    public double frontCommunityTopSpeed = 4820; // correct
-    public double launcherCommunityTopSpeed = 4820; // correct
+    public double frontCommunityTopSpeed = 4600; // correct 4820 wrong
+    public double launcherCommunityTopSpeed = 4600; // correct
 
     public double frontBehindRStationMidSpeed =
             4000; // correct w/distance = .135 from tape line and .18
