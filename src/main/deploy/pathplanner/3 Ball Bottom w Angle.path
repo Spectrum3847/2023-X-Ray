@@ -258,7 +258,7 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 1.0,
+      "position": 0.8,
       "names": [
         "IntakeCube"
       ]
@@ -276,13 +276,25 @@
       ]
     },
     {
-      "position": 5.0,
+      "position": 6.0,
       "names": [
         "RetractIntake"
       ]
     },
     {
       "position": 7.0,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 4.8,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 7.8,
       "names": [
         "IntakeCube"
       ]

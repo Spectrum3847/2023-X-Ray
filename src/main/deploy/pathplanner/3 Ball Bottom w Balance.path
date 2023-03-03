@@ -129,15 +129,15 @@
     {
       "anchorPoint": {
         "x": 6.05,
-        "y": 2.15
+        "y": 2.35
       },
       "prevControl": {
         "x": 5.966917547870184,
-        "y": 1.296717154837819
+        "y": 1.496717154837819
       },
       "nextControl": {
         "x": 6.059174971212029,
-        "y": 2.2442298324061065
+        "y": 2.4442298324061067
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -154,15 +154,15 @@
     {
       "anchorPoint": {
         "x": 6.9,
-        "y": 2.1582022111412646
+        "y": 2.35
       },
       "prevControl": {
         "x": 6.834893733113067,
-        "y": 2.1582022111412646
+        "y": 2.35
       },
       "nextControl": {
         "x": 7.002319822998376,
-        "y": 2.1582022111412646
+        "y": 2.35
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -230,11 +230,11 @@
     },
     {
       "anchorPoint": {
-        "x": 2.7,
+        "x": 2.5,
         "y": 2.75
       },
       "prevControl": {
-        "x": 2.984508624517501,
+        "x": 2.784508624517501,
         "y": 2.75
       },
       "nextControl": null,
@@ -258,25 +258,25 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 1.0,
+      "position": 0.8,
       "names": [
         "IntakeCube"
       ]
     },
     {
-      "position": 2.0,
+      "position": 2.2,
       "names": [
         "RetractIntake"
       ]
     },
     {
-      "position": 5.0,
+      "position": 4.8,
       "names": [
         "IntakeCube"
       ]
     },
     {
-      "position": 6.0,
+      "position": 6.2,
       "names": [
         "RetractIntake"
       ]
