@@ -38,7 +38,7 @@ public class CubeIntake extends CommandBase {
     @Override
     public void execute() {
         if (Robot.intake.getFrontRPM() > 3600) {
-            if (!velocityLimitReached && thresholdCount >= 5) {
+            if (!velocityLimitReached && thresholdCount >= 8) {
                 count++;
                 velocityLimitReached = true;
             }

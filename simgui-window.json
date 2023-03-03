@@ -79,14 +79,14 @@
       "Size": "750,145"
     },
     "###Other Devices": {
-      "Collapsed": "1",
+      "Collapsed": "0",
       "Pos": "1613,92",
       "Size": "250,560"
     },
     "###RoboRIO": {
       "Collapsed": "0",
-      "Pos": "539,345",
-      "Size": "233,216"
+      "Pos": "1295,241",
+      "Size": "193,192"
     },
     "###System Joysticks": {
       "Collapsed": "0",

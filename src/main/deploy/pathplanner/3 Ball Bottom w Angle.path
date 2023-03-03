@@ -7,8 +7,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.999988454522364,
-        "y": 0.8107349851063351
+        "x": 5.1235690190678636,
+        "y": 0.952123132316441
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -30,12 +30,12 @@
         "y": 0.9158500773141907
       },
       "prevControl": {
-        "x": 5.077519800494146,
-        "y": 0.7651880758306977
+        "x": 5.132637282818426,
+        "y": 0.9430548685658775
       },
       "nextControl": {
-        "x": 6.099004697528874,
-        "y": 0.9234421556059079
+        "x": 6.099567522532495,
+        "y": 0.9143801308272627
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -76,16 +76,41 @@
     },
     {
       "anchorPoint": {
+        "x": 5.450026514088116,
+        "y": 1.05
+      },
+      "prevControl": {
+        "x": 5.522572624092617,
+        "y": 1.05
+      },
+      "nextControl": {
+        "x": 5.363997410463362,
+        "y": 1.05
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
         "x": 4.6049999999999995,
         "y": 1.05
       },
       "prevControl": {
-        "x": 4.938704600167852,
-        "y": 0.5552625847779913
+        "x": 5.096364227816176,
+        "y": 1.0518740335726287
       },
       "nextControl": {
-        "x": 4.938704600167852,
-        "y": 0.5552625847779913
+        "x": 5.096364227816176,
+        "y": 1.0518740335726287
       },
       "holonomicAngle": 180.0,
       "isReversal": true,
@@ -233,7 +258,7 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 1.0,
+      "position": 0.8,
       "names": [
         "IntakeCube"
       ]
@@ -251,13 +276,25 @@
       ]
     },
     {
-      "position": 5.0,
+      "position": 6.0,
       "names": [
         "RetractIntake"
       ]
     },
     {
       "position": 7.0,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 4.8,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 7.8,
       "names": [
         "IntakeCube"
       ]

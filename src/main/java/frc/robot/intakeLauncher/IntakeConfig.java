@@ -17,13 +17,13 @@ public class IntakeConfig {
     public double launcherMaxSpeed = falconMaxSpeed;
 
     // Speed settings
-    public double lowerSlowSpeed = 0;
+    public double lowerSlowSpeed = 200;
     public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
     public double lowerIntakeSpeed = 5000;
-    public double frontIntakeSpeed = 4000;
-    public double launcherIntakeSpeed = -3000;
+    public double frontIntakeSpeed = 5000;
+    public double launcherIntakeSpeed = -3500;
 
     public double lowerEjectSpeed = -6000;
     public double frontEjectSpeed = -6000;
@@ -51,8 +51,8 @@ public class IntakeConfig {
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 
-    public double frontCommunityTopSpeed = 4820; // correct
-    public double launcherCommunityTopSpeed = 4820; // correct
+    public double frontCommunityTopSpeed = 3600; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
+    public double launcherCommunityTopSpeed = 3600; // correct //3800 was a little too far //3650 was slighty too far
 
     public double frontBehindRStationMidSpeed =
             4000; // correct w/distance = .135 from tape line and .18

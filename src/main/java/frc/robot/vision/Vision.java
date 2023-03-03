@@ -267,13 +267,6 @@ public class Vision extends SubsystemBase {
         SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
         SmartDashboard.putString(
                 "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
-        SmartDashboard.putString(
-                "Odometry X", df.format(Robot.swerve.odometry.getPoseMeters().getX()));
-        SmartDashboard.putString(
-                "Odometry Y", df.format(Robot.swerve.odometry.getPoseMeters().getY()));
-        SmartDashboard.putString(
-                "Odometry Theta",
-                df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
     }
 
     /**
