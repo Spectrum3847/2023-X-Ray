@@ -135,7 +135,6 @@ public class Vision extends SubsystemBase {
         // be predictable probably meaning the trig is wrong
     }
 
-
     /**
      * Helper function for {@link Vision#getThetaToHybrid}
      *
