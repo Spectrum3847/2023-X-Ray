@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
+
+import java.sql.Driver;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -80,9 +82,8 @@ public class Vision extends SubsystemBase {
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-            if (isValidPose(botPose)) {
-                if ((!visionIntegrated && targetSeen)
-                        || (!DriverStation.isAutonomous() && isInMap())) {
+            if (isValidPose(botPose) && !DriverStation.isAutonomous()) {
+                if (isInMap(botPose)) {
                     Robot.pose.resetPoseEstimate(botPose);
                     visionIntegrated = true;
                 } else {
@@ -139,9 +140,9 @@ public class Vision extends SubsystemBase {
         // be predictable probably meaning the trig is wrong
     }
 
-    public boolean isInMap() {
-        return ((botPose.getX() > 1.39 && botPose.getX() < 4.96)
-                && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
+    public boolean isInMap(Pose2d pose) {
+        return ((pose.getX() > 1.39 && pose.getX() < 4.96)
+                && (pose.getY() > 0.1 && pose.getY() < 5.49));
     }
 
     /**
