@@ -81,7 +81,7 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
             if (isValidPose(botPose)) {
-                if (!visionIntegrated && targetSeen || multipleTargetsInView()) {
+                if ((!visionIntegrated && targetSeen) || (!DriverStation.isAutonomous() && isInMap())) {
                     Robot.pose.resetPoseEstimate(botPose);
                     visionIntegrated = true;
                 } else {
@@ -136,6 +136,10 @@ public class Vision extends SubsystemBase {
         return theta
                 - 25; // this is the predictable offset behind the chargestation. The error seems to
         // be predictable probably meaning the trig is wrong
+    }
+
+    public boolean isInMap() {
+        return ((botPose.getX() > 1.39 && botPose.getX() < 4.96) && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
     }
 
     /**
