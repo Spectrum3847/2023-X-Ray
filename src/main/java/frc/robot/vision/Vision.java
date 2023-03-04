@@ -83,8 +83,8 @@ public class Vision extends SubsystemBase {
             if (isValidPose(botPose)) {
                 if ((!visionIntegrated && targetSeen)
                         || (!DriverStation.isAutonomous() && isInMap())) {
-                    // Robot.pose.resetPoseEstimate(botPose);
-                    // visionIntegrated = true;
+                    Robot.pose.resetPoseEstimate(botPose);
+                    visionIntegrated = true;
                 } else {
                     // Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
                 }
@@ -140,7 +140,7 @@ public class Vision extends SubsystemBase {
     }
 
     public boolean isInMap() {
-        return ((botPose.getX() > 1.39 && botPose.getX() < 4.96)
+        return ((botPose.getX() > 1.39 && botPose.getX() < 5.01)
                 && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
     }
 
