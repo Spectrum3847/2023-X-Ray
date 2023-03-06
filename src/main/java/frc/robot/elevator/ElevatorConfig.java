@@ -7,10 +7,10 @@ import frc.robot.RobotConfig.Motors;
 public class ElevatorConfig extends LinearMechConfig {
     public static final String name = "Elevator";
 
-    // All these are in inches
-    public final double hopHeight = 1;
     public final double hopTime = 0.5;
 
+    // All these are in inches
+    public final double hopHeight = 1;
     public final double cubeIntake = 0;
     public final double cubeMid = 0;
     public final double cubeTop = 0;

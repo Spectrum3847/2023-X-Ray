@@ -23,8 +23,7 @@ public class Vision extends SubsystemBase {
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
     private int targetSeenCount;
-    private boolean targetSeen;
-    private boolean visionIntegrated;
+    private boolean targetSeen, visionStarted, poseOverriden, visionIntegrated;
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
@@ -35,6 +34,8 @@ public class Vision extends SubsystemBase {
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
         targetSeenCount = 0;
         targetSeen = false;
+        visionStarted = false;
+        poseOverriden = false;
         visionIntegrated = false;
         LimelightHelpers.setLEDMode_ForceOff(null);
 
@@ -78,9 +79,9 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
             if (isValidPose(botPose)) {
-                if (!visionIntegrated && targetSeen) {
+                if (!visionStarted && targetSeen) {
                     Robot.pose.resetPoseEstimate(botPose);
-                    visionIntegrated = true;
+                    visionStarted = true;
                 } else {
                     Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
                 }
@@ -226,6 +227,24 @@ public class Vision extends SubsystemBase {
             targetSeenCount = 0;
         }
         targetSeen = targetSeenCount > 2; // has been seen for 3 loops
+    }
+
+    /** @return if pose has been overriden. Will reset to false after returning true */
+    public boolean poseOverriden() {
+        if (poseOverriden) {
+            poseOverriden = false;
+            return true;
+        }
+        return false;
+    }
+
+    /** @return if pose has been overriden. Will reset to false after returning true */
+    public boolean visionIntegrated() {
+        if (visionIntegrated) {
+            visionIntegrated = false;
+            return true;
+        }
+        return false;
     }
 
     /**
