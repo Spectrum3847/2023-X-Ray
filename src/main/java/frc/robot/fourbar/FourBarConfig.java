@@ -10,7 +10,7 @@ public class FourBarConfig extends AngleMechConfig {
     public final int fourbarMaxFalcon = 44000;
 
     // Positions set as percentage of fourbar
-    public final int cubeIntake = 72;
+    public final int cubeIntake = 73;
     public final int cubeMid = 0;
     public final int cubeTop = 0;
 
