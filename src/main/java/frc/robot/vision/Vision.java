@@ -75,11 +75,13 @@ public class Vision extends SubsystemBase {
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-            if (isValidPose(botPose)) {
+            if (isValidPose(botPose) && !DriverStation.isAutonomous()) {
                 if (!visionStarted && targetSeen) {
                     Robot.pose.resetPoseEstimate(botPose);
                     visionStarted = true;
+                    poseOverriden = true;
                 } else {
+                    visionIntegrated = true;
                     Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
                 }
             }

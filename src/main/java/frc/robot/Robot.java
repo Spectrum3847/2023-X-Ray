@@ -161,10 +161,6 @@ public class Robot extends LoggedRobot {
         resetCommandsAndButtons();
         swerve.resetSteeringToAbsolute(); // reset the steering encoders to absolute value
 
-        if (vision.botPose.getX() >= 0.3) {
-            pose.resetPoseEstimate(Robot.vision.botPose);
-        }
-
         RobotTelemetry.print("## Disabled Init Complete");
         SwerveCommands.brakeMode(10).schedule(); // Brake mode for the first 10 seconds of disabled
     }
