@@ -32,11 +32,11 @@ public class IntakeCommands {
                 Intake.config.launcherEjectSpeed);
     }
 
-    public static Command hybridSpinUp() {
+    public static Command floorEject() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontHybridSpeed,
-                Intake.config.launcherHybridSpeed);
+                Intake.config.lowerFloorSpeed,
+                Intake.config.frontFloorSpeed,
+                Intake.config.launcherFloorSpeed);
     }
 
     public static Command midCubeSpinUp() {
@@ -53,11 +53,11 @@ public class IntakeCommands {
                 Intake.config.launcherTopCubeSpeed);
     }
 
-    public static Command fullSpinUp() {
+    public static Command behindChargeStationSpinUp() {
         return setVelocities(
                 Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontFullLaunchSpeed,
-                Intake.config.launcherFullLaunchSpeed);
+                Intake.config.frontChargeStationLaunchSpeed,
+                Intake.config.launcherChargeStationLaunchSpeed);
     }
 
     public static Command autoMidSpinUp() {
