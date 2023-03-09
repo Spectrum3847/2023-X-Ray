@@ -105,31 +105,7 @@ public class Auton {
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
-        // Simple comp autos
-        autonChooser.addOption("Taxi Simple", new TaxiCommand());
-        autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
-        autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
-        autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
         // Advanced comp autos with odometry
-        autonChooser.addOption(
-                "2 Ball Bottom",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "2 Ball Bottom",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig
-                                                        .kMaxAccel)))); // Written correctly needs
-        // testing
-        autonChooser.addOption(
-                "2 Ball Bottom w Balance",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "2 Ball Bottom w Balance",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
                 "3 Ball Bottom",
                 getAutoBuilder()
@@ -155,9 +131,22 @@ public class Auton {
                                         "3 Ball Bottom w Angle",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "ChargeStationTest",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "ChargeStationTest",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        // Simple comp autos
+        autonChooser.addOption("Taxi Simple", new TaxiCommand());
+        autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
+        autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
+        autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
         // Advanced comp autos with vision (nothing here because we aren't running them at Waco)
         // Autos for tuning/testing (not used at comp; should comment out before Waco)
-        autonChooser.addOption(
+        /*autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
                         .fullAuto(
@@ -188,7 +177,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "IntakeTest",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));*/
     }
 
     // Adds event mapping to autonomous commands

@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -127,6 +128,8 @@ public class Robot extends LoggedRobot {
         // Initialize all systems, do this after getting the MAC address
         intializeSystems();
         SmartDashboard.putData(CommandScheduler.getInstance());
+        SmartDashboard.putBoolean("RecordMatch", false);
+        SmartDashboard.putBoolean("StopRecording", false);
         RobotTelemetry.print("--- Robot Init Complete ---");
     }
 
@@ -185,6 +188,9 @@ public class Robot extends LoggedRobot {
             autonCommand.schedule();
             Auton.startAutonTimer();
         }
+        if (DriverStation.isFMSAttached()) {
+            SmartDashboard.putBoolean("RecordMatch", true);
+        }
         RobotTelemetry.print("@@ Auton Init Complete");
     }
 
@@ -218,6 +224,11 @@ public class Robot extends LoggedRobot {
     @Override
     public void teleopExit() {
         RobotTelemetry.print("$$ Teleop Exit");
+
+        // Send the stop recording boolean
+        if (DriverStation.isFMSAttached()) {
+            SmartDashboard.putBoolean("StopRecording", true);
+        }
     }
 
     @Override

@@ -18,7 +18,7 @@ public class PilotConfig {
     public static final double steeringDeadband = 0.15;
     public static final double steeringExp = 2;
     public static final double steeringScaler =
-            0.3; // Multiplies by Swerve Max Angular Velocity to determine max steering
+            0.4; // Multiplies by Swerve Max Angular Velocity to determine max steering
     public static final boolean steeringInvert = true;
 
     public static final Translation2d intakeCoRmeters = new Translation2d(0, 0);

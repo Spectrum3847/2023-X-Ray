@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.text.DecimalFormat;
 
 public class Vision extends SubsystemBase {
@@ -24,6 +25,8 @@ public class Vision extends SubsystemBase {
     private Pair<Pose3d, Double> photonVisionPose;
     private int targetSeenCount;
     private boolean targetSeen, visionStarted, poseOverriden, visionIntegrated = false;
+    private LimelightHelpers.LimelightResults jsonResults;
+
 
     // testing
     private final DecimalFormat df = new DecimalFormat();
@@ -46,6 +49,7 @@ public class Vision extends SubsystemBase {
     @Override
     public void periodic() {
         checkTargetHistory();
+        jsonResults = LimelightHelpers.getLatestResults("");
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -135,6 +139,11 @@ public class Vision extends SubsystemBase {
         // be predictable probably meaning the trig is wrong
     }
 
+    public boolean isInMap() {
+        return ((botPose.getX() > 1.39 && botPose.getX() < 5.01)
+                && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
+    }
+
     /**
      * Helper function for {@link Vision#getThetaToHybrid}
      *
@@ -146,6 +155,18 @@ public class Vision extends SubsystemBase {
     private Transform2d getTransformToHybrid(int hybridSpot) {
         Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
         return Robot.pose.getEstimatedPose().minus(hybridPose);
+    }
+
+    /** @return whether the camera sees multiple tags or not */
+    public boolean multipleTargetsInView() {
+        if (jsonResults == null) {
+            return false;
+        }
+        LimelightTarget_Fiducial[] tags = jsonResults.targetingResults.targets_Fiducials;
+        if (tags.length > 1) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -270,13 +291,6 @@ public class Vision extends SubsystemBase {
         SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
         SmartDashboard.putString(
                 "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
-        SmartDashboard.putString(
-                "Odometry X", df.format(Robot.swerve.odometry.getPoseMeters().getX()));
-        SmartDashboard.putString(
-                "Odometry Y", df.format(Robot.swerve.odometry.getPoseMeters().getY()));
-        SmartDashboard.putString(
-                "Odometry Theta",
-                df.format(Robot.swerve.odometry.getPoseMeters().getRotation().getDegrees()));
     }
 
     /**
