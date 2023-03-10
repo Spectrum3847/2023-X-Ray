@@ -20,11 +20,12 @@ import java.text.DecimalFormat;
 public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
     public Pose2d botPose;
+    public boolean poseOverriden, visionIntegrated = false;
 
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
     private int targetSeenCount;
-    private boolean targetSeen, visionStarted, poseOverriden, visionIntegrated = false;
+    private boolean targetSeen, visionStarted = false;
     private LimelightHelpers.LimelightResults jsonResults;
 
     // testing
@@ -84,9 +85,12 @@ public class Vision extends SubsystemBase {
                     visionStarted = true;
                     poseOverriden = true;
                 } else {
+                    poseOverriden = false;
                     // visionIntegrated = true;
                     // Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
                 }
+            } else {
+                // visionIntegrated = false;
             }
         }
 
@@ -204,7 +208,9 @@ public class Vision extends SubsystemBase {
             return false;
         }
         return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
-                && (Math.abs(pose.getY() - odometryPose.getY()) <= 1);
+                && (Math.abs(pose.getY() - odometryPose.getY())
+                        <= 1); // this can be tuned to find a threshold that helps us remove jumping
+        // vision poses
     }
 
     /**
@@ -246,24 +252,6 @@ public class Vision extends SubsystemBase {
             targetSeenCount = 0;
         }
         targetSeen = targetSeenCount > 2; // has been seen for 3 loops
-    }
-
-    /** @return if pose has been overriden. Will reset to false after returning true */
-    public boolean poseOverriden() {
-        if (poseOverriden) {
-            poseOverriden = false;
-            return true;
-        }
-        return false;
-    }
-
-    /** @return if pose has been overriden. Will reset to false after returning true */
-    public boolean visionIntegrated() {
-        if (visionIntegrated) {
-            visionIntegrated = false;
-            return true;
-        }
-        return false;
     }
 
     /**
