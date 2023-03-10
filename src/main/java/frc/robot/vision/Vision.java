@@ -27,7 +27,6 @@ public class Vision extends SubsystemBase {
     private boolean targetSeen, visionStarted, poseOverriden, visionIntegrated = false;
     private LimelightHelpers.LimelightResults jsonResults;
 
-
     // testing
     private final DecimalFormat df = new DecimalFormat();
 
@@ -80,13 +79,13 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate to pose if within 1 meter of odometry*/
             if (isValidPose(botPose) && !DriverStation.isAutonomous()) {
-                if (!visionStarted && targetSeen) {
+                if ((!visionStarted && targetSeen) || isInMap() || multipleTargetsInView()) {
                     Robot.pose.resetPoseEstimate(botPose);
                     visionStarted = true;
                     poseOverriden = true;
                 } else {
-                    visionIntegrated = true;
-                    Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
+                    // visionIntegrated = true;
+                    // Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
                 }
             }
         }
@@ -140,7 +139,7 @@ public class Vision extends SubsystemBase {
     }
 
     public boolean isInMap() {
-        return ((botPose.getX() > 1.39 && botPose.getX() < 5.01)
+        return ((botPose.getX() > 1.8 && botPose.getX() < 2.5)
                 && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
     }
 

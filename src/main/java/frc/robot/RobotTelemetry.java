@@ -47,7 +47,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
                         Map.of("Color when true", "#300068", "Color when false", "#FFFFFF"));
 
         tab.addBoolean("Pose Overriden", () -> Robot.vision.poseOverriden())
-                .withPosition(1, 2)
+                .withPosition(3, 2)
                 .withSize(1, 1)
                 .withProperties(
                         Map.of("Color when true", "#50C878", "Color when false", "#FFFFFF"));
@@ -56,7 +56,11 @@ public class RobotTelemetry extends TelemetrySubsystem {
                 .withSize(1, 1)
                 .withProperties(
                         Map.of("Color when true", "#50C878", "Color when false", "#FFFFFF"));
-
+        tab.addBoolean("Multiple Targets Seen", () -> Robot.vision.multipleTargetsInView())
+                .withPosition(4, 3)
+                .withSize(1, 1)
+                .withProperties(
+                        Map.of("Color when true", "#50C878", "Color when false", "#FFFFFF"));
         tab.addNumber("Match Time", () -> Timer.getMatchTime())
                 .withPosition(2, 1)
                 .withSize(2, 2)
