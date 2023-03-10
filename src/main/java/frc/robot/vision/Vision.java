@@ -49,7 +49,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // update feed status
+        /* update feed status by looking for an empty json */
         visionConnected =
                 !NetworkTableInstance.getDefault()
                         .getTable("limelight")
