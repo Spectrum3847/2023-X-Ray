@@ -224,6 +224,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void teleopExit() {
         RobotTelemetry.print("$$ Teleop Exit");
+        vision.poseOverriden = false;
 
         // Send the stop recording boolean
         if (DriverStation.isFMSAttached()) {
