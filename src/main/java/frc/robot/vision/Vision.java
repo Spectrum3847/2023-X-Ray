@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -20,7 +21,7 @@ import java.text.DecimalFormat;
 public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
     public Pose2d botPose;
-    public boolean poseOverriden, visionIntegrated = false;
+    public boolean poseOverriden, visionIntegrated, visionConnected = false;
 
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
@@ -48,6 +49,13 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+        // update feed status
+        visionConnected =
+                !NetworkTableInstance.getDefault()
+                        .getTable("limelight")
+                        .getEntry("json")
+                        .getString("")
+                        .equals("");
         checkTargetHistory();
         jsonResults = LimelightHelpers.getLatestResults("");
         // this method can call update() if vision pose estimation needs to be updated in
@@ -59,11 +67,9 @@ public class Vision extends SubsystemBase {
      *
      * <p>Limelight pose logic:
      *
-     * <p>Sets odometry pose to be vision estimate at the start of {@link Robot#teleopInit} and
-     * {@link Robot#disabledInit} so odometry has correct starting pose. Will not override odometry
-     * with vision if limelight does not see targets. Adds vision estimate to pose estimator using
-     * standard deviation values if 1) odometry has been overridden by vision at least once and 2)
-     * vision estimate is within 1 meter of odometry
+     * <p>Sets odometry pose to be vision estimate at the start of {@link Robot#teleopInit} so
+     * odometry has correct starting pose. Overrides estimated pose if the robot is close enough to
+     * the scoring locations or if multiple tags are in view.
      */
     public void update() {
         /* Limelight Pose Estimation Retrieval */
@@ -142,6 +148,7 @@ public class Vision extends SubsystemBase {
         // be predictable probably meaning the trig is wrong
     }
 
+    /** @return if the vision pose is within a certain distance from the scoring locations */
     public boolean isInMap() {
         return ((botPose.getX() > 1.8 && botPose.getX() < 2.5)
                 && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
@@ -189,10 +196,11 @@ public class Vision extends SubsystemBase {
 
     /**
      * Comparing vision pose against odometry pose. Does not account for difference in rotation.
-     * Will return false vision if it sees no targets or if the vision estimated pose is too far
+     * Will return false vision if camera sees no targets or if the vision estimated pose is too far
      * from the odometry estimate
      *
-     * @return whether or not pose should be added to estimate or not
+     * @param pose the vision pose
+     * @return whether the pose should be used or not
      */
     public boolean isValidPose(Pose2d pose) {
         /* Disregard Vision if there are no targets in view */
@@ -305,7 +313,7 @@ public class Vision extends SubsystemBase {
         System.out.println(" theta: " + df.format(theta));
         if (theta > 360) {
             theta -= 360;
-            System.out.println(" needed new theta: " + df.format(theta));
+            System.out.println(" ncessary new theta: " + df.format(theta));
         }
     }
 }
