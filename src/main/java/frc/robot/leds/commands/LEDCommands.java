@@ -27,7 +27,7 @@ public class LEDCommands {
     }
 
     public static Command failure() {
-        return new OneColorLEDCommand(Color.kRed, "LED Fail", 99, 1.5, 0.25);
+        return new OneColorLEDCommand(Color.kRed, "LED Fail", 99, 0.25);
     }
 
     public static Command coneFloorLED() {

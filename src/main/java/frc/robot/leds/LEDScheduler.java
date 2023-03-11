@@ -64,7 +64,9 @@ public class LEDScheduler {
 
         // If we have a new top
         if (top.getName() != animationArrary.get(0).getName()) {
-            top.getCommand().cancel();
+            if (!animationArrary.get(0).command.isParallel()) {
+                top.getCommand().cancel();
+            }
             top = animationArrary.get(0);
             top.getCommand().schedule();
             top.getCommand().ledInitialize();
@@ -76,8 +78,33 @@ public class LEDScheduler {
         if (top.getPriority() > 1) {
             top.decrementPriority();
         }
-        // Execute the LED Command
-        top.getCommand().ledExecute();
+
+        /* Execute the first interrupting/base animation if there is one */
+        int firstBaseAnimation = getFirstBaseAnimation();
+        if (firstBaseAnimation != -1) {
+            animationArrary.get(firstBaseAnimation).getCommand().ledExecute();
+        }
+
+        /* Execute the parallel commands going backwards through the arraylist so higher priority animations override lower priority animations */
+        // for (int i = animationArrary.size() - 1; i >= 0; i--) {
+        //     if (animationArrary.get(i).getCommand().isParallel()) {
+        //         animationArrary.get(i).getCommand().ledExecute();
+        //     }
+        // }
+        for (Animation animation : animationArrary) {
+            if (animation.getCommand().isParallel()) {
+                animation.getCommand().ledExecute();
+            }
+        }
+    }
+
+    private int getFirstBaseAnimation() {
+        for (int i = 0; i < animationArrary.size(); i++) {
+            if (!animationArrary.get(i).getCommand().isParallel()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void addAnimation(String name, LEDCommandBase command, int priority, double seconds) {

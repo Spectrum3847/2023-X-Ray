@@ -5,7 +5,6 @@ import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.LEDCommands;
@@ -36,9 +35,11 @@ public class OperatorGamepad extends Gamepad {
         gamepad.aButton
                 .and(rightBumper())
                 .whileTrue(OperatorCommands.cubeHybrid().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.rumble(1, 99)));
+
+        gamepad.bButton.whileTrue(LEDCommands.failure());
+        // gamepad.bButton
+        //         .and(noRightBumper())
+        //         .whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.rumble(1, 99)));
         gamepad.bButton
                 .and(rightBumper())
                 .whileTrue(
@@ -80,9 +81,10 @@ public class OperatorGamepad extends Gamepad {
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(LEDCommands.success());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
-        gamepad.bButton.toggleOnTrue(
-                ElevatorCommands.coastMode()
-                        .alongWith(FourBarCommands.coastMode().ignoringDisable(true)));
+        // gamepad.bButton.toggleOnTrue(
+        //         ElevatorCommands.coastMode()
+        //                 .alongWith(FourBarCommands.coastMode().ignoringDisable(true)));
+        gamepad.bButton.whileTrue(LEDCommands.failure());
     }
 
     public void setupTestButtons() {}

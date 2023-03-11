@@ -42,7 +42,7 @@ public abstract class LEDCommandBase extends CommandBase {
      * @param scope 0-1 representing percentage of lights used by command. 1 indicates an
      *     interrupting led command.
      */
-    public void checkScope(double scope) {
+    private void checkScope(double scope) {
         if (scope < 0) scope = 0;
         if (scope > 1) scope = 1;
         if (scope == 1) {
@@ -55,6 +55,10 @@ public abstract class LEDCommandBase extends CommandBase {
         // available length shouldn't be 0 if using a scope
         availableLength = (int) (ledSubsystem.getBufferLength() * scope);
         if (availableLength == 0) availableLength = 1;
+    }
+
+    public boolean isParallel() {
+        return parallel;
     }
 
     @Override
