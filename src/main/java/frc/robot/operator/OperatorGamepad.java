@@ -28,9 +28,10 @@ public class OperatorGamepad extends Gamepad {
     }
     // set up jiggle sometime
     public void setupTeleopButtons() {
-        gamepad.aButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.aButton.whileTrue(LEDCommands.success());
+        // gamepad.aButton
+        //         .and(noRightBumper())
+        //         .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
         // gamepad.aButton.and(noRightBumper()).whileTrue();
         gamepad.aButton
                 .and(rightBumper())
@@ -77,7 +78,7 @@ public class OperatorGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(LEDCommands.coneFloorLED());
+        gamepad.aButton.whileTrue(LEDCommands.success());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
         gamepad.bButton.toggleOnTrue(
                 ElevatorCommands.coastMode()

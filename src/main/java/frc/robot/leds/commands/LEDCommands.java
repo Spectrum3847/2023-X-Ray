@@ -19,30 +19,30 @@ public class LEDCommands {
     }
 
     public static Command purpleSolid(int priority, int timeout) {
-        return new OneColorLEDCommand(new Color(100, 10, 255), null, priority, timeout);
+        return new OneColorLEDCommand(new Color(100, 10, 255), null, priority, timeout, 1);
     }
 
     public static Command success() {
-        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120);
+        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120, 0.25);
     }
 
     public static Command failure() {
-        return new OneColorLEDCommand(Color.kRed, "LED Fail", 99, 1.5);
+        return new OneColorLEDCommand(Color.kRed, "LED Fail", 99, 1.5, 0.25);
     }
 
     public static Command coneFloorLED() {
-        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99);
+        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99, 1);
     }
 
     public static Command coneShelfLED() {
-        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", 99);
+        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", 99, 1);
     }
 
     public static Command cubeLED() {
-        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99);
+        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99, 1);
     }
 
     public static Command elevatorHeightLED() {
-        return new RainbowLEDCommand("Elevator Height LED", 80);
+        return new RainbowLEDCommand("Elevator Height LED", 80, 1);
     }
 }

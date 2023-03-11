@@ -103,7 +103,7 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5));
+        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 99, 1));
     }
 
     public void setupTestButtons() {}

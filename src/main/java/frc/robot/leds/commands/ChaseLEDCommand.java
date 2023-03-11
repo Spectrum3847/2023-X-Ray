@@ -1,29 +1,24 @@
 package frc.robot.leds.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.Robot;
-import frc.robot.leds.LEDs;
 
 public class ChaseLEDCommand extends LEDCommandBase {
     /** Creates a new ChaseLEDCommand. */
-    private final LEDs ledSubsystem;
-
     double waitTime;
+
     long startTime;
     int onLEDIndex;
     boolean backwards = false;
 
-    public ChaseLEDCommand(String name, int priority, double timeout) {
-        super(name, priority, timeout);
-        ledSubsystem = Robot.leds;
+    public ChaseLEDCommand(String name, int priority, double timeout, double scope) {
+        super(name, priority, timeout, scope);
         this.waitTime = 0;
         this.startTime = System.currentTimeMillis();
         onLEDIndex = 0;
     }
 
-    public ChaseLEDCommand(String name, int priority) {
-        super(name, priority);
-        ledSubsystem = Robot.leds;
+    public ChaseLEDCommand(String name, int priority, double scope) {
+        super(name, priority, scope);
         this.waitTime = 0;
         this.startTime = System.currentTimeMillis();
         onLEDIndex = 0;
@@ -32,7 +27,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void ledInitialize() {
-        for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+        for (int i = 0; i < availableLength; i++) {
             if (i == onLEDIndex) {
                 ledSubsystem.setRGB(i, 130, 103, 185);
                 continue;
@@ -47,16 +42,16 @@ public class ChaseLEDCommand extends LEDCommandBase {
     @Override
     public void ledExecute() {
         if (DriverStation.isDisabled()) {
-            for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+            for (int i = 0; i < availableLength; i++) {
                 ledSubsystem.setRGB(i, 30, 3, 85);
             }
             ledSubsystem.sendData();
         } else {
             if (System.currentTimeMillis() - startTime >= waitTime) {
-                for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+                for (int i = 0; i < availableLength; i++) {
                     if (i == onLEDIndex) {
                         ledSubsystem.setRGB(i, 130, 103, 185);
-                        // waitTime = Math.abs(ledSubsystem.getBufferLength() / 2 - i) * 5;
+                        // waitTime = Math.abs(availableLength / 2 - i) * 5;
                         continue;
                     }
                     if (i == onLEDIndex + 1) {
@@ -86,7 +81,7 @@ public class ChaseLEDCommand extends LEDCommandBase {
                     ledSubsystem.setRGB(i, 0, 0, 0);
                 }
                 ledSubsystem.sendData();
-                if (onLEDIndex + 1 > ledSubsystem.getBufferLength()) {
+                if (onLEDIndex + 1 > availableLength) {
                     backwards = true;
                 } else if (onLEDIndex - 1 < 0) {
                     backwards = false;

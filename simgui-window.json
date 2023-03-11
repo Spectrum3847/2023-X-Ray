@@ -69,7 +69,7 @@
       "Size": "300,481"
     },
     "###NetworkTables": {
-      "Collapsed": "0",
+      "Collapsed": "1",
       "Pos": "174,43",
       "Size": "1066,733"
     },
@@ -84,8 +84,8 @@
       "Size": "250,560"
     },
     "###RoboRIO": {
-      "Collapsed": "0",
-      "Pos": "1295,241",
+      "Collapsed": "1",
+      "Pos": "1639,674",
       "Size": "193,192"
     },
     "###System Joysticks": {

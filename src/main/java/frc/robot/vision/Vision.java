@@ -55,7 +55,8 @@ public class Vision extends SubsystemBase {
                         .getTable("limelight")
                         .getEntry("json")
                         .getString("")
-                        .equals("");
+                        .equals(""); // change all triggers to seperate methods that only run in the
+        // trigger instead of vision loops?
         checkTargetHistory();
         jsonResults = LimelightHelpers.getLatestResults("");
         // this method can call update() if vision pose estimation needs to be updated in

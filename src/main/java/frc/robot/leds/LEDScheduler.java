@@ -33,7 +33,8 @@ public class LEDScheduler {
     }
 
     private void intialAnimation() {
-        setDefaultAnimation("Default LED Animation", new ChaseLEDCommand("LED Default", 1, -101));
+        setDefaultAnimation(
+                "Default LED Animation", new ChaseLEDCommand("LED Default", 1, -101, 1));
     }
 
     private void runScheduler() {
@@ -41,8 +42,7 @@ public class LEDScheduler {
             intialAnimation();
         }
         // It the top animation isn't scheduled, schedule it. EDIT: I know why this exists but
-        // apparently it doesn't affect anything and it breaks the ending function of commands so
-        // I'm commenting it out
+        // it breaks the ending function of commands so I'm commenting it out
         // if (!top.getCommand().isScheduled()) {
         //     top.getCommand().schedule();
         // }

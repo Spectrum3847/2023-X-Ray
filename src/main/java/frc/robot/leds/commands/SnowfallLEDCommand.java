@@ -1,27 +1,21 @@
 package frc.robot.leds.commands;
 
-import frc.robot.Robot;
-import frc.robot.leds.LEDs;
-
 public class SnowfallLEDCommand extends LEDCommandBase {
     /** Creates a new SnowfallLEDCommand. */
-    private final LEDs ledSubsystem;
-
     long waitTime;
+
     long startTime;
     int stage;
 
-    public SnowfallLEDCommand(String name, int priority, double timeout) {
-        super(name, priority, timeout);
-        ledSubsystem = Robot.leds;
+    public SnowfallLEDCommand(String name, int priority, double timeout, double scope) {
+        super(name, priority, timeout, scope);
         this.waitTime = 100;
         this.startTime = System.currentTimeMillis();
         stage = 0;
     }
 
-    public SnowfallLEDCommand(String name, int priority) {
-        super(name, priority);
-        ledSubsystem = Robot.leds;
+    public SnowfallLEDCommand(String name, int priority, double scope) {
+        super(name, priority, scope);
         this.waitTime = 100;
         this.startTime = System.currentTimeMillis();
         stage = 0;
@@ -30,7 +24,7 @@ public class SnowfallLEDCommand extends LEDCommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void ledInitialize() {
-        for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+        for (int i = 0; i < availableLength; i++) {
             if (i % 4 == stage) {
                 ledSubsystem.setRGB(i, 255, 255, 255);
                 continue;
@@ -45,7 +39,7 @@ public class SnowfallLEDCommand extends LEDCommandBase {
     @Override
     public void ledExecute() {
         if (System.currentTimeMillis() - startTime >= waitTime) {
-            for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+            for (int i = 0; i < availableLength; i++) {
                 if (i % 4 == stage) {
                     ledSubsystem.setRGB(i, 255, 255, 255);
                     continue;

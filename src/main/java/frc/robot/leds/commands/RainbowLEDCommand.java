@@ -1,23 +1,16 @@
 package frc.robot.leds.commands;
 
-import frc.robot.Robot;
-import frc.robot.leds.LEDs;
-
 public class RainbowLEDCommand extends LEDCommandBase {
     /** Creates a new RainbowCommand. */
-    private final LEDs ledSubsystem;
-
     private int rainbowFirstPixelHue;
 
-    public RainbowLEDCommand(String name, int priority, double timeout) {
-        super(name, priority, timeout);
-        this.ledSubsystem = Robot.leds;
+    public RainbowLEDCommand(String name, int priority, double timeout, double scope) {
+        super(name, priority, timeout, scope);
         this.rainbowFirstPixelHue = 20;
     }
 
-    public RainbowLEDCommand(String name, int priority) {
-        super(name, priority);
-        this.ledSubsystem = Robot.leds;
+    public RainbowLEDCommand(String name, int priority, double scope) {
+        super(name, priority, scope);
         this.rainbowFirstPixelHue = 20;
     }
 
@@ -29,11 +22,10 @@ public class RainbowLEDCommand extends LEDCommandBase {
     @Override
     public void ledExecute() {
         // For every pixel
-        for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+        for (int i = 0; i < availableLength; i++) {
             // Calculate the hue - hue is easier for rainbows because the color
             // shape is a circle so only one value needs to precess
-            final int hue =
-                    (rainbowFirstPixelHue + (i * 180 / ledSubsystem.getBufferLength())) % 180;
+            final int hue = (rainbowFirstPixelHue + (i * 180 / availableLength)) % 180;
             // Set the value
             ledSubsystem.setHSV(i, hue, 255, 128);
         }

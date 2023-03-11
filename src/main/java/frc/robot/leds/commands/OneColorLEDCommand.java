@@ -2,39 +2,39 @@ package frc.robot.leds.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
-import frc.robot.Robot;
-import frc.robot.leds.LEDs;
 
 public class OneColorLEDCommand extends LEDCommandBase {
-    private final LEDs ledSubsystem;
     private final int r, g, b;
 
-    public OneColorLEDCommand(int r, int g, int b, String name, int priority, double timeout) {
-        super(name, priority, timeout);
-        ledSubsystem = Robot.leds;
+    public OneColorLEDCommand(
+            int r, int g, int b, String name, int priority, double timeout, double scope) {
+        super(name, priority, timeout, scope);
         this.r = r;
         this.g = g;
         this.b = b;
     }
 
-    public OneColorLEDCommand(Color color, String name, int priority, double timeout) {
+    public OneColorLEDCommand(
+            Color color, String name, int priority, double timeout, double scope) {
         this(
                 new Color8Bit(color).red,
                 new Color8Bit(color).green,
                 new Color8Bit(color).blue,
                 name,
                 priority,
-                timeout);
+                timeout,
+                scope);
     }
 
-    public OneColorLEDCommand(Color color, String name, int priority) {
+    public OneColorLEDCommand(Color color, String name, int priority, double scope) {
         this(
                 new Color8Bit(color).red,
                 new Color8Bit(color).green,
                 new Color8Bit(color).blue,
                 name,
                 priority,
-                -100);
+                -100,
+                scope);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class OneColorLEDCommand extends LEDCommandBase {
 
     @Override
     public void ledExecute() {
-        for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+        for (int i = 0; i < availableLength; i++) {
             ledSubsystem.setRGB(i, r, g, b);
         }
         ledSubsystem.sendData();
