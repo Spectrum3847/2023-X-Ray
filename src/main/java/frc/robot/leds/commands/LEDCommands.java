@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
+import frc.robot.leds.commands.LEDCommandBase.Priority;
 
 /** All of the commands to schedule LEDs */
 public class LEDCommands {
@@ -18,31 +19,40 @@ public class LEDCommands {
         poseOverriden.whileTrue(success());
     }
 
-    public static Command purpleSolid(int priority, int timeout) {
-        return new OneColorLEDCommand(new Color(100, 10, 255), null, priority, timeout, 1);
-    }
-
     public static Command success() {
-        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120, 0.25);
+        return new OneColorLEDCommand(Color.kGreen, "LED Success", Priority.PARALLEL, 0.25);
     }
 
     public static Command failure() {
-        return new OneColorLEDCommand(Color.kRed, "LED Fail", 99, 0.25);
+        return new OneColorLEDCommand(Color.kRed, "LED Fail", Priority.PARALLEL, 0.25);
     }
 
     public static Command coneFloorLED() {
-        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", 99, 1);
+        return new OneColorLEDCommand(Color.kYellow, "Yellow Floor Cone", Priority.BASE, 1);
     }
 
     public static Command coneShelfLED() {
-        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", 99, 1);
+        return new BlinkLEDCommand(Color.kYellow, "Yellow Shelf Cone", Priority.BASE, 1);
     }
 
     public static Command cubeLED() {
-        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99, 1);
+        return new OneColorLEDCommand(Color.kPurple, "Purple Cube", Priority.BASE, 1);
     }
 
     public static Command elevatorHeightLED() {
-        return new RainbowLEDCommand("Elevator Height LED", 80, 1);
+        return new RainbowLEDCommand("Elevator Height LED", Priority.BASE, 1);
+    }
+
+    public static Command test() {
+        return new OneColorLEDCommand(Color.kSeaGreen, "Test Green", Priority.DYNAMIC, 0.25);
+    }
+
+    public static Command purpleSolid(int timeout) {
+        return new OneColorLEDCommand(
+                new Color(100, 10, 255), "Purple Solid", Priority.BASE, timeout, 1);
+    }
+
+    public static Command whiteSolid() {
+        return new OneColorLEDCommand(Color.kWhite, "White", Priority.BASE, 1);
     }
 }

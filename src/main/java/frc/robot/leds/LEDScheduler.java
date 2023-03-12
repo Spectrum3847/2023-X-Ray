@@ -9,15 +9,19 @@ import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.leds.commands.ChaseLEDCommand;
 import frc.robot.leds.commands.LEDCommandBase;
+import frc.robot.leds.commands.LEDCommandBase.Priority;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 /** Add your docs here. */
+// TODO: add CRITICAL commands
 public class LEDScheduler {
     ArrayList<Animation> animationArrary = new ArrayList<Animation>();
     Animation top;
     Animation defaultAnimation;
+    int firstFreeIndex;
+    boolean firstCommand = false;
 
     public LEDScheduler(LEDs subsystem) {
         RobotTelemetry.print("Starting LED Scheduler Thread");
@@ -34,7 +38,8 @@ public class LEDScheduler {
 
     private void intialAnimation() {
         setDefaultAnimation(
-                "Default LED Animation", new ChaseLEDCommand("LED Default", 1, -101, 1));
+                "Default LED Animation",
+                new ChaseLEDCommand("LED Default", Priority.DEFAULT, -101, 1));
     }
 
     private void runScheduler() {
@@ -42,7 +47,7 @@ public class LEDScheduler {
             intialAnimation();
         }
         // It the top animation isn't scheduled, schedule it. EDIT: I know why this exists but
-        // it breaks the ending function of commands so I'm commenting it out
+        // it breaks the ending function of commands
         // if (!top.getCommand().isScheduled()) {
         //     top.getCommand().schedule();
         // }
@@ -61,12 +66,16 @@ public class LEDScheduler {
         }
         // Sort the list by priority
         Collections.sort(animationArrary, new SortbyPriority());
+        for (Animation animation : animationArrary) {
+            System.out.print(animation.getCommand().getName() + ", ");
+        }
+        System.out.println();
 
-        // If we have a new top
-        if (top.getName() != animationArrary.get(0).getName()) {
-            if (!animationArrary.get(0).command.isParallel()) {
-                top.getCommand().cancel();
-            }
+        /* If we have a new top that isn't a default animation as that it is scheduled differently */
+        if (top.getName() != animationArrary.get(0).getName()
+                && animationArrary.get(0).getPriority() != 1) {
+            // top.getCommand().cancel(); //ending commands should be handled by the
+            // CommandScheduler
             top = animationArrary.get(0);
             top.getCommand().schedule();
             top.getCommand().ledInitialize();
@@ -75,30 +84,31 @@ public class LEDScheduler {
             }
         }
 
-        if (top.getPriority() > 1) {
-            top.decrementPriority();
+        /* Execute the highest priority interrupting/base animation if there is one */
+        int firstBaseAnimationIndex = getFirstBaseAnimationIndex();
+        if (firstBaseAnimationIndex != -1) {
+            animationArrary.get(firstBaseAnimationIndex).getCommand().ledExecute();
         }
 
-        /* Execute the first interrupting/base animation if there is one */
-        int firstBaseAnimation = getFirstBaseAnimation();
-        if (firstBaseAnimation != -1) {
-            animationArrary.get(firstBaseAnimation).getCommand().ledExecute();
-        }
-
-        /* Execute the parallel commands going backwards through the arraylist so higher priority animations override lower priority animations */
+        /* Execute the parallel commands by going through the arraylist backwards so
+        they overlay base animations while also competing with other parallel commands
+        that were executed earlier in runtime */
         // for (int i = animationArrary.size() - 1; i >= 0; i--) {
-        //     if (animationArrary.get(i).getCommand().isParallel()) {
-        //         animationArrary.get(i).getCommand().ledExecute();
+        //     Animation animation = animationArrary.get(i);
+        //     if (animation.getCommand().isParallel()) {
+        //         animation.getCommand().ledExecute();
         //     }
         // }
         for (Animation animation : animationArrary) {
             if (animation.getCommand().isParallel()) {
                 animation.getCommand().ledExecute();
+                break;
             }
         }
+        firstCommand = false;
     }
 
-    private int getFirstBaseAnimation() {
+    private int getFirstBaseAnimationIndex() {
         for (int i = 0; i < animationArrary.size(); i++) {
             if (!animationArrary.get(i).getCommand().isParallel()) {
                 return i;
@@ -119,7 +129,22 @@ public class LEDScheduler {
             animationArrary.remove(animationArrary.indexOf(animation));
         }
         animation.getCommand().setName(animation.name);
+        // Ensure that this animation takes priority
+        decrementPriorities();
         animationArrary.add(animation);
+    }
+
+    /**
+     * Decrements every animation priority currently in queue by one to make the latest executed
+     * animation have priority. Ignores the default animation because it's already at 1.
+     */
+    private void decrementPriorities() {
+        for (int i = 0; i < animationArrary.size(); i++) {
+            Animation animation = animationArrary.get(i);
+            if (animation.getPriority() > 1) {
+                animation.decrementPriority();
+            }
+        }
     }
 
     public void removeAnimation(String name) {

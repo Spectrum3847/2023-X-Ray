@@ -10,14 +10,14 @@ public class ChaseLEDCommand extends LEDCommandBase {
     int onLEDIndex;
     boolean backwards = false;
 
-    public ChaseLEDCommand(String name, int priority, double timeout, double scope) {
+    public ChaseLEDCommand(String name, Priority priority, double timeout, double scope) {
         super(name, priority, timeout, scope);
         this.waitTime = 0;
         this.startTime = System.currentTimeMillis();
         onLEDIndex = 0;
     }
 
-    public ChaseLEDCommand(String name, int priority, double scope) {
+    public ChaseLEDCommand(String name, Priority priority, double scope) {
         super(name, priority, scope);
         this.waitTime = 0;
         this.startTime = System.currentTimeMillis();

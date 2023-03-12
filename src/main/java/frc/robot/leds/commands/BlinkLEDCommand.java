@@ -17,7 +17,7 @@ public class BlinkLEDCommand extends LEDCommandBase {
             int g,
             int b,
             String name,
-            int priority,
+            Priority priority,
             double timeout,
             double scope) {
         super(name, priority, timeout, scope);
@@ -29,7 +29,12 @@ public class BlinkLEDCommand extends LEDCommandBase {
     }
 
     public BlinkLEDCommand(
-            int waitTime, Color color, String name, int priority, double timeout, double scope) {
+            int waitTime,
+            Color color,
+            String name,
+            Priority priority,
+            double timeout,
+            double scope) {
         this(
                 waitTime,
                 new Color8Bit(color).red,
@@ -41,12 +46,13 @@ public class BlinkLEDCommand extends LEDCommandBase {
                 scope);
     }
 
-    public BlinkLEDCommand(Color color, String name, int priority, double timeout, double scope) {
+    public BlinkLEDCommand(
+            Color color, String name, Priority priority, double timeout, double scope) {
         this(500, color, name, priority, timeout, scope);
     }
 
-    public BlinkLEDCommand(Color color, String name, int priority, double scope) {
-        this(500, color, name, priority, -100, scope);
+    public BlinkLEDCommand(Color color, String name, Priority priority, double scope) {
+        this(500, color, name, priority, -101, scope);
     }
 
     private long getTime() {

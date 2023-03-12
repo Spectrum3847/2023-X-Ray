@@ -1,6 +1,5 @@
 package frc.robot.pilot;
 
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
@@ -10,7 +9,7 @@ import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
-import frc.robot.leds.commands.OneColorLEDCommand;
+import frc.robot.leds.commands.LEDCommands;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.LockSwerve;
@@ -103,7 +102,8 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 99, 1));
+        gamepad.aButton.whileTrue(LEDCommands.whiteSolid());
+        gamepad.bButton.whileTrue(LEDCommands.coneFloorLED());
     }
 
     public void setupTestButtons() {}

@@ -7,7 +7,7 @@ public class OneColorLEDCommand extends LEDCommandBase {
     private final int r, g, b;
 
     public OneColorLEDCommand(
-            int r, int g, int b, String name, int priority, double timeout, double scope) {
+            int r, int g, int b, String name, Priority priority, double timeout, double scope) {
         super(name, priority, timeout, scope);
         this.r = r;
         this.g = g;
@@ -15,7 +15,7 @@ public class OneColorLEDCommand extends LEDCommandBase {
     }
 
     public OneColorLEDCommand(
-            Color color, String name, int priority, double timeout, double scope) {
+            Color color, String name, Priority priority, double timeout, double scope) {
         this(
                 new Color8Bit(color).red,
                 new Color8Bit(color).green,
@@ -26,7 +26,7 @@ public class OneColorLEDCommand extends LEDCommandBase {
                 scope);
     }
 
-    public OneColorLEDCommand(Color color, String name, int priority, double scope) {
+    public OneColorLEDCommand(Color color, String name, Priority priority, double scope) {
         this(
                 new Color8Bit(color).red,
                 new Color8Bit(color).green,

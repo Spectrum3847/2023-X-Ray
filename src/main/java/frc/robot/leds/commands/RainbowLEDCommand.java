@@ -4,12 +4,12 @@ public class RainbowLEDCommand extends LEDCommandBase {
     /** Creates a new RainbowCommand. */
     private int rainbowFirstPixelHue;
 
-    public RainbowLEDCommand(String name, int priority, double timeout, double scope) {
+    public RainbowLEDCommand(String name, Priority priority, double timeout, double scope) {
         super(name, priority, timeout, scope);
         this.rainbowFirstPixelHue = 20;
     }
 
-    public RainbowLEDCommand(String name, int priority, double scope) {
+    public RainbowLEDCommand(String name, Priority priority, double scope) {
         super(name, priority, scope);
         this.rainbowFirstPixelHue = 20;
     }

@@ -7,14 +7,14 @@ public class SnowfallLEDCommand extends LEDCommandBase {
     long startTime;
     int stage;
 
-    public SnowfallLEDCommand(String name, int priority, double timeout, double scope) {
+    public SnowfallLEDCommand(String name, Priority priority, double timeout, double scope) {
         super(name, priority, timeout, scope);
         this.waitTime = 100;
         this.startTime = System.currentTimeMillis();
         stage = 0;
     }
 
-    public SnowfallLEDCommand(String name, int priority, double scope) {
+    public SnowfallLEDCommand(String name, Priority priority, double scope) {
         super(name, priority, scope);
         this.waitTime = 100;
         this.startTime = System.currentTimeMillis();
