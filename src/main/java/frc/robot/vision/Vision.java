@@ -78,19 +78,20 @@ public class Vision extends SubsystemBase {
                                     6]; // may need to add LimelightHelpers json parsing delay?
             botPose3d = chooseAlliance();
             botPose = botPose3d.toPose2d();
-            /* Adding Limelight estimate to pose if within 1 meter of odometry*/
-            if (isValidPose(botPose) && !DriverStation.isAutonomous()) {
-                if ((!visionStarted && targetSeen) || isInMap() || multipleTargetsInView()) {
+            /* Adding Limelight estimate if in teleop enabled*/
+            if (DriverStation.isTeleopEnabled()) {
+                if (!visionStarted && targetSeen) {
                     Robot.pose.resetPoseEstimate(botPose);
                     visionStarted = true;
                     poseOverriden = true;
+                } else if (isValidPose(botPose) && (isInMap() || multipleTargetsInView())) {
+                    Robot.pose.resetPoseEstimate(botPose);
+                    poseOverriden = true;
                 } else {
                     poseOverriden = false;
-                    // visionIntegrated = true;
-                    // Robot.pose.addVisionMeasurement(botPose, getTimestampSeconds(latency));
                 }
             } else {
-                // visionIntegrated = false;
+                poseOverriden = false;
             }
         }
 

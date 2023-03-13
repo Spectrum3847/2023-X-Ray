@@ -57,7 +57,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
                 .withProperties(
                         Map.of("Color when true", "#50C878", "Color when false", "#FFFFFF"));
         tab.addBoolean("Multiple Targets Seen", () -> Robot.vision.multipleTargetsInView())
-                .withPosition(4, 3)
+                .withPosition(3, 4)
                 .withSize(1, 1)
                 .withProperties(
                         Map.of("Color when true", "#50C878", "Color when false", "#FFFFFF"));
