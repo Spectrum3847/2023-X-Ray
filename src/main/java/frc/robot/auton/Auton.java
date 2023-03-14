@@ -104,14 +104,6 @@ public class Auton {
         //         "Nothing",
         //         new PrintCommand("Doing Nothing in Auton")
         //                 .andThen(new WaitCommand(5))); // setups an auto that does nothing
-        // autonChooser.setDefaultOption(
-        //         "3 Meters",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "3 Meters",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.setDefaultOption(
                 "3 Meters",
                 getAutoBuilder()
