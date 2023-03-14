@@ -66,11 +66,11 @@ public class ModuleConfig {
         swerveDriveFXConfig.slot0.kI = 0;
         swerveDriveFXConfig.slot0.kD = tuning.driveKD;
         swerveDriveFXConfig.slot0.kF =
-                1023 / ((XRAY2023.maxVelocity * 0.714) / PhysicalConfig.swerveMetersPerPulse);
+                1023 / ((XRAY2023.maxVelocity * 0.6) / PhysicalConfig.swerveMetersPerPulse);
         System.out.println(
                 "-----------------------------------kf: "
                         + (1023
-                                / ((XRAY2023.maxVelocity * 0.714)
+                                / ((XRAY2023.maxVelocity * 0.6)
                                         / PhysicalConfig.swerveMetersPerPulse)));
         swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
         swerveDriveFXConfig.initializationStrategy = SensorInitializationStrategy.BootToZero;
