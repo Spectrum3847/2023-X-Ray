@@ -33,7 +33,9 @@ public class LEDs extends SubsystemBase {
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+        scheduler.runScheduler();
+    }
 
     public void setHSV(int i, int hue, int saturation, int value) {
         ledBuffer.setHSV(i, hue, saturation, value);

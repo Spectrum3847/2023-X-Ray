@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.auton.commands.AutonCommands;
@@ -101,10 +100,27 @@ public class Auton {
 
     // A chooser for autonomous commands
     public static void setupSelectors() {
+        // autonChooser.setDefaultOption(
+        //         "Nothing",
+        //         new PrintCommand("Doing Nothing in Auton")
+        //                 .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        // autonChooser.setDefaultOption(
+        //         "3 Meters",
+        //         getAutoBuilder()
+        //                 .fullAuto(
+        //                         PathPlanner.loadPathGroup(
+        //                                 "3 Meters",
+        //                                 new PathConstraints(
+        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.setDefaultOption(
-                "Nothing",
-                new PrintCommand("Doing Nothing in Auton")
-                        .andThen(new WaitCommand(5))); // setups an auto that does nothing
+                "3 Meters",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Meters",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+
         // Advanced comp autos with odometry
         autonChooser.addOption(
                 "3 Ball Bottom",

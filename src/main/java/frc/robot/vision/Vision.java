@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -20,7 +21,7 @@ import java.text.DecimalFormat;
 public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
     public Pose2d botPose;
-    public boolean poseOverriden, visionIntegrated = false;
+    public boolean poseOverriden, visionIntegrated, visionConnected = false;
 
     private Pose3d botPose3d;
     private Pair<Pose3d, Double> photonVisionPose;
@@ -48,6 +49,13 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+        /* update feed status by looking for an empty json */
+        visionConnected =
+                !NetworkTableInstance.getDefault()
+                        .getTable("limelight")
+                        .getEntry("json")
+                        .getString("")
+                        .equals("");
         checkTargetHistory();
         jsonResults = LimelightHelpers.getLatestResults("");
         // this method can call update() if vision pose estimation needs to be updated in
@@ -199,18 +207,21 @@ public class Vision extends SubsystemBase {
         /* Disregard Vision if there are no targets in view */
         if (!LimelightHelpers.getTV(null)) {
             return false;
+        } else {
+            return true;
         }
 
         /* Disregard Vision if odometry has not been set to vision pose yet in teleopInit*/
-        Pose2d odometryPose = Robot.swerve.getPoseMeters();
-        if (odometryPose.getX() <= 0.3
-                && odometryPose.getY() <= 0.3
-                && odometryPose.getRotation().getDegrees() <= 1) {
-            return false;
-        }
-        return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
-                && (Math.abs(pose.getY() - odometryPose.getY())
-                        <= 1); // this can be tuned to find a threshold that helps us remove jumping
+        // Pose2d odometryPose = Robot.swerve.getPoseMeters();
+        // if (odometryPose.getX() <= 0.3
+        //         && odometryPose.getY() <= 0.3
+        //         && odometryPose.getRotation().getDegrees() <= 1) {
+        //     return false;
+        // }
+        // return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
+        //         && (Math.abs(pose.getY() - odometryPose.getY())
+        //                 <= 1); // this can be tuned to find a threshold that helps us remove
+        // jumping
         // vision poses
     }
 

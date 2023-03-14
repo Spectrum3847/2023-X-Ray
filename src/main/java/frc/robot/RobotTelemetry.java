@@ -61,6 +61,11 @@ public class RobotTelemetry extends TelemetrySubsystem {
                 .withSize(1, 1)
                 .withProperties(
                         Map.of("Color when true", "#50C878", "Color when false", "#FFFFFF"));
+        tab.addBoolean("Limelight Status", () -> Robot.vision.visionConnected)
+                .withPosition(2, 4)
+                .withSize(1, 1)
+                .withProperties(
+                        Map.of("Color when true", "#50C878", "Color when false", "#FF0000"));
         tab.addNumber("Match Time", () -> Timer.getMatchTime())
                 .withPosition(2, 1)
                 .withSize(2, 2)
