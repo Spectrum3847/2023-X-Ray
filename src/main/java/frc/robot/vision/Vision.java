@@ -88,11 +88,7 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate if in teleop enabled*/
             if (DriverStation.isTeleopEnabled()) {
-                if (!visionStarted && targetSeen) {
-                    Robot.pose.resetPoseEstimate(botPose);
-                    visionStarted = true;
-                    poseOverriden = true;
-                } else if (isValidPose(botPose) && (isInMap() || multipleTargetsInView())) {
+                if (isValidPose(botPose) && (isInMap() || multipleTargetsInView())) {
                     Robot.pose.resetPoseEstimate(botPose);
                     poseOverriden = true;
                 } else {
