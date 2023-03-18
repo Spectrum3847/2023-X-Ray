@@ -66,7 +66,11 @@ public class ModuleConfig {
         swerveDriveFXConfig.slot0.kI = 0;
         swerveDriveFXConfig.slot0.kD = tuning.driveKD;
         swerveDriveFXConfig.slot0.kF =
+<<<<<<< Updated upstream
                 1023 / ((XRAY2023.maxVelocity) / PhysicalConfig.swerveMetersPerPulse);
+=======
+                1023 / ((XRAY2023.maxAutoVelocity) / PhysicalConfig.swerveMetersPerPulse);
+>>>>>>> Stashed changes
         swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
         swerveDriveFXConfig.initializationStrategy = SensorInitializationStrategy.BootToZero;
         swerveDriveFXConfig.openloopRamp = 0.0;

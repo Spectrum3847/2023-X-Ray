@@ -17,7 +17,7 @@ public class AutonConfig {
 
     // Balance values
     public static final double stopDrivingAngle = 4;
-    public static final double balancedAngle = 4; // from game manual (should be correct)
+    public static final double balancedAngle = 4;
     public static final double balanceDriveSpeed = 0.3;
     public static final double balanceSlowDriveSpeed = 0.25;
 }
