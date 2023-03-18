@@ -48,7 +48,7 @@ public class Trajectories extends SubsystemBase {
                         TrajectoriesConfig.kDTranslationController);
 
         PathPlannerServer.startServer(
-                5811); // 5811 = port number. adjust this according to your needs
+                5811); // 5811 = port number. adjust this according to your needsz
     }
 
     public void resetTheta() {

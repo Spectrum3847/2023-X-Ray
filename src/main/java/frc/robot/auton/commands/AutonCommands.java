@@ -56,6 +56,24 @@ public class AutonCommands {
         return OperatorCommands.cubeIntake();
     }
 
+    public static Command intakeCone() {
+        return OperatorCommands.coneIntake();
+    }
+
+    public static Command coneMid() {
+        return OperatorCommands.coneMid()
+                .withTimeout(.8)
+                .andThen(IntakeCommands.eject().withTimeout(.8))
+                .andThen(retractIntake().withTimeout(.8));
+    }
+
+    public static Command coneTop() {
+        return OperatorCommands.coneTop()
+                .withTimeout(.8)
+                .andThen(IntakeCommands.eject().withTimeout(.8))
+                .andThen(retractIntake().withTimeout(.8));
+    }
+
     public static Command simpleLaunchCube() {
         return OperatorCommands.cubeTop()
                 .withTimeout(0.5)

@@ -9,9 +9,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.auton.commands.AutonCommands;
+import frc.robot.auton.commands.BehindBalanceCommand;
+import frc.robot.auton.commands.FrontBalanceCommand;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
@@ -100,18 +103,18 @@ public class Auton {
 
     // A chooser for autonomous commands
     public static void setupSelectors() {
-        // autonChooser.setDefaultOption(
-        //         "Nothing",
-        //         new PrintCommand("Doing Nothing in Auton")
-        //                 .andThen(new WaitCommand(5))); // setups an auto that does nothing
         autonChooser.setDefaultOption(
-                "5 Meters",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "5 Meters",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+                "Nothing",
+                new PrintCommand("Doing Nothing in Auton")
+                        .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        // autonChooser.setDefaultOption(
+        //         "5 Meters",
+        //         getAutoBuilder()
+        //                 .fullAuto(
+        //                         PathPlanner.loadPathGroup(
+        //                                 "5 Meters",
+        //                                 new PathConstraints(
+        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
 
         // Advanced comp autos with odometry
         autonChooser.addOption(
@@ -140,21 +143,42 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
-                "ChargeStationTest",
+                "1 Ball w Balance",
                 getAutoBuilder()
                         .fullAuto(
                                 PathPlanner.loadPathGroup(
-                                        "ChargeStationTest",
+                                        "1 Ball w Balance",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+                                                AutonConfig.kMaxMobilitySpeed,
+                                                AutonConfig.kMaxMobilityAccel))));
+        autonChooser.addOption(
+                "1 Ball w Balance w Mobility",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "1 Ball w Balance w Mobility",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxMobilitySpeed,
+                                                AutonConfig.kMaxMobilityAccel))));
+        autonChooser.addOption(
+                "1 Cone w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "1 Cone w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxMobilitySpeed,
+                                                AutonConfig.kMaxMobilityAccel))));
         // Simple comp autos
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
         autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
         autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
+        autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
+        autonChooser.addOption("LockSwerve", new LockSwerve());
         // Advanced comp autos with vision (nothing here because we aren't running them at Waco)
         // Autos for tuning/testing (not used at comp; should comment out before Waco)
-        /*autonChooser.addOption(
+        autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
                         .fullAuto(
@@ -185,7 +209,15 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "IntakeTest",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));*/
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
+                "Turn Test",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Turn Test",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
@@ -196,11 +228,19 @@ public class Auton {
         eventMap.put("BehindStationTop", AutonCommands.onStationTop()); // Tuned Correctly
         eventMap.put(
                 "BehindStationMid", AutonCommands.behindStationMid()); // Need to be tuned to run
+        eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
+        // Cone placing Commands
+        eventMap.put("ConeMid", AutonCommands.coneMid());
+        eventMap.put("ConeTop", AutonCommands.coneTop());
         // Intake Commands
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
+        eventMap.put("IntakeCone", AutonCommands.intakeCone());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
         // Drivetrain Commands
         eventMap.put("LockSwerve", new LockSwerve());
+        // Balance Commands
+        eventMap.put("FrontBalance", new FrontBalanceCommand());
+        eventMap.put("BehindBalance", new BehindBalanceCommand());
     }
 
     /**

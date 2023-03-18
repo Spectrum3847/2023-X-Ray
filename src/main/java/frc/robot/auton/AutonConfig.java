@@ -12,4 +12,12 @@ public class AutonConfig {
     // speeds
     public static final double kMaxSpeed = 2;
     public static final double kMaxAccel = 2.5; // 2 worked but took too long
+    public static final double kMaxMobilitySpeed = 1.5;
+    public static final double kMaxMobilityAccel = 1.5;
+
+    // Balance values
+    public static final double stopDrivingAngle = 4;
+    public static final double balancedAngle = 4; // from game manual (should be correct)
+    public static final double balanceDriveSpeed = 0.3;
+    public static final double balanceSlowDriveSpeed = 0.25;
 }

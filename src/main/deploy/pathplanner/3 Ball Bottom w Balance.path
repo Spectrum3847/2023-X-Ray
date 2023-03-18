@@ -230,11 +230,11 @@
     },
     {
       "anchorPoint": {
-        "x": 2.5,
+        "x": 4.0,
         "y": 2.75
       },
       "prevControl": {
-        "x": 2.784508624517501,
+        "x": 4.2845086245175015,
         "y": 2.75
       },
       "nextControl": null,
@@ -245,7 +245,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "LockSwerve"
+          "BehindBalance"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",

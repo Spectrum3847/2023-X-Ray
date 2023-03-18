@@ -2,17 +2,17 @@ package frc.robot.trajectories;
 
 public class TrajectoriesConfig {
     /* Swerve Controller Constants */
-    public static final double kGenPathMaxSpeed = 4;
-    public static final double kGenPathMaxAccel = 3;
+    public static final double kGenPathMaxSpeed = 2; // was 4
+    public static final double kGenPathMaxAccel = 2; // was 3
     public static final double kGenPathBumpSpeed = 2;
 
     // PID Values for 2023
-    public static final double kPTranslationController = 12; // try 6.5-9.0
-    public static final double kITranslationController = 0;
-    public static final double kDTranslationController = 0;
-    public static final double kPRotationController = 5; // try 8
-    public static final double kIRotationController = 0;
-    public static final double kDRotationController = 0.01; // try 0.2
+    public static double kPTranslationController = 7; // try 6.5-9.0
+    public static double kITranslationController = 0;
+    public static double kDTranslationController = 0;
+    public static double kPRotationController = 5; // try 8
+    public static double kIRotationController = 0;
+    public static double kDRotationController = 0.01; // try 0.2
 
     public static final double fieldWidth = 8.02;
 
