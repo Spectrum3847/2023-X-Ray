@@ -45,6 +45,9 @@ public class XRAY2023 {
     static final double driveKA = (0.193 / 12);
 
     /* Swerve Profiling Values */
+    public static final double maxAutoVelocity =
+            ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per //
+    // second
     public static final double maxVelocity =
             ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 1.33; // meters per //
     // second
