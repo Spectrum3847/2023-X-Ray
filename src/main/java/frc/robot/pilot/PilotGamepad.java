@@ -45,9 +45,9 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        // fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
+        fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
         slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
-        // slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
+        slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
 
         // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
         // gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
@@ -148,13 +148,13 @@ public class PilotGamepad extends Gamepad {
         return gamepad.aButton.and(gamepad.xButton.negate());
     }
 
-    /*private Trigger fpvButton() {
-        return gamepad.xButton.and(gamepad.aButton.negate());
+    private Trigger fpvButton() {
+        return gamepad.startButton.and(gamepad.aButton.negate());
     }
 
     private Trigger slowFpvButton() {
-        return gamepad.xButton.and(gamepad.aButton);
-    }*/
+        return gamepad.startButton.and(gamepad.aButton);
+    }
 
     public double getDriveFwdPositive() {
         double fwdPositive = gamepad.leftStick.getY();
