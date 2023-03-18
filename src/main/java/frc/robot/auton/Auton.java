@@ -15,6 +15,7 @@ import frc.robot.RobotTelemetry;
 import frc.robot.auton.commands.AutonCommands;
 import frc.robot.auton.commands.BehindBalanceCommand;
 import frc.robot.auton.commands.FrontBalanceCommand;
+import frc.robot.auton.commands.LeftConeTaxiCommand;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
@@ -171,6 +172,7 @@ public class Auton {
                                                 AutonConfig.kMaxMobilityAccel))));
         // Simple comp autos
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
+        autonChooser.addOption("Left Cone Taxi", new LeftConeTaxiCommand());
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
         autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
         autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
