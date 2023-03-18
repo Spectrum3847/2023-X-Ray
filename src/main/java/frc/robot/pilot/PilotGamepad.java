@@ -56,7 +56,7 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
 
-        gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
+        // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
 
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
@@ -149,11 +149,11 @@ public class PilotGamepad extends Gamepad {
     }
 
     private Trigger fpvButton() {
-        return gamepad.startButton.and(gamepad.aButton.negate());
+        return gamepad.yButton.and(gamepad.aButton.negate());
     }
 
     private Trigger slowFpvButton() {
-        return gamepad.startButton.and(gamepad.aButton);
+        return gamepad.yButton.and(gamepad.aButton);
     }
 
     public double getDriveFwdPositive() {
