@@ -66,7 +66,7 @@ public class IntakeConfig {
     public double launcherBehindMStationTopSpeed =
             6000; // correct when touching charge station with .5 sec spin up time
 
-    public double currentLimit = 15;
+    public double currentLimit = 20;
     public double threshold = 40;
 
     public double velocityKp = 0.065;

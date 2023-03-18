@@ -35,7 +35,10 @@ public class OperatorCommands {
     // Called by finally do, to let the intake hop up, and keep intaking for a bit after button
     // release
     public static void finishConeIntake() {
-        IntakeCommands.intake()
+        // ElevatorCommands.hopElevator().alongWith(FourBarCommands.home())
+        //         .withTimeout(0.75)
+        //         .schedule();
+        IntakeCommands.slowIntake()
                 .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
                 .withTimeout(0.75)
                 .schedule();
