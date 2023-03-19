@@ -69,7 +69,7 @@ public class AutonCommands {
 
     public static Command coneTop() {
         return OperatorCommands.coneTop()
-                .withTimeout(.8)
+                .withTimeout(.18)
                 .andThen(IntakeCommands.eject().withTimeout(.8))
                 .andThen(retractIntake().withTimeout(.8));
     }
