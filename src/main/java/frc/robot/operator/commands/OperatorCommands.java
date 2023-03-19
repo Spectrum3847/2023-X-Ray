@@ -38,7 +38,7 @@ public class OperatorCommands {
         // ElevatorCommands.hopElevator().alongWith(FourBarCommands.home())
         //         .withTimeout(0.75)
         //         .schedule();
-        IntakeCommands.slowIntake()
+        IntakeCommands.intake()
                 .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
                 .withTimeout(0.75)
                 .schedule();
