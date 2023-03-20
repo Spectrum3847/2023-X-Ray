@@ -2,6 +2,7 @@ package frc.robot.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
@@ -35,18 +36,16 @@ public class OperatorCommands {
     // Called by finally do, to let the intake hop up, and keep intaking for a bit after button
     // release
     public static void finishConeIntake() {
-        // ElevatorCommands.hopElevator().alongWith(FourBarCommands.home())
-        //         .withTimeout(0.75)
-        //         .schedule();
+
         IntakeCommands.intake()
                 .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
                 .withTimeout(0.75)
                 .schedule();
     }
 
-    public static Command coneHybrid() {
-        return IntakeCommands.slowIntake()
-                .alongWith(ElevatorCommands.coneHybrid(), FourBarCommands.coneHybrid());
+    // move to conefloor position and eject cone 
+    public static Command coneFloorGoal(){
+        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal(), new WaitCommand(0.2).andThen(IntakeCommands.floorEject())).finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command coneMid() {
@@ -74,8 +73,8 @@ public class OperatorCommands {
                 .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
-    public static Command cubeHybrid() {
-        return IntakeCommands.hybridSpinUp().alongWith(homeSystems());
+    public static Command cubeFloorGoal() {
+        return ElevatorCommands.cubeFloorGoal().alongWith(FourBarCommands.cubeFloorGoal(), new WaitCommand(0.2).andThen(IntakeCommands.floorEject())).finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command cubeMid() {
@@ -87,7 +86,7 @@ public class OperatorCommands {
     }
 
     public static Command cubeChargeStation() {
-        return IntakeCommands.fullSpinUp().alongWith(homeSystems());
+        return IntakeCommands.behindChargeStationSpinUp().alongWith(homeSystems());
     }
 
     public static Command homeAndSlowIntake() {

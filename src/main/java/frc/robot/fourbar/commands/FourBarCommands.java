@@ -45,8 +45,8 @@ public class FourBarCommands {
         return setMMPercent(FourBar.config.coneStandingIntake);
     }
 
-    public static Command coneHybrid() {
-        return setMMPercent(FourBar.config.coneHybrid);
+    public static Command coneFloorGoal() {
+        return setMMPercent(FourBar.config.hybrid);
     }
 
     public static Command coneMid() {
@@ -63,6 +63,10 @@ public class FourBarCommands {
 
     public static Command cubeIntake() {
         return setMMPercent(FourBar.config.cubeIntake);
+    }
+
+    public static Command cubeFloorGoal(){
+        return setMMPercent(FourBar.config.hybrid);
     }
 
     public static Command cubeMid() {
