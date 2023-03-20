@@ -16,8 +16,8 @@ public class AutonConfig {
     public static final double kMaxMobilityAccel = 1.5;
 
     // Balance values
-    public static final double stopDrivingAngle = 4;
-    public static final double balancedAngle = 4;
-    public static final double balanceDriveSpeed = 0.3;
+    public static final double stopDrivingVelocity = 6;
+    public static final double stopDrivingAngle = 2.5;
+    public static final double balanceDriveSpeed = 0.4;
     public static final double balanceSlowDriveSpeed = 0.25;
 }

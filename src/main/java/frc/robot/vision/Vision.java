@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.trajectories.commands.FollowOnTheFlyPath;
 import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.text.DecimalFormat;
 
@@ -49,6 +50,7 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+        System.out.println(FollowOnTheFlyPath.OTF);
         /* update feed status by looking for an empty json */
         visionConnected =
                 !NetworkTableInstance.getDefault()
@@ -88,9 +90,14 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate if in teleop enabled*/
             if (DriverStation.isTeleopEnabled()) {
-                if (isValidPose(botPose) && (isInMap() || multipleTargetsInView())) {
+                if (isValidPose(botPose)
+                        && (isInMap() || multipleTargetsInView())
+                        && (!FollowOnTheFlyPath.OTF)) {
                     Robot.pose.resetPoseEstimate(botPose);
                     poseOverriden = true;
+                } else if (isEstimateReady(botPose) && FollowOnTheFlyPath.OTF) {
+                    Robot.pose.addVisionMeasurement(botPose, latency);
+                    poseOverriden = false;
                 } else {
                     poseOverriden = false;
                 }
@@ -217,6 +224,26 @@ public class Vision extends SubsystemBase {
         // return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
         //         && (Math.abs(pose.getY() - odometryPose.getY())
         //                 <= 1); // this can be tuned to find a threshold that helps us remove
+        // jumping
+        // vision poses
+    }
+
+    public boolean isEstimateReady(Pose2d pose) {
+        /* Disregard Vision if there are no targets in view */
+        if (!LimelightHelpers.getTV(null)) {
+            return false;
+        }
+
+        /* Disregard Vision if odometry has not been set to vision pose yet in teleopInit*/
+        Pose2d odometryPose = Robot.swerve.getPoseMeters();
+        if (odometryPose.getX() <= 0.3
+                && odometryPose.getY() <= 0.3
+                && odometryPose.getRotation().getDegrees() <= 1) {
+            return false;
+        }
+        return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
+                && (Math.abs(pose.getY() - odometryPose.getY())
+                        <= 1); // this can be tuned to find a threshold that helps us remove
         // jumping
         // vision poses
     }

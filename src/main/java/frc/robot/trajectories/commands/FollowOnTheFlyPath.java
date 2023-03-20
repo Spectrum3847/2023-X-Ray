@@ -18,6 +18,7 @@ import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.LinkedList;
 
 public class FollowOnTheFlyPath extends CommandBase {
+    public static boolean OTF;
     private LinkedList<PathPoint> endPoints = new LinkedList<>();
     private PathPlannerTrajectory path;
     private PathPlannerTrajectory pathToGetSecondPoints;
@@ -40,6 +41,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     public FollowOnTheFlyPath(LinkedList<PathPoint> fullPath) {
         endPoints = new LinkedList<PathPoint>();
         endPoints = fullPath;
+        OTF = false;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.swerve);
     }
@@ -48,6 +50,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     @SuppressWarnings("unchecked")
     public void initialize() {
+        OTF = true;
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();
 
@@ -175,6 +178,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        OTF = false;
         pathFollowingCommmand.end(interrupted);
         Robot.swerve.odometry.resetOdometry(
                 Robot.pose.getPosition()); // Resets odometry position to estimated position
