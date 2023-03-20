@@ -53,15 +53,6 @@ public class Pose extends SubsystemBase {
         telemetry.updatePoseOnField("EstimatedPose", estimatePose);
     }
 
-    /**
-     * @return true if estimated pose is on the chargestation by using the field-space chargestation
-     *     dimensions
-     */
-    public boolean isOnChargeStation() {
-        return ((estimatePose.getX() > 2.9 && estimatePose.getX() < 4.8)
-                && (estimatePose.getY() > 1.54 && estimatePose.getY() < 3.99));
-    }
-
     /** Sets the Odometry Pose to the given pose */
     public void setOdometryPose(Pose2d pose) {
         odometryPose = pose;

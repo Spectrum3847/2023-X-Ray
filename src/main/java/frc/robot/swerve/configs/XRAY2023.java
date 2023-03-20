@@ -23,7 +23,7 @@ public class XRAY2023 {
     /* Physical Configs */
     static final double trackWidth = Units.inchesToMeters(18.5);
     static final double wheelBase = Units.inchesToMeters(21.5);
-    static final double wheelDiameter = Units.inchesToMeters(4.033); // 3.85 worked for 1 meter
+    static final double wheelDiameter = Units.inchesToMeters(4.092); // 3.85 worked for 1 meter
     static final double driveGearRatio = (6.75 / 1.0);
     static final double angleGearRatio = (50.0 / 14.0) * (60.0 / 10.0);
     static final boolean driveMotorInvert = true;
@@ -36,7 +36,7 @@ public class XRAY2023 {
     static final double angleKD = 12;
 
     /* Drive Motor PID Values */
-    static final double driveKP = 0.12;
+    static final double driveKP = 0.1;
     static final double driveKD = 0.0;
 
     /* Drive Motor Characterization Values */
@@ -46,10 +46,10 @@ public class XRAY2023 {
 
     /* Swerve Profiling Values */
     public static final double maxVelocity =
-            ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 1.33; // meters per //
+        ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per //
     // second
     public static final double maxAutoVelocity =
-            ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.9; // meters per //
+        ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per //
     // second
     static final double maxAccel = maxVelocity * 1.5; // take 1/2 sec to get to max speed.
     static final double maxAngularVelocity =

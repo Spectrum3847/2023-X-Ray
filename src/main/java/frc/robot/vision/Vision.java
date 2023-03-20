@@ -88,7 +88,7 @@ public class Vision extends SubsystemBase {
             botPose = botPose3d.toPose2d();
             /* Adding Limelight estimate if in teleop enabled*/
             if (DriverStation.isTeleopEnabled()) {
-                if (isValidPose(botPose) && (isInMap() || multipleTargetsInView())) {
+                if (isValidPose(botPose) && (multipleTargetsInView())) {
                     Robot.pose.resetPoseEstimate(botPose);
                     poseOverriden = true;
                 } else {
@@ -147,10 +147,10 @@ public class Vision extends SubsystemBase {
         // be predictable probably meaning the trig is wrong
     }
 
-    public boolean isInMap() {
+    /*public boolean isInMap() {
         return ((botPose.getX() > 1.8 && botPose.getX() < 2.5)
                 && (botPose.getY() > 0.1 && botPose.getY() < 5.49));
-    }
+    }*/
 
     /**
      * Helper function for {@link Vision#getThetaToHybrid}
