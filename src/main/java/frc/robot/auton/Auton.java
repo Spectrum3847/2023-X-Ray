@@ -135,6 +135,14 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
+                "4 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "4 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        autonChooser.addOption(
                 "3 Ball Bottom w Angle",
                 getAutoBuilder()
                         .fullAuto(
@@ -151,6 +159,14 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxMobilitySpeed,
                                                 AutonConfig.kMaxMobilityAccel))));
+        autonChooser.addOption(
+                "2 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "2 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
                 "1 Ball w Balance w Mobility",
                 getAutoBuilder()

@@ -176,8 +176,8 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         pathFollowingCommmand.end(interrupted);
-        // Robot.swerve.odometry.resetOdometry(
-        //        Robot.pose.getPosition()); // Resets odometry position to estimated position
+        Robot.swerve.odometry.resetOdometry(
+                Robot.pose.getPosition()); // Resets odometry position to estimated position
     }
 
     // Returns true when the command should end.
