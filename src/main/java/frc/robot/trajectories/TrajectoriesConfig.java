@@ -22,7 +22,7 @@ public class TrajectoriesConfig {
     // Heading values for On-the-Fly Generations
     public static final double constantBlueHeading = 180;
     public static final double constantRedHeading = 0;
-    public static final double finalBlueXPosition = 1.80;
+    public static final double finalBlueXPosition = 1.88;
     public static final double finalRedXPosition = 14.75;
     // Scoring Positions (these stay constant throughout all On-The-Fly Paths)
     public static final double lineupXPositionModifier = 0.2;
