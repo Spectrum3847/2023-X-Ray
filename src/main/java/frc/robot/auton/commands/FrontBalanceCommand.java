@@ -13,10 +13,7 @@ public class FrontBalanceCommand extends ParallelCommandGroup {
     public FrontBalanceCommand() {
         addCommands(
                 new SwerveDrive(() -> -AutonConfig.balanceDriveSpeed, () -> 0.0, () -> 0.0, false)
-                        .until(
-                                () ->
-                                        Math.abs(Robot.swerve.gyro.getRawPitch().getDegrees())
-                                                < AutonConfig.stopDrivingAngle)
+                        .until(() -> Robot.swerve.gyro.getRollRate() > AutonConfig.stopDrivingAngle)
                         .andThen(new LockSwerve()));
     }
 }

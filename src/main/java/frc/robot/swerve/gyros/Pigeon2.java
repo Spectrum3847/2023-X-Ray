@@ -41,7 +41,7 @@ public class Pigeon2 implements GyroIO {
         return Rotation2d.fromDegrees(pigeon.getRoll());
     }
 
-    public double getRollRate(){
+    public double getRollRate() {
         double[] xyz_dps = new double[3];
         pigeon.getRawGyro(xyz_dps);
         return xyz_dps[0];

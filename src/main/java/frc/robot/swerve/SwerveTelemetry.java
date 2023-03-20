@@ -24,6 +24,7 @@ public class SwerveTelemetry {
         tab.addNumber("Yaw", () -> swerve.gyro.getRawYaw().getDegrees()).withPosition(2, 1);
         tab.addNumber("Roll", () -> swerve.gyro.getRawRoll().getDegrees()).withPosition(2, 2);
         tab.addNumber("Pitch", () -> swerve.gyro.getRawPitch().getDegrees()).withPosition(2, 3);
+        tab.addNumber("Roll Rate", () -> swerve.gyro.getRollRate()).withPosition(2, 4);
     }
 
     public void testMode() {

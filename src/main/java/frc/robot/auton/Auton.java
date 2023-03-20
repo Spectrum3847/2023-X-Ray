@@ -192,6 +192,7 @@ public class Auton {
         autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
         autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
         autonChooser.addOption("LockSwerve", new LockSwerve());
+        autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());
         // Advanced comp autos with vision (nothing here because we aren't running them at Waco)
         // Autos for tuning/testing (not used at comp; should comment out before Waco)
         autonChooser.addOption(
