@@ -94,6 +94,7 @@ public class ElevatorCommands {
         return setMMPositionFromInches(Elevator.config.cubeMid);
     }
 
+
     public static Command cubeTop() {
         return setMMPositionFromInches(Elevator.config.cubeTop);
     }
