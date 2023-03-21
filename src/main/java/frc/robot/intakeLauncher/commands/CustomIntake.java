@@ -6,7 +6,6 @@ package frc.robot.intakeLauncher.commands;
 
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.SpectrumLib.gamepads.Gamepad;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
@@ -21,15 +20,14 @@ public class CustomIntake extends CommandBase {
     int currentLimit, currentThreshold, lowerVelocity = 0;
     double freeSpeedLevel = 0;
 
-
     /** Creates a new CubeIntake. */
     public CustomIntake(GamePiece gamePieceType) {
         // Use addRequirements() here to declare subsystem dependencies.
         gamePiece = gamePieceType;
-        if(gamePieceType == GamePiece.CUBE) {
-            configureCube(); //cube config 
+        if (gamePieceType == GamePiece.CUBE) {
+            configureCube(); // cube config
         } else {
-            configureCone(); //cone config
+            configureCone(); // cone config
         }
         addRequirements(Robot.intake);
     }
@@ -42,7 +40,7 @@ public class CustomIntake extends CommandBase {
         thresholdCount = 0;
         runMotors = true;
 
-        if(gamePiece == GamePiece.CUBE) {
+        if (gamePiece == GamePiece.CUBE) {
             Robot.intake.setCurrentLimits(currentLimit, currentThreshold);
         }
     }
@@ -66,7 +64,9 @@ public class CustomIntake extends CommandBase {
 
         if (runMotors) {
             Robot.intake.setVelocities(
-                    lowerVelocity, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
+                    lowerVelocity,
+                    Intake.config.frontIntakeSpeed,
+                    Intake.config.launcherIntakeSpeed);
         } else {
             Robot.intake.stopAll();
             Robot.operatorGamepad.rumble(0.5);
@@ -95,14 +95,11 @@ public class CustomIntake extends CommandBase {
         currentThreshold = 60;
         freeSpeedLevel = 3600;
         lowerVelocity = 3000;
-
-
     }
 
     private void configureCone() {
         freeSpeedLevel = 3600;
         lowerVelocity = 3000;
-
     }
 
     public enum GamePiece {

@@ -7,7 +7,6 @@ package frc.robot.intakeLauncher.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.elevator.Elevator;
 
 public class holdCone extends CommandBase {
     double frontPos = 0;

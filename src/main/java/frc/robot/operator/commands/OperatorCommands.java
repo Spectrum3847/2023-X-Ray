@@ -10,8 +10,8 @@ import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.FourBarDelay;
 import frc.robot.intakeLauncher.commands.CustomIntake;
-import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.intakeLauncher.commands.CustomIntake.GamePiece;
+import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
 
 public class OperatorCommands {
