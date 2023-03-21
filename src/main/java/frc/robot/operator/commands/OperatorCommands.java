@@ -9,8 +9,9 @@ import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.FourBarDelay;
-import frc.robot.intakeLauncher.commands.CubeIntake;
+import frc.robot.intakeLauncher.commands.CustomIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.intakeLauncher.commands.CustomIntake.GamePiece;
 import frc.robot.operator.OperatorConfig;
 
 public class OperatorCommands {
@@ -28,7 +29,7 @@ public class OperatorCommands {
     /* Position Commands */
 
     public static Command coneIntake() {
-        return IntakeCommands.intake()
+        return new CustomIntake(GamePiece.CONE)
                 .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
                 .finallyDo((b) -> finishConeIntake());
     }
@@ -36,7 +37,6 @@ public class OperatorCommands {
     // Called by finally do, to let the intake hop up, and keep intaking for a bit after button
     // release
     public static void finishConeIntake() {
-
         IntakeCommands.intake()
                 .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
                 .withTimeout(0.75)
@@ -73,7 +73,7 @@ public class OperatorCommands {
     }
 
     public static Command cubeIntake() {
-        return new CubeIntake()
+        return new CustomIntake(GamePiece.CUBE)
                 .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
