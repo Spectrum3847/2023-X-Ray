@@ -105,12 +105,12 @@
         "y": 0.95
       },
       "prevControl": {
-        "x": 5.096364227816176,
-        "y": 0.9518740335726286
+        "x": 4.743629915712275,
+        "y": 0.95
       },
       "nextControl": {
-        "x": 5.096364227816176,
-        "y": 0.9518740335726286
+        "x": 4.743629915712275,
+        "y": 0.95
       },
       "holonomicAngle": 180.0,
       "isReversal": true,
@@ -129,15 +129,15 @@
     {
       "anchorPoint": {
         "x": 7.07,
-        "y": 1.7
+        "y": 1.5
       },
       "prevControl": {
-        "x": 7.082313989189382,
-        "y": 0.8523722310602522
+        "x": 6.810266076672505,
+        "y": 0.743553066053501
       },
       "nextControl": {
-        "x": 7.069793260387927,
-        "y": 1.714230825887386
+        "x": 7.0746219513095525,
+        "y": 1.5134609328353008
       },
       "holonomicAngle": 90.0,
       "isReversal": false,
@@ -220,12 +220,14 @@
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "BehindStationMid"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "minimum",
+        "waitTime": 0.8
       }
     },
     {
@@ -281,5 +283,36 @@
   "maxVelocity": 3.0,
   "maxAcceleration": null,
   "isReversed": null,
-  "markers": []
+  "markers": [
+    {
+      "position": 0.8,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 4.35,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 8.5,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 2.2,
+      "names": [
+        "RetractIntake"
+      ]
+    },
+    {
+      "position": 6.2,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }
