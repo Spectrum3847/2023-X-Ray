@@ -14,7 +14,6 @@ import frc.robot.pilot.commands.PilotCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
-
     OperatorConfig config;
 
     public OperatorGamepad() {
@@ -34,7 +33,7 @@ public class OperatorGamepad extends Gamepad {
         // gamepad.aButton.and(noRightBumper()).whileTrue();
         gamepad.aButton
                 .and(rightBumper())
-                .whileTrue(OperatorCommands.cubeHybrid().alongWith(PilotCommands.rumble(1, 99)));
+                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
         gamepad.bButton
                 .and(noRightBumper())
                 .whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.rumble(1, 99)));
@@ -44,7 +43,7 @@ public class OperatorGamepad extends Gamepad {
                         OperatorCommands.cubeChargeStation()
                                 .alongWith(PilotCommands.rumble(1, 99)));
         gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
-        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneHybrid());
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
         gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
         gamepad.rightTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.coneIntake());
         gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneShelfIntake());

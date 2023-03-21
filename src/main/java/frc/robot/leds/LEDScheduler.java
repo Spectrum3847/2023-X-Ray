@@ -20,8 +20,8 @@ public class LEDScheduler {
     Animation defaultAnimation;
 
     public LEDScheduler(LEDs subsystem) {
-        RobotTelemetry.print("Starting LED Scheduler Thread");
-        LEDSchedulerThread.start();
+        // RobotTelemetry.print("Starting LED Scheduler Thread");
+        // LEDSchedulerThread.start();
     }
 
     public void setDefaultAnimation(String name, LEDCommandBase command) {
@@ -36,16 +36,10 @@ public class LEDScheduler {
         setDefaultAnimation("Default LED Animation", new ChaseLEDCommand("LED Default", 1, -101));
     }
 
-    private void runScheduler() {
+    public void runScheduler() {
         if (top == null) {
             intialAnimation();
         }
-        // It the top animation isn't scheduled, schedule it. EDIT: I know why this exists but
-        // apparently it doesn't affect anything and it breaks the ending function of commands so
-        // I'm commenting it out
-        // if (!top.getCommand().isScheduled()) {
-        //     top.getCommand().schedule();
-        // }
 
         // Increment through all the Animations
         for (int j = 0; j < animationArrary.size(); j++) {

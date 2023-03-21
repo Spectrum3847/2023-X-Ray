@@ -1,13 +1,13 @@
 package frc.robot.trajectories;
 
 public class TrajectoriesConfig {
-    /* Swerve Conroller Constants */
-    public static final double kGenPathMaxSpeed = 4;
-    public static final double kGenPathMaxAccel = 4;
-    public static final double kGenPathBumpSpeed = 2;
+    /* Swerve Controller Constants */
+    public static final double kGenPathMaxSpeed = 2;
+    public static final double kGenPathMaxAccel = 2;
+    public static final double kGenPathBumpSpeed = 1;
 
     // PID Values for 2023
-    public static final double kPTranslationController = 6; // try ~5
+    public static final double kPTranslationController = 5.6; // try ~5
     public static final double kITranslationController = 0;
     public static final double kDTranslationController = 0;
     public static final double kPRotationController = 5; // try 8
@@ -22,7 +22,7 @@ public class TrajectoriesConfig {
     // Heading values for On-the-Fly Generations
     public static final double constantBlueHeading = 180;
     public static final double constantRedHeading = 0;
-    public static final double finalBlueXPosition = 1.80;
+    public static final double finalBlueXPosition = 1.88;
     public static final double finalRedXPosition = 14.75;
     // Scoring Positions (these stay constant throughout all On-The-Fly Paths)
     public static final double lineupXPositionModifier = 0.2;

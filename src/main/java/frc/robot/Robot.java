@@ -164,10 +164,6 @@ public class Robot extends LoggedRobot {
         resetCommandsAndButtons();
         swerve.resetSteeringToAbsolute(); // reset the steering encoders to absolute value
 
-        if (vision.botPose.getX() >= 0.3) {
-            pose.resetPoseEstimate(Robot.vision.botPose);
-        }
-
         RobotTelemetry.print("## Disabled Init Complete");
         SwerveCommands.brakeMode(10).schedule(); // Brake mode for the first 10 seconds of disabled
     }
@@ -212,7 +208,7 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
 
-        if (vision.botPose.getX() >= 0.3) {
+        if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
             pose.resetPoseEstimate(Robot.vision.botPose);
         }
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
@@ -228,6 +224,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void teleopExit() {
         RobotTelemetry.print("$$ Teleop Exit");
+        vision.poseOverriden = false;
 
         // Send the stop recording boolean
         if (DriverStation.isFMSAttached()) {
