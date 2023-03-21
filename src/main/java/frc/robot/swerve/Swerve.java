@@ -172,10 +172,6 @@ public class Swerve extends SubsystemBase {
         return rotationController.calculate(targetRadians.getAsDouble());
     }
 
-    public double calculateRotationController(double targetRadians) {
-        return calculateRotationController(targetRadians);
-    }
-
     public boolean atRotationSetpoint() {
         return rotationController.atSetpoint();
     }

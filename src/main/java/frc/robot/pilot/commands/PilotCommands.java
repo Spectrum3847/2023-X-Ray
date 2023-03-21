@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.pilot.PilotConfig;
 import frc.robot.pose.commands.PoseCommands;
+import frc.robot.swerve.commands.HeadingLock;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
 import frc.robot.trajectories.TrajectoriesCommands;
@@ -26,6 +27,12 @@ public class PilotCommands {
                         () -> Robot.pilotGamepad.getDriveLeftPositive(),
                         () -> Robot.pilotGamepad.getDriveCCWPositive())
                 .withName("PilotSwerve");
+    }
+
+    public static Command pilotHeadingLock() {
+        return new HeadingLock(
+                () -> Robot.pilotGamepad.getDriveFwdPositive(),
+                () -> Robot.pilotGamepad.getDriveLeftPositive());
     }
 
     public static Command slowMode() {

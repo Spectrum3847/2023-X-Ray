@@ -23,6 +23,29 @@ public class PilotGamepad extends Gamepad {
     Trigger canUseAutoPilot =
             new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
 
+    Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5, ThresholdType.DEADBAND);
+    Trigger rightY = AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.5, ThresholdType.DEADBAND);
+
+    Trigger leftX =
+            AxisButton.create(
+                    gamepad, XboxAxis.LEFT_X, PilotConfig.throttleDeadband, ThresholdType.DEADBAND);
+    Trigger leftY =
+            AxisButton.create(
+                    gamepad, XboxAxis.LEFT_Y, PilotConfig.throttleDeadband, ThresholdType.DEADBAND);
+
+    Trigger leftTrigger =
+            AxisButton.create(
+                    gamepad,
+                    XboxAxis.LEFT_TRIGGER,
+                    PilotConfig.steeringDeadband,
+                    ThresholdType.DEADBAND);
+    Trigger rightTrigger =
+            AxisButton.create(
+                    gamepad,
+                    XboxAxis.RIGHT_TRIGGER,
+                    PilotConfig.steeringDeadband,
+                    ThresholdType.DEADBAND);
+
     public PilotGamepad() {
         super("PILOT", PilotConfig.port);
         gamepad.leftStick.setDeadband(PilotConfig.throttleDeadband);
@@ -91,7 +114,9 @@ public class PilotGamepad extends Gamepad {
         leftGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(8));
 
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
+        driveTrigger();
         stickSteerTriggers();
+        triggerSteering();
 
         gamepad.Dpad.Up.whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
@@ -120,6 +145,10 @@ public class PilotGamepad extends Gamepad {
 
     private Trigger noBumpers() {
         return gamepad.rightBumper.negate().and(gamepad.leftBumper.negate());
+    }
+
+    private Trigger noTriggers() {
+        return leftTrigger.negate().and(rightTrigger.negate());
     }
 
     private Trigger leftBumperOnly() {
@@ -189,10 +218,19 @@ public class PilotGamepad extends Gamepad {
                 gamepad.rightStick.getY(), gamepad.rightStick.getX());
     }
 
+    private void driveTrigger() {
+        leftX.or(leftY)
+                .and(noBumpers())
+                .and(noTriggers())
+                .whileTrue(PilotCommands.pilotHeadingLock());
+    }
+
+    private void triggerSteering() {
+        leftTrigger.or(rightTrigger).and(noBumpers()).whileTrue(PilotCommands.pilotSwerve());
+    }
+
     private void stickSteerTriggers() {
         // Right Stick points the robot in that direction, when bumpers aren't pressed
-        Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5, ThresholdType.DEADBAND);
-        Trigger rightY = AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.5, ThresholdType.DEADBAND);
         (rightX.or(rightY)).and(noBumpers()).whileTrue(PilotCommands.stickSteer());
     }
 

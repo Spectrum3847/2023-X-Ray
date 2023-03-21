@@ -11,6 +11,7 @@ import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configTemplates.TuningConfig;
 
 public class XRAY2023 {
+
     /* Angle Offsets */
     public static final double mod0angleOffset = 125.05455; // 125.4199;
     public static final double mod1angleOffset = 271.11901; // 271.119;
@@ -57,7 +58,7 @@ public class XRAY2023 {
     static final double maxAngularAcceleration = Math.pow(maxAngularVelocity, 2);
 
     /*Rotation Controller*/
-    public static final double kPRotationController = 6.0;
+    public static final double kPRotationController = 8;
     public static final double kIRotationController = 0.0;
     public static final double kDRotationController = 0.1;
 
