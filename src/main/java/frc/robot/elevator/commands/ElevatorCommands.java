@@ -85,10 +85,6 @@ public class ElevatorCommands {
     public static Command cubeIntake() {
         return hopElevator(Elevator.config.cubeIntake);
     }
-    
-    public static Command cubeFloorGoal(){
-        return setMMPositionFromInches(Elevator.config.hybrid);
-    }
 
     public static Command cubeFloorGoal() {
         return setMMPositionFromInches(Elevator.config.cubeHybrid);
