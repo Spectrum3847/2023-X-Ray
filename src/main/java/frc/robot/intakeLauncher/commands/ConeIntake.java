@@ -35,13 +35,13 @@ public class ConeIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontRPM() > 5100) {
+        if (Robot.intake.getFrontRPM() > 3500) {
             if (!velocityLimitReached && thresholdCount >= 8) {
                 count++;
                 velocityLimitReached = true;
             }
             thresholdCount++;
-        } else if (Robot.intake.getFrontRPM() < 5000) {
+        } else if (Robot.intake.getFrontRPM() < 3500) {
             velocityLimitReached = false;
         }
 
