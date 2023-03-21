@@ -11,10 +11,6 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double hopHeight = 1;
     public final double hopTime = 0.5;
 
-    public final double cubeIntake = 0;
-    public final double cubeMid = 0;
-    public final double cubeTop = 0;
-
     public final double coneIntake = 0;
     public final double coneStandingIntake = 0;
     public final double coneShelf = 44.13; // 126200 falcon
@@ -22,6 +18,11 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneHybrid = 2;
     public final double coneMid = 34.5; // 95900  falcon
     public final double coneTop = 58.4;
+
+    public final double cubeIntake = 0;
+    public final double cubeMid = 0;
+    public final double cubeTop = 0;
+    public final double cubeHybrid = coneHybrid;
 
     public final double diameterInches = 2.0051; // changed from int, 4
     public final double gearRatio = 9 / 1;

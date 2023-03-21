@@ -50,7 +50,6 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
-        System.out.println(FollowOnTheFlyPath.OTF);
         /* update feed status by looking for an empty json */
         visionConnected =
                 !NetworkTableInstance.getDefault()
