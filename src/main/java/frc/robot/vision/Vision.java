@@ -22,9 +22,13 @@ import java.text.DecimalFormat;
 public class Vision extends SubsystemBase {
     public PhotonVision photonVision;
     public Pose2d botPose;
-    public boolean poseOverriden, visionIntegrated, visionConnected = false;
+    public boolean visionIntegrated, visionConnected = false;
+    /** For LEDs */
+    public boolean poseOverriden = false;
+    /** For Pilot Gamepad */
+    public boolean canUseAutoPilot = false;
 
-    private Pose3d botPose3d;
+    private Pose3d botPose3d; // Uses the limelight rotation instead of the gyro rotation
     private Pair<Pose3d, Double> photonVisionPose;
     private int targetSeenCount;
     private boolean targetSeen, visionStarted = false;
@@ -86,22 +90,25 @@ public class Vision extends SubsystemBase {
                             : LimelightHelpers.getBotPose_wpiRed(null)[
                                     6]; // may need to add LimelightHelpers json parsing delay?
             botPose3d = chooseAlliance();
-            botPose = botPose3d.toPose2d();
-            /* Adding Limelight estimate if in teleop enabled*/
+            botPose = toPose2d(botPose3d);
+            /* Adding Limelight estimate if in teleop enabled */
             if (DriverStation.isTeleopEnabled()) {
-                if (isValidPose(botPose)
-                        && (isInMap() || multipleTargetsInView())
-                        && (!FollowOnTheFlyPath.OTF)) {
-                    Robot.pose.resetPoseEstimate(botPose);
-                    poseOverriden = true;
+                if (visionAccurate()) {
+                    if (!FollowOnTheFlyPath.OTF) poseOverriden = true;
+                    canUseAutoPilot = true;
                 } else if (isEstimateReady(botPose) && FollowOnTheFlyPath.OTF) {
+                    // this can't be done in the command itself because of how addVisionMeasurement
+                    // is called internally
                     Robot.pose.addVisionMeasurement(botPose, latency);
                     poseOverriden = false;
+                    canUseAutoPilot = true;
                 } else {
                     poseOverriden = false;
+                    if (!FollowOnTheFlyPath.OTF) canUseAutoPilot = false;
                 }
             } else {
                 poseOverriden = false;
+                canUseAutoPilot = false;
             }
         }
 
@@ -137,7 +144,7 @@ public class Vision extends SubsystemBase {
         double hyp = Math.hypot(transform.getX(), transform.getY());
         double beta = Math.toDegrees(Math.asin(transform.getX() / hyp));
         // double headingInScope; -- may have to get rotation in scope of -180 to 180 if using gryo
-        double omega = Robot.pose.getEstimatedPose().getRotation().getDegrees() + 90;
+        double omega = Robot.pose.getBestPose().getRotation().getDegrees() + 90;
         double theta = 360 - (omega + beta);
         /* if theta is greater than 360 subtract 360 so you dont turn over a full rotation */
         if (theta > 360) {
@@ -151,6 +158,16 @@ public class Vision extends SubsystemBase {
         return theta
                 - 25; // this is the predictable offset behind the chargestation. The error seems to
         // be predictable probably meaning the trig is wrong
+    }
+
+    /** Resets estimated pose to vision pose */
+    public void resetEstimatedPose() {
+        Robot.pose.resetPoseEstimate(botPose);
+    }
+
+    /** @return if vision should be trusted more than estimated pose */
+    public boolean visionAccurate() {
+        return isValidPose(botPose) && (isInMap() || multipleTargetsInView());
     }
 
     public boolean isInMap() {
@@ -168,7 +185,7 @@ public class Vision extends SubsystemBase {
      */
     private Transform2d getTransformToHybrid(int hybridSpot) {
         Pose2d hybridPose = VisionConfig.hybridSpots[hybridSpot];
-        return Robot.pose.getEstimatedPose().minus(hybridPose);
+        return Robot.pose.getBestPose().minus(hybridPose);
     }
 
     /** @return whether the camera sees multiple tags or not */
@@ -198,13 +215,7 @@ public class Vision extends SubsystemBase {
         return null;
     }
 
-    /**
-     * Comparing vision pose against odometry pose. Does not account for difference in rotation.
-     * Will return false vision if it sees no targets or if the vision estimated pose is too far
-     * from the odometry estimate
-     *
-     * @return whether or not pose should be added to estimate or not
-     */
+    /** @return whether or not vision sees a tag */
     public boolean isValidPose(Pose2d pose) {
         /* Disregard Vision if there are no targets in view */
         if (!LimelightHelpers.getTV(null)) {
@@ -212,21 +223,15 @@ public class Vision extends SubsystemBase {
         } else {
             return true;
         }
-
-        /* Disregard Vision if odometry has not been set to vision pose yet in teleopInit*/
-        // Pose2d odometryPose = Robot.swerve.getPoseMeters();
-        // if (odometryPose.getX() <= 0.3
-        //         && odometryPose.getY() <= 0.3
-        //         && odometryPose.getRotation().getDegrees() <= 1) {
-        //     return false;
-        // }
-        // return (Math.abs(pose.getX() - odometryPose.getX()) <= 1)
-        //         && (Math.abs(pose.getY() - odometryPose.getY())
-        //                 <= 1); // this can be tuned to find a threshold that helps us remove
-        // jumping
-        // vision poses
     }
 
+    /**
+     * Comparing vision pose against odometry pose. Does not account for difference in rotation.
+     * Will return false vision if it sees no targets or if the vision estimated pose is too far
+     * from the odometry estimate
+     *
+     * @return whether or not pose should be added to estimate or not
+     */
     public boolean isEstimateReady(Pose2d pose) {
         /* Disregard Vision if there are no targets in view */
         if (!LimelightHelpers.getTV(null)) {
@@ -245,6 +250,19 @@ public class Vision extends SubsystemBase {
                         <= 1); // this can be tuned to find a threshold that helps us remove
         // jumping
         // vision poses
+    }
+
+    /**
+     * Converts a vision pose3d object to a pose2d object Also replaces the rotational component to
+     * be the gyro rotation as this stays consistent throughout the match and does not need to be
+     * overriden by vision
+     *
+     * @param pose3d vision pose3d
+     * @return modified pose2d
+     */
+    public Pose2d toPose2d(Pose3d pose3d) {
+        Pose2d pose2d = botPose3d.toPose2d();
+        return new Pose2d(pose2d.getTranslation(), Robot.pose.getHeading());
     }
 
     /**
@@ -308,8 +326,8 @@ public class Vision extends SubsystemBase {
                     "LimelightYaw",
                     df.format(Units.radiansToDegrees(botPose3d.getRotation().getZ())));
         }
-        SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getLocation().getX()));
-        SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getLocation().getY()));
+        SmartDashboard.putString("EstimatedPoseX", df.format(Robot.pose.getBestPose().getX()));
+        SmartDashboard.putString("EstimatedPoseY", df.format(Robot.pose.getBestPose().getY()));
         SmartDashboard.putString(
                 "EstimatedPoseTheta", df.format(Robot.pose.getHeading().getDegrees()));
     }
@@ -326,8 +344,7 @@ public class Vision extends SubsystemBase {
     private void aimingPrintDebug(
             Transform2d transform, double hyp, double beta, double omega, double theta) {
         System.out.println(
-                " pose theta: "
-                        + df.format(Robot.pose.getEstimatedPose().getRotation().getDegrees()));
+                " pose theta: " + df.format(Robot.pose.getBestPose().getRotation().getDegrees()));
         System.out.print(
                 "transform x: "
                         + df.format(transform.getX())

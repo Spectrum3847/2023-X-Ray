@@ -50,6 +50,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     @SuppressWarnings("unchecked")
     public void initialize() {
+        Robot.vision.resetEstimatedPose();
         OTF = true;
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();

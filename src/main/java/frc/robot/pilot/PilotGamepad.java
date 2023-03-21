@@ -20,6 +20,8 @@ import frc.robot.vision.VisionCommands;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
+    Trigger canUseAutoPilot =
+            new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
 
     public PilotGamepad() {
         super("PILOT", PilotConfig.port);
@@ -45,6 +47,9 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
+        canUseAutoPilot =
+                new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
+
         fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
         slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
         slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
@@ -63,6 +68,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.leftBumper.whileTrue(
                 FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
 
+        /* Will not run if canUseAutoPilot condition is not met */
         leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
         leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
         leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
@@ -133,15 +139,15 @@ public class PilotGamepad extends Gamepad {
     }
 
     private Trigger leftGrid() {
-        return leftBumperOnly();
+        return leftBumperOnly().and(canUseAutoPilot);
     }
 
     private Trigger rightGrid() {
-        return rightBumperOnly();
+        return rightBumperOnly().and(canUseAutoPilot);
     }
 
     private Trigger middleGrid() {
-        return bothBumpers();
+        return bothBumpers().and(canUseAutoPilot);
     }
 
     private Trigger slowModeButton() {

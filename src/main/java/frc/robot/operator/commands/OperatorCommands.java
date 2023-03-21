@@ -44,7 +44,11 @@ public class OperatorCommands {
 
     /* Move to coneFloor position and eject cone */
     public static Command coneFloorGoal() {
-        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal(), new WaitCommand(0.2).andThen(IntakeCommands.floorEject())).finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+        return ElevatorCommands.coneFloorGoal()
+                .alongWith(
+                        FourBarCommands.coneFloorGoal(),
+                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command coneMid() {
@@ -73,7 +77,11 @@ public class OperatorCommands {
     }
 
     public static Command cubeFloorGoal() {
-        return ElevatorCommands.cubeFloorGoal().alongWith(FourBarCommands.cubeFloorGoal(), new WaitCommand(0.2).andThen(IntakeCommands.floorEject())).finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+        return ElevatorCommands.cubeFloorGoal()
+                .alongWith(
+                        FourBarCommands.cubeFloorGoal(),
+                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command cubeMid() {

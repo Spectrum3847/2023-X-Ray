@@ -14,7 +14,6 @@ import frc.robot.pilot.commands.PilotCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
-
     OperatorConfig config;
 
     public OperatorGamepad() {

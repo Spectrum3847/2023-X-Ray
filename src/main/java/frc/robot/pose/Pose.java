@@ -58,8 +58,22 @@ public class Pose extends SubsystemBase {
      *     dimensions
      */
     public boolean isOnChargeStation() {
-        return ((estimatePose.getX() > 2.9 && estimatePose.getX() < 4.8)
-                && (estimatePose.getY() > 1.54 && estimatePose.getY() < 3.99));
+        return ((getBestPose().getX() > 2.9 && getBestPose().getX() < 4.8)
+                && (getBestPose().getY() > 1.54 && getBestPose().getY() < 3.99));
+    }
+
+    /**
+     * Returns the most accurate pose. If we are not confident that vision is accurate,
+     * estimatedPose is considered to be most accurate.
+     *
+     * @return vision pose or estimated pose
+     */
+    public Pose2d getBestPose() {
+        if (Robot.vision.visionAccurate()) {
+            return Robot.vision.botPose;
+        } else {
+            return estimatePose;
+        }
     }
 
     /** Sets the Odometry Pose to the given pose */
