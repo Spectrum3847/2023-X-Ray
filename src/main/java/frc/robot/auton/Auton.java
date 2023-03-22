@@ -115,9 +115,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "3 Ball Bottom w Balance",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig
-                                                        .kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption(
                 "3 Ball Bottom w Angle",
                 getAutoBuilder()
@@ -125,7 +123,8 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "3 Ball Bottom w Angle",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAngleAccel))));
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig.kMaxAngleAccel))));
         autonChooser.addOption(
                 "1 Ball w Balance",
                 getAutoBuilder()
