@@ -29,6 +29,7 @@ cross_b_y:0
 desc:XRAY_comp
 desired_contour_region:0
 detector_conf:0.800000
+detector_idfilters:
 dilation_steps:0
 direction_filter:0
 dual_close_sort_origin:0
@@ -38,7 +39,9 @@ fiducial_decoder_strictness:strict
 fiducial_denoise:0.000000
 fiducial_idfilters:
 fiducial_locfilters:
-fiducial_qualitythreshold:0.000000
+fiducial_method:sqpnp
+fiducial_qualitythreshold:3
+fiducial_refine:1
 fiducial_resdiv:2
 fiducial_size:152.4
 fiducial_skip3d:0
