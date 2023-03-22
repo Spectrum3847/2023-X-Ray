@@ -45,7 +45,7 @@ public class ConeIntake extends CommandBase {
             velocityLimitReached = false;
         }
 
-        if (count >= 2) {
+        if (count >= 1 && !velocityLimitReached) {
             runMotors = false;
         }
 
@@ -53,7 +53,7 @@ public class ConeIntake extends CommandBase {
             Robot.intake.setVelocities(
                     3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
         } else {
-            Robot.intake.stopAll();
+            // Robot.intake.stopAll();
             Robot.operatorGamepad.rumble(0.5);
         }
     }
