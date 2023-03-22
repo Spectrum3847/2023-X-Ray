@@ -10,8 +10,9 @@ public class AutonConfig {
     public static final double stopTime = 0.001;
 
     // speeds
-    public static final double kMaxSpeed = 3; // 2 = too slow
-    public static final double kMaxAccel = 3; // 2 worked but took too long //2.5 = too slow
+    public static final double kMaxSpeed = 3;
+    public static final double kMaxAccel = 3;
+    public static final double kMaxAngleAccel = 3.25; // 3 is too slow for 3 ball bottom w angle
     public static final double kMaxMobilitySpeed = 1.5;
     public static final double kMaxMobilityAccel = 1.5;
 
