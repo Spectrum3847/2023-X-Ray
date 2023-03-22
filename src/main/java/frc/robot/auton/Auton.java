@@ -133,7 +133,9 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "3 Ball Bottom w Balance",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
+                        .andThen(new WaitCommand(1))
+                        .andThen(new BehindBalanceCommand())); //1 second worked test for tomorrow
         autonChooser.addOption(
                 "4 Ball Bottom w Balance",
                 getAutoBuilder()
