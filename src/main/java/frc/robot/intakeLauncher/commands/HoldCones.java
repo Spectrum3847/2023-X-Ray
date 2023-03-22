@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 
-public class holdCone extends CommandBase {
+public class HoldCones extends CommandBase {
     double frontPos = 0;
     double timer = 0;
     double startTime = 0;
 
     /** Creates a new holdRollerPositions. */
-    public holdCone() {
+    public HoldCones() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.intake);
     }
