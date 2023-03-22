@@ -174,22 +174,6 @@ public class Auton {
                                         "5 Meters",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        autonChooser.addOption(
-                "IntakeTest",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "IntakeTest",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        autonChooser.addOption(
-                "Turn Test",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Turn Test",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
         autonChooser.addOption("LockSwerve", new LockSwerve());
         autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());*/

@@ -83,9 +83,9 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
 
-        // gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
+        gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
 
-        gamepad.xButton.whileTrue(new BehindBalanceCommand());
+        //gamepad.xButton.whileTrue(new BehindBalanceCommand());
 
         // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
 
