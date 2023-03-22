@@ -7,7 +7,6 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
-import frc.robot.auton.commands.BehindBalanceCommand;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
@@ -85,7 +84,7 @@ public class PilotGamepad extends Gamepad {
 
         gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
 
-        //gamepad.xButton.whileTrue(new BehindBalanceCommand());
+        // gamepad.xButton.whileTrue(new BehindBalanceCommand());
 
         // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
 
