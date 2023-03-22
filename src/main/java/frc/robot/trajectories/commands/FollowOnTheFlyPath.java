@@ -34,7 +34,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     private double secondXPos;
     private double secondYPos;
 
-    private Command pathFollowingCommmand = null;
+    private Command pathFollowingCommand = null;
 
     /*Creates a new GeneratePath.
      * * @param firstPoints*/
@@ -50,7 +50,9 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     @SuppressWarnings("unchecked")
     public void initialize() {
-        Robot.vision.resetEstimatedPose();
+        if (Robot.vision.visionAccurate()) {
+            Robot.vision.resetEstimatedPose();
+        }
         OTF = true;
         LinkedList<PathPoint> fullPath = new LinkedList<>();
         fullPath = (LinkedList<PathPoint>) endPoints.clone();
@@ -166,21 +168,21 @@ public class FollowOnTheFlyPath extends CommandBase {
                         // rotation
                         );
 
-        pathFollowingCommmand = PathBuilderEstimatedPose.pathBuilder.followPath(path);
-        pathFollowingCommmand.initialize();
+        pathFollowingCommand = PathBuilderEstimatedPose.pathBuilder.followPath(path);
+        pathFollowingCommand.initialize();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pathFollowingCommmand.execute();
+        pathFollowingCommand.execute();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         OTF = false;
-        pathFollowingCommmand.end(interrupted);
+        pathFollowingCommand.end(interrupted);
         Robot.swerve.odometry.resetOdometry(
                 Robot.pose.getPosition()); // Resets odometry position to estimated position
     }
@@ -188,7 +190,7 @@ public class FollowOnTheFlyPath extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return pathFollowingCommmand.isFinished();
+        return pathFollowingCommand.isFinished();
     }
 
     private double getStoppedHeading(double secondXPos, double secondYPos) {

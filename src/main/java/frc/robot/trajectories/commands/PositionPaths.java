@@ -1,6 +1,7 @@
 package frc.robot.trajectories.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.trajectories.TrajectoriesConfig;
 
 public class PositionPaths {

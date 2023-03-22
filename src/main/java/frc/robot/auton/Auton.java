@@ -135,7 +135,7 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
                         .andThen(new WaitCommand(1))
-                        .andThen(new BehindBalanceCommand())); //1 second worked test for tomorrow
+                        .andThen(new BehindBalanceCommand())); // 1 second worked test for tomorrow
         autonChooser.addOption(
                 "4 Ball Bottom w Balance",
                 getAutoBuilder()
