@@ -19,8 +19,13 @@ public class OperatorCommands {
 
     /* Intaking Commands */
 
+    public static Command coneShelfIntake() {
+        return new ConeIntake(true)
+                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
+    }
+
     public static Command coneStandingIntake() {
-        return IntakeCommands.intake()
+        return new ConeIntake()
                 .alongWith(
                         ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
@@ -30,7 +35,8 @@ public class OperatorCommands {
 
     public static Command coneIntake() {
         return new ConeIntake()
-                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake());
+                .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
+                .finallyDo((b) -> finishConeIntake());
     }
 
     // Called by finally do, to let the intake hop up, and keep intaking for a bit after button
@@ -64,11 +70,6 @@ public class OperatorCommands {
                                 FourBar.config.safePositionForElevator,
                                 FourBar.config.coneTop,
                                 Elevator.config.safePositionForFourBar));
-    }
-
-    public static Command coneShelfIntake() {
-        return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
     }
 
     public static Command cubeIntake() {
