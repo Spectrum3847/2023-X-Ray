@@ -8,7 +8,7 @@ import frc.robot.intakeLauncher.Intake;
 public class IntakeCommands {
 
     public static void setupDefaultCommand() {
-        Robot.intake.setDefaultCommand(stopAllMotors().withTimeout(1).andThen(new HoldCones()));
+        Robot.intake.setDefaultCommand(stopAllMotors().withTimeout(1).andThen(new HoldCone()));
     }
 
     public static Command slowIntake() {
