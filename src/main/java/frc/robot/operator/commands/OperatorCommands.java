@@ -9,6 +9,7 @@ import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.FourBarDelay;
+import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
@@ -18,8 +19,13 @@ public class OperatorCommands {
 
     /* Intaking Commands */
 
+    public static Command coneShelfIntake() {
+        return new ConeIntake(true)
+                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
+    }
+
     public static Command coneStandingIntake() {
-        return IntakeCommands.intake()
+        return new ConeIntake()
                 .alongWith(
                         ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
@@ -28,7 +34,7 @@ public class OperatorCommands {
     /* Position Commands */
 
     public static Command coneIntake() {
-        return IntakeCommands.intake()
+        return new ConeIntake()
                 .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
                 .finallyDo((b) -> finishConeIntake());
     }
@@ -64,11 +70,6 @@ public class OperatorCommands {
                                 FourBar.config.safePositionForElevator,
                                 FourBar.config.coneTop,
                                 Elevator.config.safePositionForFourBar));
-    }
-
-    public static Command coneShelfIntake() {
-        return IntakeCommands.intake()
-                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
     }
 
     public static Command cubeIntake() {
