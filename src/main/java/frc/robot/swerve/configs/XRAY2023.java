@@ -47,11 +47,11 @@ public class XRAY2023 {
 
     /* Swerve Profiling Values */
     public static final double maxVelocity =
-            ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per //
-    // second
+            ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 1.33; // meters per //
+    // second ~ 6.84
     public static final double maxAutoVelocity =
             ((6380 / 60) / driveGearRatio) * wheelDiameter * Math.PI * 0.95; // meters per //
-    // second
+    // second ~ 4.88
     static final double maxAccel = maxVelocity * 1.5; // take 1/2 sec to get to max speed.
     static final double maxAngularVelocity =
             maxVelocity / Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
