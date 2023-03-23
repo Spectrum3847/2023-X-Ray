@@ -44,7 +44,7 @@ public class IntakeConfig {
     public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
     public double frontTopCubeSpeed = 2600;
-    public double launcherTopCubeSpeed = frontTopCubeSpeed;
+    public double launcherTopCubeSpeed = frontTopCubeSpeed - 400;
 
     public double frontChargeStationLaunchSpeed = 3600;
     public double launcherChargeStationLaunchSpeed = 4000;

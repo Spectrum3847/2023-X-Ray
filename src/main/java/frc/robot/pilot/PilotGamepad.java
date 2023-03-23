@@ -116,7 +116,7 @@ public class PilotGamepad extends Gamepad {
         leftGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(8));
 
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
-        driveTrigger();
+        // driveTrigger();
         stickSteerTriggers();
         triggerSteering();
 
