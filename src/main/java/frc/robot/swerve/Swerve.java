@@ -16,7 +16,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.swerve.configTemplates.ModuleConfig;
 import frc.robot.swerve.configTemplates.SwerveConfig;
 import frc.robot.swerve.configs.ALPHA2023;
 import frc.robot.swerve.configs.FLASH2021;
@@ -154,14 +153,21 @@ public class Swerve extends SubsystemBase {
     }
 
     public void drive(
-        double fwdPositive,
-        double leftPositive,
-        double omegaRadiansPerSecond,
-        boolean fieldRelative,
-        boolean isOpenLoop,
-        Translation2d centerOfRotationMeters){
-            drive(fwdPositive, leftPositive, omegaRadiansPerSecond, fieldRelative, isOpenLoop, centerOfRotationMeters, config.tuning.maxVelocity);
-        }
+            double fwdPositive,
+            double leftPositive,
+            double omegaRadiansPerSecond,
+            boolean fieldRelative,
+            boolean isOpenLoop,
+            Translation2d centerOfRotationMeters) {
+        drive(
+                fwdPositive,
+                leftPositive,
+                omegaRadiansPerSecond,
+                fieldRelative,
+                isOpenLoop,
+                centerOfRotationMeters,
+                config.tuning.maxVelocity);
+    }
 
     /** Reset AngleMotors to Absolute This is used to reset the angle motors to absolute position */
     public void resetSteeringToAbsolute() {
@@ -233,7 +239,7 @@ public class Swerve extends SubsystemBase {
         }
     }
 
-        /**
+    /**
      * Used by SwerveFollowCommand in Auto, assumes closed loop control
      *
      * @param desiredStates Meters per second and radians per second
