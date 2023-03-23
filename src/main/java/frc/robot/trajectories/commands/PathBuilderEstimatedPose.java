@@ -30,7 +30,7 @@ class PathBuilderEstimatedPose { // Used to create paths for Autonomus and for O
                     // error (used to create the
                     // rotation controller)
                     Robot.swerve
-                            ::setModuleStates, // Module states consumer used to output to the drive
+                            ::setModuleStatesAuto, // Module states consumer used to output to the drive
                     // subsystem
                     Auton.eventMap, // Gets the event map values to use for running addional
                     // commands during auto

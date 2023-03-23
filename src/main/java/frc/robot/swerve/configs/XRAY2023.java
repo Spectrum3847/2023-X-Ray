@@ -88,6 +88,7 @@ public class XRAY2023 {
                             driveKV,
                             driveKA,
                             maxVelocity,
+                            maxAutoVelocity,
                             maxAccel,
                             maxAngularVelocity,
                             maxAngularAcceleration)

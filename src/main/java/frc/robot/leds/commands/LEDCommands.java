@@ -23,7 +23,7 @@ public class LEDCommands {
     }
 
     public static Command success() {
-        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120);
+        return new OneColorLEDCommand(Color.kWhite, "LED Success", 120);
     }
 
     public static Command failure() {

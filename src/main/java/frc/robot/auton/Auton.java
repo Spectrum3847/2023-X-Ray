@@ -56,7 +56,7 @@ public class Auton {
                                 .kDRotationController), // PID constants to correct for rotation
                 // error (used to create the
                 // rotation controller)
-                Robot.swerve::setModuleStates, // Module states consumer used to output to the drive
+                Robot.swerve::setModuleStatesAuto, // Module states consumer used to output to the drive
                 // subsystem
                 eventMap, // Gets the event map values to use for running addional
                 // commands during auto
@@ -89,7 +89,7 @@ public class Auton {
                                 .kDRotationController), // PID constants to correct for rotation
                 // error (used to create the
                 // rotation controller)
-                Robot.swerve::setModuleStates, // Module states consumer used to output to the drive
+                Robot.swerve::setModuleStatesAuto, // Module states consumer used to output to the drive
                 // subsystem
                 Auton.eventMap, // Gets the event map values to use for running addional
                 // commands during auto
