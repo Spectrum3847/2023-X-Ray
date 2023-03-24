@@ -25,6 +25,10 @@ public class IntakeCommands {
                 Intake.config.launcherIntakeSpeed);
     }
 
+    public static Command fullIntake() {
+        return setIntakeRollers(1.0, 1.0, 0);
+    }
+
     public static Command eject() {
         return setVelocities(
                 Intake.config.lowerEjectSpeed,

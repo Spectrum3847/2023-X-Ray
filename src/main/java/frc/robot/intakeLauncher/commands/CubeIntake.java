@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.intakeLauncher.Intake;
 
 public class CubeIntake extends CommandBase {
     boolean velocityLimitReached = false;
@@ -31,7 +30,7 @@ public class CubeIntake extends CommandBase {
         thresholdCount = 0;
         runMotors = true;
 
-        Robot.intake.setCurrentLimits(80, 60);
+        // Robot.intake.setCurrentLimits(80, 60);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -52,8 +51,9 @@ public class CubeIntake extends CommandBase {
         }
 
         if (runMotors) {
-            Robot.intake.setVelocities(
-                    3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
+            // Robot.intake.setVelocities(
+            //        3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
+            Robot.intake.setPercentOutputs(1.0, 1.0, -0.3);
         } else {
             Robot.intake.stopAll();
             Robot.operatorGamepad.rumble(0.5);
@@ -63,7 +63,7 @@ public class CubeIntake extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
+        // Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
         Robot.operatorGamepad.rumble(0);
         if (!RobotState.isAutonomous()) {
             ElevatorCommands.hopElevator().schedule();
