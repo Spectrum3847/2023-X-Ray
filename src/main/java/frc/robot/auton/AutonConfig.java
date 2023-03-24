@@ -19,6 +19,6 @@ public class AutonConfig {
     // Balance values
     public static final double stopDrivingVelocity = 7.1; // 6 too low 8 works
     public static final double stopDrivingAngle = 2.5;
-    public static final double balanceDriveSpeed = 0.32; // .3 works on 8 //changed from 3.5
+    public static final double balanceDriveSpeed = 0.35; // .3 works on 8
     public static final double balanceSlowDriveSpeed = 0.25;
 }

@@ -15,7 +15,6 @@ public class CubeLaunchTest extends CommandBase {
 
     /**
      * Creates a new CubeLaunchTest
-     *
      * @param launchSpeed Launcher rpm. Front launcher is set to launch speed.
      */
     public CubeLaunchTest(double launchSpeed) {
@@ -27,7 +26,6 @@ public class CubeLaunchTest extends CommandBase {
 
     /**
      * Creates a new CubeLaunchTest
-     *
      * @param launchSpeed Launcher rpm. Front launcher is set to launch speed.
      */
     public CubeLaunchTest(double launchSpeed, double frontSpeed) {
@@ -35,11 +33,12 @@ public class CubeLaunchTest extends CommandBase {
         this.frontSpeed = frontSpeed;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.intake);
-    }
+    }    
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() {}
+    public void initialize() {
+    }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
