@@ -25,7 +25,6 @@ import frc.robot.pose.Pose;
 import frc.robot.swerve.Swerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.Trajectories;
-import frc.robot.vision.Vision;
 import org.littletonrobotics.junction.LoggedRobot;
 
 public class Robot extends LoggedRobot {
@@ -37,7 +36,7 @@ public class Robot extends LoggedRobot {
     public static Elevator elevator;
     public static Intake intake;
     public static FourBar fourBar;
-    public static Vision vision;
+    // public static Vision vision;
     public static LEDs leds;
     public static PilotGamepad pilotGamepad;
     public static OperatorGamepad operatorGamepad;
@@ -53,7 +52,7 @@ public class Robot extends LoggedRobot {
     // Intialize subsystems and run their setupDefaultCommand methods here
     private void intializeSystems() {
         System.out.println("Started InitSubsystems");
-        vision = new Vision();
+        // vision = new Vision();
         System.out.println("Started Vision");
         swerve = new Swerve();
         System.out.println("Started Swerve");
@@ -208,9 +207,9 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
 
-        if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
+        /*if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
             pose.resetPoseEstimate(Robot.vision.botPose);
-        }
+        }*/
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
 
@@ -224,7 +223,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void teleopExit() {
         RobotTelemetry.print("$$ Teleop Exit");
-        vision.poseOverriden = false;
+        // vision.poseOverriden = false;
 
         // Send the stop recording boolean
         if (DriverStation.isFMSAttached()) {

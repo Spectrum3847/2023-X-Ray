@@ -31,7 +31,7 @@ public class CubeIntake extends CommandBase {
         thresholdCount = 0;
         runMotors = true;
 
-        Robot.intake.setCurrentLimits(60, 60);
+        Robot.intake.setCurrentLimits(80, 60);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

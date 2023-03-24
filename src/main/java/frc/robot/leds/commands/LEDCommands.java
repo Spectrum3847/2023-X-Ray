@@ -13,9 +13,9 @@ public class LEDCommands {
     public static void setupLEDTriggers() {
         Trigger elevatorUp =
                 new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 12);
-        Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
+        // Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
         elevatorUp.whileTrue(elevatorHeightLED());
-        poseOverriden.whileTrue(success());
+        // poseOverriden.whileTrue(success());
     }
 
     public static Command purpleSolid(int priority, int timeout) {

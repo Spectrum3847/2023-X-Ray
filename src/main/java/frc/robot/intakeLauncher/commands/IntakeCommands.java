@@ -96,6 +96,15 @@ public class IntakeCommands {
         Intake.config.launcherBehindRStationMidSpeed);*/
     }
 
+    public static Command behindStationMidSpinUpBalance() {
+
+        return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeedBalance);
+        /*return setVelocities(
+        Intake.config.lowerSpinUpSpeed,
+        Intake.config.frontBehindRStationMidSpeed,
+        Intake.config.launcherBehindRStationMidSpeed);*/
+    }
+
     public static Command onStationTopSpinUp() {
 
         return new CubeLaunchTest(Intake.config.frontBehindMStationTopSpeed);
