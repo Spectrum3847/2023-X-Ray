@@ -84,7 +84,7 @@ public class IntakeCommands {
 
     public static Command communityTopSpinUp() {
 
-        return new CubeLaunchTest(Intake.config.frontCommunityTopSpeed);
+        return new CubeLaunchTest(Intake.config.launcherCommunityTopSpeed, Intake.config.frontCommunityTopSpeed);
         /*return setVelocities(
         Intake.config.lowerSpinUpSpeed,
         Intake.config.frontCommunityMidSpeed,
