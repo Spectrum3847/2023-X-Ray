@@ -216,7 +216,7 @@
         "x": 4.575221181430946,
         "y": 0.8
       },
-      "holonomicAngle": 160.0,
+      "holonomicAngle": 150.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -258,11 +258,11 @@
     {
       "anchorPoint": {
         "x": 7.07,
-        "y": 3.0
+        "y": 3.3
       },
       "prevControl": {
         "x": 7.07,
-        "y": 2.974539562784191
+        "y": 3.2745395627841907
       },
       "nextControl": null,
       "holonomicAngle": 90.0,
@@ -299,7 +299,7 @@
     {
       "position": 8.5,
       "names": [
-        "IntakeCube"
+        "IntakeCone"
       ]
     },
     {

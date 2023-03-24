@@ -59,11 +59,11 @@ public class ConeIntake extends CommandBase {
         } else {
             if (isShelfIntake) {
                 if (runOnce) {
-                    initialX = Robot.pose.getBestPose().getX();
+                    initialX = Robot.pose.getEstimatedPose().getX();
                     runOnce = false;
                 }
                 Robot.pilotGamepad.rumble(0.5);
-                finalX = Robot.pose.getBestPose().getX();
+                finalX = Robot.pose.getEstimatedPose().getX();
 
                 if (Math.abs(initialX - finalX) > 0.3) {
                     Robot.pilotGamepad.rumble(0);

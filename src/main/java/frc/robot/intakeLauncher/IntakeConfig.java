@@ -55,20 +55,33 @@ public class IntakeConfig {
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 
-    public double frontCommunityTopSpeed =
-            3600; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
     public double launcherCommunityTopSpeed =
-            3600; // correct //3800 was a little too far //3650 was slighty too far
+            3725; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
+    // too short //3650 seems to be too short //3700 with same speed as front speed
+    public double frontCommunityTopSpeed =
+            launcherCommunityTopSpeed
+                    - 50; // correct 4820 wrong //3800 was a little too far //3650 was slightly too
+    // far
+    // //3600 slighty too short //3650 seems to be too short
 
     public double frontBehindRStationMidSpeed =
-            4000; // correct w/distance = .135 from tape line and .18
+            4050; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    // //4025 too short
     public double launcherBehindRStationMidSpeed =
-            4000; // correct w/distance = .135 from tape line and .18
+            frontBehindRStationMidSpeed
+                    - 150; // correct w/distance = .135 from tape line and .18 // 4000 slightly too
+    // short //4025 too short
+
+    public double frontBehindRStationMidSpeedBalance =
+            3975; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double launcherBehindRStationMidSpeedBalance =
+            3975 - 150; // correct w/distance = .135 from tape line and .18 // 4000 slightly too
+    // short
 
     public double frontBehindMStationTopSpeed =
             6000; // correct when touching charge station with .5 sec spin up time
     public double launcherBehindMStationTopSpeed =
-            6000; // correct when touching charge station with .5 sec spin up time
+            6000 - 1000; // correct when touching charge station with .5 sec spin up time
 
     public double currentLimit = 20;
     public double threshold = 40;
