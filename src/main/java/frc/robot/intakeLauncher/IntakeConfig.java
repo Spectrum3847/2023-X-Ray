@@ -56,10 +56,10 @@ public class IntakeConfig {
     public double launcherBumpTopSpeed = 4820;
 
     public double frontCommunityTopSpeed =
-            3700; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
-    // //3600 slighty too short
+            3650; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
+    // //3600 slighty too short //3700 too much
     public double launcherCommunityTopSpeed =
-            3700; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
+            3650; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
     // too short
 
     public double frontBehindRStationMidSpeed =
@@ -68,7 +68,8 @@ public class IntakeConfig {
             4050; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 
     public double frontBehindRStationMidSpeedBalance =
-            3825; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short //3975 too far
+            3825; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    // //3975 too far
     public double launcherBehindRStationMidSpeedBalance =
             3825; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 

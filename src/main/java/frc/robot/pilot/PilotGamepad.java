@@ -11,7 +11,6 @@ import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
-import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
@@ -79,7 +78,8 @@ public class PilotGamepad extends Gamepad {
         // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
         // gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
 
-        gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
+        // gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
+        gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.reorientToGrid(0));
 
         gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
 
