@@ -19,9 +19,10 @@ public class FrontBalanceCommand extends ParallelCommandGroup {
                                                         > AutonConfig.stopDrivingVelocity)
                                                 || (Math.abs(
                                                                 Robot.swerve
-                                                                        .gyro
-                                                                        .getRawPitch()
-                                                                        .getDegrees())
+                                                                                .gyro
+                                                                                .getRawPitch()
+                                                                                .getDegrees()
+                                                                        + AutonConfig.gryoOffset)
                                                         < AutonConfig.stopDrivingAngle))
                         .andThen(new LockSwerve()));
     }

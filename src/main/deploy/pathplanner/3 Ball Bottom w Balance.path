@@ -128,18 +128,18 @@
     },
     {
       "anchorPoint": {
-        "x": 6.05,
-        "y": 2.25
+        "x": 6.202692405384811,
+        "y": 1.296717154837819
       },
       "prevControl": {
-        "x": 5.966936099521404,
-        "y": 1.3967153487040491
+        "x": 5.468163041589241,
+        "y": 0.5621877910422491
       },
       "nextControl": {
-        "x": 6.0518281630353545,
-        "y": 2.2687800410183816
+        "x": 6.216034671323098,
+        "y": 1.3100594207761058
       },
-      "holonomicAngle": 0,
+      "holonomicAngle": 45.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -153,18 +153,18 @@
     },
     {
       "anchorPoint": {
-        "x": 6.9,
-        "y": 2.25
+        "x": 6.910016977928692,
+        "y": 1.9768369361300127
       },
       "prevControl": {
-        "x": 6.834893733113067,
-        "y": 2.25
+        "x": 6.863979895115201,
+        "y": 1.930799853316521
       },
       "nextControl": {
-        "x": 7.002319822998376,
-        "y": 2.25
+        "x": 6.982368018620651,
+        "y": 2.049187976821971
       },
-      "holonomicAngle": 0,
+      "holonomicAngle": 45.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -228,7 +228,7 @@
     }
   ],
   "maxVelocity": 3.0,
-  "maxAcceleration": 3.0,
+  "maxAcceleration": 3.25,
   "isReversed": null,
   "markers": [
     {
@@ -244,7 +244,7 @@
       ]
     },
     {
-      "position": 4.8,
+      "position": 4.3,
       "names": [
         "IntakeCube"
       ]
