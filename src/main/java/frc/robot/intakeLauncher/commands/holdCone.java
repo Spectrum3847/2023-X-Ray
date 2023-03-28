@@ -7,6 +7,7 @@ package frc.robot.intakeLauncher.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 
 public class holdCone extends CommandBase {
     double frontPos = 0;
@@ -31,18 +32,23 @@ public class holdCone extends CommandBase {
     public void execute() {
         double time =
                 Timer.getFPGATimestamp(); // If frontPos has moved 200 ticks then run intake full
-        // speed and 1/4 sec to timer
-        if (Robot.intake.frontMotor.getPostion() < frontPos - 200) {
-            Robot.intake.setPercentOutputs(0.5, 0.5, 0.0);
-            timer = time + 0.25;
-            // While timer is still within 1/4 sec of starting keep running intake
-        } else if (time - timer < 0) {
-            Robot.intake.setPercentOutputs(0.5, 0.5, 0.0);
-            // Once 1/4 sec is up stop the motor and reset frontPos to current one for a 1/4sec
-        } else if (time - timer < 0.25) {
-            Robot.intake.stopAll();
-            frontPos = Robot.intake.frontMotor.getPostion();
-            // After all that just wait for cone to slip again
+
+        if (Elevator.falconToInches(Robot.elevator.getPosition()) > Elevator.config.coneMid) {
+            // speed and 1/4 sec to timer
+            if (Robot.intake.frontMotor.getPostion() < frontPos - 200) {
+                Robot.intake.setPercentOutputs(0.5, 0.5, 0.0);
+                timer = time + 0.25;
+                // While timer is still within 1/4 sec of starting keep running intake
+            } else if (time - timer < 0) {
+                Robot.intake.setPercentOutputs(0.5, 0.5, 0.0);
+                // Once 1/4 sec is up stop the motor and reset frontPos to current one for a 1/4sec
+            } else if (time - timer < 0.25) {
+                Robot.intake.stopAll();
+                frontPos = Robot.intake.frontMotor.getPostion();
+                // After all that just wait for cone to slip again
+            } else {
+                Robot.intake.stopAll();
+            }
         } else {
             Robot.intake.stopAll();
         }

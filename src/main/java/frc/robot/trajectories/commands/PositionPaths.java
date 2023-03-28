@@ -7,73 +7,49 @@ public class PositionPaths {
     static double yPos;
 
     public static FollowOnTheFlyPath grid1Left() {
-        yPos = TrajectoriesConfig.blueYPositions[0];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[8];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(0);
     }
 
     public static FollowOnTheFlyPath grid1Middle() {
-        yPos = TrajectoriesConfig.blueYPositions[1];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[7];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(1);
     }
 
     public static FollowOnTheFlyPath grid1Right() {
-        yPos = TrajectoriesConfig.blueYPositions[2];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[6];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(2);
     }
 
     public static FollowOnTheFlyPath grid2Left() {
-        yPos = TrajectoriesConfig.blueYPositions[3];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[5];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(3);
     }
 
     public static FollowOnTheFlyPath grid2Middle() {
-        yPos = TrajectoriesConfig.blueYPositions[4];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[4];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(4);
     }
 
     public static FollowOnTheFlyPath grid2Right() {
-        yPos = TrajectoriesConfig.blueYPositions[5];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[3];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(5);
     }
 
     public static FollowOnTheFlyPath grid3Left() {
-        yPos = TrajectoriesConfig.blueYPositions[6];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[2];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(6);
     }
 
     public static FollowOnTheFlyPath grid3Middle() {
-        yPos = TrajectoriesConfig.blueYPositions[7];
-        if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[1];
-        }
-        return new GeneratePathForScoring().GeneratePathScoring(yPos);
+        return toGrid(7);
     }
 
     public static FollowOnTheFlyPath grid3Right() {
-        yPos = TrajectoriesConfig.blueYPositions[8];
+        return toGrid(8);
+    }
+
+    /**
+     * @param index 0-8 representing the 9 different scoring locations
+     * @return path to scoring location
+     */
+    private static FollowOnTheFlyPath toGrid(int index) {
+        yPos = TrajectoriesConfig.blueYPositions[index];
         if (DriverStation.getAlliance().equals(DriverStation.Alliance.Red)) {
-            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[0];
+            yPos = TrajectoriesConfig.fieldWidth - TrajectoriesConfig.blueYPositions[8 - index];
         }
         return new GeneratePathForScoring().GeneratePathScoring(yPos);
     }

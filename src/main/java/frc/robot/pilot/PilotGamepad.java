@@ -50,9 +50,13 @@ public class PilotGamepad extends Gamepad {
         slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
 
         // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
-        gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
+        // gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
 
         gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
+
+        gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
+
+        // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
 
         gamepad.rightBumper.whileTrue(
                 ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
@@ -145,11 +149,11 @@ public class PilotGamepad extends Gamepad {
     }
 
     private Trigger fpvButton() {
-        return gamepad.xButton.and(gamepad.aButton.negate());
+        return gamepad.yButton.and(gamepad.aButton.negate());
     }
 
     private Trigger slowFpvButton() {
-        return gamepad.xButton.and(gamepad.aButton);
+        return gamepad.yButton.and(gamepad.aButton);
     }
 
     public double getDriveFwdPositive() {

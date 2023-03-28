@@ -170,7 +170,6 @@ public class FollowOnTheFlyPath extends CommandBase {
     @Override
     public void execute() {
         pathFollowingCommmand.execute();
-        // pathFollowingCommmand.end(isFinished());
     }
 
     // Called once the command ends or is interrupted.

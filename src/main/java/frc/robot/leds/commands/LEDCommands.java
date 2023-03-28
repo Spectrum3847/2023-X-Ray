@@ -13,7 +13,9 @@ public class LEDCommands {
     public static void setupLEDTriggers() {
         Trigger elevatorUp =
                 new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 12);
+        Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
         elevatorUp.whileTrue(elevatorHeightLED());
+        poseOverriden.whileTrue(success());
     }
 
     public static Command purpleSolid(int priority, int timeout) {
@@ -21,7 +23,7 @@ public class LEDCommands {
     }
 
     public static Command success() {
-        return new OneColorLEDCommand(Color.kGreen, "LED Success", 99, 1.5);
+        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120);
     }
 
     public static Command failure() {

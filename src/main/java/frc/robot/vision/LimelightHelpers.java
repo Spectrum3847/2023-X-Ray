@@ -1,4 +1,4 @@
-// LimelightHelpers v1.2.0 (Feb 13, 2023)
+// LimelightHelpers v1.2.1 (March 1, 2023)
 
 package frc.robot.vision;
 
@@ -18,6 +18,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Robot;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -507,7 +508,7 @@ public class LimelightHelpers {
     }
 
     public static double[] getBotPose_TargetSpace(String limelightName) {
-        return getLimelightNTDoubleArray(limelightName, "botpose_targetSpace");
+        return getLimelightNTDoubleArray(limelightName, "botpose_targetspace");
     }
 
     public static double[] getCameraPose_TargetSpace(String limelightName) {
@@ -754,7 +755,9 @@ public class LimelightHelpers {
         try {
             results = mapper.readValue(getJSONDump(limelightName), LimelightResults.class);
         } catch (JsonProcessingException e) {
-            System.err.println("lljson error: " + e.getMessage());
+            if (!Robot.isSimulation()) {
+                System.err.println("lljson error: " + e.getMessage());
+            }
         }
 
         long end = System.nanoTime();
