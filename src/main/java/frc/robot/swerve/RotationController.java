@@ -28,7 +28,7 @@ public class RotationController {
         controller.enableContinuousInput(-Math.PI, Math.PI);
         controller.setTolerance(Math.PI / 180);
 
-        holdController = new PIDController(10, 3, 0);
+        holdController = new PIDController(10.5, 3, 0);
 
         holdController.enableContinuousInput(-Math.PI, Math.PI);
         holdController.setTolerance(Math.PI / 180);
