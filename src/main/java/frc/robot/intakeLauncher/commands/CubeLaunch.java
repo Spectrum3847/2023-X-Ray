@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.intakeLauncher.Intake;
 
-public class CubeLaunchTest extends CommandBase {
+public class CubeLaunch extends CommandBase {
     double launchSpeed = 0;
     double defaultValue = 0;
     /** Creates a new CubeLaunchTest. */
-    public CubeLaunchTest(double configValue) {
+    public CubeLaunch(double configValue) {
         defaultValue = configValue;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.intake);

@@ -73,7 +73,7 @@ public class IntakeCommands {
 
     public static Command bumpTopSpinUp() {
         // testing using shuffleboard
-        return new CubeLaunchTest(Intake.config.frontBumpTopSpeed);
+        return new CubeLaunch(Intake.config.frontBumpTopSpeed);
         /* regular method */
 
         // return setVelocities(
@@ -84,7 +84,7 @@ public class IntakeCommands {
 
     public static Command communityTopSpinUp() {
 
-        return new CubeLaunchTest(Intake.config.frontCommunityTopSpeed);
+        return new CubeLaunch(Intake.config.frontCommunityTopSpeed);
         /*return setVelocities(
         Intake.config.lowerSpinUpSpeed,
         Intake.config.frontCommunityMidSpeed,
@@ -93,7 +93,7 @@ public class IntakeCommands {
 
     public static Command behindStationMidSpinUp() {
 
-        return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeed);
+        return new CubeLaunch(Intake.config.frontBehindRStationMidSpeed);
         /*return setVelocities(
         Intake.config.lowerSpinUpSpeed,
         Intake.config.frontBehindRStationMidSpeed,
@@ -102,7 +102,7 @@ public class IntakeCommands {
 
     public static Command behindStationMidSpinUpBalance() {
 
-        return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeedBalance);
+        return new CubeLaunch(Intake.config.frontBehindRStationMidSpeedBalance);
         /*return setVelocities(
         Intake.config.lowerSpinUpSpeed,
         Intake.config.frontBehindRStationMidSpeed,
@@ -111,7 +111,7 @@ public class IntakeCommands {
 
     public static Command onStationTopSpinUp() {
 
-        return new CubeLaunchTest(Intake.config.frontBehindMStationTopSpeed);
+        return new CubeLaunch(Intake.config.frontBehindMStationTopSpeed);
         // return setVelocities(
         //         Intake.config.lowerSpinUpSpeed,
         //         Intake.config.frontOnStationTopSpeed,
