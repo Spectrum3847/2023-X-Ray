@@ -17,7 +17,6 @@ public class IntakeTelemetry {
     public IntakeTelemetry(Intake intake) {
         this.intake = intake;
 
-        SmartDashboard.putNumber("launchValue", Intake.config.frontBumpTopSpeed);
         SmartDashboard.putNumber("spinTime", AutonConfig.spinUpTime);
         tab = Shuffleboard.getTab("Intake");
         tab.addNumber("Launcher Velocity", () -> intake.launcherMotor.getVelocity())

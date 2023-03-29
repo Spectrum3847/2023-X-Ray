@@ -72,50 +72,39 @@ public class IntakeCommands {
     }
 
     public static Command bumpTopSpinUp() {
-        // testing using shuffleboard
-        return new CubeLaunch(Intake.config.frontBumpTopSpeed);
-        /* regular method */
-
-        // return setVelocities(
-        //         Intake.config.lowerSpinUpSpeed,
-        //         Intake.config.frontBumpTopSpeed,
-        //         Intake.config.launcherBumpTopSpeed);
+        return setVelocities(
+                Intake.config.lowerSpinUpSpeed,
+                Intake.config.frontBumpTopSpeed,
+                Intake.config.launcherBumpTopSpeed);
     }
 
     public static Command communityTopSpinUp() {
-
-        return new CubeLaunch(Intake.config.frontCommunityTopSpeed);
-        /*return setVelocities(
+        return setVelocities(
         Intake.config.lowerSpinUpSpeed,
-        Intake.config.frontCommunityMidSpeed,
-        Intake.config.launcherCommunityMidSpeed);*/
+        Intake.config.frontCommunityTopSpeed,
+        Intake.config.launcherCommunityTopSpeed);
     }
 
     public static Command behindStationMidSpinUp() {
-
-        return new CubeLaunch(Intake.config.frontBehindRStationMidSpeed);
-        /*return setVelocities(
+        return setVelocities(
         Intake.config.lowerSpinUpSpeed,
         Intake.config.frontBehindRStationMidSpeed,
-        Intake.config.launcherBehindRStationMidSpeed);*/
+        Intake.config.launcherBehindRStationMidSpeed);
     }
 
     public static Command behindStationMidSpinUpBalance() {
-
-        return new CubeLaunch(Intake.config.frontBehindRStationMidSpeedBalance);
-        /*return setVelocities(
+        return setVelocities(
         Intake.config.lowerSpinUpSpeed,
-        Intake.config.frontBehindRStationMidSpeed,
-        Intake.config.launcherBehindRStationMidSpeed);*/
+        Intake.config.frontBehindRStationMidSpeedBalance,
+        Intake.config.launcherBehindRStationMidSpeedBalance);
     }
 
     public static Command onStationTopSpinUp() {
 
-        return new CubeLaunch(Intake.config.frontBehindMStationTopSpeed);
-        // return setVelocities(
-        //         Intake.config.lowerSpinUpSpeed,
-        //         Intake.config.frontOnStationTopSpeed,
-        //         Intake.config.launcherOnStationTopSpeed);
+        return setVelocities(
+                Intake.config.lowerSpinUpSpeed,
+                Intake.config.frontBehindMStationTopSpeed,
+                Intake.config.launcherBehindMStationTopSpeed);
     }
 
     public static Command launch() {
