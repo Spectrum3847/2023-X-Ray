@@ -26,6 +26,11 @@ public class AutonCommands {
                 .andThen(launch(), stopMotors());
     }
 
+    public static Command behindStationMidBalance() {
+        return spinLauncher(IntakeCommands.behindStationMidSpinUpBalance())
+                .andThen(launch(), stopMotors());
+    }
+
     public static Command onStationTop() {
         return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
     }
@@ -57,7 +62,7 @@ public class AutonCommands {
     }
 
     public static Command intakeCone() {
-        return OperatorCommands.coneIntake();
+        return OperatorCommands.coneStandingIntake();
     }
 
     public static Command coneMid() {

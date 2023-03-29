@@ -17,14 +17,14 @@ public class SwerveTelemetry {
     public SwerveTelemetry(Swerve swerve) {
         this.swerve = swerve;
         tab = Shuffleboard.getTab("Swerve");
-        tab.addNumber("Heading", () -> swerve.getRotation().getDegrees()).withPosition(0, 0);
+        /*tab.addNumber("Heading", () -> swerve.getRotation().getDegrees()).withPosition(0, 0);
         tab.addNumber("Odometry X", () -> swerve.getPoseMeters().getX()).withPosition(0, 1);
         tab.addNumber("Odometry Y", () -> swerve.getPoseMeters().getY()).withPosition(0, 2);
         tab.addNumber("Angle", () -> swerve.gyro.getRawAngle().getDegrees()).withPosition(2, 0);
         tab.addNumber("Yaw", () -> swerve.gyro.getRawYaw().getDegrees()).withPosition(2, 1);
         tab.addNumber("Roll", () -> swerve.gyro.getRawRoll().getDegrees()).withPosition(2, 2);
+        tab.addNumber("Roll Rate", () -> swerve.gyro.getRollRate()).withPosition(2, 4);*/
         tab.addNumber("Pitch", () -> swerve.gyro.getRawPitch().getDegrees()).withPosition(2, 3);
-        tab.addNumber("Roll Rate", () -> swerve.gyro.getRollRate()).withPosition(2, 4);
     }
 
     public void testMode() {

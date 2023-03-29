@@ -25,6 +25,10 @@ public class IntakeCommands {
                 Intake.config.launcherIntakeSpeed);
     }
 
+    public static Command fullIntake() {
+        return setIntakeRollers(1.0, 1.0, 0);
+    }
+
     public static Command eject() {
         return setVelocities(
                 Intake.config.lowerEjectSpeed,
@@ -90,6 +94,15 @@ public class IntakeCommands {
     public static Command behindStationMidSpinUp() {
 
         return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeed);
+        /*return setVelocities(
+        Intake.config.lowerSpinUpSpeed,
+        Intake.config.frontBehindRStationMidSpeed,
+        Intake.config.launcherBehindRStationMidSpeed);*/
+    }
+
+    public static Command behindStationMidSpinUpBalance() {
+
+        return new CubeLaunchTest(Intake.config.frontBehindRStationMidSpeedBalance);
         /*return setVelocities(
         Intake.config.lowerSpinUpSpeed,
         Intake.config.frontBehindRStationMidSpeed,

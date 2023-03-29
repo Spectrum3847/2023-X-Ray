@@ -11,6 +11,7 @@ public class TuningConfig {
     public final double driveKV;
     public final double driveKA;
     public final double maxVelocity;
+    public final double maxAutoVelocity;
     public final double maxAcceleration;
     public final double maxAngularVelocity;
     public final double MaxAngularAcceleration;
@@ -44,6 +45,7 @@ public class TuningConfig {
             double driveKV,
             double driveKA,
             double maxVelocity,
+            double maxAutoVelocity,
             double maxAcceleration,
             double maxAngularVelocity,
             double maxAngularAcceleration) {
@@ -55,6 +57,7 @@ public class TuningConfig {
         this.driveKV = driveKV;
         this.driveKA = driveKA;
         this.maxVelocity = maxVelocity;
+        this.maxAutoVelocity = maxAutoVelocity;
         this.maxAcceleration = maxAcceleration;
         this.maxAngularVelocity = maxAngularVelocity;
         this.MaxAngularAcceleration = maxAngularAcceleration;

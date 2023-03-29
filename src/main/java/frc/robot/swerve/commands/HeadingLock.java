@@ -12,9 +12,13 @@ public class HeadingLock extends CommandBase {
     /** Creates a new HeadingLock. */
     double currentHeading = 0;
 
+    DoubleSupplier fwdPositiveSupplier, leftPositiveSupplier;
+
     SwerveDrive driveCommand;
 
     public HeadingLock(DoubleSupplier fwdPositiveSupplier, DoubleSupplier leftPositiveSupplier) {
+        this.fwdPositiveSupplier = fwdPositiveSupplier;
+        this.leftPositiveSupplier = leftPositiveSupplier;
         driveCommand =
                 new SwerveDrive(fwdPositiveSupplier, leftPositiveSupplier, () -> getSteering());
         addRequirements(Robot.swerve);
@@ -35,7 +39,11 @@ public class HeadingLock extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        driveCommand.execute();
+        if (fwdPositiveSupplier.getAsDouble() != 0 || leftPositiveSupplier.getAsDouble() != 0) {
+            driveCommand.execute();
+        } else {
+            Robot.swerve.stop();
+        }
     }
 
     // Called once the command ends or is interrupted.

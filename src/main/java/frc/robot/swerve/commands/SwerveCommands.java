@@ -5,10 +5,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
+import frc.robot.pilot.commands.PilotCommands;
 
 public class SwerveCommands {
     public static void setupDefaultCommand() {
-        Robot.swerve.setDefaultCommand(stop());
+        Robot.swerve.setDefaultCommand(PilotCommands.pilotHeadingLock());
     }
 
     public static Command resetSteeringToAbsolute() {

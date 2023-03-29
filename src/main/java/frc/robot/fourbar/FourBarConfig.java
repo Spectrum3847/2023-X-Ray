@@ -12,11 +12,11 @@ public class FourBarConfig extends AngleMechConfig {
     // Positions set as percentage of fourbar
 
     public final int coneIntake = 94;
-    public final int coneStandingIntake = 45;
+    public final int coneStandingIntake = 46;
     public final int coneShelf = 0;
 
     public final int coneHybrid = 30;
-    public final int coneMid = 68; // converted from 1800 angle //24700
+    public final int coneMid = 64; // converted from 1800 angle //24700
     public final int coneTop = 100; // converted from 54900 angle
 
     public final int cubeIntake = 73;

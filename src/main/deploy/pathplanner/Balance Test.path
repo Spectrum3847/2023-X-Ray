@@ -2,42 +2,17 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 5.2,
+        "x": 5.6,
         "y": 2.75
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.050188091248668,
+        "x": 5.5624410564272235,
         "y": 2.75
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
       "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "sequential",
-        "waitBehavior": "none",
-        "waitTime": 0.8
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 5.8,
-        "y": 2.75
-      },
-      "prevControl": {
-        "x": 5.7411599758056004,
-        "y": 2.75
-      },
-      "nextControl": {
-        "x": 5.83258777980859,
-        "y": 2.75
-      },
-      "holonomicAngle": 180.0,
-      "isReversal": false,
-      "velOverride": 3.0,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
@@ -49,28 +24,32 @@
     },
     {
       "anchorPoint": {
-        "x": 2.7,
+        "x": 3.1,
         "y": 2.75
       },
       "prevControl": {
-        "x": 2.984508624517501,
+        "x": 3.223736946010534,
         "y": 2.75
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
       "isReversal": false,
-      "velOverride": 3.0,
+      "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "LockSwerve"
+          "BehindStationTop",
+          "BehindBalance"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
-        "waitTime": 0.2
+        "waitTime": 0.8
       }
     }
   ],
+  "maxVelocity": 3.0,
+  "maxAcceleration": 3.25,
+  "isReversed": null,
   "markers": []
 }

@@ -45,8 +45,10 @@ public class OperatorGamepad extends Gamepad {
         gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
         gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
         gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
-        gamepad.rightTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.coneIntake());
-        gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.rightTriggerButton
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneIntake());
         gamepad.leftTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeIntake());
         gamepad.leftTriggerButton
                 .and(rightBumper())

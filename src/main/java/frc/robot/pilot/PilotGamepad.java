@@ -11,17 +11,14 @@ import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
-import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
-import frc.robot.trajectories.commands.PositionPaths;
-import frc.robot.vision.VisionCommands;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
-    Trigger canUseAutoPilot =
-            new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
+    // Trigger canUseAutoPilot =
+    //         new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
 
     Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5, ThresholdType.DEADBAND);
     Trigger rightY = AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.5, ThresholdType.DEADBAND);
@@ -70,8 +67,9 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        canUseAutoPilot =
-                new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
+        // canUseAutoPilot =
+        //         new Trigger(() -> Robot.vision.canUseAutoPilot &&
+        // !Robot.pose.isOnChargeStation());
 
         fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
         slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
@@ -80,9 +78,12 @@ public class PilotGamepad extends Gamepad {
         // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
         // gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
 
-        gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
+        // gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
+        gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.reorientToGrid(0));
 
         gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
+
+        // gamepad.xButton.whileTrue(new BehindBalanceCommand());
 
         // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
 
@@ -92,29 +93,29 @@ public class PilotGamepad extends Gamepad {
                 FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
 
         /* Will not run if canUseAutoPilot condition is not met */
-        leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
-        leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
-        leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
-        middleGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid2Left());
-        middleGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid2Middle());
-        middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
-        rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
-        rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
-        rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
+        // leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
+        // leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
+        // leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
+        // middleGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid2Left());
+        // middleGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid2Middle());
+        // middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
+        // rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
+        // rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
+        // rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
 
         // hybrid aiming
-        rightGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(0));
-        rightGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(1));
-        rightGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(2));
-        middleGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(3));
-        middleGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(4));
-        middleGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(5));
-        leftGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(6));
-        leftGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(7));
-        leftGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(8));
+        // rightGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(0));
+        // rightGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(1));
+        // rightGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(2));
+        // middleGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(3));
+        // middleGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(4));
+        // middleGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(5));
+        // leftGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(6));
+        // leftGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(7));
+        // leftGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(8));
 
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
-        driveTrigger();
+        // driveTrigger();
         stickSteerTriggers();
         triggerSteering();
 
@@ -168,15 +169,15 @@ public class PilotGamepad extends Gamepad {
     }
 
     private Trigger leftGrid() {
-        return leftBumperOnly().and(canUseAutoPilot);
+        return leftBumperOnly();
     }
 
     private Trigger rightGrid() {
-        return rightBumperOnly().and(canUseAutoPilot);
+        return rightBumperOnly();
     }
 
     private Trigger middleGrid() {
-        return bothBumpers().and(canUseAutoPilot);
+        return bothBumpers();
     }
 
     private Trigger slowModeButton() {
