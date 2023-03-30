@@ -86,7 +86,8 @@ public class PilotCommands {
      * @return
      */
     public static Command stickSteer() {
-        return aimPilotDrive(() -> Robot.pilotGamepad.getRightStickAngle()).withName("StickSteer");
+        return aimPilotDrive(() -> Robot.pilotGamepad.getRightStickCardinals())
+                .withName("StickSteer");
     }
 
     /** Reorient the Robot to face the Grids */

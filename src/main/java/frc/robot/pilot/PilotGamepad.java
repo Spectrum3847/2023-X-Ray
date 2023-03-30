@@ -7,8 +7,6 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
-import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
@@ -86,11 +84,6 @@ public class PilotGamepad extends Gamepad {
         // gamepad.xButton.whileTrue(new BehindBalanceCommand());
 
         // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
-
-        gamepad.rightBumper.whileTrue(
-                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
-        gamepad.leftBumper.whileTrue(
-                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
 
         /* Will not run if canUseAutoPilot condition is not met */
         // leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
@@ -217,6 +210,19 @@ public class PilotGamepad extends Gamepad {
     public double getRightStickAngle() {
         return gamepad.rightStick.getDirectionRadians(
                 gamepad.rightStick.getY(), gamepad.rightStick.getX());
+    }
+
+    public double getRightStickCardinals() {
+        double stickAngle = getRightStickAngle();
+        if (stickAngle > -Math.PI / 4 && stickAngle <= Math.PI / 4) {
+            return 0;
+        } else if (stickAngle > Math.PI / 4 && stickAngle <= 3 * Math.PI / 4) {
+            return Math.PI / 2;
+        } else if (stickAngle > 3 * Math.PI / 4 || stickAngle <= -3 * Math.PI / 4) {
+            return Math.PI;
+        } else {
+            return -Math.PI / 2;
+        }
     }
 
     private void driveTrigger() {
