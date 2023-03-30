@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
-import frc.robot.auton.commands.AutoCubeIntake;
 import frc.robot.auton.commands.AutonCommands;
 import frc.robot.auton.commands.BehindBalanceCommand;
 import frc.robot.auton.commands.FrontBalanceCommand;
@@ -206,7 +205,7 @@ public class Auton {
         eventMap.put("ConeMid", AutonCommands.coneMid());
         eventMap.put("ConeTop", AutonCommands.coneTop());
         // Intake Commands
-        eventMap.put("IntakeCube", new AutoCubeIntake());
+        eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("IntakeCone", AutonCommands.intakeCone());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
         // Drivetrain Commands

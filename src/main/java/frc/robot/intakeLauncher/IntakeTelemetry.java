@@ -23,7 +23,7 @@ public class IntakeTelemetry {
                 .withPosition(0, 0);
         tab.addNumber("Front Velocity", () -> intake.frontMotor.getVelocity()).withPosition(0, 1);
         tab.addNumber("Lower Velocity", () -> intake.lowerMotor.getVelocity()).withPosition(0, 2);
-        }
+    }
 
     public void testMode() {
         if (!intailized) {
