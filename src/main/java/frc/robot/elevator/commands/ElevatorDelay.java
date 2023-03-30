@@ -11,12 +11,14 @@ public class ElevatorDelay extends CommandBase {
     private double safePos;
     private double finalPos;
     private double conditionalPercent;
+    private boolean simpleDelay;
     /**
      * Creates a new ElevatorDelay. Elevator will move to safePos, wait for FourBar to be at
      * conditional percentage, then move to finalPos
      *
-     * @param safePos Elevator position that won't hit anything
-     * @param finalPos position that Elevator will go to after FourBar is at conditionalPercent
+     * @param safePos Falcon Units: Elevator position that won't hit anything
+     * @param finalPos Falcon Units: position that Elevator will go to after FourBar is at
+     *     conditionalPercent
      * @param conditionalPercent percentage that FourBar must be at before Elevator will move to
      *     finalPos ex: 40% = 40 not .40
      */
@@ -25,6 +27,24 @@ public class ElevatorDelay extends CommandBase {
         this.safePos = safePos;
         this.finalPos = finalPos;
         this.conditionalPercent = conditionalPercent;
+        this.simpleDelay = false;
+        addRequirements(Robot.elevator);
+    }
+
+    /**
+     * Creates a new ElevatorDelay. Wait for FourBar to be at conditional percentage, then move to
+     * finalPos
+     *
+     * @param finalPos Falcon Units: position that Elevator will go to after FourBar is at
+     *     conditionalPercent
+     * @param conditionalPercent percentage that FourBar must be at before Elevator will move to
+     *     finalPos ex: 40% = 40 not .40
+     */
+    public ElevatorDelay(double finalPos, int conditionalPercent) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.finalPos = finalPos;
+        this.conditionalPercent = conditionalPercent;
+        this.simpleDelay = true;
         addRequirements(Robot.elevator);
     }
 
@@ -39,13 +59,20 @@ public class ElevatorDelay extends CommandBase {
      */
     @Override
     public void execute() {
-        if (Robot.elevator.getPosition() > finalPos
-                && Robot.fourBar.getPosition() > Robot.fourBar.percentToFalcon(conditionalPercent)
-                && Robot.elevator.getPosition() > safePos) {
-            Robot.elevator.setMMPosition(safePos);
-
+        if (simpleDelay) {
+            if (Robot.fourBar.getPosition() < Robot.fourBar.percentToFalcon(conditionalPercent)) {
+                Robot.elevator.setMMPosition(finalPos);
+            }
         } else {
-            Robot.elevator.setMMPosition(finalPos);
+            if (Robot.elevator.getPosition() > finalPos
+                    && Robot.fourBar.getPosition()
+                            > Robot.fourBar.percentToFalcon(conditionalPercent)
+                    && Robot.elevator.getPosition() > safePos) {
+                Robot.elevator.setMMPosition(safePos);
+
+            } else {
+                Robot.elevator.setMMPosition(finalPos);
+            }
         }
     }
 

@@ -36,13 +36,13 @@ public class CubeIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontRPM() > 3600) {
+        if (Robot.intake.getFrontRPM() > 3000) {
             if (!velocityLimitReached && thresholdCount >= 8) {
                 count++;
                 velocityLimitReached = true;
             }
             thresholdCount++;
-        } else if (Robot.intake.getFrontRPM() <= 3600) {
+        } else if (Robot.intake.getFrontRPM() <= 3000) {
             velocityLimitReached = false;
         }
 
@@ -56,7 +56,10 @@ public class CubeIntake extends CommandBase {
             Robot.intake.setPercentOutputs(1.0, 1.0, -0.3);
         } else {
             Robot.intake.stopAll();
+            ElevatorCommands.hopElevator().schedule();
+            FourBarCommands.home().schedule();
             Robot.operatorGamepad.rumble(0.5);
+            Robot.pilotGamepad.rumble(0.5);
         }
     }
 
@@ -65,6 +68,7 @@ public class CubeIntake extends CommandBase {
     public void end(boolean interrupted) {
         // Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
         Robot.operatorGamepad.rumble(0);
+        Robot.pilotGamepad.rumble(0);
         if (!RobotState.isAutonomous()) {
             ElevatorCommands.hopElevator().schedule();
             FourBarCommands.home().schedule();

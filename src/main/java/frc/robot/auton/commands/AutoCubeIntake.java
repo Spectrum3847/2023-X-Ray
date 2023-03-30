@@ -64,8 +64,8 @@ public class AutoCubeIntake extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-            ElevatorCommands.hopElevator().schedule();
-            FourBarCommands.home().schedule();
+        ElevatorCommands.hopElevator().schedule();
+        FourBarCommands.home().schedule();
     }
 
     // Returns true when the command should end.

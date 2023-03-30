@@ -16,6 +16,8 @@ public class Elevator extends LinearMechSubsystem {
         motorLeader = new WPI_TalonFX(RobotConfig.Motors.elevatorMotor, "3847");
         config.updateTalonFXConfig();
         setupFalconLeader();
+        motorLeader.configForwardSoftLimitThreshold(inchesToFalcon(config.maxUpPos));
+        motorLeader.configForwardSoftLimitEnable(true);
         motorLeader.configReverseSoftLimitThreshold(600);
         motorLeader.configReverseSoftLimitEnable(true);
         motorLeader.configNominalOutputForward(0.06);

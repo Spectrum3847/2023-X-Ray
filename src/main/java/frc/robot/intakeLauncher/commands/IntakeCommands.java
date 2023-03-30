@@ -3,6 +3,9 @@ package frc.robot.intakeLauncher.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
+import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.elevator.commands.ElevatorDelay;
+import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
 
 public class IntakeCommands {
@@ -31,9 +34,15 @@ public class IntakeCommands {
 
     public static Command eject() {
         return setVelocities(
-                Intake.config.lowerEjectSpeed,
-                Intake.config.frontEjectSpeed,
-                Intake.config.launcherEjectSpeed);
+                        Intake.config.lowerEjectSpeed,
+                        Intake.config.frontEjectSpeed,
+                        Intake.config.launcherEjectSpeed)
+                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .finallyDo(
+                        (b) ->
+                                ElevatorCommands.home()
+                                        .alongWith(FourBarCommands.home())
+                                        .schedule());
     }
 
     public static Command floorEject() {
@@ -80,23 +89,23 @@ public class IntakeCommands {
 
     public static Command communityTopSpinUp() {
         return setVelocities(
-        Intake.config.lowerSpinUpSpeed,
-        Intake.config.frontCommunityTopSpeed,
-        Intake.config.launcherCommunityTopSpeed);
+                Intake.config.lowerSpinUpSpeed,
+                Intake.config.frontCommunityTopSpeed,
+                Intake.config.launcherCommunityTopSpeed);
     }
 
     public static Command behindStationMidSpinUp() {
         return setVelocities(
-        Intake.config.lowerSpinUpSpeed,
-        Intake.config.frontBehindRStationMidSpeed,
-        Intake.config.launcherBehindRStationMidSpeed);
+                Intake.config.lowerSpinUpSpeed,
+                Intake.config.frontBehindRStationMidSpeed,
+                Intake.config.launcherBehindRStationMidSpeed);
     }
 
     public static Command behindStationMidSpinUpBalance() {
         return setVelocities(
-        Intake.config.lowerSpinUpSpeed,
-        Intake.config.frontBehindRStationMidSpeedBalance,
-        Intake.config.launcherBehindRStationMidSpeedBalance);
+                Intake.config.lowerSpinUpSpeed,
+                Intake.config.frontBehindRStationMidSpeedBalance,
+                Intake.config.launcherBehindRStationMidSpeedBalance);
     }
 
     public static Command onStationTopSpinUp() {
