@@ -22,6 +22,7 @@ public class OperatorCommands {
     public static Command coneShelfIntake() {
         return new ConeIntake(true)
                 .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
+        // .finallyDo((b) -> FourBarCommands.home().withTimeout(1).schedule());
     }
 
     public static Command coneStandingIntake() {
@@ -134,5 +135,12 @@ public class OperatorCommands {
                                 Robot.operatorGamepad.fourBarManual()
                                         * OperatorConfig.slowModeScalar),
                 Robot.fourBar);
+    }
+
+    /** Command that can be used to rumble the pilot controller */
+    public static Command rumble(double intensity, double durationSeconds) {
+        return new RunCommand(() -> Robot.operatorGamepad.rumble(intensity), Robot.operatorGamepad)
+                .withTimeout(durationSeconds)
+                .withName("RumbleOperator");
     }
 }

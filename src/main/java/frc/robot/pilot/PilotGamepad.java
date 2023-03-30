@@ -112,7 +112,7 @@ public class PilotGamepad extends Gamepad {
         stickSteerTriggers();
         triggerSteering();
 
-        gamepad.Dpad.Up.whileTrue(IntakeCommands.launch());
+        gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new LockSwerve());
         // Right is free
