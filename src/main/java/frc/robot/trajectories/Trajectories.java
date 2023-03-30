@@ -12,6 +12,7 @@ import frc.robot.Robot;
 import java.util.function.DoubleSupplier;
 
 public class Trajectories extends SubsystemBase {
+    public double targetYposition = 0;
     public PIDController thetaController;
     public PIDController xController =
             new PIDController(
@@ -70,6 +71,24 @@ public class Trajectories extends SubsystemBase {
 
     public DoubleSupplier calculteThetaSupplier(double goalAngle) {
         return calculateThetaSupplier(() -> goalAngle);
+    }
+
+    public DoubleSupplier calculateYSupplier(DoubleSupplier goalY) {
+        return () ->
+                yController.calculate(
+                        Robot.swerve.odometry.getPoseMeters().getY(), goalY.getAsDouble());
+    }
+
+    public DoubleSupplier calculateYSupplier(double goalY) {
+        return calculateYSupplier(() -> goalY);
+    }
+
+    public void addTargetYDistance(double y) {
+        targetYposition += y;
+    }
+
+    public void resetTargetYDistance() {
+        targetYposition = Robot.swerve.odometry.getPoseMeters().getY();
     }
 
     @Override
