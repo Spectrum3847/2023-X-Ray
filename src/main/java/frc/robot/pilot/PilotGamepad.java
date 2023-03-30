@@ -1,5 +1,6 @@
 package frc.robot.pilot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
@@ -12,6 +13,7 @@ import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
+import frc.robot.trajectories.commands.DistanceDrive;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -65,25 +67,23 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
+        // A + NoBumpers = Slow Mode Button
+        // X + NoBumpers = FPV MODE BUTTON
+
         // canUseAutoPilot =
         //         new Trigger(() -> Robot.vision.canUseAutoPilot &&
         // !Robot.pose.isOnChargeStation());
 
-        fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
-        slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
-        slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
+        // fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
+        // slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
+        // slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
 
         // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
         // gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
 
         // gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
-        gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.reorientToGrid(0));
-
-        gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
 
         // gamepad.xButton.whileTrue(new BehindBalanceCommand());
-
-        // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
 
         /* Will not run if canUseAutoPilot condition is not met */
         // leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
@@ -112,10 +112,14 @@ public class PilotGamepad extends Gamepad {
         stickSteerTriggers();
         triggerSteering();
 
+        gamepad.xButton.and(noBumpers()).whileTrue(new LockSwerve());
+
         gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
-        gamepad.Dpad.Left.and(noBumpers()).whileTrue(new LockSwerve());
-        // Right is free
+        gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(3.5)));
+        gamepad.Dpad.Right.and(noBumpers())
+                .whileTrue(new DistanceDrive(Units.inchesToMeters(-3.5)));
+        // Left and Right is free
 
         // Reorient the robot to the current heading, reset swerve ot absolute sensors, and rumble
         // controller
@@ -136,6 +140,12 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTestButtons() {}
+
+    public double getPilotScalar() {
+        return Robot.pilotGamepad.slowModeButton().getAsBoolean()
+                ? PilotConfig.slowModeScaler
+                : 1.0;
+    }
 
     private Trigger noBumpers() {
         return gamepad.rightBumper.negate().and(gamepad.leftBumper.negate());
@@ -173,16 +183,12 @@ public class PilotGamepad extends Gamepad {
         return bothBumpers();
     }
 
-    private Trigger slowModeButton() {
-        return gamepad.aButton.and(gamepad.xButton.negate());
+    public Trigger slowModeButton() {
+        return gamepad.aButton.and(noBumpers());
     }
 
-    private Trigger fpvButton() {
-        return gamepad.yButton.and(gamepad.aButton.negate());
-    }
-
-    private Trigger slowFpvButton() {
-        return gamepad.yButton.and(gamepad.aButton);
+    public Trigger fpvButton() {
+        return gamepad.xButton.and(noBumpers());
     }
 
     public double getDriveFwdPositive() {
@@ -223,13 +229,6 @@ public class PilotGamepad extends Gamepad {
         } else {
             return -Math.PI / 2;
         }
-    }
-
-    private void driveTrigger() {
-        leftX.or(leftY)
-                .and(noBumpers())
-                .and(noTriggers())
-                .whileTrue(PilotCommands.pilotHeadingLock());
     }
 
     private void triggerSteering() {

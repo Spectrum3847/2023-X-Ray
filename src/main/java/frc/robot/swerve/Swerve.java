@@ -120,6 +120,7 @@ public class Swerve extends SubsystemBase {
      * @param leftPositive Velocity of the robot left/right, Left Positive meters per secound
      * @param omegaRadiansPerSecond Rotation Radians per second
      * @param fieldRelative If the robot should drive in field relative
+     * @param slowMode If the should drive in slow mode or not
      * @param isOpenLoop If the robot should drive in open loop
      * @param centerOfRotationMeters The center of rotation in meters
      */

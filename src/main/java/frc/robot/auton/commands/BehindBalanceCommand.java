@@ -12,7 +12,7 @@ public class BehindBalanceCommand extends ParallelCommandGroup {
     /** Creates a new TestPathFollowing. */
     public BehindBalanceCommand() {
         addCommands(
-                new SwerveDrive(() -> AutonConfig.balanceDriveSpeed, () -> 0.0, () -> 0.0, false)
+                new SwerveDrive(() -> AutonConfig.balanceDriveSpeed, () -> 0.0, () -> 0.0)
                         .until(
                                 () ->
                                         (Math.abs(Robot.swerve.gyro.getRollRate())

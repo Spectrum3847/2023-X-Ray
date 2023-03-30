@@ -16,7 +16,7 @@ public class PilotConfig {
     public static final boolean yInvert = true;
 
     public static final double steeringDeadband = 0.1;
-    public static final double steeringExp = 3;
+    public static final double steeringExp = 4;
     public static final double steeringScaler =
             0.4; // Multiplies by Swerve Max Angular Velocity to determine max steering
     public static final boolean steeringInvert = true;

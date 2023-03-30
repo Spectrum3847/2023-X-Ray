@@ -6,6 +6,7 @@ package frc.robot.swerve.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 public class HeadingLock extends CommandBase {
@@ -16,12 +17,32 @@ public class HeadingLock extends CommandBase {
 
     SwerveDrive driveCommand;
 
-    public HeadingLock(DoubleSupplier fwdPositiveSupplier, DoubleSupplier leftPositiveSupplier) {
+    public HeadingLock(
+            DoubleSupplier fwdPositiveSupplier,
+            DoubleSupplier leftPositiveSupplier,
+            DoubleSupplier velocityScalar,
+            BooleanSupplier fieldRelative) {
         this.fwdPositiveSupplier = fwdPositiveSupplier;
         this.leftPositiveSupplier = leftPositiveSupplier;
         driveCommand =
-                new SwerveDrive(fwdPositiveSupplier, leftPositiveSupplier, () -> getSteering());
+                new SwerveDrive(
+                        fwdPositiveSupplier,
+                        leftPositiveSupplier,
+                        () -> getSteering(),
+                        velocityScalar,
+                        fieldRelative);
         addRequirements(Robot.swerve);
+    }
+
+    public HeadingLock(
+            DoubleSupplier fwdPositiveSupplier,
+            DoubleSupplier leftPositiveSupplier,
+            DoubleSupplier velocityScalar) {
+        this(fwdPositiveSupplier, leftPositiveSupplier, velocityScalar, () -> true);
+    }
+
+    public HeadingLock(DoubleSupplier fwdPositiveSupplier, DoubleSupplier leftPositiveSupplier) {
+        this(fwdPositiveSupplier, leftPositiveSupplier, () -> 1.0, () -> true);
     }
 
     // Called when the command is initially scheduled.

@@ -11,7 +11,7 @@ public class MiddleCubeTaxiCommand extends SequentialCommandGroup {
     public MiddleCubeTaxiCommand() {
         addCommands(
                 AutonCommands.simpleLaunchCube(),
-                new SwerveDrive(() -> -1.0, () -> 0.0, () -> 0.0, false).withTimeout(3.65));
+                new SwerveDrive(() -> -1.0, () -> 0.0, () -> 0.0).withTimeout(3.65));
     }
 
     Rotation2d finalRotation() {
