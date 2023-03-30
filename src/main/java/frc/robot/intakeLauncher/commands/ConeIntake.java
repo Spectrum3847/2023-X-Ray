@@ -4,9 +4,12 @@
 
 package frc.robot.intakeLauncher.commands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.intakeLauncher.Intake;
+import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.pilot.commands.PilotCommands;
 
 public class ConeIntake extends CommandBase {
     boolean velocityLimitReached = false;
@@ -15,6 +18,7 @@ public class ConeIntake extends CommandBase {
     boolean runMotors, runOnce = true;
     boolean isShelfIntake = false;
     double initialX, finalX = 0;
+    Command operatorRumble;
 
     /** Creates a new CubeIntake. */
     public ConeIntake() {
@@ -34,18 +38,19 @@ public class ConeIntake extends CommandBase {
         count = 0;
         thresholdCount = 0;
         runMotors = true;
+        // operatorRumble = OperatorCommands.rumble(0.5, 1);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontRPM() > 3500) {
+        if (Robot.intake.getFrontRPM() > 3000) {
             if (!velocityLimitReached && thresholdCount >= 8) {
                 count++;
                 velocityLimitReached = true;
             }
             thresholdCount++;
-        } else if (Robot.intake.getFrontRPM() < 3500) {
+        } else if (Robot.intake.getFrontRPM() < 3000) {
             velocityLimitReached = false;
         }
 
@@ -63,15 +68,19 @@ public class ConeIntake extends CommandBase {
                     runOnce = false;
                 }
                 Robot.pilotGamepad.rumble(0.5);
+                Robot.operatorGamepad.rumble(0.5);
                 finalX = Robot.pose.getEstimatedPose().getX();
 
-                if (Math.abs(initialX - finalX) > 0.3) {
+                if (Math.abs(initialX - finalX) > 0.5) {
                     Robot.pilotGamepad.rumble(0);
-                    Robot.operatorGamepad.rumble(0.5);
+                    Robot.operatorGamepad.rumble(0);
+                    OperatorCommands.homeSystems().withTimeout(1.5).schedule();
                 }
 
             } else {
-                Robot.operatorGamepad.rumble(0.5);
+                OperatorCommands.rumble(0.5, 1).schedule();
+                PilotCommands.rumble(0.5, 1).schedule();
+                OperatorCommands.finishConeIntake();
             }
         }
     }
@@ -81,6 +90,7 @@ public class ConeIntake extends CommandBase {
     public void end(boolean interrupted) {
         Robot.operatorGamepad.rumble(0);
         Robot.pilotGamepad.rumble(0);
+        // operatorRumble.cancel();
     }
 
     // Returns true when the command should end.

@@ -52,6 +52,7 @@ public class IntakeConfig {
     public double frontAutoMidSpeed = frontMaxSpeed;
     public double launcherAutoMidSpeed = launcherMaxSpeed;
 
+    public double lowerBumpTopSpeed = lowerSpinUpSpeed;
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 

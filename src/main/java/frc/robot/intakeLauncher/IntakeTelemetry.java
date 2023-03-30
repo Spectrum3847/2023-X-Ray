@@ -17,14 +17,13 @@ public class IntakeTelemetry {
     public IntakeTelemetry(Intake intake) {
         this.intake = intake;
 
-        SmartDashboard.putNumber("launchValue", Intake.config.frontBumpTopSpeed);
         SmartDashboard.putNumber("spinTime", AutonConfig.spinUpTime);
         tab = Shuffleboard.getTab("Intake");
         tab.addNumber("Launcher Velocity", () -> intake.launcherMotor.getVelocity())
                 .withPosition(0, 0);
         tab.addNumber("Front Velocity", () -> intake.frontMotor.getVelocity()).withPosition(0, 1);
         tab.addNumber("Lower Velocity", () -> intake.lowerMotor.getVelocity()).withPosition(0, 2);
-    }
+        }
 
     public void testMode() {
         if (!intailized) {
