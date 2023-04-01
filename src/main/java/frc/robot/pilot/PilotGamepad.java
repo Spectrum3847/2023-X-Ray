@@ -8,10 +8,10 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
+import frc.robot.auton.commands.AutonCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
-import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.commands.DistanceDrive;
 
@@ -112,7 +112,9 @@ public class PilotGamepad extends Gamepad {
         stickSteerTriggers();
         triggerSteering();
 
-        gamepad.xButton.and(noBumpers()).whileTrue(new LockSwerve());
+        gamepad.xButton.and(noBumpers()).whileTrue(AutonCommands.secondShot());
+
+        // gamepad.xButton.and(noBumpers()).whileTrue(new LockSwerve());
 
         gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());

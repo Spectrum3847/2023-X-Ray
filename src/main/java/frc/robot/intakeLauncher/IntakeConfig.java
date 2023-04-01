@@ -35,7 +35,7 @@ public class IntakeConfig {
 
     public double lowerSpinUpSpeed = 200;
 
-    public double lowerFeedSpeed = -6000;
+    public double lowerFeedSpeed = -2000;
 
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed;
@@ -56,17 +56,22 @@ public class IntakeConfig {
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 
-    public double frontCommunityTopSpeed =
-            3650; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
+    public double frontFirstShotSpeed =
+            4200; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
     // //3600 slighty too short //3700 too much
-    public double launcherCommunityTopSpeed =
-            3650; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
+    public double launcherFirstShotSpeed =
+            5000; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
     // too short
 
-    public double frontBehindRStationMidSpeed =
-            4050; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
-    public double launcherBehindRStationMidSpeed =
-            4050; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double frontSecondShotSpeed =
+            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double launcherSecondShotSpeed =
+            2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+
+    public double frontAngleThirdShotSpeed =
+            850; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double launcherAngleThirdShotSpeed =
+            6000; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 
     public double frontBehindRStationMidSpeedBalance =
             3825; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short

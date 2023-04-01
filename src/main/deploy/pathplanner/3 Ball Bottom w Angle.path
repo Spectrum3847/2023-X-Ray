@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "CommunityTop"
+          "FirstShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -119,7 +119,7 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "RightStationMid"
+          "SecondShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -223,7 +223,7 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "BehindStationMid"
+          "AngleThirdShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",

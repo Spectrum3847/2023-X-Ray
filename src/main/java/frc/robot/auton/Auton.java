@@ -160,7 +160,7 @@ public class Auton {
         autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
-        autonChooser.addOption(
+        /*autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
                         .fullAuto(
@@ -186,20 +186,19 @@ public class Auton {
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         // autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
         // autonChooser.addOption("LockSwerve", new LockSwerve());
-        // autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());
+        // autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());*/
     }
 
     // Adds event mapping to autonomous commands
     public static void setupEventMap() {
         // Cube Shooting Commmands
-        eventMap.put("CommunityTop", AutonCommands.communityTop()); // Tuned correctly
-        eventMap.put("RightStationMid", AutonCommands.behindStationMid()); // Tuned Correctly
+        eventMap.put("FirstShot", AutonCommands.firstShot()); // Tuned correctly
+        eventMap.put("SecondShot", AutonCommands.secondShot()); // Tuned Correctly
         eventMap.put(
                 "RightStationMidBalance",
                 AutonCommands.behindStationMidBalance()); // Tuned Correctly
         eventMap.put("BehindStationTop", AutonCommands.onStationTop()); // Tuned Correctly
-        eventMap.put(
-                "BehindStationMid", AutonCommands.behindStationMid()); // Need to be tuned to run
+        eventMap.put("AngleThirdShot", AutonCommands.angleThirdShot()); // Need to be tuned to run
         eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
         // Cone placing Commands
         eventMap.put("ConeMid", AutonCommands.coneMid());

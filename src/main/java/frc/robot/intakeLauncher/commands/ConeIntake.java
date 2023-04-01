@@ -4,6 +4,7 @@
 
 package frc.robot.intakeLauncher.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -78,8 +79,10 @@ public class ConeIntake extends CommandBase {
                 }
 
             } else {
-                OperatorCommands.rumble(0.5, 1).schedule();
-                PilotCommands.rumble(0.5, 1).schedule();
+                if (!DriverStation.isAutonomous()) {
+                    OperatorCommands.rumble(0.5, 1).schedule();
+                    PilotCommands.rumble(0.5, 1).schedule();
+                }
                 OperatorCommands.finishConeIntake();
             }
         }

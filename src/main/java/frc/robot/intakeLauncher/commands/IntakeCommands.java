@@ -87,18 +87,25 @@ public class IntakeCommands {
                 Intake.config.launcherBumpTopSpeed);
     }
 
-    public static Command communityTopSpinUp() {
+    public static Command firstShot() {
         return setVelocities(
                 Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontCommunityTopSpeed,
-                Intake.config.launcherCommunityTopSpeed);
+                Intake.config.frontFirstShotSpeed,
+                Intake.config.launcherFirstShotSpeed);
     }
 
-    public static Command behindStationMidSpinUp() {
+    public static Command secondShot() {
         return setVelocities(
                 Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontBehindRStationMidSpeed,
-                Intake.config.launcherBehindRStationMidSpeed);
+                Intake.config.frontSecondShotSpeed,
+                Intake.config.launcherSecondShotSpeed);
+    }
+
+    public static Command angleThirdShot() {
+        return setVelocities(
+                Intake.config.lowerSpinUpSpeed,
+                Intake.config.frontAngleThirdShotSpeed,
+                Intake.config.launcherAngleThirdShotSpeed);
     }
 
     public static Command behindStationMidSpinUpBalance() {
@@ -128,14 +135,14 @@ public class IntakeCommands {
         return setIntakeRollers(-1.0, 1.0, 1.0);
     }
 
-    public static Command setVelocities(double lower, double upper, double launcher) {
+    public static Command setVelocities(double lower, double front, double launcher) {
         return new RunCommand(
-                () -> Robot.intake.setVelocities(lower, upper, launcher), Robot.intake);
+                () -> Robot.intake.setVelocities(lower, front, launcher), Robot.intake);
     }
 
-    public static Command setIntakeRollers(double lower, double upper, double launcher) {
+    public static Command setIntakeRollers(double lower, double front, double launcher) {
         return new RunCommand(
-                () -> Robot.intake.setPercentOutputs(lower, upper, launcher), Robot.intake);
+                () -> Robot.intake.setPercentOutputs(lower, front, launcher), Robot.intake);
     }
 
     public static Command stopAllMotors() {
