@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.pilot.commands.PilotCommands;
 
 public class CubeIntake extends CommandBase {
     boolean velocityLimitReached = false;
@@ -58,16 +60,20 @@ public class CubeIntake extends CommandBase {
             //        3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
             Robot.intake.setPercentOutputs(0.5, 1.0, -0.4);
 
-            Robot.operatorGamepad.rumble(0);
-            Robot.pilotGamepad.rumble(0);
+            // Robot.operatorGamepad.rumble(0);
+            // Robot.pilotGamepad.rumble(0);
         } else {
             Robot.intake.stopAll();
             /*ElevatorCommands.hopElevator().schedule();
             FourBarCommands.home().schedule();*/
 
             if (!RobotState.isAutonomous()) {
-                Robot.operatorGamepad.rumble(0.5);
-                Robot.pilotGamepad.rumble(0.5);
+                if (Timer.getFPGATimestamp() - startTime > 1.5) {
+                    PilotCommands.rumble(0.5, 1).schedule();
+                    OperatorCommands.rumble(0.5, 1).schedule();
+                }
+                // Robot.operatorGamepad.rumble(0.5);
+                // Robot.pilotGamepad.rumble(0.5);
             }
         }
     }
@@ -78,8 +84,8 @@ public class CubeIntake extends CommandBase {
         // Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
 
         Robot.intake.stopAll();
-        Robot.operatorGamepad.rumble(0);
-        Robot.pilotGamepad.rumble(0);
+        // Robot.operatorGamepad.rumble(0);
+        // Robot.pilotGamepad.rumble(0);
         if (!RobotState.isAutonomous()) {
             ElevatorCommands.hopElevator().schedule();
             FourBarCommands.home().schedule();
