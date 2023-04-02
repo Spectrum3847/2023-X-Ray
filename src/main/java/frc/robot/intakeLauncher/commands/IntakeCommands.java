@@ -108,19 +108,12 @@ public class IntakeCommands {
                 Intake.config.launcherAngleThirdShotSpeed);
     }
 
-    public static Command behindStationMidSpinUpBalance() {
-        return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontBehindRStationMidSpeedBalance,
-                Intake.config.launcherBehindRStationMidSpeedBalance);
-    }
-
-    public static Command onStationTopSpinUp() {
+    public static Command thirdShotBalance() {
 
         return setVelocities(
                 Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontBehindMStationTopSpeed,
-                Intake.config.launcherBehindMStationTopSpeed);
+                Intake.config.frontThirdShotBalanceSpeed,
+                Intake.config.launcherThirdShotBalanceSpeed);
     }
 
     public static Command launch() {

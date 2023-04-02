@@ -1,6 +1,5 @@
 package frc.robot.auton.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auton.AutonConfig;
 import frc.robot.elevator.commands.ElevatorCommands;
@@ -30,13 +29,8 @@ public class AutonCommands {
         return spinLauncher(IntakeCommands.angleThirdShot()).andThen(launch(), stopMotors());
     }
 
-    public static Command behindStationMidBalance() {
-        return spinLauncher(IntakeCommands.behindStationMidSpinUpBalance())
-                .andThen(launch(), stopMotors());
-    }
-
-    public static Command onStationTop() {
-        return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
+    public static Command thirdShotBalance() {
+        return spinLauncher(IntakeCommands.thirdShotBalance()).andThen(launch(), stopMotors());
     }
 
     /** Goes to 0 */
@@ -45,8 +39,7 @@ public class AutonCommands {
     }
 
     private static Command spinLauncher(Command spinCommand) {
-        return spinCommand.withTimeout(
-                SmartDashboard.getNumber("spinTime", AutonConfig.spinUpTime));
+        return spinCommand.withTimeout(AutonConfig.spinUpTime);
     }
 
     private static Command launch() {

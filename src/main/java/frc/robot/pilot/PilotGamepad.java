@@ -112,7 +112,7 @@ public class PilotGamepad extends Gamepad {
         stickSteerTriggers();
         triggerSteering();
 
-        gamepad.xButton.and(noBumpers()).whileTrue(AutonCommands.secondShot());
+        gamepad.xButton.and(noBumpers()).whileTrue(AutonCommands.thirdShotBalance());
 
         // gamepad.xButton.and(noBumpers()).whileTrue(new LockSwerve());
 

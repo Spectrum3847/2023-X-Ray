@@ -15,7 +15,10 @@ import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
 
 public class OperatorCommands {
-    public static void setupDefaultCommand() {}
+    public static void setupDefaultCommand() {
+        Robot.operatorGamepad.setDefaultCommand(
+                rumble(0, 9999).repeatedly().withName("DisableOperatorRumble"));
+    }
 
     /* Intaking Commands */
 

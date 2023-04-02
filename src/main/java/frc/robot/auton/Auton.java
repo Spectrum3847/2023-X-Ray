@@ -12,9 +12,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.auton.commands.AutoBalance;
 import frc.robot.auton.commands.AutonCommands;
-import frc.robot.auton.commands.BehindBalanceCommand;
-import frc.robot.auton.commands.FrontBalanceCommand;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
@@ -105,28 +104,8 @@ public class Auton {
 
     // A chooser for autonomous commands
     public static void setupSelectors() {
-        autonChooser.setDefaultOption(
-                "Nothing",
-                new PrintCommand("Doing Nothing in Auton")
-                        .andThen(new WaitCommand(5))); // setups an auto that does nothing
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
-        autonChooser.addOption(
-                "3 Ball Bottom w Balance",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "3 Ball Bottom w Balance",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        /*autonChooser.addOption(
-        "Balance Test",
-        getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Balance Test",
-                                new PathConstraints(
-                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));*/
-        autonChooser.addOption(
+        autonChooser.setDefaultOption(
                 "3 Ball Bottom w Angle",
                 getAutoBuilder()
                         .fullAuto(
@@ -135,6 +114,24 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed,
                                                 AutonConfig.kMaxAngleAccel))));
+        autonChooser.addOption(
+                "3 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "3 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
+                        .andThen(new AutoBalance())
+                        .andThen(AutonCommands.thirdShotBalance()));
+        /*autonChooser.addOption(
+        "Balance Test",
+        getAutoBuilder()
+                .fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "Balance Test",
+                                new PathConstraints(
+                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));*/
         /*autonChooser.addOption(
         "1 Ball w Balance",
         getAutoBuilder()
@@ -158,6 +155,10 @@ public class Auton {
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
         autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
         autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
+        autonChooser.addOption(
+                "Nothing",
+                new PrintCommand("Doing Nothing in Auton")
+                        .andThen(new WaitCommand(5))); // setups an auto that does nothing
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
         /*autonChooser.addOption(
@@ -194,10 +195,6 @@ public class Auton {
         // Cube Shooting Commmands
         eventMap.put("FirstShot", AutonCommands.firstShot()); // Tuned correctly
         eventMap.put("SecondShot", AutonCommands.secondShot()); // Tuned Correctly
-        eventMap.put(
-                "RightStationMidBalance",
-                AutonCommands.behindStationMidBalance()); // Tuned Correctly
-        eventMap.put("BehindStationTop", AutonCommands.onStationTop()); // Tuned Correctly
         eventMap.put("AngleThirdShot", AutonCommands.angleThirdShot()); // Need to be tuned to run
         eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
         // Cone placing Commands
@@ -209,9 +206,6 @@ public class Auton {
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
         // Drivetrain Commands
         eventMap.put("LockSwerve", new LockSwerve());
-        // Balance Commands
-        eventMap.put("FrontBalance", new FrontBalanceCommand());
-        eventMap.put("BehindBalance", new BehindBalanceCommand());
     }
 
     /**
