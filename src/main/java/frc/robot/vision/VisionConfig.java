@@ -15,10 +15,10 @@ public final class VisionConfig {
     /* Limelight Configuration */
 
     /* How many degrees back is limelight rotated from perfectly vertical */
-    public final static double limelightAngle = -22.5;
-    public final static double limelightLensHeight = 41.374; //inches
-    public final static double tagHeight = 0; //distance from floor to target in inches TODO: find tag height
-      
+    public static final double limelightAngle = -22.5;
+    public static final double limelightLensHeight = 41.374; // inches
+    public static final double tagHeight =
+            0; // distance from floor to target in inches TODO: find tag height
 
     public static Map<Integer, Pose3d> tagMap;
     /* Pose Estimation Strategy */

@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.SpectrumLib.util.Conversions;
 import frc.robot.Robot;
 import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.text.DecimalFormat;
@@ -27,6 +26,7 @@ public class Vision extends SubsystemBase {
     public boolean poseOverriden = false;
     /** For Pilot Gamepad */
     public boolean canUseAutoPilot = false;
+
     public double horizontalOffset, verticalOffset;
 
     private Pose3d botPose3d; // Uses the limelight rotation instead of the gyro rotation

@@ -145,9 +145,12 @@ public class PilotGamepad extends Gamepad {
     public void setupTestButtons() {}
 
     public double getPilotScalar() {
-        return Robot.pilotGamepad.slowModeButton().or(ElevatorCommands.elevatorUp).getAsBoolean()
-                ? PilotConfig.slowModeScaler
-                : 1.0;
+        if (ElevatorCommands.elevatorUp.getAsBoolean()) {
+            return PilotConfig.elevatorUpModeScaler;
+        } else if (Robot.pilotGamepad.slowModeButton().getAsBoolean()) {
+            return PilotConfig.slowModeScaler;
+        }
+        return 1;
     }
 
     private Trigger noBumpers() {
