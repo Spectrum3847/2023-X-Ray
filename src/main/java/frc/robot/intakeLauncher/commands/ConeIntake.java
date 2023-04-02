@@ -72,11 +72,11 @@ public class ConeIntake extends CommandBase {
                 Robot.operatorGamepad.rumble(0.5);
                 finalX = Robot.pose.getEstimatedPose().getX();
 
-                if (Math.abs(initialX - finalX) > 0.5) {
-                    Robot.pilotGamepad.rumble(0);
-                    Robot.operatorGamepad.rumble(0);
-                    OperatorCommands.homeSystems().withTimeout(1.5).schedule();
-                }
+                // if (Math.abs(initialX - finalX) > 0.8) {
+                //     Robot.pilotGamepad.rumble(0);
+                //     Robot.operatorGamepad.rumble(0);
+                //     OperatorCommands.homeSystems().withTimeout(1.5).schedule();
+                // }
 
             } else {
                 if (!DriverStation.isAutonomous()) {
@@ -93,6 +93,7 @@ public class ConeIntake extends CommandBase {
     public void end(boolean interrupted) {
         Robot.operatorGamepad.rumble(0);
         Robot.pilotGamepad.rumble(0);
+        OperatorCommands.homeSystems().withTimeout(1.5).schedule();
         // operatorRumble.cancel();
     }
 

@@ -83,7 +83,7 @@ public class PilotGamepad extends Gamepad {
 
         // gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
 
-        // gamepad.xButton.whileTrue(new BehindBalanceCommand());
+        // gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(0));
 
         /* Will not run if canUseAutoPilot condition is not met */
         // leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
@@ -190,7 +190,7 @@ public class PilotGamepad extends Gamepad {
     }
 
     public Trigger fpvButton() {
-        return gamepad.xButton.and(noBumpers());
+        return new Trigger(() -> false);
     }
 
     public double getDriveFwdPositive() {
