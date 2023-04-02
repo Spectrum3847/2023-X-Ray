@@ -103,6 +103,7 @@ public class Robot extends LoggedRobot {
         pilotGamepad.resetConfig();
         operatorGamepad.resetConfig();
         LEDCommands.setupLEDTriggers();
+        ElevatorCommands.setupElevatorTriggers();
     }
 
     /**
