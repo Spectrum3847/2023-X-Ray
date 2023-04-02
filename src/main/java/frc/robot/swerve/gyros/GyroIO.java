@@ -18,4 +18,6 @@ public interface GyroIO {
     public Rotation2d getRawRoll();
 
     public double getRollRate();
+
+    public double getPitchRate();
 }

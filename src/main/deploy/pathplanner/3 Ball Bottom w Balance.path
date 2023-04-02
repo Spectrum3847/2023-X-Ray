@@ -3,12 +3,12 @@
     {
       "anchorPoint": {
         "x": 4.35,
-        "y": 1.05
+        "y": 1.1
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.051022909063362,
-        "y": 0.952123132316441
+        "y": 1.002123132316441
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "CommunityTop"
+          "FirstShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -27,15 +27,15 @@
     {
       "anchorPoint": {
         "x": 6.05,
-        "y": 0.9
+        "y": 0.93
       },
       "prevControl": {
         "x": 5.187046865321801,
-        "y": 0.9272047912516869
+        "y": 0.9572047912516869
       },
       "nextControl": {
         "x": 6.099564690130609,
-        "y": 0.8984374620193476
+        "y": 0.9284374620193476
       },
       "holonomicAngle": 0,
       "isReversal": false,
@@ -52,15 +52,15 @@
     {
       "anchorPoint": {
         "x": 6.9,
-        "y": 0.9
+        "y": 0.93
       },
       "prevControl": {
         "x": 6.9,
-        "y": 0.9302878872734749
+        "y": 0.9602878872734749
       },
       "nextControl": {
         "x": 6.9,
-        "y": 0.9302878872734749
+        "y": 0.9602878872734749
       },
       "holonomicAngle": 0,
       "isReversal": true,
@@ -119,7 +119,7 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "RightStationMidBalance"
+          "SecondShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -217,12 +217,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "BehindStationTop",
-          "BehindBalance"
-        ],
+        "names": [],
         "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
+        "waitBehavior": "none",
         "waitTime": 0.8
       }
     }
