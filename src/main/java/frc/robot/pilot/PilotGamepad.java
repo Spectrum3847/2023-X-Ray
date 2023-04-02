@@ -188,7 +188,7 @@ public class PilotGamepad extends Gamepad {
     }
 
     public Trigger fpvButton() {
-        return gamepad.xButton.and(noBumpers());
+        return new Trigger(() -> false);
     }
 
     public double getDriveFwdPositive() {
