@@ -112,15 +112,15 @@ public class PilotGamepad extends Gamepad {
         stickSteerTriggers();
         triggerSteering();
 
-        // gamepad.xButton.and(noBumpers()).whileTrue(AutonCommands.thirdShotBalance());
+        gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
+        gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(0));
 
         gamepad.yButton.and(noBumpers()).whileTrue(new LockSwerve());
 
         gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
-        gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(3.5)));
-        gamepad.Dpad.Right.and(noBumpers())
-                .whileTrue(new DistanceDrive(Units.inchesToMeters(-3.5)));
+        gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
+        gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
         // Left and Right is free
 
         // Reorient the robot to the current heading, reset swerve ot absolute sensors, and rumble
@@ -134,7 +134,7 @@ public class PilotGamepad extends Gamepad {
         gamepad.startButton.whileTrue(
                 SwerveCommands
                         .resetSteeringToAbsolute()); // Reset steering if a falcon is being weird
-        // gamepad.selectButton.whileTrue():
+        gamepad.selectButton.whileTrue(new LockSwerve());
     }
 
     public void setupDisabledButtons() {
