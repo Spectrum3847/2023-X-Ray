@@ -61,11 +61,6 @@ public class PilotCommands {
                 .withName("StickSteer");
     }
 
-    /** Reorient the Robot to face the Grids */
-    public static Command reorientToGrid(double angle) {
-        return aimPilotDrive(() -> angle);
-    }
-
     /** Drive while aiming to a specific angle, uses theta controller from Trajectories */
     public static Command aimPilotDrive(double goalAngleRadians) {
         return aimPilotDrive(() -> goalAngleRadians);
