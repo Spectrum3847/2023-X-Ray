@@ -124,6 +124,29 @@ public class Auton {
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
                         .andThen(new AutoBalance())
                         .andThen(AutonCommands.thirdShotBalance()));
+        autonChooser.addOption(
+                "2 Ball w Cone",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "2 Ball w Cone",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel),
+                                        new PathConstraints(0.2, 0.2),
+                                        new PathConstraints(0.2, 0.2),
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel),
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel),
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel),
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel),
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel),
+                                        new PathConstraints(0.2, 0.2),
+                                        new PathConstraints(0.2, 0.2),
+                                        new PathConstraints(0.25, 0.25))));
         /*autonChooser.addOption(
         "Balance Test",
         getAutoBuilder()
