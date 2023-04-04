@@ -2,8 +2,6 @@ package frc.robot.intakeLauncher;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.auton.AutonConfig;
 
 public class IntakeTelemetry {
 
@@ -17,8 +15,6 @@ public class IntakeTelemetry {
     public IntakeTelemetry(Intake intake) {
         this.intake = intake;
 
-        SmartDashboard.putNumber("launchValue", Intake.config.frontBumpTopSpeed);
-        SmartDashboard.putNumber("spinTime", AutonConfig.spinUpTime);
         tab = Shuffleboard.getTab("Intake");
         tab.addNumber("Launcher Velocity", () -> intake.launcherMotor.getVelocity())
                 .withPosition(0, 0);

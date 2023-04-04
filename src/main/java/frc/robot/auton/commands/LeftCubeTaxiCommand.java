@@ -11,8 +11,8 @@ public class LeftCubeTaxiCommand extends SequentialCommandGroup {
     public LeftCubeTaxiCommand() {
         addCommands(
                 AutonCommands.simpleLaunchCube(),
-                new SwerveDrive(() -> -0.25, () -> -1, () -> 0.0, false).withTimeout(0.5),
-                new SwerveDrive(() -> -2.0, () -> 0.0, () -> 0.0, false).withTimeout(3));
+                new SwerveDrive(() -> -0.25, () -> -1, () -> 0.0).withTimeout(0.5),
+                new SwerveDrive(() -> -2.0, () -> 0.0, () -> 0.0).withTimeout(3));
     }
 
     Rotation2d finalRotation() {

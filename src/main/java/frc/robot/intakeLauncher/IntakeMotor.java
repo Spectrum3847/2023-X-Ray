@@ -25,6 +25,8 @@ public class IntakeMotor {
         motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         motor.setInverted(inverted);
         motor.setNeutralMode(NeutralMode.Brake);
+        motor.configVoltageCompSaturation(11);
+        motor.enableVoltageCompensation(true);
 
         motor.config_kP(0, config.velocityKp);
         motor.config_kF(0, config.velocityKf);
@@ -51,7 +53,7 @@ public class IntakeMotor {
         return Conversions.falconToRPM(motor.getSelectedSensorVelocity(), 1);
     }
 
-    public double getPostion() {
+    public double getPosition() {
         return motor.getSelectedSensorPosition();
     }
 

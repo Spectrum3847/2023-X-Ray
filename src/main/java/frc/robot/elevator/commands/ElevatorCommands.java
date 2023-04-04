@@ -3,6 +3,7 @@ package frc.robot.elevator.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import frc.robot.fourbar.FourBar;
@@ -11,9 +12,18 @@ import java.util.function.DoubleSupplier;
 // above all copied from PilotCommands.java
 
 public class ElevatorCommands {
+    public static Trigger elevatorUp =
+            new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 12);
+
     public static void setupDefaultCommand() {
         Robot.elevator.setDefaultCommand(
-                stop().withTimeout(0.25).andThen(new ElevatorHoldPosition()));
+                stop().withTimeout(0.25)
+                        .andThen(new ElevatorHoldPosition())
+                        .withName("ElevatorDefaultCommand"));
+    }
+
+    public static void setupElevatorTriggers() {
+        elevatorUp = new Trigger(() -> Elevator.falconToInches(Robot.elevator.getPosition()) > 12);
     }
 
     public static Command stop() {
@@ -108,6 +118,6 @@ public class ElevatorCommands {
     }
 
     public static Command zeroElevatorRoutine() {
-        return new ZeroElevatorRoutine();
+        return new ZeroElevatorRoutine().withName("Zero Elevator");
     }
 }

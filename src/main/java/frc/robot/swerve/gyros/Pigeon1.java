@@ -36,4 +36,16 @@ public class Pigeon1 implements GyroIO {
     public Rotation2d getRawRoll() {
         return Rotation2d.fromDegrees(pigeon.getRoll());
     }
+
+    public double getRollRate() {
+        double[] xyz_dps = new double[3];
+        pigeon.getRawGyro(xyz_dps);
+        return xyz_dps[0];
+    }
+
+    public double getPitchRate() {
+        double[] xyz_dps = new double[3];
+        pigeon.getRawGyro(xyz_dps);
+        return xyz_dps[1];
+    }
 }

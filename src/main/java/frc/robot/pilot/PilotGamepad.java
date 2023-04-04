@@ -1,5 +1,6 @@
 package frc.robot.pilot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
@@ -7,19 +8,36 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
-import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
-import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
-import frc.robot.swerve.commands.LockSwerve;
-import frc.robot.swerve.commands.SwerveCommands;
-import frc.robot.trajectories.commands.PositionPaths;
-import frc.robot.vision.VisionCommands;
+import frc.robot.trajectories.commands.DistanceDrive;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
+
+    Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5, ThresholdType.DEADBAND);
+    Trigger rightY = AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.5, ThresholdType.DEADBAND);
+
+    Trigger leftX =
+            AxisButton.create(
+                    gamepad, XboxAxis.LEFT_X, PilotConfig.throttleDeadband, ThresholdType.DEADBAND);
+    Trigger leftY =
+            AxisButton.create(
+                    gamepad, XboxAxis.LEFT_Y, PilotConfig.throttleDeadband, ThresholdType.DEADBAND);
+
+    Trigger leftTrigger =
+            AxisButton.create(
+                    gamepad,
+                    XboxAxis.LEFT_TRIGGER,
+                    PilotConfig.steeringDeadband,
+                    ThresholdType.DEADBAND);
+    Trigger rightTrigger =
+            AxisButton.create(
+                    gamepad,
+                    XboxAxis.RIGHT_TRIGGER,
+                    PilotConfig.steeringDeadband,
+                    ThresholdType.DEADBAND);
 
     public PilotGamepad() {
         super("PILOT", PilotConfig.port);
@@ -45,65 +63,30 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        fpvButton().and(noBumpers()).whileTrue(PilotCommands.fpvPilotSwerve()); // X and Not A
-        slowModeButton().and(noBumpers()).whileTrue(PilotCommands.slowMode()); // A and not X
-        slowFpvButton().and(noBumpers()).whileTrue(PilotCommands.slowModeFPV()); // A and X
-
-        // gamepad.yButton.and(noBumpers()).whileTrue(); Y IS FREE
-        // gamepad.yButton.and(noBumpers()).whileTrue(OperatorCommands.coneTop());
-
-        gamepad.bButton.and(noBumpers()).whileTrue(OperatorCommands.homeAndSlowIntake());
-
-        gamepad.xButton.whileTrue(PilotCommands.reorientToGrid(Math.PI));
-
-        // gamepad.yButton.whileTrue(PilotCommands.reorientToGrid(0));
-
-        gamepad.rightBumper.whileTrue(
-                ElevatorCommands.setOutput(() -> gamepad.rightStick.getY() * 0.5));
-        gamepad.leftBumper.whileTrue(
-                FourBarCommands.setManualOutput(() -> gamepad.rightStick.getY() * 0.5));
-
-        leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
-        leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
-        leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
-        middleGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid2Left());
-        middleGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid2Middle());
-        middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
-        rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
-        rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
-        rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
-
-        // hybrid aiming
-        rightGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(0));
-        rightGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(1));
-        rightGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(2));
-        middleGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(3));
-        middleGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(4));
-        middleGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(5));
-        leftGrid().and(gamepad.rightTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(6));
-        leftGrid().and(bothTriggers()).whileTrue(VisionCommands.aimToHybridSpot(7));
-        leftGrid().and(gamepad.leftTriggerButton).whileTrue(VisionCommands.aimToHybridSpot(8));
-
         // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
+        // driveTrigger();
         stickSteerTriggers();
+        triggerSteering();
 
-        gamepad.Dpad.Up.whileTrue(IntakeCommands.launch());
+        /* Aiming */
+        gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
+        gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(0));
+
+        /* Dpad */
+        gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
-        gamepad.Dpad.Left.and(noBumpers()).whileTrue(new LockSwerve());
-        // Right is free
+        gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
+        gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
 
-        // Reorient the robot to the current heading, reset swerve ot absolute sensors, and rumble
-        // controller
+        /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));
         gamepad.Dpad.Left.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(90));
         gamepad.Dpad.Down.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(180));
         gamepad.Dpad.Right.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(270));
 
-        // Start and Select Buttons
-        gamepad.startButton.whileTrue(
-                SwerveCommands
-                        .resetSteeringToAbsolute()); // Reset steering if a falcon is being weird
-        // gamepad.selectButton.whileTrue():
+        /* Start and Select */
+        gamepad.startButton.whileTrue(PilotCommands.resetSteering());
+        gamepad.selectButton.whileTrue(PilotCommands.lockSwerve());
     }
 
     public void setupDisabledButtons() {
@@ -112,8 +95,21 @@ public class PilotGamepad extends Gamepad {
 
     public void setupTestButtons() {}
 
+    public double getPilotScalar() {
+        if (ElevatorCommands.elevatorUp.getAsBoolean()) {
+            return PilotConfig.elevatorUpModeScaler;
+        } else if (Robot.pilotGamepad.slowModeButton().getAsBoolean()) {
+            return PilotConfig.slowModeScaler;
+        }
+        return 1;
+    }
+
     private Trigger noBumpers() {
         return gamepad.rightBumper.negate().and(gamepad.leftBumper.negate());
+    }
+
+    private Trigger noTriggers() {
+        return leftTrigger.negate().and(rightTrigger.negate());
     }
 
     private Trigger leftBumperOnly() {
@@ -144,16 +140,12 @@ public class PilotGamepad extends Gamepad {
         return bothBumpers();
     }
 
-    private Trigger slowModeButton() {
-        return gamepad.aButton.and(gamepad.xButton.negate());
+    public Trigger slowModeButton() {
+        return gamepad.aButton.and(noBumpers());
     }
 
-    private Trigger fpvButton() {
-        return gamepad.yButton.and(gamepad.aButton.negate());
-    }
-
-    private Trigger slowFpvButton() {
-        return gamepad.yButton.and(gamepad.aButton);
+    public Trigger fpvButton() {
+        return gamepad.yButton.and(noBumpers());
     }
 
     public double getDriveFwdPositive() {
@@ -183,10 +175,25 @@ public class PilotGamepad extends Gamepad {
                 gamepad.rightStick.getY(), gamepad.rightStick.getX());
     }
 
+    public double getRightStickCardinals() {
+        double stickAngle = getRightStickAngle();
+        if (stickAngle > -Math.PI / 4 && stickAngle <= Math.PI / 4) {
+            return 0;
+        } else if (stickAngle > Math.PI / 4 && stickAngle <= 3 * Math.PI / 4) {
+            return Math.PI / 2;
+        } else if (stickAngle > 3 * Math.PI / 4 || stickAngle <= -3 * Math.PI / 4) {
+            return Math.PI;
+        } else {
+            return -Math.PI / 2;
+        }
+    }
+
+    private void triggerSteering() {
+        leftTrigger.or(rightTrigger).and(noBumpers()).whileTrue(PilotCommands.pilotSwerve());
+    }
+
     private void stickSteerTriggers() {
         // Right Stick points the robot in that direction, when bumpers aren't pressed
-        Trigger rightX = AxisButton.create(gamepad, XboxAxis.RIGHT_X, 0.5, ThresholdType.DEADBAND);
-        Trigger rightY = AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.5, ThresholdType.DEADBAND);
         (rightX.or(rightY)).and(noBumpers()).whileTrue(PilotCommands.stickSteer());
     }
 

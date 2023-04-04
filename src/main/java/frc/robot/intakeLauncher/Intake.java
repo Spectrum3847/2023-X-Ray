@@ -1,6 +1,7 @@
 package frc.robot.intakeLauncher;
 
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotConfig;
 
@@ -10,6 +11,7 @@ public class Intake extends SubsystemBase {
     public IntakeMotor lowerMotor;
     public IntakeMotor frontMotor;
     public IntakeMotor launcherMotor;
+    private DigitalInput cubeSensor;
 
     public Intake() {
         super();
@@ -24,7 +26,12 @@ public class Intake extends SubsystemBase {
                         config, RobotConfig.Motors.launcher, TalonFXInvertType.CounterClockwise);
         ;
 
+        cubeSensor = new DigitalInput(0);
         telemetry = new IntakeTelemetry(this);
+    }
+
+    public boolean getCubeSensor() {
+        return !cubeSensor.get();
     }
 
     public void setCurrentLimits(double limit, double threshold) {

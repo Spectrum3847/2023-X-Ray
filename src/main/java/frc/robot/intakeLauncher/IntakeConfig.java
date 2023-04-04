@@ -33,42 +33,50 @@ public class IntakeConfig {
     public double frontFloorSpeed = -4000;
     public double launcherFloorSpeed = launcherEjectSpeed;
 
-    public double lowerSpinUpSpeed = 200;
+    public double lowerSpinUpSpeed = 100;
 
-    public double lowerFeedSpeed = -6000;
+    public double lowerFeedSpeed = -2000;
 
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed;
 
-    public double frontMidCubeSpeed = 1500;
+    public double frontMidCubeSpeed = 1300;
     public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
-    public double frontTopCubeSpeed = 2600;
-    public double launcherTopCubeSpeed = frontTopCubeSpeed;
+    public double frontTopCubeSpeed = 2150;
+    public double launcherTopCubeSpeed = 2000;
 
-    public double frontChargeStationLaunchSpeed = 3600;
-    public double launcherChargeStationLaunchSpeed = 4000;
+    public double frontChargeStationLaunchSpeed = 1000;
+    public double launcherChargeStationLaunchSpeed = 5000;
 
     public double frontAutoMidSpeed = frontMaxSpeed;
     public double launcherAutoMidSpeed = launcherMaxSpeed;
 
+    public double lowerBumpTopSpeed = lowerSpinUpSpeed;
     public double frontBumpTopSpeed = 4820;
     public double launcherBumpTopSpeed = 4820;
 
-    public double frontCommunityTopSpeed =
-            3600; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
-    public double launcherCommunityTopSpeed =
-            3600; // correct //3800 was a little too far //3650 was slighty too far
+    public double frontFirstShotSpeed =
+            5370; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
+    // //3600 slighty too short //3700 too much
+    public double launcherFirstShotSpeed =
+            6250; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
+    // too short
 
-    public double frontBehindRStationMidSpeed =
-            4000; // correct w/distance = .135 from tape line and .18
-    public double launcherBehindRStationMidSpeed =
-            4000; // correct w/distance = .135 from tape line and .18
+    public double frontSecondShotSpeed =
+            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double launcherSecondShotSpeed =
+            2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 
-    public double frontBehindMStationTopSpeed =
-            6000; // correct when touching charge station with .5 sec spin up time
-    public double launcherBehindMStationTopSpeed =
-            6000; // correct when touching charge station with .5 sec spin up time
+    public double frontAngleThirdShotSpeed =
+            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double launcherAngleThirdShotSpeed =
+            4000; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+
+    public double frontThirdShotBalanceSpeed =
+            3400; // correct when touching charge station with .5 sec spin up time
+    public double launcherThirdShotBalanceSpeed =
+            5000; // correct when touching charge station with .5 sec spin up time
 
     public double currentLimit = 20;
     public double threshold = 40;

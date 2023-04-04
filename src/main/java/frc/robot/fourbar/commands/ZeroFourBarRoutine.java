@@ -35,7 +35,7 @@ public class ZeroFourBarRoutine extends CommandBase {
     public void end(boolean interrupted) {
         // Set fourBar position to zero
         // enable soft limits
-        Robot.fourBar.resetSensorPosition(-800);
+        Robot.fourBar.resetSensorPosition(-1100);
         Robot.fourBar.softLimitsTrue();
         Robot.fourBar.setMMPosition(0);
     }

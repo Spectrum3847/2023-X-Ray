@@ -5,23 +5,19 @@
 package frc.robot.intakeLauncher.commands;
 
 import edu.wpi.first.wpilibj.RobotState;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.operator.commands.OperatorCommands;
-import frc.robot.pilot.commands.PilotCommands;
 
-public class CubeIntake extends CommandBase {
+public class CubeIntakeAuton extends CommandBase {
     boolean velocityLimitReached = false;
     int count = 0;
     int thresholdCount = 0;
     boolean runMotors = true;
-    double startTime = 0;
 
     /** Creates a new CubeIntake. */
-    public CubeIntake() {
+    public CubeIntakeAuton() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.intake);
     }
@@ -33,7 +29,6 @@ public class CubeIntake extends CommandBase {
         count = 0;
         thresholdCount = 0;
         runMotors = true;
-        startTime = Timer.getFPGATimestamp();
 
         // Robot.intake.setCurrentLimits(80, 60);
     }
@@ -41,40 +36,26 @@ public class CubeIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // if (Robot.intake.getFrontRPM() > 3000) {
-        //     if (!velocityLimitReached && thresholdCount >= 8) {
-        //         count++;
-        //         velocityLimitReached = true;
-        //     }
-        //     thresholdCount++;
-        // } else if (Robot.intake.getFrontRPM() <= 3000) {
-        //     velocityLimitReached = false;
-        // }
+        /*if (Robot.intake.getFrontRPM() > 3000) {
+            if (!velocityLimitReached && thresholdCount >= 8) {
+                count++;
+                velocityLimitReached = true;
+            }
+            thresholdCount++;
+        } else if (Robot.intake.getFrontRPM() <= 3000) {
+            velocityLimitReached = false;
+        }
 
-        // if (count >= 2) {
-        //     runMotors = false;
-        // }
+        if (count >= 2) {
+            runMotors = false;
+        }*/
 
-        if (!Robot.intake.getCubeSensor()) {
+        if (runMotors) {
             // Robot.intake.setVelocities(
             //        3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
-            Robot.intake.setPercentOutputs(0.5, 1.0, -0.4);
-
-            // Robot.operatorGamepad.rumble(0);
-            // Robot.pilotGamepad.rumble(0);
+            Robot.intake.setPercentOutputs(1.0, 1.0, -4.0);
         } else {
             Robot.intake.stopAll();
-            /*ElevatorCommands.hopElevator().schedule();
-            FourBarCommands.home().schedule();*/
-
-            if (!RobotState.isAutonomous()) {
-                if (Timer.getFPGATimestamp() - startTime > 1.5) {
-                    PilotCommands.rumble(0.5, 1).schedule();
-                    OperatorCommands.rumble(0.5, 1).schedule();
-                }
-                // Robot.operatorGamepad.rumble(0.5);
-                // Robot.pilotGamepad.rumble(0.5);
-            }
         }
     }
 
@@ -82,10 +63,8 @@ public class CubeIntake extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         // Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
-
-        Robot.intake.stopAll();
-        // Robot.operatorGamepad.rumble(0);
-        // Robot.pilotGamepad.rumble(0);
+        Robot.operatorGamepad.rumble(0);
+        Robot.pilotGamepad.rumble(0);
         if (!RobotState.isAutonomous()) {
             ElevatorCommands.hopElevator().schedule();
             FourBarCommands.home().schedule();
@@ -95,6 +74,6 @@ public class CubeIntake extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Robot.intake.getCubeSensor() && Timer.getFPGATimestamp() - startTime > 1.5;
+        return false;
     }
 }

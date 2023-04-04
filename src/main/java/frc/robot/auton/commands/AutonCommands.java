@@ -1,12 +1,15 @@
 package frc.robot.auton.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.auton.AutonConfig;
+import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.fourbar.FourBar;
 import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.fourbar.commands.FourBarDelay;
+import frc.robot.intakeLauncher.commands.ConeIntake;
+import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
-import frc.robot.operator.commands.OperatorCommands;
 
 public class AutonCommands {
 
@@ -17,17 +20,20 @@ public class AutonCommands {
     }
 
     /* These 3 commands have not been mapped to the operator gamepad */
-    public static Command communityTop() {
-        return spinLauncher(IntakeCommands.communityTopSpinUp()).andThen(launch(), stopMotors());
+    public static Command firstShot() {
+        return spinLauncher(IntakeCommands.firstShot()).andThen(launch(), stopMotors());
     }
 
-    public static Command behindStationMid() {
-        return spinLauncher(IntakeCommands.behindStationMidSpinUp())
-                .andThen(launch(), stopMotors());
+    public static Command secondShot() {
+        return spinLauncher(IntakeCommands.secondShot()).andThen(launch(), stopMotors());
     }
 
-    public static Command onStationTop() {
-        return spinLauncher(IntakeCommands.onStationTopSpinUp()).andThen(launch(), stopMotors());
+    public static Command angleThirdShot() {
+        return spinLauncher(IntakeCommands.angleThirdShot()).andThen(launch(), stopMotors());
+    }
+
+    public static Command thirdShotBalance() {
+        return spinLauncher(IntakeCommands.thirdShotBalance()).andThen(launch(), stopMotors());
     }
 
     /** Goes to 0 */
@@ -36,8 +42,7 @@ public class AutonCommands {
     }
 
     private static Command spinLauncher(Command spinCommand) {
-        return spinCommand.withTimeout(
-                SmartDashboard.getNumber("spinTime", AutonConfig.spinUpTime));
+        return spinCommand.withTimeout(AutonConfig.spinUpTime);
     }
 
     private static Command launch() {
@@ -49,33 +54,47 @@ public class AutonCommands {
     }
 
     public static Command retractIntake() {
-        return homeSystems();
+        return homeSystems().alongWith(IntakeCommands.stopAllMotors());
     }
 
     public static Command intakeCube() {
-        return OperatorCommands.cubeIntake();
+        return new CubeIntake()
+                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
     }
 
     public static Command intakeCone() {
-        return OperatorCommands.coneIntake();
+        return new ConeIntake()
+                .alongWith(
+                        ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
+                .withName("Auton Standing Cone")
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command coneMid() {
-        return OperatorCommands.coneMid()
+        return IntakeCommands.slowIntake()
+                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid())
+                .withName("Auton Cone Mid")
                 .withTimeout(.8)
                 .andThen(IntakeCommands.eject().withTimeout(.8))
                 .andThen(retractIntake().withTimeout(.8));
     }
 
     public static Command coneTop() {
-        return OperatorCommands.coneTop()
+        return IntakeCommands.slowIntake()
+                .alongWith(
+                        ElevatorCommands.coneTop(),
+                        new FourBarDelay(
+                                FourBar.config.safePositionForElevator,
+                                FourBar.config.coneTop,
+                                Elevator.config.safePositionForFourBar))
                 .withTimeout(.8)
                 .andThen(IntakeCommands.eject().withTimeout(.8))
                 .andThen(retractIntake().withTimeout(.8));
     }
 
     public static Command simpleLaunchCube() {
-        return OperatorCommands.cubeTop()
+        return IntakeCommands.topCubeSpinUp()
+                .alongWith(ElevatorCommands.cubeTop())
                 .withTimeout(0.5)
                 .andThen(IntakeCommands.launch())
                 .withTimeout(2)
