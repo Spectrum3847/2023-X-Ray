@@ -20,8 +20,8 @@ public class FourBarCommands {
                 .ignoringDisable(true);
     }
 
-    public static Command ZeroFourBarRoutine() {
-        return new ZeroFourBarRoutine();
+    public static Command zeroFourBarRoutine() {
+        return new ZeroFourBarRoutine().withName("Zero FourBar");
     }
 
     public static Command setManualOutput(double speed) {

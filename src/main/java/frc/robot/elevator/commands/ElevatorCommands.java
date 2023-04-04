@@ -110,6 +110,6 @@ public class ElevatorCommands {
     }
 
     public static Command zeroElevatorRoutine() {
-        return new ZeroElevatorRoutine();
+        return new ZeroElevatorRoutine().withName("Zero Elevator");
     }
 }

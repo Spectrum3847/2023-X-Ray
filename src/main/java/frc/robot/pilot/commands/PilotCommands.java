@@ -6,6 +6,7 @@ import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.HeadingLock;
+import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
 import java.util.function.DoubleSupplier;
@@ -107,6 +108,16 @@ public class PilotCommands {
     public static Command reorient(double angle) {
         return PoseCommands.resetHeading(angle)
                 .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute());
+    }
+
+    /** LockSwerve */
+    public static Command lockSwerve() {
+        return new LockSwerve().withName("Lock Swerve");
+    }
+
+    /** Reset steering if a falcon is being weird */
+    public static Command resetSteering() {
+        return SwerveCommands.resetSteeringToAbsolute();
     }
 
     // /**

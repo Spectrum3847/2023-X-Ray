@@ -15,6 +15,7 @@ import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
+import frc.robot.pilot.commands.PilotCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {
@@ -94,19 +95,38 @@ public class OperatorCommands {
                 .alongWith(
                         FourBarCommands.cubeFloorGoal(),
                         new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+                .alongWith(PilotCommands.rumble(1, 99))
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command cubeMid() {
-        return IntakeCommands.midCubeSpinUp().alongWith(homeSystems());
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(
+                        IntakeCommands.midCubeSpinUp()
+                                .alongWith(homeSystems(), PilotCommands.rumble(0.5, 99)));
     }
 
     public static Command cubeTop() {
-        return IntakeCommands.topCubeSpinUp().alongWith(ElevatorCommands.cubeTop());
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(
+                        IntakeCommands.topCubeSpinUp()
+                                .alongWith(
+                                        ElevatorCommands.cubeTop(),
+                                        PilotCommands.conditionalRumble(
+                                                Elevator.config.cubeTop, 1, 99)));
     }
 
     public static Command cubeChargeStation() {
-        return IntakeCommands.behindChargeStationSpinUp().alongWith(homeSystems());
+        return IntakeCommands.behindChargeStationSpinUp()
+                .alongWith(homeSystems(), PilotCommands.rumble(1, 99));
+    }
+
+    /** Sets Elevator and Fourbar to coast mode */
+    public static Command coastMode() {
+        return ElevatorCommands.coastMode()
+                .alongWith(FourBarCommands.coastMode().ignoringDisable(true));
     }
 
     public static Command homeAndSlowIntake() {
@@ -115,7 +135,9 @@ public class OperatorCommands {
 
     /** Goes to 0 */
     public static Command homeSystems() {
-        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome()).withName("Home Systems");
+        return FourBarCommands.home()
+                .alongWith(ElevatorCommands.safeHome())
+                .withName("Home Systems");
     }
 
     public static Command manualElevator() {

@@ -4,14 +4,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
-import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.operator.commands.OperatorCommands;
-import frc.robot.pilot.commands.PilotCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -41,32 +38,10 @@ public class OperatorGamepad extends Gamepad {
                 .whileTrue(OperatorCommands.coneShelfIntake());
 
         /* Cube Scoring */
-        gamepad.aButton
-                .and(rightBumper())
-                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton
-                .and(rightBumper())
-                .whileTrue(
-                        OperatorCommands.cubeChargeStation()
-                                .alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.aButton
-                .and(noRightBumper())
-                .whileTrue(
-                        IntakeCommands.intake()
-                                .withTimeout(0.1)
-                                .andThen(
-                                        OperatorCommands.cubeMid()
-                                                .alongWith(PilotCommands.rumble(1, 99))));
-        gamepad.bButton
-                .and(noRightBumper())
-                .whileTrue(
-                        IntakeCommands.intake()
-                                .withTimeout(0.1)
-                                .andThen(
-                                        OperatorCommands.cubeTop()
-                                                .alongWith(
-                                                        PilotCommands.conditionalRumble(
-                                                                Elevator.config.cubeTop, 1, 99))));
+        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeFloorGoal());
+        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation());
+        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
+        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
 
         /* Cone Scoring */
         gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
@@ -78,9 +53,8 @@ public class OperatorGamepad extends Gamepad {
         gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noRightBumper()).whileTrue(LEDCommands.coneFloorLED());
         gamepad.Dpad.Right.and(noRightBumper()).whileTrue(LEDCommands.cubeLED());
-        gamepad.selectButton.whileTrue(
-                ElevatorCommands.zeroElevatorRoutine().withName("Zero Elevator"));
-        gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
+        gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
+        gamepad.startButton.whileTrue(FourBarCommands.zeroFourBarRoutine());
         gamepad.selectButton.and(gamepad.startButton).onTrue(OperatorCommands.cancelCommands());
 
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
@@ -101,9 +75,7 @@ public class OperatorGamepad extends Gamepad {
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(LEDCommands.coneFloorLED());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
-        gamepad.bButton.toggleOnTrue(
-                ElevatorCommands.coastMode()
-                        .alongWith(FourBarCommands.coastMode().ignoringDisable(true)));
+        gamepad.bButton.toggleOnTrue(OperatorCommands.coastMode());
     }
 
     public void setupTestButtons() {}
