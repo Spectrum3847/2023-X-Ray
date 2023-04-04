@@ -180,6 +180,7 @@ public class Robot extends LoggedRobot {
         resetCommandsAndButtons();
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
+        swerve.gyro.setAngleOffset(swerve.gyro.getRawPitch().getDegrees());
 
         Command autonCommand = Auton.getAutonomousCommand();
         if (autonCommand != null) {

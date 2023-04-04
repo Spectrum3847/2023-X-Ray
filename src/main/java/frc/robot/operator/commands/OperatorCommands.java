@@ -115,7 +115,9 @@ public class OperatorCommands {
 
     /** Goes to 0 */
     public static Command homeSystems() {
-        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome()).withName("Home Systems");
+        return FourBarCommands.home()
+                .alongWith(ElevatorCommands.safeHome())
+                .withName("Home Systems");
     }
 
     public static Command manualElevator() {

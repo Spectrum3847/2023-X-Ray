@@ -6,6 +6,7 @@ import frc.robot.RobotConfig;
 
 public class Pigeon2 implements GyroIO {
     public WPI_Pigeon2 pigeon;
+    private double angleOffset;
 
     /**
      * Creates a new Gyro, which is a wrapper for the Pigeon IMU and stores an offset so we don't
@@ -51,5 +52,13 @@ public class Pigeon2 implements GyroIO {
         double[] xyz_dps = new double[3];
         pigeon.getRawGyro(xyz_dps);
         return xyz_dps[1];
+    }
+
+    public void setAngleOffset(double currentAngle) {
+        angleOffset = currentAngle;
+    }
+
+    public double getAngleOffset() {
+        return angleOffset;
     }
 }
