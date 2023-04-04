@@ -24,7 +24,7 @@ public class FourBarConfig extends AngleMechConfig {
     public final int cubeTop = 0;
     public final int cubeHybrid = coneHybrid;
 
-    public final int safePositionForElevator = 60;
+    public final int safePositionForElevator = 55;
 
     public final double zeroSpeed = -0.2;
 

@@ -83,7 +83,7 @@ public class ConeIntake extends CommandBase {
                     OperatorCommands.rumble(0.5, 1).schedule();
                     PilotCommands.rumble(0.5, 1).schedule();
                 }
-                OperatorCommands.finishConeIntake();
+                // OperatorCommands.finishConeIntake();
             }
         }
     }
@@ -93,7 +93,7 @@ public class ConeIntake extends CommandBase {
     public void end(boolean interrupted) {
         Robot.operatorGamepad.rumble(0);
         Robot.pilotGamepad.rumble(0);
-        OperatorCommands.homeSystems().withTimeout(1.5).schedule();
+        // OperatorCommands.homeSystems().withTimeout(1.5).schedule();
         // operatorRumble.cancel();
     }
 

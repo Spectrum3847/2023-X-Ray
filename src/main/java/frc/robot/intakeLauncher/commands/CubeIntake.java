@@ -41,19 +41,19 @@ public class CubeIntake extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        /*if (Robot.intake.getFrontRPM() > 3000) {
-            if (!velocityLimitReached && thresholdCount >= 8) {
-                count++;
-                velocityLimitReached = true;
-            }
-            thresholdCount++;
-        } else if (Robot.intake.getFrontRPM() <= 3000) {
-            velocityLimitReached = false;
-        }
+        // if (Robot.intake.getFrontRPM() > 3000) {
+        //     if (!velocityLimitReached && thresholdCount >= 8) {
+        //         count++;
+        //         velocityLimitReached = true;
+        //     }
+        //     thresholdCount++;
+        // } else if (Robot.intake.getFrontRPM() <= 3000) {
+        //     velocityLimitReached = false;
+        // }
 
-        if (count >= 2) {
-            runMotors = false;
-        }*/
+        // if (count >= 2) {
+        //     runMotors = false;
+        // }
 
         if (!Robot.intake.getCubeSensor()) {
             // Robot.intake.setVelocities(

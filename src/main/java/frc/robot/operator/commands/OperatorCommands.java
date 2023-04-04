@@ -1,6 +1,8 @@
 package frc.robot.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
@@ -24,14 +26,16 @@ public class OperatorCommands {
 
     public static Command coneShelfIntake() {
         return new ConeIntake(true)
-                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
-        // .finallyDo((b) -> FourBarCommands.home().withTimeout(1).schedule());
+                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf())
+                .withName("Shelf Cone")
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command coneStandingIntake() {
         return new ConeIntake()
                 .alongWith(
                         ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
+                .withName("Standing Cone")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
@@ -40,6 +44,7 @@ public class OperatorCommands {
     public static Command coneIntake() {
         return new ConeIntake()
                 .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
+                .withName("Floor Cone")
                 .finallyDo((b) -> finishConeIntake());
     }
 
@@ -49,6 +54,7 @@ public class OperatorCommands {
         IntakeCommands.intake()
                 .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
                 .withTimeout(0.75)
+                .withName("Finish Cone Intake")
                 .schedule();
     }
 
@@ -58,12 +64,14 @@ public class OperatorCommands {
                 .alongWith(
                         FourBarCommands.coneFloorGoal(),
                         new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
-                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule())
+                .withName("Cone Floor Goal");
     }
 
     public static Command coneMid() {
         return IntakeCommands.slowIntake()
-                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid());
+                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid())
+                .withName("Cone Mid");
     }
 
     public static Command coneTop() {
@@ -94,7 +102,7 @@ public class OperatorCommands {
     }
 
     public static Command cubeTop() {
-        return IntakeCommands.topCubeSpinUp().alongWith(homeSystems());
+        return IntakeCommands.topCubeSpinUp().alongWith(ElevatorCommands.cubeTop());
     }
 
     public static Command cubeChargeStation() {
@@ -107,7 +115,7 @@ public class OperatorCommands {
 
     /** Goes to 0 */
     public static Command homeSystems() {
-        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
+        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome()).withName("Home Systems");
     }
 
     public static Command manualElevator() {
@@ -145,5 +153,10 @@ public class OperatorCommands {
         return new RunCommand(() -> Robot.operatorGamepad.rumble(intensity), Robot.operatorGamepad)
                 .withTimeout(durationSeconds)
                 .withName("RumbleOperator");
+    }
+
+    public static Command cancelCommands() {
+        return new InstantCommand(() -> CommandScheduler.getInstance().cancelAll())
+                .withName("CANCEL ALL COMMMANDS");
     }
 }

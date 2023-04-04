@@ -3,6 +3,7 @@ package frc.robot.pilot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.HeadingLock;
 import frc.robot.swerve.commands.SwerveCommands;
@@ -85,6 +86,21 @@ public class PilotCommands {
         return new RunCommand(() -> Robot.pilotGamepad.rumble(intensity), Robot.pilotGamepad)
                 .withTimeout(durationSeconds)
                 .withName("RumblePilot");
+    }
+
+    /** Command that can be used to rumble the pilot controller */
+    public static Command conditionalRumble(
+            double elevatorPosition, double intensity, double durationSeconds) {
+        return new RunCommand(
+                        () -> {
+                            if (Elevator.falconToInches(Robot.elevator.getPosition())
+                                    >= Elevator.config.cubeTop - 0.5) {
+                                Robot.pilotGamepad.rumble(intensity);
+                            }
+                        },
+                        Robot.pilotGamepad)
+                .withTimeout(durationSeconds)
+                .withName("ConditionalRumblePilot");
     }
 
     /** Reorient the Robot */
