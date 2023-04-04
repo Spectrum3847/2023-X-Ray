@@ -115,8 +115,6 @@ public class PilotGamepad extends Gamepad {
         gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
         gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(0));
 
-        gamepad.yButton.and(noBumpers()).whileTrue(new LockSwerve());
-
         gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
@@ -190,7 +188,7 @@ public class PilotGamepad extends Gamepad {
     }
 
     public Trigger fpvButton() {
-        return new Trigger(() -> false);
+        return gamepad.yButton.and(noBumpers());
     }
 
     public double getDriveFwdPositive() {

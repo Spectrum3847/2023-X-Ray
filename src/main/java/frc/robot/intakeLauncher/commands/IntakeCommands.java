@@ -11,7 +11,11 @@ import frc.robot.intakeLauncher.Intake;
 public class IntakeCommands {
 
     public static void setupDefaultCommand() {
-        Robot.intake.setDefaultCommand(stopAllMotors().withTimeout(1).andThen(new HoldCone()));
+        Robot.intake.setDefaultCommand(
+                stopAllMotors()
+                        .withTimeout(1)
+                        .andThen(new HoldCone())
+                        .withName("Intake Default Command"));
     }
 
     public static Command slowIntake() {
@@ -42,6 +46,7 @@ public class IntakeCommands {
                         (b) ->
                                 ElevatorCommands.home()
                                         .alongWith(FourBarCommands.home())
+                                        .withTimeout(1)
                                         .schedule());
     }
 
@@ -117,7 +122,13 @@ public class IntakeCommands {
     }
 
     public static Command launch() {
-        return new RunCommand(() -> Robot.intake.launch(), Robot.intake);
+        return new RunCommand(() -> Robot.intake.launch(), Robot.intake)
+                .finallyDo(
+                        (b) ->
+                                ElevatorCommands.home()
+                                        .alongWith(FourBarCommands.home())
+                                        .withTimeout(1.0)
+                                        .schedule());
     }
 
     public static Command manualSpinUpLauncher() {

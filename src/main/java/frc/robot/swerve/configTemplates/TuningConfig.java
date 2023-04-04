@@ -33,8 +33,8 @@ public class TuningConfig {
     public boolean driveEnableCurrentLimit = true;
 
     /* Neutral Modes */
-    public NeutralMode angleNeutralMode = NeutralMode.Coast;
-    public NeutralMode driveNeutralMode = NeutralMode.Coast;
+    public NeutralMode angleNeutralMode = NeutralMode.Brake;
+    public NeutralMode driveNeutralMode = NeutralMode.Brake;
 
     public TuningConfig(
             double angleKP,

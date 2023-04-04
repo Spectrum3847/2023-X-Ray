@@ -1,5 +1,6 @@
 package frc.robot.swerve.configs;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.math.util.Units;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.swerve.configTemplates.GyroConfig;
@@ -92,7 +93,8 @@ public class XRAY2023 {
                             maxAngularVelocity,
                             maxAngularAcceleration)
                     .configRotationController(
-                            kPRotationController, kIRotationController, kDRotationController);
+                            kPRotationController, kIRotationController, kDRotationController)
+                    .configNeutralModes(NeutralMode.Brake, NeutralMode.Brake);
 
     /* Module Configs */
     static final ModuleConfig Mod0 =

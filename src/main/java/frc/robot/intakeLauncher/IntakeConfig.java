@@ -43,8 +43,8 @@ public class IntakeConfig {
     public double frontMidCubeSpeed = 1300;
     public double launcherMidCubeSpeed = frontMidCubeSpeed;
 
-    public double frontTopCubeSpeed = 2250;
-    public double launcherTopCubeSpeed = frontTopCubeSpeed - 150;
+    public double frontTopCubeSpeed = 2150;
+    public double launcherTopCubeSpeed = 2000;
 
     public double frontChargeStationLaunchSpeed = 1000;
     public double launcherChargeStationLaunchSpeed = 5000;
@@ -79,7 +79,7 @@ public class IntakeConfig {
             5000; // correct when touching charge station with .5 sec spin up time
 
     public double currentLimit = 20;
-    public double threshold = 20;
+    public double threshold = 40;
 
     public double velocityKp = 0.065;
     public double velocityKf = 0.0519;

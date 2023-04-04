@@ -13,7 +13,9 @@ import java.util.function.DoubleSupplier;
 public class ElevatorCommands {
     public static void setupDefaultCommand() {
         Robot.elevator.setDefaultCommand(
-                stop().withTimeout(0.25).andThen(new ElevatorHoldPosition()));
+                stop().withTimeout(0.25)
+                        .andThen(new ElevatorHoldPosition())
+                        .withName("Elevator Default Command"));
     }
 
     public static Command stop() {

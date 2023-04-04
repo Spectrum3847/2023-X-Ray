@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
+import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.fourbar.commands.ZeroFourBarRoutine;
@@ -27,40 +28,60 @@ public class OperatorGamepad extends Gamepad {
     }
     // set up jiggle sometime
     public void setupTeleopButtons() {
-        gamepad.aButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
-        // gamepad.aButton.and(noRightBumper()).whileTrue();
-        gamepad.aButton
-                .and(rightBumper())
-                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton
-                .and(rightBumper())
-                .whileTrue(
-                        OperatorCommands.cubeChargeStation()
-                                .alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
-        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
-        gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
-        gamepad.rightTriggerButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.coneShelfIntake());
+
+        /* Intaking */
+        gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneIntake());
         gamepad.leftTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeIntake());
         gamepad.leftTriggerButton
                 .and(rightBumper())
                 .whileTrue(OperatorCommands.coneStandingIntake());
+        gamepad.rightTriggerButton
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.coneShelfIntake());
 
-        gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
+        /* Cube Scoring */
+        gamepad.aButton
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.bButton
+                .and(rightBumper())
+                .whileTrue(
+                        OperatorCommands.cubeChargeStation()
+                                .alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.aButton
+                .and(noRightBumper())
+                .whileTrue(
+                        IntakeCommands.intake()
+                                .withTimeout(0.1)
+                                .andThen(
+                                        OperatorCommands.cubeMid()
+                                                .alongWith(PilotCommands.rumble(1, 99))));
+        gamepad.bButton
+                .and(noRightBumper())
+                .whileTrue(
+                        IntakeCommands.intake()
+                                .withTimeout(0.1)
+                                .andThen(
+                                        OperatorCommands.cubeTop()
+                                                .alongWith(
+                                                        PilotCommands.conditionalRumble(
+                                                                Elevator.config.cubeTop, 1, 99))));
+
+        /* Cone Scoring */
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
+        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
+        gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
+
+        /* Miscellaneous */
         gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
         gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noRightBumper()).whileTrue(LEDCommands.coneFloorLED());
         gamepad.Dpad.Right.and(noRightBumper()).whileTrue(LEDCommands.cubeLED());
-        gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
+        gamepad.selectButton.whileTrue(
+                ElevatorCommands.zeroElevatorRoutine().withName("Zero Elevator"));
         gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
+        gamepad.selectButton.and(gamepad.startButton).onTrue(OperatorCommands.cancelCommands());
 
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .and(noRightBumper())
