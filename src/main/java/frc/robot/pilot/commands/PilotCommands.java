@@ -33,10 +33,11 @@ public class PilotCommands {
 
     public static Command pilotHeadingLock() {
         return new HeadingLock(
-                () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                () -> Robot.pilotGamepad.getDriveLeftPositive(),
-                () -> Robot.pilotGamepad.getPilotScalar(),
-                () -> !Robot.pilotGamepad.fpvButton().getAsBoolean()).withName("PilotHeadingLock");
+                        () -> Robot.pilotGamepad.getDriveFwdPositive(),
+                        () -> Robot.pilotGamepad.getDriveLeftPositive(),
+                        () -> Robot.pilotGamepad.getPilotScalar(),
+                        () -> !Robot.pilotGamepad.fpvButton().getAsBoolean())
+                .withName("PilotHeadingLock");
     }
 
     /*public static Command snakeDrive() {
@@ -107,7 +108,8 @@ public class PilotCommands {
     /** Reorient the Robot */
     public static Command reorient(double angle) {
         return PoseCommands.resetHeading(angle)
-                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute()).withName("PilotReorient");
+                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute())
+                .withName("PilotReorient");
     }
 
     /** LockSwerve */
