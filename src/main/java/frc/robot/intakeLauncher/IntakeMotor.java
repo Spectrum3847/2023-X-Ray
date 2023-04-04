@@ -53,7 +53,7 @@ public class IntakeMotor {
         return Conversions.falconToRPM(motor.getSelectedSensorVelocity(), 1);
     }
 
-    public double getPostion() {
+    public double getPosition() {
         return motor.getSelectedSensorPosition();
     }
 

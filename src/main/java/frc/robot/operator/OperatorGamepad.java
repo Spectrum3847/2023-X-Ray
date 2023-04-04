@@ -6,11 +6,9 @@ import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
-import frc.robot.fourbar.commands.ZeroFourBarRoutine;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.operator.commands.OperatorCommands;
-import frc.robot.pilot.commands.PilotCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -27,40 +25,37 @@ public class OperatorGamepad extends Gamepad {
     }
     // set up jiggle sometime
     public void setupTeleopButtons() {
-        gamepad.aButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
-        // gamepad.aButton.and(noRightBumper()).whileTrue();
-        gamepad.aButton
-                .and(rightBumper())
-                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton
-                .and(rightBumper())
-                .whileTrue(
-                        OperatorCommands.cubeChargeStation()
-                                .alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
-        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
-        gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
-        gamepad.rightTriggerButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.coneShelfIntake());
+
+        /* Intaking */
+        gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
         gamepad.rightTriggerButton.and(rightBumper()).whileTrue(OperatorCommands.coneIntake());
         gamepad.leftTriggerButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeIntake());
         gamepad.leftTriggerButton
                 .and(rightBumper())
                 .whileTrue(OperatorCommands.coneStandingIntake());
+        gamepad.rightTriggerButton
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.coneShelfIntake());
 
-        gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
+        /* Cube Scoring */
+        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeFloorGoal());
+        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation());
+        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
+        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
+
+        /* Cone Scoring */
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
+        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
+        gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
+
+        /* Miscellaneous */
         gamepad.Dpad.Up.and(noRightBumper()).whileTrue(IntakeCommands.intake());
         gamepad.Dpad.Down.and(noRightBumper()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noRightBumper()).whileTrue(LEDCommands.coneFloorLED());
         gamepad.Dpad.Right.and(noRightBumper()).whileTrue(LEDCommands.cubeLED());
         gamepad.selectButton.whileTrue(ElevatorCommands.zeroElevatorRoutine());
-        gamepad.startButton.whileTrue(new ZeroFourBarRoutine());
+        gamepad.startButton.whileTrue(FourBarCommands.zeroFourBarRoutine());
+        gamepad.selectButton.and(gamepad.startButton).onTrue(OperatorCommands.cancelCommands());
 
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .and(noRightBumper())
@@ -80,9 +75,7 @@ public class OperatorGamepad extends Gamepad {
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(LEDCommands.coneFloorLED());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
-        gamepad.bButton.toggleOnTrue(
-                ElevatorCommands.coastMode()
-                        .alongWith(FourBarCommands.coastMode().ignoringDisable(true)));
+        gamepad.bButton.toggleOnTrue(OperatorCommands.coastMode());
     }
 
     public void setupTestButtons() {}

@@ -3,8 +3,10 @@ package frc.robot.pilot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.HeadingLock;
+import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
 import java.util.function.DoubleSupplier;
@@ -34,7 +36,7 @@ public class PilotCommands {
                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
                 () -> Robot.pilotGamepad.getDriveLeftPositive(),
                 () -> Robot.pilotGamepad.getPilotScalar(),
-                () -> !Robot.pilotGamepad.fpvButton().getAsBoolean());
+                () -> !Robot.pilotGamepad.fpvButton().getAsBoolean()).withName("PilotHeadingLock");
     }
 
     /*public static Command snakeDrive() {
@@ -58,12 +60,7 @@ public class PilotCommands {
      */
     public static Command stickSteer() {
         return aimPilotDrive(() -> Robot.pilotGamepad.getRightStickCardinals())
-                .withName("StickSteer");
-    }
-
-    /** Reorient the Robot to face the Grids */
-    public static Command reorientToGrid(double angle) {
-        return aimPilotDrive(() -> angle);
+                .withName("PilotStickSteer");
     }
 
     /** Drive while aiming to a specific angle, uses theta controller from Trajectories */
@@ -92,10 +89,35 @@ public class PilotCommands {
                 .withName("RumblePilot");
     }
 
+    /** Command that can be used to rumble the pilot controller */
+    public static Command conditionalRumble(
+            double elevatorPosition, double intensity, double durationSeconds) {
+        return new RunCommand(
+                        () -> {
+                            if (Elevator.falconToInches(Robot.elevator.getPosition())
+                                    >= Elevator.config.cubeTop - 0.5) {
+                                Robot.pilotGamepad.rumble(intensity);
+                            }
+                        },
+                        Robot.pilotGamepad)
+                .withTimeout(durationSeconds)
+                .withName("ConditionalRumblePilot");
+    }
+
     /** Reorient the Robot */
     public static Command reorient(double angle) {
         return PoseCommands.resetHeading(angle)
-                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute());
+                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute()).withName("PilotReorient");
+    }
+
+    /** LockSwerve */
+    public static Command lockSwerve() {
+        return new LockSwerve().withName("PilotLockSwerve");
+    }
+
+    /** Reset steering if a falcon is being weird */
+    public static Command resetSteering() {
+        return SwerveCommands.resetSteeringToAbsolute();
     }
 
     // /**

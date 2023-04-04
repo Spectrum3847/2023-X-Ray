@@ -22,7 +22,7 @@ public class HoldCone extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        frontPos = Robot.intake.frontMotor.getPostion();
+        frontPos = Robot.intake.frontMotor.getPosition();
         startTime = Timer.getFPGATimestamp();
     }
 
@@ -32,16 +32,16 @@ public class HoldCone extends CommandBase {
         double time =
                 Timer.getFPGATimestamp(); // If frontPos has moved 200 ticks then run intake full
         // speed and 1/4 sec to timer
-        if (Robot.intake.frontMotor.getPostion() < frontPos - 200) {
-            Robot.intake.setPercentOutputs(0.5, 0.5, 0.0);
+        if (Robot.intake.frontMotor.getPosition() < frontPos - 200) {
+            Robot.intake.setPercentOutputs(0.3, 0.3, 0.0);
             timer = time + 0.25;
             // While timer is still within 1/4 sec of starting keep running intake
         } else if (time - timer < 0) {
-            Robot.intake.setPercentOutputs(0.5, 0.5, 0.0);
+            Robot.intake.setPercentOutputs(0.3, 0.3, 0.0);
             // Once 1/4 sec is up stop the motor and reset frontPos to current one for a 1/4sec
         } else if (time - timer < 0.25) {
             Robot.intake.stopAll();
-            frontPos = Robot.intake.frontMotor.getPostion();
+            frontPos = Robot.intake.frontMotor.getPosition();
             // After all that just wait for cone to slip again
         } else {
             Robot.intake.stopAll();

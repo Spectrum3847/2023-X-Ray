@@ -166,7 +166,6 @@ public class Robot extends LoggedRobot {
         swerve.resetSteeringToAbsolute(); // reset the steering encoders to absolute value
 
         RobotTelemetry.print("## Disabled Init Complete");
-        SwerveCommands.brakeMode(10).schedule(); // Brake mode for the first 10 seconds of disabled
     }
 
     @Override

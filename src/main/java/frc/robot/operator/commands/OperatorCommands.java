@@ -1,6 +1,8 @@
 package frc.robot.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
@@ -13,6 +15,7 @@ import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
+import frc.robot.pilot.commands.PilotCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {
@@ -24,14 +27,16 @@ public class OperatorCommands {
 
     public static Command coneShelfIntake() {
         return new ConeIntake(true)
-                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf());
-        // .finallyDo((b) -> FourBarCommands.home().withTimeout(1).schedule());
+                .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf())
+                .withName("OperatorShelfCone")
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command coneStandingIntake() {
         return new ConeIntake()
                 .alongWith(
                         ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
+                .withName("OperatorStandingCone")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
@@ -40,6 +45,7 @@ public class OperatorCommands {
     public static Command coneIntake() {
         return new ConeIntake()
                 .alongWith(ElevatorCommands.coneIntake(), FourBarCommands.coneIntake())
+                .withName("OperatorFloorCone")
                 .finallyDo((b) -> finishConeIntake());
     }
 
@@ -49,6 +55,7 @@ public class OperatorCommands {
         IntakeCommands.intake()
                 .alongWith(ElevatorCommands.hopElevator(), FourBarCommands.home())
                 .withTimeout(0.75)
+                .withName("OperatorFinishConeIntake")
                 .schedule();
     }
 
@@ -58,12 +65,14 @@ public class OperatorCommands {
                 .alongWith(
                         FourBarCommands.coneFloorGoal(),
                         new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
-                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+                .finallyDo((b) -> homeSystems().withTimeout(1).schedule())
+                .withName("OperatorConeFloorGoal");
     }
 
     public static Command coneMid() {
         return IntakeCommands.slowIntake()
-                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid());
+                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid())
+                .withName("OperatorConeMid");
     }
 
     public static Command coneTop() {
@@ -73,47 +82,67 @@ public class OperatorCommands {
                         new FourBarDelay(
                                 FourBar.config.safePositionForElevator,
                                 FourBar.config.coneTop,
-                                Elevator.config.safePositionForFourBar));
+                                Elevator.config.safePositionForFourBar)).withName("OperatorConeTop");
     }
 
     public static Command cubeIntake() {
         return new CubeIntake()
-                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
+                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake()).withName("OperatorCubeIntake");
     }
 
     public static Command cubeFloorGoal() {
         return ElevatorCommands.cubeFloorGoal()
                 .alongWith(
                         FourBarCommands.cubeFloorGoal(),
-                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()), PilotCommands.rumble(1, 99)).withName("OperatorCubeFloor")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
     public static Command cubeMid() {
-        return IntakeCommands.midCubeSpinUp().alongWith(homeSystems());
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(
+                        IntakeCommands.midCubeSpinUp()
+                                .alongWith(homeSystems(), PilotCommands.rumble(0.5, 99))).withName("OperatorCubeMid");
     }
 
     public static Command cubeTop() {
-        return IntakeCommands.topCubeSpinUp().alongWith(homeSystems());
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(
+                        IntakeCommands.topCubeSpinUp()
+                                .alongWith(
+                                        ElevatorCommands.cubeTop(),
+                                        PilotCommands.conditionalRumble(
+                                                Elevator.config.cubeTop, 1, 99))).withName("OperatorCubeTop");
     }
 
     public static Command cubeChargeStation() {
-        return IntakeCommands.behindChargeStationSpinUp().alongWith(homeSystems());
+        return IntakeCommands.behindChargeStationSpinUp()
+                .alongWith(homeSystems(), PilotCommands.rumble(1, 99)).withName("OperatorCubeCS");
+    }
+
+    /** Sets Elevator and Fourbar to coast mode */
+    public static Command coastMode() {
+        return ElevatorCommands.coastMode()
+                .alongWith(FourBarCommands.coastMode()).withName("OperatorCoastMode");
     }
 
     public static Command homeAndSlowIntake() {
-        return IntakeCommands.slowIntake().alongWith(homeSystems());
+        return IntakeCommands.slowIntake().alongWith(homeSystems()).withName("OperatorSlowHomeIntake");
     }
 
     /** Goes to 0 */
     public static Command homeSystems() {
-        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
+        return FourBarCommands.home()
+                .alongWith(ElevatorCommands.safeHome())
+                .withName("OperatorHomeSystems");
     }
 
     public static Command manualElevator() {
         return new RunCommand(
                 () -> Robot.elevator.setManualOutput(Robot.operatorGamepad.elevatorManual()),
-                Robot.elevator);
+                Robot.elevator).withName("OperatorManualElevator");
     }
 
     public static Command slowManualElevator() {
@@ -122,13 +151,13 @@ public class OperatorCommands {
                         Robot.elevator.setManualOutput(
                                 Robot.operatorGamepad.elevatorManual()
                                         * OperatorConfig.slowModeScalar),
-                Robot.elevator);
+                Robot.elevator).withName("OperatorManualSlowElevator");
     }
 
     public static Command manualFourBar() {
         return new RunCommand(
                 () -> Robot.fourBar.setManualOutput(Robot.operatorGamepad.fourBarManual()),
-                Robot.fourBar);
+                Robot.fourBar).withName("OperatorManualFourBar");
     }
 
     public static Command slowManualFourBar() {
@@ -137,13 +166,18 @@ public class OperatorCommands {
                         Robot.fourBar.setManualOutput(
                                 Robot.operatorGamepad.fourBarManual()
                                         * OperatorConfig.slowModeScalar),
-                Robot.fourBar);
+                Robot.fourBar).withName("OperatorManualSlowFourBar");
     }
 
     /** Command that can be used to rumble the pilot controller */
     public static Command rumble(double intensity, double durationSeconds) {
         return new RunCommand(() -> Robot.operatorGamepad.rumble(intensity), Robot.operatorGamepad)
                 .withTimeout(durationSeconds)
-                .withName("RumbleOperator");
+                .withName("OperatorRumble");
+    }
+
+    public static Command cancelCommands() {
+        return new InstantCommand(() -> CommandScheduler.getInstance().cancelAll())
+                .withName("OperatorCancelAll");
     }
 }

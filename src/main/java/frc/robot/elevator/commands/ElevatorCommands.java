@@ -17,7 +17,9 @@ public class ElevatorCommands {
 
     public static void setupDefaultCommand() {
         Robot.elevator.setDefaultCommand(
-                stop().withTimeout(0.25).andThen(new ElevatorHoldPosition()));
+                stop().withTimeout(0.25)
+                        .andThen(new ElevatorHoldPosition())
+                        .withName("ElevatorDefaultCommand"));
     }
 
     public static void setupElevatorTriggers() {
@@ -116,6 +118,6 @@ public class ElevatorCommands {
     }
 
     public static Command zeroElevatorRoutine() {
-        return new ZeroElevatorRoutine();
+        return new ZeroElevatorRoutine().withName("Zero Elevator");
     }
 }
