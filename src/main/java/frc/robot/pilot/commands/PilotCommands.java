@@ -36,7 +36,7 @@ public class PilotCommands {
                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
                 () -> Robot.pilotGamepad.getDriveLeftPositive(),
                 () -> Robot.pilotGamepad.getPilotScalar(),
-                () -> !Robot.pilotGamepad.fpvButton().getAsBoolean());
+                () -> !Robot.pilotGamepad.fpvButton().getAsBoolean()).withName("PilotHeadingLock");
     }
 
     /*public static Command snakeDrive() {
@@ -60,7 +60,7 @@ public class PilotCommands {
      */
     public static Command stickSteer() {
         return aimPilotDrive(() -> Robot.pilotGamepad.getRightStickCardinals())
-                .withName("StickSteer");
+                .withName("PilotStickSteer");
     }
 
     /** Drive while aiming to a specific angle, uses theta controller from Trajectories */
@@ -107,12 +107,12 @@ public class PilotCommands {
     /** Reorient the Robot */
     public static Command reorient(double angle) {
         return PoseCommands.resetHeading(angle)
-                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute());
+                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute()).withName("PilotReorient");
     }
 
     /** LockSwerve */
     public static Command lockSwerve() {
-        return new LockSwerve().withName("Lock Swerve");
+        return new LockSwerve().withName("PilotLockSwerve");
     }
 
     /** Reset steering if a falcon is being weird */

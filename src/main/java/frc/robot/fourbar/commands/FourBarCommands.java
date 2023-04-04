@@ -9,7 +9,7 @@ import java.util.function.DoubleSupplier;
 
 public class FourBarCommands {
     public static void setupDefaultCommand() {
-        Robot.fourBar.setDefaultCommand(new FourBarHoldPosition());
+        Robot.fourBar.setDefaultCommand(new FourBarHoldPosition().withName("FourBarDefaultCommand"));
     }
 
     public static Command coastMode() {
@@ -21,7 +21,7 @@ public class FourBarCommands {
     }
 
     public static Command zeroFourBarRoutine() {
-        return new ZeroFourBarRoutine().withName("Zero FourBar");
+        return new ZeroFourBarRoutine().withName("ZeroFourBar");
     }
 
     public static Command setManualOutput(double speed) {

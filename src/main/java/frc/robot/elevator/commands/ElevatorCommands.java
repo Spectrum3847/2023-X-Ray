@@ -15,7 +15,7 @@ public class ElevatorCommands {
         Robot.elevator.setDefaultCommand(
                 stop().withTimeout(0.25)
                         .andThen(new ElevatorHoldPosition())
-                        .withName("Elevator Default Command"));
+                        .withName("ElevatorDefaultCommand"));
     }
 
     public static Command stop() {
