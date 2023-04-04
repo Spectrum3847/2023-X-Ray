@@ -77,6 +77,8 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
+        // rightBumperOnly()
+        //         .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive()));
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));
@@ -96,12 +98,9 @@ public class PilotGamepad extends Gamepad {
     public void setupTestButtons() {}
 
     public double getPilotScalar() {
-        if (ElevatorCommands.elevatorUp.getAsBoolean()) {
-            return PilotConfig.elevatorUpModeScaler;
-        } else if (Robot.pilotGamepad.slowModeButton().getAsBoolean()) {
-            return PilotConfig.slowModeScaler;
-        }
-        return 1;
+        return Robot.pilotGamepad.slowModeButton().getAsBoolean()
+                ? PilotConfig.slowModeScaler
+                : 1.0;
     }
 
     private Trigger noBumpers() {

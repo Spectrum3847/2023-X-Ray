@@ -20,16 +20,18 @@ public class IntakeCommands {
 
     public static Command slowIntake() {
         return setVelocities(
-                Intake.config.lowerSlowSpeed,
-                Intake.config.frontSlowSpeed,
-                Intake.config.launcherSlowSpeed).withName("SlowIntake");
+                        Intake.config.lowerSlowSpeed,
+                        Intake.config.frontSlowSpeed,
+                        Intake.config.launcherSlowSpeed)
+                .withName("SlowIntake");
     }
 
     public static Command intake() {
         return setVelocities(
-                Intake.config.lowerIntakeSpeed,
-                Intake.config.frontIntakeSpeed,
-                Intake.config.launcherIntakeSpeed).withName("Intake");
+                        Intake.config.lowerIntakeSpeed,
+                        Intake.config.frontIntakeSpeed,
+                        Intake.config.launcherIntakeSpeed)
+                .withName("Intake");
     }
 
     public static Command fullIntake() {
@@ -41,7 +43,8 @@ public class IntakeCommands {
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30))).withName("Eject")
+                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .withName("Eject")
                 .finallyDo(
                         (b) ->
                                 ElevatorCommands.home()
@@ -52,76 +55,87 @@ public class IntakeCommands {
 
     public static Command floorEject() {
         return setVelocities(
-                Intake.config.lowerFloorSpeed,
-                Intake.config.frontFloorSpeed,
-                Intake.config.launcherFloorSpeed).withName("FloorEject");
+                        Intake.config.lowerFloorSpeed,
+                        Intake.config.frontFloorSpeed,
+                        Intake.config.launcherFloorSpeed)
+                .withName("FloorEject");
     }
 
     public static Command midCubeSpinUp() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontMidCubeSpeed,
-                Intake.config.launcherMidCubeSpeed).withName("MidCubeSpin");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontMidCubeSpeed,
+                        Intake.config.launcherMidCubeSpeed)
+                .withName("MidCubeSpin");
     }
 
     public static Command topCubeSpinUp() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontTopCubeSpeed,
-                Intake.config.launcherTopCubeSpeed).withName("TopCubeSpin");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontTopCubeSpeed,
+                        Intake.config.launcherTopCubeSpeed)
+                .withName("TopCubeSpin");
     }
 
     public static Command behindChargeStationSpinUp() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontChargeStationLaunchSpeed,
-                Intake.config.launcherChargeStationLaunchSpeed).withName("BehindCSSpin");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontChargeStationLaunchSpeed,
+                        Intake.config.launcherChargeStationLaunchSpeed)
+                .withName("BehindCSSpin");
     }
 
     public static Command autoMidSpinUp() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontAutoMidSpeed,
-                Intake.config.launcherAutoMidSpeed).withName("AutoMidSpin");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontAutoMidSpeed,
+                        Intake.config.launcherAutoMidSpeed)
+                .withName("AutoMidSpin");
     }
 
     public static Command bumpTopSpinUp() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontBumpTopSpeed,
-                Intake.config.launcherBumpTopSpeed).withName("BumpTopSpin");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontBumpTopSpeed,
+                        Intake.config.launcherBumpTopSpeed)
+                .withName("BumpTopSpin");
     }
 
     public static Command firstShot() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontFirstShotSpeed,
-                Intake.config.launcherFirstShotSpeed).withName("FirstShot");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontFirstShotSpeed,
+                        Intake.config.launcherFirstShotSpeed)
+                .withName("FirstShot");
     }
 
     public static Command secondShot() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontSecondShotSpeed,
-                Intake.config.launcherSecondShotSpeed).withName("SecondShot");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontSecondShotSpeed,
+                        Intake.config.launcherSecondShotSpeed)
+                .withName("SecondShot");
     }
 
     public static Command angleThirdShot() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontAngleThirdShotSpeed,
-                Intake.config.launcherAngleThirdShotSpeed).withName("AngleThirdShot");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontAngleThirdShotSpeed,
+                        Intake.config.launcherAngleThirdShotSpeed)
+                .withName("AngleThirdShot");
     }
 
     public static Command thirdShotBalance() {
         return setVelocities(
-                Intake.config.lowerSpinUpSpeed,
-                Intake.config.frontThirdShotBalanceSpeed,
-                Intake.config.launcherThirdShotBalanceSpeed).withName("ThirdShotBalance");
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontThirdShotBalanceSpeed,
+                        Intake.config.launcherThirdShotBalanceSpeed)
+                .withName("ThirdShotBalance");
     }
 
     public static Command launch() {
-        return new RunCommand(() -> Robot.intake.launch(), Robot.intake).withName("Launch")
+        return new RunCommand(() -> Robot.intake.launch(), Robot.intake)
+                .withName("Launch")
                 .finallyDo(
                         (b) ->
                                 ElevatorCommands.home()
@@ -140,12 +154,14 @@ public class IntakeCommands {
 
     public static Command setVelocities(double lower, double front, double launcher) {
         return new RunCommand(
-                () -> Robot.intake.setVelocities(lower, front, launcher), Robot.intake).withName("IntakeSetVelocity");
+                        () -> Robot.intake.setVelocities(lower, front, launcher), Robot.intake)
+                .withName("IntakeSetVelocity");
     }
 
     public static Command setIntakeRollers(double lower, double front, double launcher) {
         return new RunCommand(
-                () -> Robot.intake.setPercentOutputs(lower, front, launcher), Robot.intake).withName("IntakeSetPercentage");
+                        () -> Robot.intake.setPercentOutputs(lower, front, launcher), Robot.intake)
+                .withName("IntakeSetPercentage");
     }
 
     public static Command stopAllMotors() {

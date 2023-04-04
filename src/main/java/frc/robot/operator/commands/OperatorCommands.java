@@ -82,19 +82,23 @@ public class OperatorCommands {
                         new FourBarDelay(
                                 FourBar.config.safePositionForElevator,
                                 FourBar.config.coneTop,
-                                Elevator.config.safePositionForFourBar)).withName("OperatorConeTop");
+                                Elevator.config.safePositionForFourBar))
+                .withName("OperatorConeTop");
     }
 
     public static Command cubeIntake() {
         return new CubeIntake()
-                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake()).withName("OperatorCubeIntake");
+                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake())
+                .withName("OperatorCubeIntake");
     }
 
     public static Command cubeFloorGoal() {
         return ElevatorCommands.cubeFloorGoal()
                 .alongWith(
                         FourBarCommands.cubeFloorGoal(),
-                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()), PilotCommands.rumble(1, 99)).withName("OperatorCubeFloor")
+                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()),
+                        PilotCommands.rumble(1, 99))
+                .withName("OperatorCubeFloor")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
@@ -103,7 +107,8 @@ public class OperatorCommands {
                 .withTimeout(0.1)
                 .andThen(
                         IntakeCommands.midCubeSpinUp()
-                                .alongWith(homeSystems(), PilotCommands.rumble(0.5, 99))).withName("OperatorCubeMid");
+                                .alongWith(homeSystems(), PilotCommands.rumble(0.5, 99)))
+                .withName("OperatorCubeMid");
     }
 
     public static Command cubeTop() {
@@ -114,22 +119,27 @@ public class OperatorCommands {
                                 .alongWith(
                                         ElevatorCommands.cubeTop(),
                                         PilotCommands.conditionalRumble(
-                                                Elevator.config.cubeTop, 1, 99))).withName("OperatorCubeTop");
+                                                Elevator.config.cubeTop, 1, 99)))
+                .withName("OperatorCubeTop");
     }
 
     public static Command cubeChargeStation() {
         return IntakeCommands.behindChargeStationSpinUp()
-                .alongWith(homeSystems(), PilotCommands.rumble(1, 99)).withName("OperatorCubeCS");
+                .alongWith(homeSystems(), PilotCommands.rumble(1, 99))
+                .withName("OperatorCubeCS");
     }
 
     /** Sets Elevator and Fourbar to coast mode */
     public static Command coastMode() {
         return ElevatorCommands.coastMode()
-                .alongWith(FourBarCommands.coastMode()).withName("OperatorCoastMode");
+                .alongWith(FourBarCommands.coastMode())
+                .withName("OperatorCoastMode");
     }
 
     public static Command homeAndSlowIntake() {
-        return IntakeCommands.slowIntake().alongWith(homeSystems()).withName("OperatorSlowHomeIntake");
+        return IntakeCommands.slowIntake()
+                .alongWith(homeSystems())
+                .withName("OperatorSlowHomeIntake");
     }
 
     /** Goes to 0 */
@@ -141,32 +151,38 @@ public class OperatorCommands {
 
     public static Command manualElevator() {
         return new RunCommand(
-                () -> Robot.elevator.setManualOutput(Robot.operatorGamepad.elevatorManual()),
-                Robot.elevator).withName("OperatorManualElevator");
+                        () ->
+                                Robot.elevator.setManualOutput(
+                                        Robot.operatorGamepad.elevatorManual()),
+                        Robot.elevator)
+                .withName("OperatorManualElevator");
     }
 
     public static Command slowManualElevator() {
         return new RunCommand(
-                () ->
-                        Robot.elevator.setManualOutput(
-                                Robot.operatorGamepad.elevatorManual()
-                                        * OperatorConfig.slowModeScalar),
-                Robot.elevator).withName("OperatorManualSlowElevator");
+                        () ->
+                                Robot.elevator.setManualOutput(
+                                        Robot.operatorGamepad.elevatorManual()
+                                                * OperatorConfig.slowModeScalar),
+                        Robot.elevator)
+                .withName("OperatorManualSlowElevator");
     }
 
     public static Command manualFourBar() {
         return new RunCommand(
-                () -> Robot.fourBar.setManualOutput(Robot.operatorGamepad.fourBarManual()),
-                Robot.fourBar).withName("OperatorManualFourBar");
+                        () -> Robot.fourBar.setManualOutput(Robot.operatorGamepad.fourBarManual()),
+                        Robot.fourBar)
+                .withName("OperatorManualFourBar");
     }
 
     public static Command slowManualFourBar() {
         return new RunCommand(
-                () ->
-                        Robot.fourBar.setManualOutput(
-                                Robot.operatorGamepad.fourBarManual()
-                                        * OperatorConfig.slowModeScalar),
-                Robot.fourBar).withName("OperatorManualSlowFourBar");
+                        () ->
+                                Robot.fourBar.setManualOutput(
+                                        Robot.operatorGamepad.fourBarManual()
+                                                * OperatorConfig.slowModeScalar),
+                        Robot.fourBar)
+                .withName("OperatorManualSlowFourBar");
     }
 
     /** Command that can be used to rumble the pilot controller */

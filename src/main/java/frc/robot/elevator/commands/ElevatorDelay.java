@@ -28,6 +28,7 @@ public class ElevatorDelay extends CommandBase {
         this.finalPos = finalPos;
         this.conditionalPercent = conditionalPercent;
         this.simpleDelay = false;
+        this.setName("ElevatorDelay");
         addRequirements(Robot.elevator);
     }
 
@@ -45,6 +46,7 @@ public class ElevatorDelay extends CommandBase {
         this.finalPos = finalPos;
         this.conditionalPercent = conditionalPercent;
         this.simpleDelay = true;
+        this.setName("ElevatorDelay");
         addRequirements(Robot.elevator);
     }
 

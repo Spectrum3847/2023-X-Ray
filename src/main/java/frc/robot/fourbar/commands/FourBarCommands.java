@@ -9,7 +9,8 @@ import java.util.function.DoubleSupplier;
 
 public class FourBarCommands {
     public static void setupDefaultCommand() {
-        Robot.fourBar.setDefaultCommand(new FourBarHoldPosition().withName("FourBarDefaultCommand"));
+        Robot.fourBar.setDefaultCommand(
+                new FourBarHoldPosition().withName("FourBarDefaultCommand"));
     }
 
     public static Command coastMode() {

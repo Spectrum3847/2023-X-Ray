@@ -32,7 +32,8 @@ public class Vision extends SubsystemBase {
     private Pose3d botPose3d; // Uses the limelight rotation instead of the gyro rotation
     private Pair<Pose3d, Double> photonVisionPose;
     private int targetSeenCount;
-    private boolean targetSeen, visionStarted = false;
+    private boolean targetSeen, visionStarted, initialized = false;
+
     private LimelightHelpers.LimelightResults jsonResults;
 
     // testing
