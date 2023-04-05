@@ -1,6 +1,7 @@
 // Created by Spectrum3847
 package frc.robot.auton.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -10,6 +11,7 @@ import frc.robot.swerve.commands.SwerveDrive;
 public class AutoBalance extends CommandBase {
     public double currentAngle = 100;
     private double currentRate = 100;
+    private double angleOffset;
     Command driveCommand;
 
     public AutoBalance() {
@@ -18,6 +20,11 @@ public class AutoBalance extends CommandBase {
 
     @Override
     public void initialize() {
+        if (DriverStation.isAutonomous()) {
+            angleOffset = Robot.swerve.gyro.getAngleOffset();
+        } else {
+            angleOffset = AutonConfig.gryoOffset;
+        }
         Robot.swerve.resetRotationController();
         driveCommand =
                 new SwerveDrive(
@@ -32,7 +39,8 @@ public class AutoBalance extends CommandBase {
         currentAngle =
                 Robot.swerve.gyro.getRawPitch().getDegrees() * Robot.swerve.getRotation().getCos()
                         + Robot.swerve.gyro.getRawRoll().getDegrees()
-                                * Robot.swerve.getRotation().getSin();
+                                * Robot.swerve.getRotation().getSin()
+                        - angleOffset;
         currentRate =
                 Robot.swerve.getRotation().getCos() * Robot.swerve.gyro.getPitchRate()
                         + Robot.swerve.getRotation().getSin() * Robot.swerve.gyro.getRollRate();

@@ -20,4 +20,8 @@ public interface GyroIO {
     public double getRollRate();
 
     public double getPitchRate();
+
+    public void setAngleOffset(double currentAngle);
+
+    public double getAngleOffset();
 }
