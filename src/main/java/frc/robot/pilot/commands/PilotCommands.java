@@ -6,6 +6,7 @@ import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
 import frc.robot.pose.commands.PoseCommands;
 import frc.robot.swerve.commands.HeadingLock;
+import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
 import java.util.function.DoubleSupplier;
@@ -32,10 +33,11 @@ public class PilotCommands {
 
     public static Command pilotHeadingLock() {
         return new HeadingLock(
-                () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                () -> Robot.pilotGamepad.getDriveLeftPositive(),
-                () -> Robot.pilotGamepad.getPilotScalar(),
-                () -> !Robot.pilotGamepad.fpvButton().getAsBoolean());
+                        () -> Robot.pilotGamepad.getDriveFwdPositive(),
+                        () -> Robot.pilotGamepad.getDriveLeftPositive(),
+                        () -> Robot.pilotGamepad.getPilotScalar(),
+                        () -> !Robot.pilotGamepad.fpvButton().getAsBoolean())
+                .withName("PilotHeadingLock");
     }
 
     /*public static Command snakeDrive() {
@@ -59,7 +61,7 @@ public class PilotCommands {
      */
     public static Command stickSteer() {
         return aimPilotDrive(() -> Robot.pilotGamepad.getRightStickCardinals())
-                .withName("StickSteer");
+                .withName("PilotStickSteer");
     }
 
     /** Drive while aiming to a specific angle, uses theta controller from Trajectories */
@@ -106,7 +108,18 @@ public class PilotCommands {
     /** Reorient the Robot */
     public static Command reorient(double angle) {
         return PoseCommands.resetHeading(angle)
-                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute());
+                .alongWith(rumble(0.5, 1), SwerveCommands.resetSteeringToAbsolute())
+                .withName("PilotReorient");
+    }
+
+    /** LockSwerve */
+    public static Command lockSwerve() {
+        return new LockSwerve().withName("PilotLockSwerve");
+    }
+
+    /** Reset steering if a falcon is being weird */
+    public static Command resetSteering() {
+        return SwerveCommands.resetSteeringToAbsolute();
     }
 
     // /**

@@ -12,7 +12,7 @@ import java.util.Map;
 public class SwerveTelemetry {
     protected ShuffleboardTab tab;
     private Swerve swerve;
-    boolean intailized = false;
+    boolean initialized = false;
 
     public SwerveTelemetry(Swerve swerve) {
         this.swerve = swerve;
@@ -28,12 +28,12 @@ public class SwerveTelemetry {
     }
 
     public void testMode() {
-        if (!intailized) {
+        if (!initialized) {
             moduleLayout("Mod 0", 0, tab).withPosition(1, 0);
             moduleLayout("Mod 1", 1, tab).withPosition(2, 0);
             moduleLayout("Mod 2", 2, tab).withPosition(3, 0);
             moduleLayout("Mod 3", 3, tab).withPosition(4, 0);
-            intailized = true;
+            initialized = true;
         }
     }
 

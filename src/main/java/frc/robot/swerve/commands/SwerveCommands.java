@@ -35,7 +35,7 @@ public class SwerveCommands {
     }
 
     public static Command stop() {
-        return new SwerveDrive(() -> 0.0, () -> 0.0, () -> 0.0);
+        return new SwerveDrive(() -> 0.0, () -> 0.0, () -> 0.0).withName("SwerveStop");
     }
 
     /** Reset the Theata Controller and then run the SwerveDrive command and pass a goal Supplier */

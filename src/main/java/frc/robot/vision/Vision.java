@@ -27,10 +27,13 @@ public class Vision extends SubsystemBase {
     /** For Pilot Gamepad */
     public boolean canUseAutoPilot = false;
 
+    public double horizontalOffset, verticalOffset;
+
     private Pose3d botPose3d; // Uses the limelight rotation instead of the gyro rotation
     private Pair<Pose3d, Double> photonVisionPose;
     private int targetSeenCount;
-    private boolean targetSeen, visionStarted = false;
+    private boolean targetSeen, visionStarted, initialized = false;
+
     private LimelightHelpers.LimelightResults jsonResults;
 
     // testing
@@ -41,6 +44,8 @@ public class Vision extends SubsystemBase {
         botPose = new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0)));
         botPose3d = new Pose3d(0, 0, 0, new Rotation3d(0, 0, 0));
         targetSeenCount = 0;
+        horizontalOffset = 0;
+        verticalOffset = 0;
 
         LimelightHelpers.setLEDMode_ForceOff(null);
 
@@ -62,6 +67,8 @@ public class Vision extends SubsystemBase {
                         .equals("");
         checkTargetHistory();
         jsonResults = LimelightHelpers.getLatestResults("");
+        horizontalOffset = LimelightHelpers.getTX("");
+        verticalOffset = LimelightHelpers.getTY("");
         // this method can call update() if vision pose estimation needs to be updated in
         // Vision.java
     }
@@ -127,8 +134,9 @@ public class Vision extends SubsystemBase {
     }
 
     /**
-     * Uses trigonometric functions to calculate the angle between the robot heading and the angle
-     * required to face the hybrid spot. Will return 0 if the robot cannot see an apriltag.
+     * REQUIRES ACCURATE POSE ESTIMATION. Uses trigonometric functions to calculate the angle
+     * between the robot heading and the angle required to face the hybrid spot. Will return 0 if
+     * the robot cannot see an apriltag.
      *
      * @param hybridSpot 0-8 representing the 9 different hybrid spots for launching cubes to hybrid
      *     nodes
@@ -197,6 +205,11 @@ public class Vision extends SubsystemBase {
             return true;
         }
         return false;
+    }
+
+    public double getDistanceToTarget() {
+        double angleToGoal = Units.degreesToRadians(VisionConfig.limelightAngle + verticalOffset);
+        return (VisionConfig.tagHeight - VisionConfig.limelightLensHeight) / Math.tan(angleToGoal);
     }
 
     /**
@@ -303,6 +316,10 @@ public class Vision extends SubsystemBase {
             targetSeenCount = 0;
         }
         targetSeen = targetSeenCount > 2; // has been seen for 3 loops
+    }
+
+    public double getHorizontalOffset() {
+        return horizontalOffset;
     }
 
     /**

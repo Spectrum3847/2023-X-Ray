@@ -11,6 +11,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class VisionConfig {
+
+    /* Limelight Configuration */
+
+    /* How many degrees back is limelight rotated from perfectly vertical */
+    public static final double limelightAngle = -22.5;
+    public static final double limelightLensHeight = 41.374; // inches
+    public static final double tagHeight = 18.1102; // distance from floor to target in inches
+
     public static Map<Integer, Pose3d> tagMap;
     /* Pose Estimation Strategy */
     public static PoseStrategy strategy = PoseStrategy.LOWEST_AMBIGUITY;
