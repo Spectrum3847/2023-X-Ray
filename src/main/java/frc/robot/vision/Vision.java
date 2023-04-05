@@ -318,6 +318,10 @@ public class Vision extends SubsystemBase {
         targetSeen = targetSeenCount > 2; // has been seen for 3 loops
     }
 
+    public double getHorizontalOffset() {
+        return horizontalOffset;
+    }
+
     /**
      * Prints the vision, estimated, and odometry pose to SmartDashboard
      *

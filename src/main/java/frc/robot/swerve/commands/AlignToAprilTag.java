@@ -14,7 +14,7 @@ import java.util.function.DoubleSupplier;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AlignToAprilTag extends PIDCommand {
 
-    private static double kP = 1 / 20;
+    private static double kP = 0.035;
     private static double tolerance = 2;
     SwerveDrive driveCommand;
     DoubleSupplier fwdPositiveSupplier;
@@ -26,11 +26,12 @@ public class AlignToAprilTag extends PIDCommand {
                 // The controller that the command will use
                 new PIDController(kP, 0, 0),
                 // This should return the measurement
-                () -> Robot.vision.horizontalOffset,
+                () -> Robot.vision.getHorizontalOffset(),
                 // This should return the setpoint (can also be a constant)
                 () -> 0,
                 // This uses the output
-                output -> setOutput(output)
+                output -> setOutput(output),
+                Robot.swerve
                 // Use the output here
                 );
 
@@ -45,7 +46,6 @@ public class AlignToAprilTag extends PIDCommand {
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
         this.setName("AlignToAprilTag");
-        addRequirements(Robot.swerve);
     }
 
     public double getSteering() {
@@ -53,7 +53,12 @@ public class AlignToAprilTag extends PIDCommand {
     }
 
     public static void setOutput(double output) {
-        out = output;
+        out = -1 * output;
+        if (Math.abs(out) > 1) {
+            out = 1 * Math.signum(out);
+        }
+
+        out = out * Robot.swerve.config.tuning.maxVelocity * 0.3;
     }
 
     public static double getOutput() {
