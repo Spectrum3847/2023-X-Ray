@@ -96,8 +96,7 @@ public class OperatorCommands {
         return ElevatorCommands.cubeFloorGoal()
                 .alongWith(
                         FourBarCommands.cubeFloorGoal(),
-                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()),
-                        PilotCommands.rumble(1, 99))
+                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
                 .withName("OperatorCubeFloor")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
@@ -107,7 +106,7 @@ public class OperatorCommands {
                 .withTimeout(0.1)
                 .andThen(
                         IntakeCommands.midCubeSpinUp()
-                                .alongWith(homeSystems(), PilotCommands.rumble(0.5, 99)))
+                                .alongWith(homeSystems()))
                 .withName("OperatorCubeMid");
     }
 
@@ -117,15 +116,13 @@ public class OperatorCommands {
                 .andThen(
                         IntakeCommands.topCubeSpinUp()
                                 .alongWith(
-                                        ElevatorCommands.cubeTop(),
-                                        PilotCommands.conditionalRumble(
-                                                Elevator.config.cubeTop, 1, 99)))
+                                        ElevatorCommands.cubeTop()))
                 .withName("OperatorCubeTop");
     }
 
     public static Command cubeChargeStation() {
         return IntakeCommands.behindChargeStationSpinUp()
-                .alongWith(homeSystems(), PilotCommands.rumble(1, 99))
+                .alongWith(homeSystems())
                 .withName("OperatorCubeCS");
     }
 

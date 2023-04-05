@@ -10,6 +10,7 @@ import frc.robot.fourbar.commands.FourBarDelay;
 import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.operator.commands.OperatorCommands;
 
 public class AutonCommands {
 
@@ -63,38 +64,25 @@ public class AutonCommands {
     }
 
     public static Command intakeCone() {
-        return new ConeIntake()
-                .alongWith(
-                        ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
-                .withName("Auton Standing Cone")
-                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+        return OperatorCommands.coneStandingIntake();
     }
 
     public static Command coneMid() {
-        return IntakeCommands.slowIntake()
-                .alongWith(ElevatorCommands.coneMid(), FourBarCommands.coneMid())
-                .withName("Auton Cone Mid")
+        return OperatorCommands.coneMid()
                 .withTimeout(.8)
                 .andThen(IntakeCommands.eject().withTimeout(.8))
                 .andThen(retractIntake().withTimeout(.8));
     }
 
     public static Command coneTop() {
-        return IntakeCommands.slowIntake()
-                .alongWith(
-                        ElevatorCommands.coneTop(),
-                        new FourBarDelay(
-                                FourBar.config.safePositionForElevator,
-                                FourBar.config.coneTop,
-                                Elevator.config.safePositionForFourBar))
+        return OperatorCommands.coneTop()
                 .withTimeout(.8)
                 .andThen(IntakeCommands.eject().withTimeout(.8))
                 .andThen(retractIntake().withTimeout(.8));
     }
 
     public static Command simpleLaunchCube() {
-        return IntakeCommands.topCubeSpinUp()
-                .alongWith(ElevatorCommands.cubeTop())
+        return OperatorCommands.cubeTop()
                 .withTimeout(0.5)
                 .andThen(IntakeCommands.launch())
                 .withTimeout(2)
