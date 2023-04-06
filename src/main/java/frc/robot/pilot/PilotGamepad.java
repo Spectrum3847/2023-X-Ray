@@ -14,6 +14,7 @@ import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.trajectories.commands.DistanceDrive;
+import frc.robot.trajectories.commands.PositionPaths;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -69,22 +70,23 @@ public class PilotGamepad extends Gamepad {
     public void setupTeleopButtons() {
         canUseAutoPilot =
                 new Trigger(() -> Robot.vision.canUseAutoPilot && !Robot.pose.isOnChargeStation());
+
         /* Drive */
         stickSteerTriggers();
         triggerSteering();
         // driveTrigger();
 
-        /* CURRENT BINDS CONFLICT WITH EXISTING */
-        // /* Will not run if canUseAutoPilot condition is not met */
-        // leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
-        // leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
-        // leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
-        // middleGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid2Left());
-        // middleGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid2Middle());
-        // middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
-        // rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
-        // rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
-        // rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
+        /* AutoPilot */
+        // Will not run if canUseAutoPilot condition is not met
+        leftGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid1Left());
+        leftGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid1Middle());
+        leftGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid1Right());
+        middleGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid2Left());
+        middleGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid2Middle());
+        middleGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid2Right());
+        rightGrid().and(gamepad.xButton).whileTrue(PositionPaths.grid3Left());
+        rightGrid().and(gamepad.aButton).whileTrue(PositionPaths.grid3Middle());
+        rightGrid().and(gamepad.bButton).whileTrue(PositionPaths.grid3Right());
 
         /* Aiming */
         gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
@@ -95,8 +97,8 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Down.and(noBumpers().or(rightBumperOnly())).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
-        rightBumperOnly()
-                .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive()));
+        // rightBumperOnly()
+        //         .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive()));
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));
