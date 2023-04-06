@@ -144,6 +144,10 @@ public class IntakeCommands {
                                         .schedule());
     }
 
+    public static Command autoLaunch() {
+        return new RunCommand(() -> Robot.intake.launch(), Robot.intake);
+    }
+
     public static Command manualSpinUpLauncher() {
         return setIntakeRollers(0.1, 1.0, 1.0).withName("ManualSpinUp");
     }
