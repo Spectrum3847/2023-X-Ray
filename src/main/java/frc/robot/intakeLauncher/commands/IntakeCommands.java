@@ -53,6 +53,15 @@ public class IntakeCommands {
                                         .schedule());
     }
 
+    public static Command autoEject() {
+        return setVelocities(
+                        Intake.config.lowerEjectSpeed,
+                        Intake.config.frontEjectSpeed,
+                        Intake.config.launcherEjectSpeed)
+                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .withName("Eject");
+    }
+
     public static Command floorEject() {
         return setVelocities(
                         Intake.config.lowerFloorSpeed,

@@ -76,9 +76,9 @@ public class AutonCommands {
 
     public static Command coneTop() {
         return OperatorCommands.coneTop()
-                .withTimeout(.8)
-                .andThen(IntakeCommands.eject().withTimeout(.8))
-                .andThen(retractIntake().withTimeout(.8));
+                .withTimeout(1.7)
+                .andThen(IntakeCommands.autoEject().withTimeout(.1))
+                .andThen(retractIntake().withTimeout(1.7));
     }
 
     public static Command simpleLaunchCube() {

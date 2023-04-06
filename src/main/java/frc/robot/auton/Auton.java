@@ -126,6 +126,15 @@ public class Auton {
                         .andThen(new LockSwerve())
                         .andThen(AutonCommands.thirdShotBalance()));
         autonChooser.addOption(
+                "Clean Side",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Clean Side",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxCleanSpeed,
+                                                AutonConfig.kMaxCleanAccel))));
+        autonChooser.addOption(
                 "Balance Test",
                 getAutoBuilder()
                         .fullAuto(
@@ -170,6 +179,7 @@ public class Auton {
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        autonChooser.addOption("ConeTop", AutonCommands.coneTop());
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
         /*autonChooser.addOption(
