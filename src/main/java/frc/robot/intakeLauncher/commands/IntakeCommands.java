@@ -49,7 +49,7 @@ public class IntakeCommands {
                         (b) ->
                                 ElevatorCommands.home()
                                         .alongWith(FourBarCommands.home())
-                                        .withTimeout(1)
+                                        .withTimeout(1.5)
                                         .schedule());
     }
 

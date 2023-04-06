@@ -40,7 +40,7 @@ public class ConeIntake extends CommandBase {
         count = 0;
         thresholdCount = 0;
         runMotors = true;
-        Robot.intake.setCurrentLimits(4, 4);
+        Robot.intake.setCurrentLimits(12, 12);
         // operatorRumble = OperatorCommands.rumble(0.5, 1);
     }
 

@@ -57,10 +57,12 @@ public class IntakeConfig {
     public double launcherBumpTopSpeed = 4820;
 
     public double frontFirstShotSpeed =
-            5370; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
+            5370 * (.85); // correct 4820 wrong //3800 was a little too far //3650 was slightly
+    // too far
     // //3600 slighty too short //3700 too much
     public double launcherFirstShotSpeed =
-            6250; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
+            6250 * (.85); // correct //3800 was a little too far //3650 was slighty too far
+    // //3600 slighty
     // too short
 
     public double frontSecondShotSpeed =
@@ -69,9 +71,11 @@ public class IntakeConfig {
             2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 
     public double frontAngleThirdShotSpeed =
-            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+            900 * (1.15); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
     public double launcherAngleThirdShotSpeed =
-            4000; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+            4000 * (1.15); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
 
     public double frontThirdShotBalanceSpeed =
             3400; // correct when touching charge station with .5 sec spin up time

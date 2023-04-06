@@ -28,7 +28,7 @@ public class OperatorCommands {
         return new ConeIntake(true)
                 .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf())
                 .withName("OperatorShelfCone")
-                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+                .finallyDo((b) -> homeSystems().withTimeout(1.5).schedule());
     }
 
     public static Command coneStandingIntake() {
