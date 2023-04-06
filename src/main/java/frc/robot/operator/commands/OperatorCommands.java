@@ -15,7 +15,6 @@ import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
-import frc.robot.pilot.commands.PilotCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {
@@ -104,19 +103,14 @@ public class OperatorCommands {
     public static Command cubeMid() {
         return IntakeCommands.intake()
                 .withTimeout(0.1)
-                .andThen(
-                        IntakeCommands.midCubeSpinUp()
-                                .alongWith(homeSystems()))
+                .andThen(IntakeCommands.midCubeSpinUp().alongWith(homeSystems()))
                 .withName("OperatorCubeMid");
     }
 
     public static Command cubeTop() {
         return IntakeCommands.intake()
                 .withTimeout(0.1)
-                .andThen(
-                        IntakeCommands.topCubeSpinUp()
-                                .alongWith(
-                                        ElevatorCommands.cubeTop()))
+                .andThen(IntakeCommands.topCubeSpinUp().alongWith(ElevatorCommands.cubeTop()))
                 .withName("OperatorCubeTop");
     }
 

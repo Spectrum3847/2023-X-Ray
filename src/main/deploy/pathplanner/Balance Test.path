@@ -24,11 +24,11 @@
     },
     {
       "anchorPoint": {
-        "x": 3.1,
+        "x": 3.15,
         "y": 2.75
       },
       "prevControl": {
-        "x": 3.223736946010534,
+        "x": 3.273736946010534,
         "y": 2.75
       },
       "nextControl": null,
@@ -38,18 +38,12 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "BehindStationTop",
-          "BehindBalance"
-        ],
+        "names": [],
         "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
+        "waitBehavior": "none",
         "waitTime": 0.8
       }
     }
   ],
-  "maxVelocity": 3.0,
-  "maxAcceleration": 3.25,
-  "isReversed": null,
   "markers": []
 }

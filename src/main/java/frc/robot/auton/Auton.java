@@ -123,7 +123,18 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
                         .andThen(new AutoBalance())
+                        .andThen(new LockSwerve())
                         .andThen(AutonCommands.thirdShotBalance()));
+        autonChooser.addOption(
+                "Balance Test",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Balance Test",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
+                        .andThen(new AutoBalance())
+                        .andThen(new LockSwerve()));
         /*autonChooser.addOption(
         "Balance Test",
         getAutoBuilder()

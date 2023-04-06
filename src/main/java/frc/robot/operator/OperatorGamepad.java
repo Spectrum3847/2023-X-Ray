@@ -40,10 +40,24 @@ public class OperatorGamepad extends Gamepad {
                 .whileTrue(OperatorCommands.coneShelfIntake());
 
         /* Cube Scoring */
-        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop().alongWith(PilotCommands.conditionalRumble(Elevator.config.cubeTop, 1, 99)));
+        gamepad.aButton
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.bButton
+                .and(rightBumper())
+                .whileTrue(
+                        OperatorCommands.cubeChargeStation()
+                                .alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.aButton
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.bButton
+                .and(noRightBumper())
+                .whileTrue(
+                        OperatorCommands.cubeTop()
+                                .alongWith(
+                                        PilotCommands.conditionalRumble(
+                                                Elevator.config.cubeTop, 1, 99)));
 
         /* Cone Scoring */
         gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
