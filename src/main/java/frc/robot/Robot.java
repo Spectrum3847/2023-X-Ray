@@ -209,9 +209,9 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
 
-        /*if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
+        if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
             pose.resetPoseEstimate(Robot.vision.botPose);
-        }*/
+        }
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
 
@@ -225,7 +225,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void teleopExit() {
         RobotTelemetry.print("$$ Teleop Exit");
-        // vision.poseOverriden = false;
+        vision.poseOverriden = false;
 
         // Send the stop recording boolean
         if (DriverStation.isFMSAttached()) {

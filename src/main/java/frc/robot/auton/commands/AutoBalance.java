@@ -35,8 +35,7 @@ public class AutoBalance extends CommandBase {
         driveCommand.initialize();
         if (Math.abs(currentAngle()) <= AutonConfig.stopDrivingAngle) {
             shouldDrive = false;
-        }
-        else{
+        } else {
             shouldDrive = true;
         }
     }
@@ -55,11 +54,9 @@ public class AutoBalance extends CommandBase {
 
         if (shouldStop) {
             Robot.swerve.stop();
-        }
-        else if(shouldDrive == false){
+        } else if (shouldDrive == false) {
             Robot.swerve.stop();
-        }
-        else {
+        } else {
             driveCommand.execute();
         }
     }

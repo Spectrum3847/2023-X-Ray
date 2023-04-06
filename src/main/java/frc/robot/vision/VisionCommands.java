@@ -1,8 +1,17 @@
 package frc.robot.vision;
 
+import edu.wpi.first.math.Pair;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Robot;
+import frc.robot.RobotTelemetry;
+import frc.robot.pilot.commands.PilotCommands;
+
 public class VisionCommands {
 
-    /*public static Command aimToHybridSpot(int spot) {
+    public static Command aimToHybridSpot(int spot) {
         return PilotCommands.aimPilotDrive(
                         () ->
                                 Robot.pose.getHeading().getRadians()
@@ -47,5 +56,4 @@ public class VisionCommands {
                     () -> RobotTelemetry.print("PhotonVision doesn't have a pose!"));
         }
     }
-    */
 }

@@ -2,7 +2,10 @@ package frc.robot.leds.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
+import frc.robot.trajectories.commands.FollowOnTheFlyPath;
 
 /** All of the commands to schedule LEDs */
 public class LEDCommands {
@@ -11,8 +14,10 @@ public class LEDCommands {
 
     public static void setupLEDTriggers() {
         ElevatorCommands.elevatorUp.whileTrue(elevatorHeightLED());
-        // Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
-        // poseOverriden.whileTrue(success());
+        Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
+        Trigger isAutoPilot = new Trigger(() -> FollowOnTheFlyPath.OTF);
+        poseOverriden.whileTrue(success());
+        isAutoPilot.whileTrue(autoPilotLED());
     }
 
     public static Command purpleSolid(int priority, int timeout) {
@@ -41,5 +46,9 @@ public class LEDCommands {
 
     public static Command elevatorHeightLED() {
         return new RainbowLEDCommand("Elevator Height LED", 80);
+    }
+
+    public static Command autoPilotLED() {
+        return new SnowfallLEDCommand("AutoPilot LED", 80);
     }
 }
