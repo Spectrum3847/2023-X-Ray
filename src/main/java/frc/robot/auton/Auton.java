@@ -114,14 +114,14 @@ public class Auton {
                                                 AutonConfig.kMaxSpeed,
                                                 AutonConfig.kMaxAngleAccel))));
         autonChooser.setDefaultOption(
-                "Red Special",
+                "Special",
                 getAutoBuilder()
                         .fullAuto(
                                 PathPlanner.loadPathGroup(
-                                        "Red Special",
+                                        "Special",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed,
-                                                AutonConfig.kMaxAngleAccel))));
+                                                AutonConfig.kMaxSpecialAccel))));
         /*autonChooser.addOption(
                 "Blue 3 Ball Bottom w Balance",
                 getAutoBuilder()
