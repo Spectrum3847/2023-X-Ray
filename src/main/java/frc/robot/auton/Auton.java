@@ -123,7 +123,7 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
                         .andThen(new AutoBalance())
-                        .andThen(new LockSwerve())
+                        .andThen(new LockSwerve().withTimeout(0.1))
                         .andThen(AutonCommands.thirdShotBalance()));
         autonChooser.addOption(
                 "Clean Side",

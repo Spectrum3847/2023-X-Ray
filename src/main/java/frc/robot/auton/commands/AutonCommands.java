@@ -1,6 +1,8 @@
 package frc.robot.auton.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Robot;
 import frc.robot.auton.AutonConfig;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
@@ -69,6 +71,10 @@ public class AutonCommands {
                 .alongWith(
                         ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
                 .withName("AutonStandingCone");
+    }
+
+    public static Command stopElevator() {
+        return new RunCommand(() -> Robot.elevator.stop(), Robot.elevator).withTimeout(0.1);
     }
 
     public static Command coneMid() {
