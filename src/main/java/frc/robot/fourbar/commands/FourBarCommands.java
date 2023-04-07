@@ -82,6 +82,10 @@ public class FourBarCommands {
         return setMMPercent(0);
     }
 
+    public static Command autonHome() {
+        return setMMPercent(1);
+    }
+
     public static Command setMMPosition(double position) {
         return new RunCommand(() -> Robot.fourBar.setMMPosition(position), Robot.fourBar);
     }

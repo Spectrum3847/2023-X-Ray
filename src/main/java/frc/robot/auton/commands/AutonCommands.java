@@ -46,7 +46,7 @@ public class AutonCommands {
 
     /** Goes to 0 */
     private static Command homeSystems() {
-        return FourBarCommands.home().alongWith(ElevatorCommands.safeHome());
+        return FourBarCommands.autonHome().alongWith(ElevatorCommands.autonSafeHome());
     }
 
     private static Command spinLauncher(Command spinCommand) {
@@ -67,7 +67,11 @@ public class AutonCommands {
 
     public static Command intakeCube() {
         return new CubeIntake()
-                .alongWith(ElevatorCommands.cubeIntake(), FourBarCommands.cubeIntake());
+                .alongWith(ElevatorCommands.autonCubeIntake(), FourBarCommands.cubeIntake());
+    }
+
+    public static Command cubeTest() {
+        return ElevatorCommands.autonCubeIntake().alongWith(FourBarCommands.cubeIntake());
     }
 
     public static Command intakeCone() {
@@ -84,7 +88,7 @@ public class AutonCommands {
     public static Command coneMid() {
         return OperatorCommands.coneMid()
                 .withTimeout(.8)
-                .andThen(IntakeCommands.eject().withTimeout(.8))
+                .andThen(IntakeCommands.autoEject().withTimeout(.8))
                 .andThen(retractIntake().withTimeout(.8));
     }
 

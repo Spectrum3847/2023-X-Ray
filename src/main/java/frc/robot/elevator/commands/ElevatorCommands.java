@@ -101,6 +101,10 @@ public class ElevatorCommands {
         return hopElevator(Elevator.config.cubeIntake).withName("ElevatorCubeIntake");
     }
 
+    public static Command autonCubeIntake() {
+        return hopElevator(Elevator.config.autonCubeIntake).withName("ElevatorAutonCubeIntake");
+    }
+
     public static Command cubeFloorGoal() {
         return setMMPositionFromInches(Elevator.config.cubeHybrid).withName("ElevatorCubeFloor");
     }
@@ -117,6 +121,14 @@ public class ElevatorCommands {
         return new ElevatorDelay(
                         Elevator.config.safePositionForFourBar,
                         0,
+                        FourBar.config.safePositionForElevator)
+                .withName("ElevatorSafeHome");
+    }
+
+    public static Command autonSafeHome() {
+        return new ElevatorDelay(
+                        Elevator.config.safePositionForFourBar,
+                        2500,
                         FourBar.config.safePositionForElevator)
                 .withName("ElevatorSafeHome");
     }

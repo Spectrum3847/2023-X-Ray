@@ -104,15 +104,15 @@ public class Auton {
     // A chooser for autonomous commands
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
-        autonChooser.setDefaultOption(
-                "Blue 3 Ball Bottom w Angle",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Blue 3 Ball Bottom w Angle",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig.kMaxAngleAccel))));
+        // autonChooser.setDefaultOption(
+        //         "Blue 3 Ball Bottom w Angle",
+        //         getAutoBuilder()
+        //                 .fullAuto(
+        //                         PathPlanner.loadPathGroup(
+        //                                 "Blue 3 Ball Bottom w Angle",
+        //                                 new PathConstraints(
+        //                                         AutonConfig.kMaxSpeed,
+        //                                         AutonConfig.kMaxAngleAccel))));
         autonChooser.setDefaultOption(
                 "Special",
                 getAutoBuilder()
@@ -122,6 +122,15 @@ public class Auton {
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed,
                                                 AutonConfig.kMaxSpecialAccel))));
+        autonChooser.addOption(
+                "Clean Side",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Clean Side",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxCleanSpeed,
+                                                AutonConfig.kMaxCleanAccel))));
         /*autonChooser.addOption(
                 "Blue 3 Ball Bottom w Balance",
                 getAutoBuilder()
@@ -198,6 +207,7 @@ public class Auton {
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        autonChooser.addOption("Cone Top", AutonCommands.coneTop());
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
         /*autonChooser.addOption(
@@ -245,6 +255,7 @@ public class Auton {
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("IntakeCone", AutonCommands.intakeCone());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
+        eventMap.put("TestCube", AutonCommands.cubeTest());
         // Drivetrain Commands
         eventMap.put("LockSwerve", new LockSwerve());
     }
