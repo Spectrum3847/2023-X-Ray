@@ -66,10 +66,10 @@ public class IntakeConfig {
     // too short
 
     public double frontSecondShotSpeed =
-            900 * (1.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+            900 * (2); // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
     public double launcherSecondShotSpeed =
-            2800 * (1.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+            2800 * (2); // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
 
     public double frontCleanShotSpeed =
@@ -78,7 +78,7 @@ public class IntakeConfig {
             2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 
     public double frontAngleThirdShotSpeed =
-            900 * (2.25); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+            900 * (2.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
     public double launcherAngleThirdShotSpeed =
             4000 * (1.8); // correct w/distance = .135 from tape line and .18 // 4000 slightly
