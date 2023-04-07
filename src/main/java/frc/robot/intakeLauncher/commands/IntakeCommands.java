@@ -126,6 +126,14 @@ public class IntakeCommands {
                 .withName("SecondShot");
     }
 
+    public static Command cleanShot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontSecondShotSpeed,
+                        Intake.config.launcherSecondShotSpeed)
+                .withName("SecondShot");
+    }
+
     public static Command angleThirdShot() {
         return setVelocities(
                         Intake.config.lowerSpinUpSpeed,

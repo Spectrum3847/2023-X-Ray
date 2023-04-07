@@ -218,6 +218,7 @@ public class Auton {
         eventMap.put("SecondShot", AutonCommands.secondShot()); // Tuned Correctly
         eventMap.put("AngleThirdShot", AutonCommands.angleThirdShot()); // Need to be tuned to run
         eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
+        eventMap.put("CleanShot", AutonCommands.cleanShot());
         // Cone placing Commands
         eventMap.put("ConeMid", AutonCommands.coneMid());
         eventMap.put("ConeTop", AutonCommands.coneTop());

@@ -119,7 +119,7 @@
       "isStopPoint": true,
       "stopEvent": {
         "names": [
-          "SecondShot"
+          "CleanShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
@@ -157,12 +157,12 @@
         "y": 3.600056147480717
       },
       "prevControl": {
-        "x": 6.886527990848293,
-        "y": 3.5022308290183743
+        "x": 6.927017219288136,
+        "y": 3.5263912765485452
       },
       "nextControl": {
-        "x": 6.608119029601546,
-        "y": 4.383049743536933
+        "x": 5.994122339121872,
+        "y": 4.48874599503585
       },
       "holonomicAngle": -45.0,
       "isReversal": false,
@@ -179,21 +179,21 @@
     {
       "anchorPoint": {
         "x": 3.509418071467722,
-        "y": 4.69731606129879
+        "y": 4.7
       },
       "prevControl": {
-        "x": 4.960340271557737,
-        "y": 4.887749600060604
+        "x": 5.051022909063362,
+        "y": 4.787998698804416
       },
       "nextControl": null,
-      "holonomicAngle": -180.0,
+      "holonomicAngle": -173.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "SecondShot"
+          "CleanShot"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
