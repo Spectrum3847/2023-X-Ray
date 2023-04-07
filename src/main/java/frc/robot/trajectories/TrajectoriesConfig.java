@@ -7,7 +7,7 @@ public class TrajectoriesConfig {
     public static final double kGenPathBumpSpeed = 2;
 
     // PID Values for 2023
-    public static final double kPTranslationController = 5.4; // 5.6 try ~5
+    public static final double kPTranslationController = 5.4; // 5.6 try ~5//5.4
     public static final double kITranslationController = 0;
     public static final double kDTranslationController = 0;
     public static final double kPRotationController = 2; // 5

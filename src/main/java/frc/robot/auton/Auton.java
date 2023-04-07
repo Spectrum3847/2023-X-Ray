@@ -182,7 +182,7 @@ public class Auton {
         autonChooser.addOption("ConeTop", AutonCommands.coneTop());
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
-        /*autonChooser.addOption(
+        autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
                         .fullAuto(
@@ -206,7 +206,7 @@ public class Auton {
                                         "5 Meters",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        // autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
+        /*// autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
         // autonChooser.addOption("LockSwerve", new LockSwerve());
         // autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());*/
     }
