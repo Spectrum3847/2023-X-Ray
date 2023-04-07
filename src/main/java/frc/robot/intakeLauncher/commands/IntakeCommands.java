@@ -118,6 +118,14 @@ public class IntakeCommands {
                 .withName("FirstShot");
     }
 
+    public static Command coolShot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontCoolShotSpeed,
+                        Intake.config.launcherCoolShotSpeed)
+                .withName("CoolShot");
+    }
+
     public static Command secondShot() {
         return setVelocities(
                         Intake.config.lowerSpinUpSpeed,

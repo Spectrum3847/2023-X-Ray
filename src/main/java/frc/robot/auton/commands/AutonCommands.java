@@ -24,6 +24,10 @@ public class AutonCommands {
         return spinLauncher(IntakeCommands.firstShot()).andThen(launch(), stopMotors());
     }
 
+    public static Command coolShot() {
+        return spinLauncher(IntakeCommands.coolShot()).andThen(launch(), stopMotors());
+    }
+
     public static Command secondShot() {
         return spinLauncher(IntakeCommands.secondShot()).andThen(launch(), stopMotors());
     }
