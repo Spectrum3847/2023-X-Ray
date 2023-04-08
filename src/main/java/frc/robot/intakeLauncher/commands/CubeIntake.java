@@ -88,8 +88,8 @@ public class CubeIntake extends CommandBase {
         // Robot.operatorGamepad.rumble(0);
         // Robot.pilotGamepad.rumble(0);
         if (!RobotState.isAutonomous()) {
-            ElevatorCommands.hopElevator().schedule();
-            FourBarCommands.home().schedule();
+            ElevatorCommands.hopElevator().withTimeout(1).schedule();
+            FourBarCommands.home().withTimeout(1).schedule();
         }
     }
 

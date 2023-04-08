@@ -14,7 +14,7 @@ public class AutonConfig {
     public static final double kMaxAccel = 3.2;
     public static final double kMaxCleanSpeed = 3.5;
     public static final double kMaxCleanAccel = 3.65;
-    public static final double kMaxSpecialAccel = 3.25;
+    public static final double kMaxSpecialAccel = 4;
     public static final double kMaxAngleAccel = 3.3; // 3 is too slow for 3 ball bottom w angle
     public static final double kMaxMobilitySpeed = 1.5;
     public static final double kMaxMobilityAccel = 1.5;
