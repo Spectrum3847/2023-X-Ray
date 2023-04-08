@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.auton.commands.AutoBalance;
 import frc.robot.auton.commands.AutonCommands;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
@@ -104,33 +105,44 @@ public class Auton {
     // A chooser for autonomous commands
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
+        autonChooser.setDefaultOption(
+                "Blue 3 Ball Bottom w Angle",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Blue 3 Ball Bottom w Angle",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig.kMaxAngleAccel))));
+        autonChooser.addOption(
+                "Red 3 Ball Bottom w Balance",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Red 3 Ball Bottom w Balance",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
+                        .andThen(new AutoBalance())
+                        .andThen(new LockSwerve().withTimeout(0.1))
+                        .andThen(AutonCommands.thirdShotBalance()));
         // autonChooser.setDefaultOption(
-        //         "Blue 3 Ball Bottom w Angle",
+        //         "Special",
         //         getAutoBuilder()
         //                 .fullAuto(
         //                         PathPlanner.loadPathGroup(
-        //                                 "Blue 3 Ball Bottom w Angle",
+        //                                 "Special",
         //                                 new PathConstraints(
         //                                         AutonConfig.kMaxSpeed,
-        //                                         AutonConfig.kMaxAngleAccel))));
-        autonChooser.setDefaultOption(
-                "Special",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Special",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig.kMaxSpecialAccel))));
-        autonChooser.addOption(
-                "Clean Side",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Clean Side",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxCleanSpeed,
-                                                AutonConfig.kMaxCleanAccel))));
+        //                                         AutonConfig.kMaxSpecialAccel))));
+        // autonChooser.addOption(
+        //         "Clean Side",
+        //         getAutoBuilder()
+        //                 .fullAuto(
+        //                         PathPlanner.loadPathGroup(
+        //                                 "Clean Side",
+        //                                 new PathConstraints(
+        //                                         AutonConfig.kMaxCleanSpeed,
+        //                                         AutonConfig.kMaxCleanAccel))));
         /*autonChooser.addOption(
                 "Blue 3 Ball Bottom w Balance",
                 getAutoBuilder()
