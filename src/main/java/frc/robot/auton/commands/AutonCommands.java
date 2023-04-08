@@ -70,10 +70,6 @@ public class AutonCommands {
                 .alongWith(ElevatorCommands.autonCubeIntake(), FourBarCommands.cubeIntake());
     }
 
-    public static Command cubeTest() {
-        return ElevatorCommands.autonCubeIntake().alongWith(FourBarCommands.cubeIntake());
-    }
-
     public static Command intakeCone() {
         return new ConeIntake()
                 .alongWith(

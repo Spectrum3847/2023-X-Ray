@@ -207,7 +207,6 @@ public class Auton {
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
-        autonChooser.addOption("Cone Top", AutonCommands.coneTop());
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
         /*autonChooser.addOption(
@@ -255,7 +254,6 @@ public class Auton {
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("IntakeCone", AutonCommands.intakeCone());
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
-        eventMap.put("TestCube", AutonCommands.cubeTest());
         // Drivetrain Commands
         eventMap.put("LockSwerve", new LockSwerve());
     }

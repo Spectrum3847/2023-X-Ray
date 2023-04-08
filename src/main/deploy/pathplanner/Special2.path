@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "TestCube"
+          "IntakeCube"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",

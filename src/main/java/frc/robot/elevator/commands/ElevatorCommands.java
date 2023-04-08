@@ -73,7 +73,7 @@ public class ElevatorCommands {
     public static Command hopElevator(double inches) {
         return ElevatorCommands.setMMPositionFromInches(Elevator.config.hopHeight)
                 .withTimeout(Elevator.config.hopTime)
-                .andThen(setMMPositionWithDelay(inches))
+                .andThen(setMMPositionFromInches(inches))
                 .withName("ElevatorHop");
     }
 
