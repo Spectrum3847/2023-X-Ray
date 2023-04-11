@@ -8,6 +8,7 @@ import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
+import frc.robot.auton.commands.AutonCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
@@ -70,7 +71,8 @@ public class PilotGamepad extends Gamepad {
         // driveTrigger();
 
         /* Aiming */
-        gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
+        gamepad.xButton.and(noBumpers()).whileTrue(AutonCommands.coneMid());
+        // gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
         gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(0));
 
         /* Dpad */

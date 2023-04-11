@@ -83,9 +83,9 @@ public class AutonCommands {
 
     public static Command coneMid() {
         return OperatorCommands.coneMid()
-                .withTimeout(.8)
-                .andThen(IntakeCommands.autoEject().withTimeout(.8))
-                .andThen(retractIntake().withTimeout(.8));
+                .withTimeout(0.75)
+                .andThen(IntakeCommands.autoEject().withTimeout(.01))
+                .andThen(retractIntake().withTimeout(0.8));
     }
 
     public static Command coneTop() {
