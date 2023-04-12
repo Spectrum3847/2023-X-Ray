@@ -103,7 +103,7 @@ public class OperatorCommands {
     public static Command cubeMid() {
         return IntakeCommands.intake()
                 .withTimeout(0.1)
-                .andThen(IntakeCommands.midCubeSpinUp().alongWith(homeSystems()))
+                .andThen(IntakeCommands.midCubeSpinUp().alongWith(ElevatorCommands.cubeMid()))
                 .withName("OperatorCubeMid");
     }
 

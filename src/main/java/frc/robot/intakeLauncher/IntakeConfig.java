@@ -40,11 +40,11 @@ public class IntakeConfig {
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed;
 
-    public double frontMidCubeSpeed = 1300;
-    public double launcherMidCubeSpeed = frontMidCubeSpeed;
+    public double frontMidCubeSpeed = 900; // 1300;
+    public double launcherMidCubeSpeed = frontMidCubeSpeed - 500;
 
-    public double frontTopCubeSpeed = 2150;
-    public double launcherTopCubeSpeed = 2000;
+    public double frontTopCubeSpeed = 1400; // 1200; // 2150;
+    public double launcherTopCubeSpeed = frontTopCubeSpeed - 300; // 2000;
 
     public double frontChargeStationLaunchSpeed = 1000;
     public double launcherChargeStationLaunchSpeed = 5000;
@@ -98,7 +98,7 @@ public class IntakeConfig {
     public double launcherThirdShotBalanceSpeed =
             5000 * (1.5); // correct when touching charge station with .5 sec spin up time
 
-    public double currentLimit = 20;
+    public double currentLimit = 40;
     public double threshold = 40;
 
     public double velocityKp = 0.065;

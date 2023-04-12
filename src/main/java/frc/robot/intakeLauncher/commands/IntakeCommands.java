@@ -163,7 +163,7 @@ public class IntakeCommands {
                 .withName("Launch")
                 .finallyDo(
                         (b) ->
-                                ElevatorCommands.home()
+                                ElevatorCommands.safeHome()
                                         .alongWith(FourBarCommands.home())
                                         .withTimeout(1.0)
                                         .schedule());

@@ -21,8 +21,8 @@ public class ElevatorConfig extends LinearMechConfig {
 
     public final double cubeIntake = 0;
     public final double autonCubeIntake = 0.2;
-    public final double cubeMid = 0;
-    public final double cubeTop = 6;
+    public final double cubeMid = 12.5;
+    public final double cubeTop = 12.5; // 24.5;
     public final double cubeHybrid = coneHybrid;
 
     public final double diameterInches = 2.0051;
