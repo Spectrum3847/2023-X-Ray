@@ -125,6 +125,15 @@ public class Auton {
                         .andThen(new AutoBalance())
                         .andThen(new LockSwerve().withTimeout(0.1))
                         .andThen(AutonCommands.thirdShotBalance()));
+        autonChooser.addOption(
+                "Clean Side",
+                getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "Clean Side",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxCleanSpeed,
+                                                AutonConfig.kMaxCleanAccel))));
         // autonChooser.setDefaultOption(
         //         "Special",
         //         getAutoBuilder()
