@@ -11,6 +11,7 @@ import frc.robot.Robot;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
+import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.trajectories.commands.DistanceDrive;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
@@ -63,20 +64,22 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupTeleopButtons() {
-        // Stick steer when the right stick is moved passed 0.5 and bumpers aren't pressed
-        // driveTrigger();
+        /* Drive */
         stickSteerTriggers();
         triggerSteering();
+        // driveTrigger();
 
         /* Aiming */
         gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
-        gamepad.bButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(0));
+        gamepad.bButton.and(noBumpers()).whileTrue(IntakeCommands.launch());
 
         /* Dpad */
-        gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
-        gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
+        gamepad.Dpad.Up.and(noBumpers().or(rightBumperOnly())).whileTrue(IntakeCommands.launch());
+        gamepad.Dpad.Down.and(noBumpers().or(rightBumperOnly())).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
+        rightBumperOnly()
+                .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive()));
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));

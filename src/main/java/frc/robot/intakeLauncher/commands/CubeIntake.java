@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
+import frc.robot.intakeLauncher.Intake;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 
@@ -35,7 +36,7 @@ public class CubeIntake extends CommandBase {
         runMotors = true;
         startTime = Timer.getFPGATimestamp();
 
-        // Robot.intake.setCurrentLimits(80, 60);
+        Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -87,8 +88,8 @@ public class CubeIntake extends CommandBase {
         // Robot.operatorGamepad.rumble(0);
         // Robot.pilotGamepad.rumble(0);
         if (!RobotState.isAutonomous()) {
-            ElevatorCommands.hopElevator().schedule();
-            FourBarCommands.home().schedule();
+            ElevatorCommands.hopElevator().withTimeout(1).schedule();
+            FourBarCommands.home().withTimeout(1).schedule();
         }
     }
 

@@ -25,6 +25,7 @@ import frc.robot.pose.Pose;
 import frc.robot.swerve.Swerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.Trajectories;
+import frc.robot.vision.Vision;
 import org.littletonrobotics.junction.LoggedRobot;
 
 public class Robot extends LoggedRobot {
@@ -36,7 +37,7 @@ public class Robot extends LoggedRobot {
     public static Elevator elevator;
     public static Intake intake;
     public static FourBar fourBar;
-    // public static Vision vision;
+    public static Vision vision;
     public static LEDs leds;
     public static PilotGamepad pilotGamepad;
     public static OperatorGamepad operatorGamepad;
@@ -52,7 +53,7 @@ public class Robot extends LoggedRobot {
     // Intialize subsystems and run their setupDefaultCommand methods here
     private void intializeSystems() {
         System.out.println("Started InitSubsystems");
-        // vision = new Vision();
+        vision = new Vision();
         System.out.println("Started Vision");
         swerve = new Swerve();
         System.out.println("Started Swerve");
@@ -103,6 +104,7 @@ public class Robot extends LoggedRobot {
         pilotGamepad.resetConfig();
         operatorGamepad.resetConfig();
         LEDCommands.setupLEDTriggers();
+        ElevatorCommands.setupElevatorTriggers();
     }
 
     /**
@@ -180,6 +182,7 @@ public class Robot extends LoggedRobot {
         resetCommandsAndButtons();
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
+        swerve.gyro.setAngleOffset(swerve.gyro.getRawPitch().getDegrees());
 
         Command autonCommand = Auton.getAutonomousCommand();
         if (autonCommand != null) {
@@ -212,6 +215,7 @@ public class Robot extends LoggedRobot {
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
 
+        ElevatorCommands.safeHome().withTimeout(1).schedule(); // home elevator
         RobotTelemetry.print("$$ Teleop Init Complete");
     }
 

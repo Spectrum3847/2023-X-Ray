@@ -13,6 +13,7 @@ import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 
 public class ConeIntake extends CommandBase {
+    double velocityThreshold = 3000;
     boolean velocityLimitReached = false;
     int count = 0;
     int thresholdCount = 0;
@@ -39,19 +40,20 @@ public class ConeIntake extends CommandBase {
         count = 0;
         thresholdCount = 0;
         runMotors = true;
+        Robot.intake.setCurrentLimits(12, 12);
         // operatorRumble = OperatorCommands.rumble(0.5, 1);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Robot.intake.getFrontRPM() > 3000) {
+        if (Robot.intake.getFrontRPM() > velocityThreshold) {
             if (!velocityLimitReached && thresholdCount >= 8) {
                 count++;
                 velocityLimitReached = true;
             }
             thresholdCount++;
-        } else if (Robot.intake.getFrontRPM() < 3000) {
+        } else if (Robot.intake.getFrontRPM() < velocityThreshold) {
             velocityLimitReached = false;
         }
 
@@ -61,7 +63,9 @@ public class ConeIntake extends CommandBase {
 
         if (runMotors) {
             Robot.intake.setVelocities(
-                    3000, Intake.config.frontIntakeSpeed, Intake.config.launcherIntakeSpeed);
+                    Intake.config.lowerIntakeSpeed,
+                    Intake.config.frontIntakeSpeed,
+                    Intake.config.launcherIntakeSpeed);
         } else {
             if (isShelfIntake) {
                 if (runOnce) {
@@ -82,8 +86,8 @@ public class ConeIntake extends CommandBase {
                 if (!DriverStation.isAutonomous()) {
                     OperatorCommands.rumble(0.5, 1).schedule();
                     PilotCommands.rumble(0.5, 1).schedule();
+                    OperatorCommands.finishConeIntake();
                 }
-                // OperatorCommands.finishConeIntake();
             }
         }
     }
@@ -93,6 +97,7 @@ public class ConeIntake extends CommandBase {
     public void end(boolean interrupted) {
         Robot.operatorGamepad.rumble(0);
         Robot.pilotGamepad.rumble(0);
+        Robot.intake.setCurrentLimits(Intake.config.currentLimit, Intake.config.threshold);
         // OperatorCommands.homeSystems().withTimeout(1.5).schedule();
         // operatorRumble.cancel();
     }

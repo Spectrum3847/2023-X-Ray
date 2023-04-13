@@ -14,10 +14,10 @@ import frc.robot.swerve.configTemplates.TuningConfig;
 public class XRAY2023 {
 
     /* Angle Offsets */
-    public static final double mod0angleOffset = 127.4295; // 125.4199;
-    public static final double mod1angleOffset = 271.529; // 271.119;
-    public static final double mod2angleOffset = 62.19178; // 61.75;
-    public static final double mod3angleOffset = 226.26744; // 225.44531;
+    public static final double mod0angleOffset = 130.9921; // 131.631
+    public static final double mod1angleOffset = 280.619; // 280.436
+    public static final double mod2angleOffset = 64.0345; // 63.76
+    public static final double mod3angleOffset = 234.30601; // 234.30601
 
     /* CanBus Name */
     public static final String canBus = "3847";
@@ -25,7 +25,7 @@ public class XRAY2023 {
     /* Physical Configs */
     static final double trackWidth = Units.inchesToMeters(18.5);
     static final double wheelBase = Units.inchesToMeters(21.5);
-    static final double wheelDiameter = Units.inchesToMeters(3.98); // 3.85 worked for 1 meter
+    static final double wheelDiameter = Units.inchesToMeters(4.05); // 3.85 worked for 1 meter
     static final double driveGearRatio = (6.746 / 1.0);
     static final double angleGearRatio = (50.0 / 14.0) * (60.0 / 10.0);
     static final boolean driveMotorInvert = true;

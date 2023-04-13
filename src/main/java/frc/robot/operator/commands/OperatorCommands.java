@@ -15,7 +15,6 @@ import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.OperatorConfig;
-import frc.robot.pilot.commands.PilotCommands;
 
 public class OperatorCommands {
     public static void setupDefaultCommand() {
@@ -29,7 +28,7 @@ public class OperatorCommands {
         return new ConeIntake(true)
                 .alongWith(ElevatorCommands.coneShelf(), FourBarCommands.coneShelf())
                 .withName("OperatorShelfCone")
-                .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
+                .finallyDo((b) -> homeSystems().withTimeout(1.5).schedule());
     }
 
     public static Command coneStandingIntake() {
@@ -94,10 +93,7 @@ public class OperatorCommands {
 
     public static Command cubeFloorGoal() {
         return ElevatorCommands.cubeFloorGoal()
-                .alongWith(
-                        FourBarCommands.cubeFloorGoal(),
-                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()),
-                        PilotCommands.rumble(1, 99))
+                .alongWith(FourBarCommands.cubeFloorGoal(), IntakeCommands.cubeFloorLaunch())
                 .withName("OperatorCubeFloor")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
@@ -105,27 +101,20 @@ public class OperatorCommands {
     public static Command cubeMid() {
         return IntakeCommands.intake()
                 .withTimeout(0.1)
-                .andThen(
-                        IntakeCommands.midCubeSpinUp()
-                                .alongWith(homeSystems(), PilotCommands.rumble(0.5, 99)))
+                .andThen(IntakeCommands.midCubeSpinUp().alongWith(ElevatorCommands.cubeMid()))
                 .withName("OperatorCubeMid");
     }
 
     public static Command cubeTop() {
         return IntakeCommands.intake()
                 .withTimeout(0.1)
-                .andThen(
-                        IntakeCommands.topCubeSpinUp()
-                                .alongWith(
-                                        ElevatorCommands.cubeTop(),
-                                        PilotCommands.conditionalRumble(
-                                                Elevator.config.cubeTop, 1, 99)))
+                .andThen(IntakeCommands.topCubeSpinUp().alongWith(ElevatorCommands.cubeTop()))
                 .withName("OperatorCubeTop");
     }
 
     public static Command cubeChargeStation() {
         return IntakeCommands.behindChargeStationSpinUp()
-                .alongWith(homeSystems(), PilotCommands.rumble(1, 99))
+                .alongWith(homeSystems())
                 .withName("OperatorCubeCS");
     }
 

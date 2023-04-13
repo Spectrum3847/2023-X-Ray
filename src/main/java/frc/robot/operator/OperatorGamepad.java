@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
+import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.pilot.commands.PilotCommands;
 
 /** Used to add buttons to the operator gamepad and configure the joysticks */
 public class OperatorGamepad extends Gamepad {
@@ -38,10 +40,24 @@ public class OperatorGamepad extends Gamepad {
                 .whileTrue(OperatorCommands.coneShelfIntake());
 
         /* Cube Scoring */
-        gamepad.aButton.and(rightBumper()).whileTrue(OperatorCommands.cubeFloorGoal());
-        gamepad.bButton.and(rightBumper()).whileTrue(OperatorCommands.cubeChargeStation());
-        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeMid());
-        gamepad.bButton.and(noRightBumper()).whileTrue(OperatorCommands.cubeTop());
+        gamepad.aButton
+                .and(rightBumper())
+                .whileTrue(OperatorCommands.cubeFloorGoal().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.bButton
+                .and(rightBumper())
+                .whileTrue(
+                        OperatorCommands.cubeChargeStation()
+                                .alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.aButton
+                .and(noRightBumper())
+                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.bButton
+                .and(noRightBumper())
+                .whileTrue(
+                        OperatorCommands.cubeTop()
+                                .alongWith(
+                                        PilotCommands.conditionalRumble(
+                                                Elevator.config.cubeTop, 1, 99)));
 
         /* Cone Scoring */
         gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());

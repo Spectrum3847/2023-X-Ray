@@ -21,8 +21,8 @@ public class IntakeConfig {
     public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
-    public double lowerIntakeSpeed = 5000;
-    public double frontIntakeSpeed = 5000;
+    public double lowerIntakeSpeed = 3000;
+    public double frontIntakeSpeed = 4000;
     public double launcherIntakeSpeed = -3500;
 
     public double lowerEjectSpeed = -6000;
@@ -38,16 +38,16 @@ public class IntakeConfig {
     public double lowerFeedSpeed = -2000;
 
     public double frontHybridSpeed = 800;
-    public double launcherHybridSpeed = frontHybridSpeed;
+    public double launcherHybridSpeed = frontHybridSpeed - 400;
 
-    public double frontMidCubeSpeed = 1300;
-    public double launcherMidCubeSpeed = frontMidCubeSpeed;
+    public double frontMidCubeSpeed = 900; // 1300;
+    public double launcherMidCubeSpeed = frontMidCubeSpeed - 500;
 
-    public double frontTopCubeSpeed = 2150;
-    public double launcherTopCubeSpeed = 2000;
+    public double frontTopCubeSpeed = 1400; // 1200; // 2150;
+    public double launcherTopCubeSpeed = frontTopCubeSpeed - 300; // 2000;
 
     public double frontChargeStationLaunchSpeed = 1000;
-    public double launcherChargeStationLaunchSpeed = 5000;
+    public double launcherChargeStationLaunchSpeed = 4500;
 
     public double frontAutoMidSpeed = frontMaxSpeed;
     public double launcherAutoMidSpeed = launcherMaxSpeed;
@@ -57,28 +57,48 @@ public class IntakeConfig {
     public double launcherBumpTopSpeed = 4820;
 
     public double frontFirstShotSpeed =
-            5370; // correct 4820 wrong //3800 was a little too far //3650 was slightly too far
+            5370 * (.75); // correct 4820 wrong //3800 was a little too far //3650 was slightly
+    // too far
     // //3600 slighty too short //3700 too much
     public double launcherFirstShotSpeed =
-            6250; // correct //3800 was a little too far //3650 was slighty too far //3600 slighty
+            6250 * (.75); // correct //3800 was a little too far //3650 was slighty too far
+    // //3600 slighty
+    // too short
+
+    public double frontCoolShotSpeed =
+            600; // correct 4820 wrong //3800 was a little too far //3650 was slightly
+    // too far
+    // //3600 slighty too short //3700 too much
+    public double launcherCoolShotSpeed =
+            600; // correct //3800 was a little too far //3650 was slighty too far
+    // //3600 slighty
     // too short
 
     public double frontSecondShotSpeed =
-            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+            900 * (1.2); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
     public double launcherSecondShotSpeed =
+            2800 * (1.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
+
+    public double frontCleanShotSpeed =
+            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+    public double launcherCleanShotSpeed =
             2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
 
     public double frontAngleThirdShotSpeed =
-            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+            900 * (2.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
     public double launcherAngleThirdShotSpeed =
-            4000; // correct w/distance = .135 from tape line and .18 // 4000 slightly too short
+            4000 * (1.8); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
 
     public double frontThirdShotBalanceSpeed =
-            3400; // correct when touching charge station with .5 sec spin up time
+            3400 * (1.5); // correct when touching charge station with .5 sec spin up time
     public double launcherThirdShotBalanceSpeed =
-            5000; // correct when touching charge station with .5 sec spin up time
+            5000 * (1.5); // correct when touching charge station with .5 sec spin up time
 
-    public double currentLimit = 20;
+    public double currentLimit = 40;
     public double threshold = 40;
 
     public double velocityKp = 0.065;

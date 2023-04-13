@@ -49,8 +49,17 @@ public class IntakeCommands {
                         (b) ->
                                 ElevatorCommands.home()
                                         .alongWith(FourBarCommands.home())
-                                        .withTimeout(1)
+                                        .withTimeout(1.5)
                                         .schedule());
+    }
+
+    public static Command autoEject() {
+        return setVelocities(
+                        Intake.config.lowerEjectSpeed,
+                        Intake.config.frontEjectSpeed,
+                        Intake.config.launcherEjectSpeed)
+                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .withName("Eject");
     }
 
     public static Command floorEject() {
@@ -59,6 +68,14 @@ public class IntakeCommands {
                         Intake.config.frontFloorSpeed,
                         Intake.config.launcherFloorSpeed)
                 .withName("FloorEject");
+    }
+
+    public static Command cubeFloorLaunch() {
+        return setVelocities(
+                        Intake.config.lowerFeedSpeed,
+                        Intake.config.frontHybridSpeed,
+                        Intake.config.launcherHybridSpeed)
+                .withName("Cube Floor");
     }
 
     public static Command midCubeSpinUp() {
@@ -109,7 +126,23 @@ public class IntakeCommands {
                 .withName("FirstShot");
     }
 
+    public static Command coolShot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontCoolShotSpeed,
+                        Intake.config.launcherCoolShotSpeed)
+                .withName("CoolShot");
+    }
+
     public static Command secondShot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontSecondShotSpeed,
+                        Intake.config.launcherSecondShotSpeed)
+                .withName("SecondShot");
+    }
+
+    public static Command cleanShot() {
         return setVelocities(
                         Intake.config.lowerSpinUpSpeed,
                         Intake.config.frontSecondShotSpeed,
@@ -138,10 +171,14 @@ public class IntakeCommands {
                 .withName("Launch")
                 .finallyDo(
                         (b) ->
-                                ElevatorCommands.home()
+                                ElevatorCommands.safeHome()
                                         .alongWith(FourBarCommands.home())
                                         .withTimeout(1.0)
                                         .schedule());
+    }
+
+    public static Command autoLaunch() {
+        return new RunCommand(() -> Robot.intake.launch(), Robot.intake);
     }
 
     public static Command manualSpinUpLauncher() {

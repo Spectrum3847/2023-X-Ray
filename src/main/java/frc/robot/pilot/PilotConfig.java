@@ -7,6 +7,7 @@ public class PilotConfig {
     public static final int port = 0;
 
     public static final double slowModeScaler = 0.3;
+    public static final double elevatorUpModeScaler = 0.2;
 
     public static final double throttleDeadband = 0.2;
     public static final double throttleExp = 1.5;

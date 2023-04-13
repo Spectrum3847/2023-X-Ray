@@ -5,7 +5,7 @@ import keyboard
 import winsound
 
 # Set the IP address of the networktables server and the keys to monitor
-server_ip = "127.0.0.1"
+server_ip = "10.38.47.2"
 keys_to_monitor = {
     "RecordMatch": "F9",
     "StopRecording": "F10"

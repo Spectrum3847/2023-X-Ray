@@ -12,7 +12,7 @@ import java.util.Map;
 public class SwerveTelemetry {
     protected ShuffleboardTab tab;
     private Swerve swerve;
-    boolean intailized = false;
+    boolean initialized = false;
 
     public SwerveTelemetry(Swerve swerve) {
         this.swerve = swerve;
@@ -24,16 +24,16 @@ public class SwerveTelemetry {
         // tab.addNumber("Yaw", () -> swerve.gyro.getRawYaw().getDegrees()).withPosition(2, 1);
         // tab.addNumber("Roll", () -> swerve.gyro.getRawRoll().getDegrees()).withPosition(2, 2);
         // tab.addNumber("Roll Rate", () -> swerve.gyro.getRollRate()).withPosition(2, 4);
-        tab.addNumber("Pitch", () -> swerve.gyro.getRawPitch().getDegrees()).withPosition(2, 3);
+        // tab.addNumber("Pitch", () -> swerve.gyro.getRawPitch().getDegrees()).withPosition(2, 3);
     }
 
     public void testMode() {
-        if (!intailized) {
+        if (!initialized) {
             moduleLayout("Mod 0", 0, tab).withPosition(1, 0);
             moduleLayout("Mod 1", 1, tab).withPosition(2, 0);
             moduleLayout("Mod 2", 2, tab).withPosition(3, 0);
             moduleLayout("Mod 3", 3, tab).withPosition(4, 0);
-            intailized = true;
+            initialized = true;
         }
     }
 
