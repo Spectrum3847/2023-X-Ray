@@ -135,11 +135,9 @@ public class Auton {
                                                 AutonConfig.kMaxCleanSpeed,
                                                 AutonConfig.kMaxCleanAccel))));
         autonChooser.addOption(
-                "Bump 2 + 1 (1)",
+                "Special",
                 getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Bump 2 + 1 (1)", new PathConstraints(2, 2))));
+                        .fullAuto(PathPlanner.loadPathGroup("Special", new PathConstraints(2, 2))));
         // autonChooser.setDefaultOption(
         //         "Special",
         //         getAutoBuilder()
