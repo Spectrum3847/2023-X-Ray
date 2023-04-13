@@ -25,7 +25,7 @@ public class IntakeMotor {
         motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
         motor.setInverted(inverted);
         motor.setNeutralMode(NeutralMode.Brake);
-        motor.configVoltageCompSaturation(11);
+        motor.configVoltageCompSaturation(12);
         motor.enableVoltageCompensation(true);
 
         motor.config_kP(0, config.velocityKp);

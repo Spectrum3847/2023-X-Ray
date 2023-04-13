@@ -93,9 +93,7 @@ public class OperatorCommands {
 
     public static Command cubeFloorGoal() {
         return ElevatorCommands.cubeFloorGoal()
-                .alongWith(
-                        FourBarCommands.cubeFloorGoal(),
-                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+                .alongWith(FourBarCommands.cubeFloorGoal(), IntakeCommands.cubeFloorLaunch())
                 .withName("OperatorCubeFloor")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
@@ -103,7 +101,7 @@ public class OperatorCommands {
     public static Command cubeMid() {
         return IntakeCommands.intake()
                 .withTimeout(0.1)
-                .andThen(IntakeCommands.midCubeSpinUp().alongWith(homeSystems()))
+                .andThen(IntakeCommands.midCubeSpinUp().alongWith(ElevatorCommands.cubeMid()))
                 .withName("OperatorCubeMid");
     }
 
