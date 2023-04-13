@@ -70,6 +70,14 @@ public class IntakeCommands {
                 .withName("FloorEject");
     }
 
+    public static Command cubeFloorLaunch() {
+        return setVelocities(
+                        Intake.config.lowerFeedSpeed,
+                        Intake.config.frontHybridSpeed,
+                        Intake.config.launcherHybridSpeed)
+                .withName("Cube Floor");
+    }
+
     public static Command midCubeSpinUp() {
         return setVelocities(
                         Intake.config.lowerSpinUpSpeed,

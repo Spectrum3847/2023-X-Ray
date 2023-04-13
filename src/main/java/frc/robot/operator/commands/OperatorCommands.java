@@ -93,9 +93,7 @@ public class OperatorCommands {
 
     public static Command cubeFloorGoal() {
         return ElevatorCommands.cubeFloorGoal()
-                .alongWith(
-                        FourBarCommands.cubeFloorGoal(),
-                        new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+                .alongWith(FourBarCommands.cubeFloorGoal(), IntakeCommands.cubeFloorLaunch())
                 .withName("OperatorCubeFloor")
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
