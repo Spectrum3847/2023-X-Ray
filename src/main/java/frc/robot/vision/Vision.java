@@ -322,6 +322,10 @@ public class Vision extends SubsystemBase {
         return horizontalOffset;
     }
 
+    public double getVerticalOffset() {
+        return verticalOffset;
+    }
+
     /**
      * Prints the vision, estimated, and odometry pose to SmartDashboard
      *
