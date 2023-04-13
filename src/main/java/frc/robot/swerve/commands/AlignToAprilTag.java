@@ -19,6 +19,7 @@ public class AlignToAprilTag extends PIDCommand {
     SwerveDrive driveCommand;
     PIDCommand fwdControllerCommand;
     DoubleSupplier fwdPositiveSupplier;
+    double verticalSetpoint = -14;
     private static double horizontalOutput;
     private static double verticalOutput;
 
@@ -42,9 +43,9 @@ public class AlignToAprilTag extends PIDCommand {
                         // The controller that the command will use
                         new PIDController(kP, 0, 0),
                         // This should return the measurement
-                        () -> Robot.vision.getVerticalOffset(),
+                        () -> getVerticalOffset(),
                         // This should return the setpoint (can also be a constant)
-                        () -> (-14),
+                        () -> verticalSetpoint,
                         // This uses the output
                         output -> setVerticalOutput(output),
                         Robot.vision // this is bad
@@ -75,6 +76,11 @@ public class AlignToAprilTag extends PIDCommand {
         verticalOutput = calculateOutput(output, true);
     }
 
+    private double getVerticalOffset() {
+        double offset = Robot.vision.getVerticalOffset();
+        return (offset == 0) ? verticalSetpoint : offset;
+    }
+
     public static double calculateOutput(double output, boolean vertical) {
         if (!vertical) {
             output = -1 * output;
@@ -83,6 +89,7 @@ public class AlignToAprilTag extends PIDCommand {
             output = 1 * Math.signum(horizontalOutput);
         }
 
+        System.out.println("output: " + output);
         return output * Robot.swerve.config.tuning.maxVelocity * 0.3;
     }
 
