@@ -39,6 +39,18 @@ public class LEDCommands {
         return new OneColorLEDCommand(Color.kPurple, "Purple Cube", 99);
     }
 
+    public static Command leftGrid() {
+        return new OneColorLEDCommand(0, (1 / 3), new Color(130, 103, 185), "Left Grid", 80);
+    }
+
+    public static Command midGrid() {
+        return new OneColorLEDCommand((1 / 3), (2 / 3), new Color(130, 103, 185), "Mid Grid", 80);
+    }
+
+    public static Command rightGrid() {
+        return new OneColorLEDCommand((2 / 3), 1, new Color(130, 103, 185), "Right Grid", 80);
+    }
+
     public static Command elevatorHeightLED() {
         return new RainbowLEDCommand("Elevator Height LED", 80);
     }

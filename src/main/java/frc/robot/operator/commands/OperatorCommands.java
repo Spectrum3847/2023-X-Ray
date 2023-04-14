@@ -113,8 +113,9 @@ public class OperatorCommands {
     }
 
     public static Command cubeChargeStation() {
-        return IntakeCommands.behindChargeStationSpinUp()
-                .alongWith(homeSystems())
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(IntakeCommands.behindChargeStationSpinUp().alongWith(homeSystems()))
                 .withName("OperatorCubeCS");
     }
 

@@ -326,6 +326,10 @@ public class Vision extends SubsystemBase {
         return verticalOffset;
     }
 
+    public double getClosestTagID() {
+        return LimelightHelpers.getFiducialID("");
+    }
+
     /**
      * Prints the vision, estimated, and odometry pose to SmartDashboard
      *

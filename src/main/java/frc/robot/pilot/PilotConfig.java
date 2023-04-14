@@ -22,5 +22,7 @@ public class PilotConfig {
             0.4; // Multiplies by Swerve Max Angular Velocity to determine max steering
     public static final boolean steeringInvert = true;
 
+    public static final double alignmentOffset = 10;
+
     public static final Translation2d intakeCoRmeters = new Translation2d(0, 0);
 }

@@ -78,8 +78,22 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Down.and(noBumpers().or(rightBumperOnly())).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
+
+        /* Aligning */
         rightBumperOnly()
-                .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive()));
+                .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive(), 0));
+        rightBumperOnly()
+                .and(rightTrigger)
+                .whileTrue(
+                        new AlignToAprilTag(
+                                () -> Robot.pilotGamepad.getDriveFwdPositive(),
+                                PilotConfig.alignmentOffset));
+        rightBumperOnly()
+                .and(leftTrigger)
+                .whileTrue(
+                        new AlignToAprilTag(
+                                () -> Robot.pilotGamepad.getDriveFwdPositive(),
+                                -PilotConfig.alignmentOffset));
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));
