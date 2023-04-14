@@ -154,21 +154,10 @@ public class Auton {
                                                         "Bump 2 + 1 (1) Copy",
                                                         new PathConstraints(2, 2)))));
         autonChooser.addOption("Cone Mid", AutonCommands.coneMid());
-        autonChooser.addOption(
-                "Align Mid",
-                AutonCommands.alignToGridMid()
-                        .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
-                        .andThen(AutonCommands.retractIntake()));
-        autonChooser.addOption(
-                "Align Low Cube",
-                AutonCommands.alignToGridLowCube()
-                        .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
-                        .andThen(AutonCommands.retractIntake()));
-        autonChooser.addOption(
-                "Align Low Cone",
-                AutonCommands.alignToGridLowCone()
-                        .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
-                        .andThen(AutonCommands.retractIntake()));
+        autonChooser.addOption("Align High", AutonCommands.alignToGridHigh());
+        autonChooser.addOption("Align Mid", AutonCommands.alignToGridMid());
+        autonChooser.addOption("Align Low Cube", AutonCommands.alignToGridLowCube());
+        autonChooser.addOption("Align Low Cone", AutonCommands.alignToGridLowCone());
         // autonChooser.setDefaultOption(
         //         "Special",
         //         getAutoBuilder()

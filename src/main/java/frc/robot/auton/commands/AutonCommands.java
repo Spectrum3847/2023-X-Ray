@@ -110,27 +110,40 @@ public class AutonCommands {
 
     public static Command alignToGridHigh() {
         return new AlignToAprilTag(() -> -0.75, 0)
+                .withTimeout(1)
                 .alongWith(IntakeCommands.topCubeSpinUp())
                 .alongWith(ElevatorCommands.cubeTop())
-                .withTimeout(1);
+                .withTimeout(1)
+                .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
+                .andThen(AutonCommands.retractIntake());
     }
 
     public static Command alignToGridMid() {
         return new AlignToAprilTag(() -> -0.75, 0)
+                .withTimeout(1)
                 .alongWith(IntakeCommands.midCubeSpinUp())
                 .alongWith(ElevatorCommands.cubeMid())
-                .withTimeout(1);
+                .withTimeout(1)
+                .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
+                .andThen(AutonCommands.retractIntake());
     }
 
     public static Command alignToGridLowCube() {
         return new AlignToAprilTag(() -> -0.75, 0)
+                .withTimeout(1)
                 .alongWith(IntakeCommands.hybridShot())
-                .withTimeout(1);
+                .withTimeout(1)
+                .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
+                .andThen(AutonCommands.retractIntake());
     }
 
     public static Command alignToGridLowCone() {
         return new AlignToAprilTag(() -> -0.75, 0)
-                .alongWith(IntakeCommands.floorEject())
-                .withTimeout(1);
+                .withTimeout(1)
+                .alongWith(ElevatorCommands.coneFloorGoal())
+                .alongWith(FourBarCommands.coneFloorGoal())
+                .withTimeout(1)
+                .andThen(IntakeCommands.floorEject().withTimeout(0.1))
+                .andThen(AutonCommands.retractIntake());
     }
 }
