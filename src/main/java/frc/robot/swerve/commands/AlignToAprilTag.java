@@ -36,9 +36,7 @@ public class AlignToAprilTag extends PIDCommand {
                 () -> offset,
                 // This uses the output
                 output -> setOutput(output),
-                Robot.swerve
-                // Use the output here
-                );
+                Robot.swerve);
 
         this.getController().setTolerance(tolerance);
         driveCommand =
