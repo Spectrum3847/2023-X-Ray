@@ -20,7 +20,6 @@ public class Elevator extends LinearMechSubsystem {
         motorLeader.configForwardSoftLimitEnable(true);
         motorLeader.configReverseSoftLimitThreshold(600);
         motorLeader.configReverseSoftLimitEnable(true);
-        motorLeader.setSelectedSensorPosition(-300);
         motorLeader.configNominalOutputForward(0.06);
     }
 
