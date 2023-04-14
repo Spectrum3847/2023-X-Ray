@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
-import frc.robot.auton.commands.AutoBalance;
+import frc.robot.auton.commands.AutoPaths;
 import frc.robot.auton.commands.AutonCommands;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
@@ -105,144 +105,13 @@ public class Auton {
     // A chooser for autonomous commands
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
-        autonChooser.setDefaultOption(
-                "Over Charge",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Over Charge",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed,
-                                                AutonConfig.kMaxAngleAccel))));
-        autonChooser.addOption(
-                "Red 3 Ball Bottom w Balance",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Red 3 Ball Bottom w Balance",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-                        .andThen(new AutoBalance())
-                        .andThen(new LockSwerve().withTimeout(0.1))
-                        .andThen(AutonCommands.thirdShotBalance()));
-        autonChooser.addOption(
-                "Clean Side",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Clean Side",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxCleanSpeed,
-                                                AutonConfig.kMaxCleanAccel))));
-        autonChooser.addOption(
-                "SBump 2 + 1 (1)",
-                AutonCommands.coneMid()
-                        .andThen(
-                                getAutoBuilder()
-                                        .fullAuto(
-                                                PathPlanner.loadPathGroup(
-                                                        "Bump 2 + 1 (1)",
-                                                        new PathConstraints(2, 2))))
-                        .andThen(AutonCommands.alignToGridMid()));
-        autonChooser.addOption(
-                "Bump 2 + 1 (1) cc",
-                AutonCommands.coneMid()
-                        .andThen(
-                                getAutoBuilder()
-                                        .fullAuto(
-                                                PathPlanner.loadPathGroup(
-                                                        "Bump 2 + 1 (1) Copy",
-                                                        new PathConstraints(2, 2)))));
-        autonChooser.addOption("Cone Mid", AutonCommands.coneMid());
-        autonChooser.addOption("Align High", AutonCommands.alignToGridHigh());
-        autonChooser.addOption("Align Mid", AutonCommands.alignToGridMid());
-        autonChooser.addOption("Align Low Cube", AutonCommands.alignToGridLowCube());
-        autonChooser.addOption("Align Low Cone", AutonCommands.alignToGridLowCone());
-        // autonChooser.setDefaultOption(
-        //         "Special",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "Special",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed,
-        //                                         AutonConfig.kMaxSpecialAccel))));
-        // autonChooser.addOption(
-        //         "Clean Side",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "Clean Side",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxCleanSpeed,
-        //                                         AutonConfig.kMaxCleanAccel))));
-        /*autonChooser.addOption(
-                "Blue 3 Ball Bottom w Balance",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Blue 3 Ball Bottom w Balance",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-                        .andThen(new AutoBalance())
-                        .andThen(new LockSwerve().withTimeout(0.1))
-                        .andThen(AutonCommands.thirdShotBalance()));
-        autonChooser.addOption(
-                "Red 3 Ball Bottom w Balance",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Red 3 Ball Bottom w Balance",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-                        .andThen(new AutoBalance())
-                        .andThen(new LockSwerve().withTimeout(0.1))
-                        .andThen(AutonCommands.thirdShotBalance()));
-        autonChooser.addOption(
-                "Clean Side",
-                getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Clean Side",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxCleanSpeed,
-                                                AutonConfig.kMaxCleanAccel))));*/
-        /*autonChooser.addOption(
-        "Balance Test",
-        getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Balance Test",
-                                new PathConstraints(
-                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-                .andThen(new AutoBalance())
-                .andThen(new LockSwerve()));*/
-        /*autonChooser.addOption(
-        "Balance Test",
-        getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Balance Test",
-                                new PathConstraints(
-                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));*/
-        /*autonChooser.addOption(
-        "1 Ball w Balance",
-        getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "1 Ball w Balance",
-                                new PathConstraints(
-                                        AutonConfig.kMaxMobilitySpeed,
-                                        AutonConfig.kMaxMobilityAccel))));*/
-        /*autonChooser.addOption(
-        "1 Ball w Balance w Mobility",
-        getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "1 Ball w Balance w Mobility",
-                                new PathConstraints(
-                                        AutonConfig.kMaxMobilitySpeed,
-                                        AutonConfig.kMaxMobilityAccel))));*/
+        autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
+        autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
+        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
+        // autonChooser.addOption("Bump Side 2", AutoPaths.BumpSide2());
+        // autonChooser.addOption("Ball Bottom Balance", AutoPaths.BallBottomBalance());
+        // autonChooser.addOption("Special", AutoPaths.Special());
+        // autonChooser.addOption("Ball Bottom Angle", AutoPaths.BallBottomAngle());
         // Simple comp autos
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
@@ -252,8 +121,7 @@ public class Auton {
                 "Nothing",
                 new PrintCommand("Doing Nothing in Auton")
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
-        // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
-        // Autos for tuning/testing (not used at comp; should comment out before Houston)
+        // Autos for tuning/testing (not used at comp)
         autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
@@ -278,9 +146,6 @@ public class Auton {
                                         "5 Meters",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
-        /*// autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
-        // autonChooser.addOption("LockSwerve", new LockSwerve());
-        // autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());*/
     }
 
     // Adds event mapping to autonomous commands
@@ -292,9 +157,13 @@ public class Auton {
         eventMap.put("AngleThirdShot", AutonCommands.angleThirdShot()); // Need to be tuned to run
         eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
         eventMap.put("CleanShot", AutonCommands.cleanShot());
+        eventMap.put("CubeMidSpinUp", AutonCommands.cubeMidSpinUp());
+        eventMap.put("CubeMidEject", AutonCommands.cubeMidEject());
         // Cone placing Commands
         eventMap.put("ConeMid", AutonCommands.coneMid());
         eventMap.put("ConeTop", AutonCommands.coneTop());
+        eventMap.put("ConeHybridPlacement", AutonCommands.coneHybridPlacement());
+        eventMap.put("ConeHybrid", AutonCommands.coneHybrid());
         // Intake Commands
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("IntakeCone", AutonCommands.intakeCone());

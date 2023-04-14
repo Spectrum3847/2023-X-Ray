@@ -16,10 +16,12 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "ConeMid"
+        ],
         "executionBehavior": "sequential",
-        "waitBehavior": "none",
-        "waitTime": 3.5
+        "waitBehavior": "minimum",
+        "waitTime": 2.21
       }
     },
     {
@@ -139,12 +141,14 @@
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "CubeMidEject"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "minimum",
+        "waitTime": 0.3
       }
     },
     {
@@ -213,15 +217,61 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
+        "names": [
+          "ConeHybrid",
+          "RetractIntake"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "minimum",
+        "waitTime": 0.5
       }
     }
   ],
   "maxVelocity": 4.0,
   "maxAcceleration": 4.0,
   "isReversed": null,
-  "markers": []
+  "markers": [
+    {
+      "position": 2.0,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 3.6,
+      "names": [
+        "RetractIntake"
+      ]
+    },
+    {
+      "position": 6.3,
+      "names": [
+        "IntakeCone"
+      ]
+    },
+    {
+      "position": 7.3,
+      "names": [
+        "RetractIntake"
+      ]
+    },
+    {
+      "position": 4.45,
+      "names": [
+        "CubeMidSpinUp"
+      ]
+    },
+    {
+      "position": 7.8,
+      "names": [
+        "ConeHybridPlacement"
+      ]
+    },
+    {
+      "position": 5.01,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }

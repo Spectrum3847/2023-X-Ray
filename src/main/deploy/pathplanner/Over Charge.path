@@ -17,11 +17,11 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "ConeTop"
+          "ConeMid"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",
-        "waitTime": 1.7
+        "waitTime": 2.21
       }
     },
     {
@@ -140,17 +140,15 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "SecondShot"
-        ],
+        "names": [],
         "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
+        "waitBehavior": "none",
         "waitTime": 0.8
       }
     }
   ],
   "maxVelocity": 3.0,
-  "maxAcceleration": 3.0,
+  "maxAcceleration": 2.0,
   "isReversed": null,
   "markers": [
     {

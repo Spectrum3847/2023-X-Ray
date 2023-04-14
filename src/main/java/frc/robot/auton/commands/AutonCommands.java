@@ -100,6 +100,22 @@ public class AutonCommands {
                 .andThen(retractIntake().withTimeout(1.7));
     }
 
+    public static Command cubeMidSpinUp() {
+        return IntakeCommands.midCubeSpinUp().alongWith(ElevatorCommands.cubeMid());
+    }
+
+    public static Command cubeMidEject() {
+        return AutonCommands.launch().andThen(AutonCommands.stopMotors());
+    }
+
+    public static Command coneHybridPlacement() {
+        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal());
+    }
+
+    public static Command coneHybrid() {
+        return IntakeCommands.floorEject().withTimeout(0.2);
+    }
+
     public static Command simpleLaunchCube() {
         return OperatorCommands.cubeTop()
                 .withTimeout(0.5)
@@ -143,7 +159,7 @@ public class AutonCommands {
                 .alongWith(ElevatorCommands.coneFloorGoal())
                 .alongWith(FourBarCommands.coneFloorGoal())
                 .withTimeout(1)
-                .andThen(IntakeCommands.floorEject().withTimeout(0.1))
+                .andThen(IntakeCommands.floorEject().withTimeout(0.2))
                 .andThen(AutonCommands.retractIntake());
     }
 }
