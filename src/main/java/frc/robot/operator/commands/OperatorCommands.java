@@ -39,6 +39,10 @@ public class OperatorCommands {
                 .finallyDo((b) -> homeSystems().withTimeout(1).schedule());
     }
 
+    public static Command airIntake() {
+        return IntakeCommands.airIntake().withName("OperatorAirIntake");
+    }
+
     /* Position Commands */
 
     public static Command coneIntake() {

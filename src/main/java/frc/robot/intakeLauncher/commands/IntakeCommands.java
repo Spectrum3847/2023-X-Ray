@@ -38,6 +38,14 @@ public class IntakeCommands {
         return setIntakeRollers(1.0, 1.0, 0).withName("FullIntake");
     }
 
+    public static Command airIntake() {
+        return setVelocities(
+                        Intake.config.lowerAirIntakeSpeed,
+                        Intake.config.frontAirIntakeSpeed,
+                        Intake.config.launcherAirIntakeSpeed)
+                .withName("AirIntake");
+    }
+
     public static Command eject() {
         return setVelocities(
                         Intake.config.lowerEjectSpeed,
