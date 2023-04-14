@@ -134,6 +134,22 @@ public class IntakeCommands {
                 .withName("CoolShot");
     }
 
+    public static Command hybridShot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontHybridSpeed,
+                        Intake.config.launcherHybridSpeed)
+                .withName("HybridShot");
+    }
+
+    public static Command Shot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontCoolShotSpeed,
+                        Intake.config.launcherCoolShotSpeed)
+                .withName("CoolShot");
+    }
+
     public static Command secondShot() {
         return setVelocities(
                         Intake.config.lowerSpinUpSpeed,

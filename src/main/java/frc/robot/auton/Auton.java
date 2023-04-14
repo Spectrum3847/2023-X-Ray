@@ -18,7 +18,6 @@ import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
 import frc.robot.auton.commands.TaxiCommand;
-import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.HashMap;
@@ -144,9 +143,7 @@ public class Auton {
                                                 PathPlanner.loadPathGroup(
                                                         "Bump 2 + 1 (1)",
                                                         new PathConstraints(2, 2))))
-                        .andThen(
-                                new AlignToAprilTag(
-                                        () -> Robot.pilotGamepad.getDriveFwdPositive())));
+                        .andThen(AutonCommands.alignToGridMid()));
         autonChooser.addOption(
                 "Bump 2 + 1 (1) cc",
                 AutonCommands.coneMid()
@@ -157,6 +154,21 @@ public class Auton {
                                                         "Bump 2 + 1 (1) Copy",
                                                         new PathConstraints(2, 2)))));
         autonChooser.addOption("Cone Mid", AutonCommands.coneMid());
+        autonChooser.addOption(
+                "Align Mid",
+                AutonCommands.alignToGridMid()
+                        .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
+                        .andThen(AutonCommands.retractIntake()));
+        autonChooser.addOption(
+                "Align Low Cube",
+                AutonCommands.alignToGridLowCube()
+                        .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
+                        .andThen(AutonCommands.retractIntake()));
+        autonChooser.addOption(
+                "Align Low Cone",
+                AutonCommands.alignToGridLowCone()
+                        .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
+                        .andThen(AutonCommands.retractIntake()));
         // autonChooser.setDefaultOption(
         //         "Special",
         //         getAutoBuilder()

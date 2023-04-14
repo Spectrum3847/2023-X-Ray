@@ -10,6 +10,7 @@ import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.commands.OperatorCommands;
+import frc.robot.swerve.commands.AlignToAprilTag;
 
 public class AutonCommands {
 
@@ -26,6 +27,10 @@ public class AutonCommands {
 
     public static Command coolShot() {
         return spinLauncher(IntakeCommands.coolShot()).andThen(launch(), stopMotors());
+    }
+
+    public static Command hybridShot() {
+        return spinLauncher(IntakeCommands.hybridShot()).andThen(launch(), stopMotors());
     }
 
     public static Command secondShot() {
@@ -53,11 +58,11 @@ public class AutonCommands {
         return spinCommand.withTimeout(AutonConfig.spinUpTime);
     }
 
-    private static Command launch() {
+    public static Command launch() {
         return IntakeCommands.autoLaunch().withTimeout(AutonConfig.launchTime);
     }
 
-    private static Command stopMotors() {
+    public static Command stopMotors() {
         return IntakeCommands.stopAllMotors().withTimeout(AutonConfig.stopTime);
     }
 
@@ -101,5 +106,31 @@ public class AutonCommands {
                 .andThen(IntakeCommands.launch())
                 .withTimeout(2)
                 .andThen(IntakeCommands.stopAllMotors().withTimeout(0.01));
+    }
+
+    public static Command alignToGridHigh() {
+        return new AlignToAprilTag(() -> -0.75, 0)
+                .alongWith(IntakeCommands.topCubeSpinUp())
+                .alongWith(ElevatorCommands.cubeTop())
+                .withTimeout(1);
+    }
+
+    public static Command alignToGridMid() {
+        return new AlignToAprilTag(() -> -0.75, 0)
+                .alongWith(IntakeCommands.midCubeSpinUp())
+                .alongWith(ElevatorCommands.cubeMid())
+                .withTimeout(1);
+    }
+
+    public static Command alignToGridLowCube() {
+        return new AlignToAprilTag(() -> -0.75, 0)
+                .alongWith(IntakeCommands.hybridShot())
+                .withTimeout(1);
+    }
+
+    public static Command alignToGridLowCone() {
+        return new AlignToAprilTag(() -> -0.75, 0)
+                .alongWith(IntakeCommands.floorEject())
+                .withTimeout(1);
     }
 }
