@@ -140,9 +140,11 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "SecondShot"
+        ],
         "executionBehavior": "sequential",
-        "waitBehavior": "none",
+        "waitBehavior": "minimum",
         "waitTime": 0.8
       }
     }
@@ -150,5 +152,18 @@
   "maxVelocity": 3.0,
   "maxAcceleration": 3.0,
   "isReversed": null,
-  "markers": []
+  "markers": [
+    {
+      "position": 1.8,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 3.0,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }

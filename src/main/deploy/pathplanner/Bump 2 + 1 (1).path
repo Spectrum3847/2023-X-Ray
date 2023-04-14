@@ -3,12 +3,12 @@
     {
       "anchorPoint": {
         "x": 1.82,
-        "y": 0.5259147360399987
+        "y": 0.51
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3742079954864583,
-        "y": 0.5065447099661101
+        "x": 2.374546391360742,
+        "y": 0.51
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -16,11 +16,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "ConeMid"
-        ],
+        "names": [],
         "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
+        "waitBehavior": "none",
         "waitTime": 1.56
       }
     },

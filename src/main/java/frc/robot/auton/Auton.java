@@ -18,6 +18,7 @@ import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
 import frc.robot.auton.commands.TaxiCommand;
+import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.HashMap;
@@ -106,11 +107,11 @@ public class Auton {
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
         autonChooser.setDefaultOption(
-                "Blue 3 Ball Bottom w Angle",
+                "Over Charge",
                 getAutoBuilder()
                         .fullAuto(
                                 PathPlanner.loadPathGroup(
-                                        "Blue 3 Ball Bottom w Angle",
+                                        "Over Charge",
                                         new PathConstraints(
                                                 AutonConfig.kMaxSpeed,
                                                 AutonConfig.kMaxAngleAccel))));
@@ -135,9 +136,27 @@ public class Auton {
                                                 AutonConfig.kMaxCleanSpeed,
                                                 AutonConfig.kMaxCleanAccel))));
         autonChooser.addOption(
-                "Special",
-                getAutoBuilder()
-                        .fullAuto(PathPlanner.loadPathGroup("Special", new PathConstraints(2, 2))));
+                "SBump 2 + 1 (1)",
+                AutonCommands.coneMid()
+                        .andThen(
+                                getAutoBuilder()
+                                        .fullAuto(
+                                                PathPlanner.loadPathGroup(
+                                                        "Bump 2 + 1 (1)",
+                                                        new PathConstraints(2, 2))))
+                        .andThen(
+                                new AlignToAprilTag(
+                                        () -> Robot.pilotGamepad.getDriveFwdPositive())));
+        autonChooser.addOption(
+                "Bump 2 + 1 (1) cc",
+                AutonCommands.coneMid()
+                        .andThen(
+                                getAutoBuilder()
+                                        .fullAuto(
+                                                PathPlanner.loadPathGroup(
+                                                        "Bump 2 + 1 (1) Copy",
+                                                        new PathConstraints(2, 2)))));
+        autonChooser.addOption("Cone Mid", AutonCommands.coneMid());
         // autonChooser.setDefaultOption(
         //         "Special",
         //         getAutoBuilder()
@@ -234,7 +253,7 @@ public class Auton {
                         .andThen(new WaitCommand(5))); // setups an auto that does nothing
         // Advanced comp autos with vision (nothing here because we aren't running them at Houston)
         // Autos for tuning/testing (not used at comp; should comment out before Houston)
-        /*autonChooser.addOption(
+        autonChooser.addOption(
                 "1 Meter",
                 getAutoBuilder()
                         .fullAuto(
@@ -257,7 +276,7 @@ public class Auton {
                                 PathPlanner.loadPathGroup(
                                         "5 Meters",
                                         new PathConstraints(
-                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));*/
+                                                AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         /*// autonChooser.addOption("FrontBalanceTest", new FrontBalanceCommand());
         // autonChooser.addOption("LockSwerve", new LockSwerve());
         // autonChooser.addOption("BehindBalanceTest", new BehindBalanceCommand());*/
