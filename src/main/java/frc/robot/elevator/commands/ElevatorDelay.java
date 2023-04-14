@@ -4,14 +4,26 @@
 
 package frc.robot.elevator.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
+import frc.robot.elevator.ElevatorConfig;
 
 public class ElevatorDelay extends CommandBase {
     private double safePos;
     private double finalPos;
     private double conditionalPercent;
     private boolean simpleDelay;
+    /**
+     * Homes the elevator and stops after {@link ElevatorConfig#homeTimeout} once it reaches a
+     * {@link ElevatorConfig#homeThreshold} from 0
+     */
+    private boolean isGoingHome;
+
+    private boolean reachedThreshold;
+    private double timestamp;
+
     /**
      * Creates a new ElevatorDelay. Elevator will move to safePos, wait for FourBar to be at
      * conditional percentage, then move to finalPos
@@ -28,6 +40,7 @@ public class ElevatorDelay extends CommandBase {
         this.finalPos = finalPos;
         this.conditionalPercent = conditionalPercent;
         this.simpleDelay = false;
+        homeCheck(finalPos);
         this.setName("ElevatorDelay");
         addRequirements(Robot.elevator);
     }
@@ -46,6 +59,7 @@ public class ElevatorDelay extends CommandBase {
         this.finalPos = finalPos;
         this.conditionalPercent = conditionalPercent;
         this.simpleDelay = true;
+        homeCheck(finalPos);
         this.setName("ElevatorDelay");
         addRequirements(Robot.elevator);
     }
@@ -85,6 +99,26 @@ public class ElevatorDelay extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        if (isGoingHome) {
+            if (Robot.elevator.getPosition() <= Elevator.config.homeThreshold
+                    && !reachedThreshold) {
+                reachedThreshold = true;
+                timestamp = Timer.getFPGATimestamp();
+            }
+            return reachedThreshold
+                    && (Timer.getFPGATimestamp() - timestamp) >= Elevator.config.homeTimeout;
+        } else {
+            return false;
+        }
+    }
+
+    private void homeCheck(double finalPos) {
+        reachedThreshold = false;
+        timestamp = 0;
+        if (finalPos == 0) {
+            isGoingHome = true;
+        } else {
+            isGoingHome = false;
+        }
     }
 }
