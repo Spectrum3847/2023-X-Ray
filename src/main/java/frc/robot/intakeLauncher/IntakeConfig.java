@@ -74,11 +74,18 @@ public class IntakeConfig {
     // //3600 slighty
     // too short
 
-    public double frontSecondShotSpeed =
+    public double frontSecondShotMidSpeed =
             900 * (1.2); // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
-    public double launcherSecondShotSpeed =
+    public double launcherSecondShotMidSpeed =
             2800 * (1.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
+
+    public double frontSecondShotSpeed =
+            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
+    public double launcherSecondShotSpeed =
+            2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
 
     public double frontCleanShotSpeed =
