@@ -44,7 +44,7 @@ public class IntakeConfig {
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed - 400;
 
-    public double frontMidCubeSpeed = 900; // 1300;
+    public double frontMidCubeSpeed = 1200; // 1300;
     public double launcherMidCubeSpeed = frontMidCubeSpeed - 500;
 
     public double frontTopCubeSpeed = 2000; // 1200; // 2150;
