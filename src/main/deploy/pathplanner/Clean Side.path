@@ -76,16 +76,16 @@
     },
     {
       "anchorPoint": {
-        "x": 7.6,
-        "y": 4.72
+        "x": 7.45,
+        "y": 4.65
       },
       "prevControl": {
-        "x": 7.894995414598495,
-        "y": 5.304447727663587
+        "x": 7.744995414598495,
+        "y": 5.2344477276635875
       },
       "nextControl": {
-        "x": 7.292165829369827,
-        "y": 4.110116006491556
+        "x": 7.142165829369827,
+        "y": 4.040116006491557
       },
       "holonomicAngle": 190.0,
       "isReversal": false,
@@ -126,15 +126,15 @@
     },
     {
       "anchorPoint": {
-        "x": 1.9,
+        "x": 1.81,
         "y": 4.425
       },
       "prevControl": {
-        "x": 2.416145900994092,
+        "x": 2.326145900994092,
         "y": 4.497670369386541
       },
       "nextControl": {
-        "x": 2.416145900994092,
+        "x": 2.326145900994092,
         "y": 4.497670369386541
       },
       "holonomicAngle": 180.0,
@@ -178,19 +178,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.740436686980244,
-        "y": 3.600176055313943
+        "x": 6.8526234762393194,
+        "y": 3.6103748543374956
       },
       "prevControl": {
-        "x": 6.475267912367885,
-        "y": 4.0387244133266895
+        "x": 6.58745470162696,
+        "y": 4.0489232123502426
       },
-      "nextControl": {
-        "x": 6.475267912367885,
-        "y": 4.0387244133266895
-      },
-      "holonomicAngle": -25.0,
-      "isReversal": true,
+      "nextControl": null,
+      "holonomicAngle": -45.0,
+      "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
@@ -200,35 +197,10 @@
         "waitBehavior": "none",
         "waitTime": 0
       }
-    },
-    {
-      "anchorPoint": {
-        "x": 1.936802346887137,
-        "y": 4.926019928375735
-      },
-      "prevControl": {
-        "x": 6.434472716273676,
-        "y": 5.048405516658362
-      },
-      "nextControl": null,
-      "holonomicAngle": 180.0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [
-          "ConeHybrid",
-          "RetractIntake"
-        ],
-        "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
-        "waitTime": 0.5
-      }
     }
   ],
-  "maxVelocity": 4.0,
-  "maxAcceleration": 4.0,
+  "maxVelocity": 3.0,
+  "maxAcceleration": 3.0,
   "isReversed": null,
   "markers": [
     {
@@ -250,21 +222,9 @@
       ]
     },
     {
-      "position": 7.3,
-      "names": [
-        "RetractIntake"
-      ]
-    },
-    {
       "position": 4.45,
       "names": [
         "CubeMidSpinUp"
-      ]
-    },
-    {
-      "position": 7.8,
-      "names": [
-        "ConeHybridPlacement"
       ]
     },
     {

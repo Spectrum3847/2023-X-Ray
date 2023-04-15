@@ -49,6 +49,10 @@ public class AutonCommands {
         return spinLauncher(IntakeCommands.thirdShotBalance()).andThen(launch(), stopMotors());
     }
 
+    public static Command cubeMidEject() {
+        return spinLauncher(IntakeCommands.midCubeSpinUp()).andThen(launch(), stopMotors());
+    }
+
     /** Goes to 0 */
     private static Command homeSystems() {
         return FourBarCommands.autonHome().alongWith(ElevatorCommands.autonSafeHome());
@@ -56,6 +60,10 @@ public class AutonCommands {
 
     private static Command spinLauncher(Command spinCommand) {
         return spinCommand.withTimeout(AutonConfig.spinUpTime);
+    }
+
+    private static Command spinLauncherFast(Command spinCommand) {
+        return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.3);
     }
 
     public static Command launch() {
@@ -89,7 +97,7 @@ public class AutonCommands {
     public static Command coneMid() {
         return OperatorCommands.coneMid()
                 .withTimeout(1.1)
-                .andThen(IntakeCommands.autoEject().withTimeout(.01))
+                .andThen(IntakeCommands.autoEject().withTimeout(.1))
                 .andThen(retractIntake().withTimeout(1.1));
     }
 
@@ -101,11 +109,7 @@ public class AutonCommands {
     }
 
     public static Command cubeMidSpinUp() {
-        return IntakeCommands.midCubeSpinUp().alongWith(ElevatorCommands.cubeMid());
-    }
-
-    public static Command cubeMidEject() {
-        return AutonCommands.launch().andThen(AutonCommands.stopMotors());
+        return ElevatorCommands.cubeMid();
     }
 
     public static Command coneHybridPlacement() {
