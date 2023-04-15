@@ -12,8 +12,8 @@ public class AutonConfig {
     // speeds
     public static final double kMaxSpeed = 3;
     public static final double kMaxAccel = 3.2;
-    public static final double kMaxCleanSpeed = 4;
-    public static final double kMaxCleanAccel = 4;
+    public static final double kMaxCleanSpeed = 3;
+    public static final double kMaxCleanAccel = 3;
     public static final double kMaxBumpSpeed = 4;
     public static final double kMaxBumpAccel = 4;
     public static final double kMaxSpecialAccel = 4.2;
