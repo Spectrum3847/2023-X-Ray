@@ -38,6 +38,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightTriggerButton
                 .and(noRightBumper())
                 .whileTrue(OperatorCommands.coneShelfIntake());
+        gamepad.yButton.and(rightBumper()).whileTrue(OperatorCommands.airIntake());
 
         /* Cube Scoring */
         gamepad.aButton
