@@ -71,7 +71,7 @@ public class PilotGamepad extends Gamepad {
         // driveTrigger();
 
         /* Aiming */
-        gamepad.xButton.and(noBumpers()).whileTrue(AutonCommands.coneMid());
+        gamepad.xButton.and(noBumpers()).whileTrue(PilotCommands.aimPilotDrive(Math.PI));
         gamepad.bButton.and(noBumpers()).whileTrue(IntakeCommands.launch());
 
         /* Dpad */
