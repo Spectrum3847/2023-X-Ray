@@ -16,10 +16,10 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneShelf = 43.13;
 
     public final double coneHybrid = 2;
-    public final double coneMid = 34;
+    public final double coneMid = 34.5;
     public final double coneTop = 57.4;
 
-    public final double cubeIntake = 0;
+    public final double cubeIntake = 0.1;
     public final double autonCubeIntake = 0.2;
     public final double cubeMid = 12.5;
     public final double cubeTop = 12.5; // 24.5;
