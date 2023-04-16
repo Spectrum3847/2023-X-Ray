@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
+import frc.robot.auton.commands.AutoPaths;
 import frc.robot.auton.commands.AutonCommands;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
@@ -97,9 +98,9 @@ public class Auton {
     // A chooser for autonomous commands
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
-        // autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
-        // autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
-        // autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
+        autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
+        autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
+        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
         // autonChooser.addOption(
         //         "Cone Throwing",
         //         ElevatorCommands.coneFloorGoal()
