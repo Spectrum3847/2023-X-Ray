@@ -51,7 +51,7 @@ public class IntakeCommands {
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(1000, 30)))
                 .withName("Eject")
                 .finallyDo(
                         (b) ->
@@ -66,7 +66,7 @@ public class IntakeCommands {
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(1000, 30)))
                 .withName("Eject");
     }
 

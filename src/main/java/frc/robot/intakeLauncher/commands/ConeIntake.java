@@ -41,7 +41,6 @@ public class ConeIntake extends CommandBase {
         thresholdCount = 0;
         runMotors = true;
         Robot.intake.setCurrentLimits(12, 12);
-        // operatorRumble = OperatorCommands.rumble(0.5, 1);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
