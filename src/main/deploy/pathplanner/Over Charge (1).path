@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "ConeMid"
+          "ConeMidFull"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "minimum",

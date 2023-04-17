@@ -101,6 +101,7 @@ public class Auton {
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
         autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
+        autonChooser.addOption("Test Clean Side", AutoPaths.CleanSide2());
         // autonChooser.addOption(
         //         "Cone Throwing",
         //         ElevatorCommands.coneFloorGoal()
@@ -174,6 +175,7 @@ public class Auton {
         eventMap.put("CubeMidEject", AutonCommands.cubeMidEject());
         // Cone placing Commands
         eventMap.put("ConeMid", AutonCommands.coneMid());
+        eventMap.put("ConeMidFull", AutonCommands.coneMidFull());
         eventMap.put("ConeTop", AutonCommands.coneTop());
         eventMap.put("ConeHybridPlacement", AutonCommands.coneHybridPlacement());
         eventMap.put("ConeHybrid", AutonCommands.coneHybrid());

@@ -97,6 +97,12 @@ public class AutonCommands {
     public static Command coneMid() {
         return OperatorCommands.coneMid()
                 .withTimeout(1.1)
+                .andThen(IntakeCommands.autoEject().withTimeout(.1));
+    }
+
+    public static Command coneMidFull() {
+        return OperatorCommands.coneMid()
+                .withTimeout(1.1)
                 .andThen(IntakeCommands.autoEject().withTimeout(.1))
                 .andThen(retractIntake().withTimeout(1.1));
     }
@@ -134,18 +140,16 @@ public class AutonCommands {
                 .alongWith(IntakeCommands.topCubeSpinUp())
                 .alongWith(ElevatorCommands.cubeTop())
                 .withTimeout(1)
-                .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
-                .andThen(AutonCommands.retractIntake());
+                .andThen(AutonCommands.launch(), AutonCommands.stopMotors());
     }
 
     public static Command alignToGridMid() {
         return new AlignToAprilTag(() -> -0.75, 0)
                 .withTimeout(1)
-                .alongWith(IntakeCommands.midCubeSpinUp())
                 .alongWith(ElevatorCommands.cubeMid())
                 .withTimeout(1)
-                .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
-                .andThen(AutonCommands.retractIntake());
+                .andThen(spinLauncherFast(IntakeCommands.midCubeSpinUp()))
+                .andThen(launch(), stopMotors());
     }
 
     public static Command alignToGridLowCube() {
@@ -153,8 +157,7 @@ public class AutonCommands {
                 .withTimeout(1)
                 .alongWith(IntakeCommands.hybridShot())
                 .withTimeout(1)
-                .andThen(AutonCommands.launch(), AutonCommands.stopMotors())
-                .andThen(AutonCommands.retractIntake());
+                .andThen(AutonCommands.launch(), AutonCommands.stopMotors());
     }
 
     public static Command alignToGridLowCone() {
@@ -163,7 +166,6 @@ public class AutonCommands {
                 .alongWith(ElevatorCommands.coneFloorGoal())
                 .alongWith(FourBarCommands.coneFloorGoal())
                 .withTimeout(1)
-                .andThen(IntakeCommands.floorEject().withTimeout(0.2))
-                .andThen(AutonCommands.retractIntake());
+                .andThen(IntakeCommands.floorEject().withTimeout(0.2));
     }
 }

@@ -127,15 +127,15 @@
     {
       "anchorPoint": {
         "x": 5.910926640035098,
-        "y": 0.87
+        "y": 0.82
       },
       "prevControl": {
         "x": 6.087472890678126,
-        "y": 0.87
+        "y": 0.82
       },
       "nextControl": {
         "x": 5.758553997572561,
-        "y": 0.87
+        "y": 0.82
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -152,15 +152,15 @@
     {
       "anchorPoint": {
         "x": 5.05,
-        "y": 0.87
+        "y": 0.82
       },
       "prevControl": {
         "x": 5.883958471525489,
-        "y": 0.8699999999999999
+        "y": 0.8199999999999998
       },
       "nextControl": {
         "x": 4.216041528474511,
-        "y": 0.8700000000000001
+        "y": 0.8200000000000001
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -179,11 +179,11 @@
     {
       "anchorPoint": {
         "x": 2.75,
-        "y": 0.87
+        "y": 0.82
       },
       "prevControl": {
         "x": 3.7286433083818977,
-        "y": 0.8699999999999999
+        "y": 0.8199999999999998
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -211,6 +211,12 @@
     },
     {
       "position": 4.0,
+      "names": [
+        "RetractIntake"
+      ]
+    },
+    {
+      "position": 0.01,
       "names": [
         "RetractIntake"
       ]

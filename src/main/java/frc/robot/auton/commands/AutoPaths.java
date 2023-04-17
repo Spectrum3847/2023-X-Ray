@@ -55,6 +55,17 @@ public class AutoPaths {
                 .andThen(AutonCommands.alignToGridMid().withTimeout(AutonConfig.midCubeAlignTime2));
     }
 
+    public static Command CleanSide2() {
+        return Auton.getAutoBuilder()
+                .fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "Clean Side (1)",
+                                new PathConstraints(
+                                        AutonConfig.kMaxBumpSpeed - 1,
+                                        AutonConfig.kMaxBumpAccel - 1)))
+                .andThen(AutonCommands.alignToGridMid().withTimeout(AutonConfig.midCubeAlignTime2));
+    }
+
     public static Command BumpSide3() {
         return Auton.getAutoBuilder()
                 .fullAuto(
