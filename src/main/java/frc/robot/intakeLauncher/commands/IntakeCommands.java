@@ -55,7 +55,7 @@ public class IntakeCommands {
                 .withName("Eject")
                 .finallyDo(
                         (b) ->
-                                ElevatorCommands.home()
+                                ElevatorCommands.safeHome()
                                         .alongWith(FourBarCommands.home())
                                         .withTimeout(1.5)
                                         .schedule());
