@@ -35,7 +35,7 @@ public class ZeroElevatorRoutine extends CommandBase {
     public void end(boolean interrupted) {
         // Set elevator position to zero
         // enable soft limits
-        Robot.elevator.resetSensorPosition(-300);
+        Robot.elevator.resetSensorPosition(0);
         Robot.elevator.softLimitsTrue();
         Robot.elevator.setMMPosition(0);
     }

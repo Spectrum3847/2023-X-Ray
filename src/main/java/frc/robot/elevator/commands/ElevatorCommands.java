@@ -78,7 +78,7 @@ public class ElevatorCommands {
     }
 
     public static Command hopElevator() {
-        return hopElevator(0.34);
+        return hopElevator(0);
     }
 
     public static Command coneFloorGoal() {
@@ -120,19 +120,27 @@ public class ElevatorCommands {
     public static Command safeHome() {
         return new ElevatorDelay(
                         Elevator.config.safePositionForFourBar,
-                        1000,
+                        0,
                         FourBar.config.safePositionForElevator)
                 .withName("ElevatorSafeHome");
+    }
+
+    public static Command simpleSafeHome() {
+        return new ElevatorDelay(0, FourBar.config.safePositionForElevator);
     }
 
     public static Command autonSafeHome() {
         return new ElevatorDelay(
                         Elevator.config.safePositionForFourBar,
-                        1000,
+                        0,
                         FourBar.config.safePositionForElevator)
                 .withName("ElevatorSafeHome");
     }
 
+    /**
+     * Be careful using this command. Will not wait for fourbar to be at a safe position before
+     * going home
+     */
     public static Command home() {
         return setMMPositionWithDelay(0.34).withName("ElevatorHome");
     }
