@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.elevator.commands.ElevatorDelay;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
 
@@ -51,7 +50,7 @@ public class IntakeCommands {
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(1000, 30)))
+                .alongWith(FourBarCommands.home().alongWith(ElevatorCommands.simpleSafeHome()))
                 .withName("Eject")
                 .finallyDo(
                         (b) ->
@@ -66,7 +65,7 @@ public class IntakeCommands {
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(1000, 30)))
+                .alongWith(FourBarCommands.home().alongWith(ElevatorCommands.simpleSafeHome()))
                 .withName("Eject");
     }
 
@@ -150,12 +149,12 @@ public class IntakeCommands {
                 .withName("HybridShot");
     }
 
-    public static Command Shot() {
+    public static Command shot() {
         return setVelocities(
                         Intake.config.lowerSpinUpSpeed,
                         Intake.config.frontCoolShotSpeed,
                         Intake.config.launcherCoolShotSpeed)
-                .withName("CoolShot");
+                .withName("Shot");
     }
 
     public static Command secondShot() {

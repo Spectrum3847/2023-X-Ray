@@ -4,11 +4,13 @@
 
 package frc.robot.elevator.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.elevator.Elevator;
 
 public class ElevatorHoldPosition extends CommandBase {
-    private double position = 0;
+    private double holdPosition = 0;
     /** Creates a new ElevatorHoldPosition. */
     public ElevatorHoldPosition() {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -18,7 +20,7 @@ public class ElevatorHoldPosition extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        position = Robot.elevator.getPosition();
+        holdPosition = Robot.elevator.getPosition();
 
         // Robot.elevator.setEncoder(Elevator.config.maxExtension);
         // Robot.elevator.setMMPosition(0);
@@ -28,7 +30,17 @@ public class ElevatorHoldPosition extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        Robot.elevator.setMMPosition(position);
+        double currentPosition = Robot.elevator.getPosition();
+        if (Math.abs(holdPosition - currentPosition) <= 5000) {
+            Robot.elevator.setMMPosition(holdPosition);
+        } else {
+            DriverStation.reportError(
+                    "ElevatorHoldPosition tried to go too far away from current position. Current Position: "
+                            + Elevator.falconToInches(currentPosition)
+                            + " || Hold Position: "
+                            + Elevator.falconToInches(holdPosition),
+                    false);
+        }
     }
 
     // Called once the command ends or is interrupted.
