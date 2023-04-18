@@ -19,7 +19,7 @@
         "names": [],
         "executionBehavior": "sequential",
         "waitBehavior": "none",
-        "waitTime": 1.7
+        "waitTime": 0
       }
     },
     {
