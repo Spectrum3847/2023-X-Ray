@@ -166,6 +166,12 @@
       "names": [
         "RetractIntake"
       ]
+    },
+    {
+      "position": 4.0,
+      "names": [
+        "ConeHybridPlacement"
+      ]
     }
   ]
 }

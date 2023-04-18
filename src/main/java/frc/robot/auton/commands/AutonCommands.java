@@ -1,7 +1,5 @@
 package frc.robot.auton.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -17,6 +15,7 @@ import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.swerve.commands.DriveToCubeNode;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
+import java.util.function.DoubleSupplier;
 
 public class AutonCommands {
 
@@ -128,14 +127,6 @@ public class AutonCommands {
         return ElevatorCommands.cubeMid();
     }
 
-    public static Command coneHybridPlacement() {
-        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal());
-    }
-
-    public static Command coneHybrid() {
-        return IntakeCommands.floorEject().withTimeout(0.2);
-    }
-
     public static Command simpleLaunchCube() {
         return OperatorCommands.cubeTop()
                 .withTimeout(0.5)
@@ -178,6 +169,14 @@ public class AutonCommands {
                 .andThen(IntakeCommands.floorEject().withTimeout(0.2));
     }
 
+    public static Command autonConeFloorGoalPostion() {
+        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal());
+    }
+
+    public static Command ejectCone() {
+        return IntakeCommands.floorEject();
+    }
+
     public static Command autonConeFloorGoal() {
         return ElevatorCommands.coneFloorGoal()
                 .alongWith(
@@ -203,11 +202,11 @@ public class AutonCommands {
                 .withName("AutoAimPilotDrive");
     }
 
-    public static Command faceForward(){
+    public static Command faceForward() {
         return aimPilotDrive(Math.PI);
     }
 
-    public static Command faceBackward(){
+    public static Command faceBackward() {
         return aimPilotDrive(0);
     }
 }

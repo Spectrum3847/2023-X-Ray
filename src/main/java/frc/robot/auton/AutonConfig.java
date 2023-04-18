@@ -15,7 +15,7 @@ public class AutonConfig {
     public static final double kMaxFastSpeed = 3.4;
     public static final double kMaxFastAccel = 4;
     public static final double kMaxBalanceSpeed = 2.0;
-    public static final double kMaxBalanceAccel = 1.5; //helps not jump off charge station
+    public static final double kMaxBalanceAccel = 1.5; // helps not jump off charge station
     public static final double kMaxCleanSpeed = 4;
     public static final double kMaxCleanAccel = 4;
     public static final double kMaxBumpSpeed = 3;
