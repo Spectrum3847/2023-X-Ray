@@ -15,13 +15,13 @@ public class AutoPaths {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Over Charge (1)",
+                                "OverCharge1",
                                 new PathConstraints(AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "Over Charge (2)",
+                                                "OverCharge2",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxBalanceSpeed,
                                                         AutonConfig.kMaxBalanceAccel))))
@@ -29,7 +29,7 @@ public class AutoPaths {
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "Over Charge (3)",
+                                                "OverCharge3",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxSpeed,
                                                         AutonConfig.kMaxAccel))))
@@ -64,7 +64,7 @@ public class AutoPaths {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Bump 2 + 1 (1)",
+                                "Bump1",
                                 new PathConstraints(
                                         AutonConfig.kMaxBumpSpeed - 2,
                                         AutonConfig.kMaxBumpAccel - 2)))
@@ -75,7 +75,7 @@ public class AutoPaths {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Clean Side (1)",
+                                "CleanSide1",
                                 new PathConstraints(
                                         AutonConfig.kMaxBumpSpeed - 1,
                                         AutonConfig.kMaxBumpAccel - 1)))
@@ -86,7 +86,7 @@ public class AutoPaths {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Bump 2 + 1 (1)",
+                                "Bump1",
                                 new PathConstraints(
                                         AutonConfig.kMaxBumpSpeed, AutonConfig.kMaxBumpAccel)))
                 .andThen(AutonCommands.alignToGridMid().withTimeout(AutonConfig.midCubeAlignTime))
@@ -94,7 +94,7 @@ public class AutoPaths {
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "Bump 2 + 1 (2)",
+                                                "Bump2",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxBumpSpeed,
                                                         AutonConfig.kMaxBumpAccel)))

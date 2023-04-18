@@ -7,10 +7,15 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.auton.commands.AutoPaths;
 import frc.robot.auton.commands.AutonCommands;
+import frc.robot.auton.commands.LeftCubeTaxiCommand;
+import frc.robot.auton.commands.MiddleCubeTaxiCommand;
+import frc.robot.auton.commands.RightCubeTaxiCommand;
+import frc.robot.auton.commands.TaxiCommand;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
 import java.util.HashMap;
@@ -101,42 +106,19 @@ public class Auton {
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
         autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
-        autonChooser.addOption("Test Clean Side", AutoPaths.CleanSide2());
-        autonChooser.addOption("Align to Grid", AutonCommands.alignToGridMid());
-        autonChooser.addOption("Cone", AutonCommands.autonConeFloorGoal().withTimeout(0.5));
-        // autonChooser.addOption(
-        //         "Cone Throwing",
-        //         ElevatorCommands.coneFloorGoal()
-        //                 .withTimeout(1)
-        //                 .alongWith(
-        //                         FourBarCommands.coneFloorGoal(),
-        //                         new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
-        //                 .withTimeout(1)
-        //                 .andThen(AutonCommands.retractIntake())
-        //                 .withTimeout(1));
-        // autonChooser.addOption("SS", AutonCommands.secondShot());
-        // autonChooser.addOption(
-        //         "AB",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "1 Meter",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-        //                 .andThen(new AutoBalance()));
         // autonChooser.addOption("Bump Side 2", AutoPaths.BumpSide2());
-        // autonChooser.addOption("Ball Bottom Balance", AutoPaths.BallBottomBalance());
+        // autonChooser.addOption("3 Ball Bottom Balance", AutoPaths.BallBottomBalance());
         // autonChooser.addOption("Special", AutoPaths.Special());
-        // autonChooser.addOption("Ball Bottom Angle", AutoPaths.BallBottomAngle());
-        // // Simple comp autos
-        // autonChooser.addOption("Taxi Simple", new TaxiCommand());
-        // autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
-        // autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
-        // autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
-        // autonChooser.addOption(
-        //         "Nothing",
-        //         new PrintCommand("Doing Nothing in Auton")
-        //                 .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        // autonChooser.addOption("3 Ball Bottom Angle", AutoPaths.BallBottomAngle());
+        // Simple comp autos
+        autonChooser.addOption("Taxi Simple", new TaxiCommand());
+        autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
+        autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
+        autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
+        autonChooser.addOption(
+                "Nothing",
+                new PrintCommand("Doing Nothing in Auton")
+                        .andThen(new WaitCommand(5))); // setups an auto that does nothing
         // // Autos for tuning/testing (not used at comp)
         // autonChooser.addOption(
         //         "1 Meter",
@@ -187,6 +169,8 @@ public class Auton {
         eventMap.put("RetractIntake", AutonCommands.retractIntake());
         // Drivetrain Commands
         eventMap.put("LockSwerve", new LockSwerve());
+        eventMap.put("FaceForward", AutonCommands.faceForward());
+        eventMap.put("FaceBackward", AutonCommands.faceBackward());
     }
 
     /**
