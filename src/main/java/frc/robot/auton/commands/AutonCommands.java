@@ -1,5 +1,7 @@
 package frc.robot.auton.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -13,6 +15,8 @@ import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.swerve.commands.DriveToCubeNode;
+import frc.robot.swerve.commands.SwerveCommands;
+import frc.robot.swerve.commands.SwerveDrive;
 
 public class AutonCommands {
 
@@ -180,5 +184,30 @@ public class AutonCommands {
                         FourBarCommands.coneFloorGoal(),
                         new WaitCommand(0.20).andThen(IntakeCommands.floorEject()))
                 .withName("AutonConeFloorGoal");
+    }
+
+    public static Command aimPilotDrive(double goalAngleRadians) {
+        return aimPilotDrive(() -> goalAngleRadians);
+    }
+
+    /** Reset the Theata Controller and then run the SwerveDrive command and pass a goal Supplier */
+    public static Command aimPilotDrive(DoubleSupplier goalAngleSupplierRadians) {
+        return SwerveCommands.resetTurnController()
+                .andThen(
+                        new SwerveDrive(
+                                () -> 0,
+                                () -> 0,
+                                () ->
+                                        Robot.swerve.calculateRotationController(
+                                                goalAngleSupplierRadians)))
+                .withName("AutoAimPilotDrive");
+    }
+
+    public static Command faceForward(){
+        return aimPilotDrive(Math.PI);
+    }
+
+    public static Command faceBackward(){
+        return aimPilotDrive(0);
     }
 }
