@@ -36,7 +36,7 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double safeIntakeHeight = 3.42;
     public final double maxExtension = 0; // TODO: find max relative extension
     public final double angle = 60;
-    public final double homeThreshold = 2000; // falcon units
+    public final double homeThreshold = 8000; // falcon units
     public final double homeTimeout = 0.5; // seconds
     public final double maxHomeTimeout = 4; // seconds, no home command can take longer than this
 

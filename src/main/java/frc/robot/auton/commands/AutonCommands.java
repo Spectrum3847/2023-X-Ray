@@ -2,6 +2,7 @@ package frc.robot.auton.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.auton.AutonConfig;
 import frc.robot.elevator.commands.ElevatorCommands;
@@ -11,6 +12,7 @@ import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
+import frc.robot.swerve.commands.DriveToCubeNode;
 
 public class AutonCommands {
 
@@ -63,11 +65,15 @@ public class AutonCommands {
     }
 
     private static Command spinLauncherFast(Command spinCommand) {
-        return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.3);
+        return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.4);
     }
 
     public static Command launch() {
         return IntakeCommands.autoLaunch().withTimeout(AutonConfig.launchTime);
+    }
+
+    public static Command launchFast() {
+        return IntakeCommands.autoLaunch().withTimeout(AutonConfig.launchTime - .15);
     }
 
     public static Command stopMotors() {
@@ -144,10 +150,9 @@ public class AutonCommands {
     }
 
     public static Command alignToGridMid() {
-        return new AlignToAprilTag(() -> -0.75, 0)
-                .withTimeout(1)
+        return new DriveToCubeNode(0)
                 .alongWith(ElevatorCommands.cubeMid())
-                .withTimeout(1)
+                .withTimeout(0.75)
                 .andThen(spinLauncherFast(IntakeCommands.midCubeSpinUp()))
                 .andThen(launch(), stopMotors());
     }
@@ -167,5 +172,13 @@ public class AutonCommands {
                 .alongWith(FourBarCommands.coneFloorGoal())
                 .withTimeout(1)
                 .andThen(IntakeCommands.floorEject().withTimeout(0.2));
+    }
+
+    public static Command autonConeFloorGoal() {
+        return ElevatorCommands.coneFloorGoal()
+                .alongWith(
+                        FourBarCommands.coneFloorGoal(),
+                        new WaitCommand(0.25).andThen(IntakeCommands.floorEject()))
+                .withName("AutonConeFloorGoal");
     }
 }

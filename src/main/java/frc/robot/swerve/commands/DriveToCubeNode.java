@@ -14,12 +14,12 @@ import frc.robot.Robot;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class DriveToCubeNode extends PIDCommand {
     /* Config settings */
-    private static double kP = 0.04;
-    private static double verticalSetpoint = -14;
-    private double tolerance = 2;
+    private static double kP = 0.06;
+    private static double verticalSetpoint = -10; // neg
+    private double tolerance = 1;
     private double horizontalOffset = 0; // positive is right (driver POV)
 
-    private static double out;
+    private static double out = 0;
     private Command alignToTag;
     /** Creates a new DriveToCubeNode. */
     /**
@@ -51,6 +51,7 @@ public class DriveToCubeNode extends PIDCommand {
     public void initialize() {
         super.initialize();
         alignToTag.initialize();
+        out = 0;
     }
 
     @Override
@@ -62,12 +63,14 @@ public class DriveToCubeNode extends PIDCommand {
     @Override
     public void end(boolean interrupted) {
         alignToTag.end(interrupted);
+        Robot.swerve.stop();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(out) <= 0.05;
+        // return Math.abs(out) <= 0.05;
+        return false;
     }
 
     private static void setOutput(double output) {

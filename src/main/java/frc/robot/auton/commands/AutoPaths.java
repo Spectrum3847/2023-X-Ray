@@ -2,10 +2,13 @@ package frc.robot.auton.commands;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auton.Auton;
 import frc.robot.auton.AutonConfig;
 import frc.robot.swerve.commands.LockSwerve;
+import java.util.List;
 
 public class AutoPaths {
     public static Command OverCharge() {
@@ -35,13 +38,26 @@ public class AutoPaths {
                 .andThen(AutonCommands.secondShot());
     }
 
+    private static List<PathPlannerTrajectory> clean2path =
+            PathPlanner.loadPathGroup(
+                    "CleanSide2",
+                    new PathConstraints(
+                            AutonConfig.kMaxCleanSpeed - 0.5, AutonConfig.kMaxCleanAccel - 0.5));
+
+    private static SequentialCommandGroup cleanSide =
+            Auton.getAutoBuilder()
+                    .fullAuto(
+                            PathPlanner.loadPathGroup(
+                                    "CleanSide1",
+                                    new PathConstraints(
+                                            AutonConfig.kMaxCleanSpeed - 0.5,
+                                            AutonConfig.kMaxCleanAccel - 0.5)))
+                    .andThen(AutonCommands.alignToGridMid())
+                    .andThen(Auton.getAutoBuilder().fullAuto(clean2path))
+                    .andThen(AutonCommands.autonConeFloorGoal().withTimeout(0.5));
+
     public static Command CleanSide() {
-        return Auton.getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Clean Side",
-                                new PathConstraints(
-                                        AutonConfig.kMaxCleanSpeed, AutonConfig.kMaxCleanAccel)));
+        return cleanSide;
     }
 
     public static Command BumpSide2() {

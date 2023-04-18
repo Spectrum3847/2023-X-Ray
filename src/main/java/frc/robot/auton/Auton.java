@@ -102,6 +102,8 @@ public class Auton {
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
         autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
         autonChooser.addOption("Test Clean Side", AutoPaths.CleanSide2());
+        autonChooser.addOption("Align to Grid", AutonCommands.alignToGridMid());
+        autonChooser.addOption("Cone", AutonCommands.autonConeFloorGoal().withTimeout(0.5));
         // autonChooser.addOption(
         //         "Cone Throwing",
         //         ElevatorCommands.coneFloorGoal()

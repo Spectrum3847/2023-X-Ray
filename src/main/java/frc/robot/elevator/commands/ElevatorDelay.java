@@ -15,12 +15,15 @@ public class ElevatorDelay extends CommandBase {
     private double finalPos;
     private double conditionalPercent;
     private boolean simpleDelay;
-    
+
     /**
      * Homes the elevator and stops after {@link ElevatorConfig#homeTimeout} once it reaches a
-     * {@link ElevatorConfig#homeThreshold} from 0. Will also set the elevator to be at 0 if it has taken too long for the command to go home (0 position has changed and the elevator is stalling)
+     * {@link ElevatorConfig#homeThreshold} from 0. Will also set the elevator to be at 0 if it has
+     * taken too long for the command to go home (0 position has changed and the elevator is
+     * stalling)
      */
     private boolean isGoingHome;
+
     private boolean reachedThreshold;
     private double timestamp;
     /**
@@ -92,8 +95,9 @@ public class ElevatorDelay extends CommandBase {
             }
         }
 
-        if(isGoingHome) {
-            if(Robot.elevator.getPosition() <= Elevator.config.homeThreshold && !reachedThreshold) {
+        if (isGoingHome) {
+            if (Robot.elevator.getPosition() <= Elevator.config.homeThreshold
+                    && !reachedThreshold) {
                 reachedThreshold = true;
                 timestamp = Timer.getFPGATimestamp();
             }
@@ -107,19 +111,24 @@ public class ElevatorDelay extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //if this is an home command 
-        if(isGoingHome) {
-            double timeElapsed = Timer.getFPGATimestamp() - timestamp; 
-            //if the elevator is past the threshold and has run for half a second more
-            if(reachedThreshold && timeElapsed >= Elevator.config.homeTimeout) {
+        // if this is an home command
+        if (isGoingHome) {
+            double timeElapsed = Timer.getFPGATimestamp() - timestamp;
+            // if the elevator is past the threshold and has run for half a second more
+            if (reachedThreshold && timeElapsed >= Elevator.config.homeTimeout) {
                 return true;
-            //if the elevator has been running for more time than it possibly needs to go home (4 seconds)
-            } else if(timestamp >= Elevator.config.maxHomeTimeout) {
-                Robot.elevator.resetSensorPosition(0);
-                return true;
+                // if the elevator has been running for more time than it possibly needs to go home
+                // (4 seconds)
             } else {
                 return false;
             }
+            //  else if (timestamp >= Elevator.config.maxHomeTimeout) {
+            //     Robot.elevator.resetSensorPosition(0);
+            //     return true;
+            // }
+            // else {
+            //     return false;
+            // }
         } else {
             return false;
         }

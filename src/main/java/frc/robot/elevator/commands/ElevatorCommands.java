@@ -132,7 +132,7 @@ public class ElevatorCommands {
     public static Command autonSafeHome() {
         return new ElevatorDelay(
                         Elevator.config.safePositionForFourBar,
-                        0,
+                        3000,
                         FourBar.config.safePositionForElevator)
                 .withName("ElevatorSafeHome");
     }
