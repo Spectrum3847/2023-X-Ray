@@ -2,91 +2,80 @@ package frc.robot.auton.commands;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.auton.Auton;
 import frc.robot.auton.AutonConfig;
 import frc.robot.swerve.commands.LockSwerve;
-import java.util.List;
 
 public class AutoPaths {
     public static Command OverCharge() {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Over Charge (1)",
-                                new PathConstraints(AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
+                                "OverCharge1",
+                                new PathConstraints(
+                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel - 0.7)))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "Over Charge (2)",
+                                                "OverCharge2",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxBalanceSpeed,
                                                         AutonConfig.kMaxBalanceAccel))))
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "Over Charge (3)",
-                                                new PathConstraints(
-                                                        AutonConfig.kMaxSpeed,
-                                                        AutonConfig.kMaxAccel))))
-                .andThen(new AutoBalance())
-                .andThen(new LockSwerve().withTimeout(0.1))
-                .andThen(AutonCommands.secondShot());
+        .andThen(
+                Auton.getAutoBuilder()
+                        .fullAuto(
+                                PathPlanner.loadPathGroup(
+                                        "OverCharge3",
+                                        new PathConstraints(
+                                                AutonConfig.kMaxSpeed,
+                                                AutonConfig.kMaxAccel - 0.7))))
+        .andThen(new AutoBalance())
+        .andThen(new LockSwerve().withTimeout(0.1))
+        .andThen(AutonCommands.secondShot());
     }
 
-    private static List<PathPlannerTrajectory> clean2path =
-            PathPlanner.loadPathGroup(
-                    "CleanSide2",
-                    new PathConstraints(
-                            AutonConfig.kMaxCleanSpeed - 0.5, AutonConfig.kMaxCleanAccel - 0.5));
-
-    private static SequentialCommandGroup cleanSide =
-            Auton.getAutoBuilder()
-                    .fullAuto(
-                            PathPlanner.loadPathGroup(
-                                    "CleanSide1",
-                                    new PathConstraints(
-                                            AutonConfig.kMaxCleanSpeed - 0.5,
-                                            AutonConfig.kMaxCleanAccel - 0.5)))
-                    .andThen(AutonCommands.alignToGridMid())
-                    .andThen(Auton.getAutoBuilder().fullAuto(clean2path))
-                    .andThen(AutonCommands.autonConeFloorGoal().withTimeout(0.5));
-
     public static Command CleanSide() {
-        return cleanSide;
+        return (AutonCommands.coneMid()
+                        .andThen(
+                                Auton.getAutoBuilder()
+                                        .fullAuto(
+                                                PathPlanner.loadPathGroup(
+                                                        "CleanSide1",
+                                                        new PathConstraints(
+                                                                AutonConfig.kMaxCleanSpeed - 0.5,
+                                                                AutonConfig.kMaxCleanAccel - 0.5))))
+                        .andThen(AutonCommands.alignToGridMid())
+                        .andThen(
+                                Auton.getAutoBuilder()
+                                        .fullAuto(
+                                                PathPlanner.loadPathGroup(
+                                                        "CleanSide2",
+                                                        new PathConstraints(
+                                                                AutonConfig.kMaxCleanSpeed - 0.5,
+                                                                AutonConfig.kMaxCleanAccel
+                                                                        - 0.5)))))
+                .withTimeout(14.7)
+                .andThen(AutonCommands.autonConeFloorGoal().withTimeout(0.3));
     }
 
     public static Command BumpSide2() {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Bump 2 + 1 (1)",
+                                "Bump1",
                                 new PathConstraints(
-                                        AutonConfig.kMaxBumpSpeed - 2,
-                                        AutonConfig.kMaxBumpAccel - 2)))
-                .andThen(AutonCommands.alignToGridMid().withTimeout(AutonConfig.midCubeAlignTime2));
-    }
-
-    public static Command CleanSide2() {
-        return Auton.getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "Clean Side (1)",
-                                new PathConstraints(
-                                        AutonConfig.kMaxBumpSpeed - 1,
-                                        AutonConfig.kMaxBumpAccel - 1)))
-                .andThen(AutonCommands.alignToGridMid().withTimeout(AutonConfig.midCubeAlignTime2));
+                                        AutonConfig.kMaxBumpSpeed - 1.5,
+                                        AutonConfig.kMaxBumpAccel - 1.5)))
+                .andThen(AutonCommands.alignToGridMid());
     }
 
     public static Command BumpSide3() {
         return Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
-                                "Bump 2 + 1 (1)",
+                                "Bump1",
                                 new PathConstraints(
                                         AutonConfig.kMaxBumpSpeed, AutonConfig.kMaxBumpAccel)))
                 .andThen(AutonCommands.alignToGridMid().withTimeout(AutonConfig.midCubeAlignTime))
@@ -94,7 +83,7 @@ public class AutoPaths {
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "Bump 2 + 1 (2)",
+                                                "Bump2",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxBumpSpeed,
                                                         AutonConfig.kMaxBumpAccel)))

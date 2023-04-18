@@ -178,7 +178,7 @@ public class AutonCommands {
         return ElevatorCommands.coneFloorGoal()
                 .alongWith(
                         FourBarCommands.coneFloorGoal(),
-                        new WaitCommand(0.25).andThen(IntakeCommands.floorEject()))
+                        new WaitCommand(0.20).andThen(IntakeCommands.floorEject()))
                 .withName("AutonConeFloorGoal");
     }
 }

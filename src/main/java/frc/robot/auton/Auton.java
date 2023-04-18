@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 public class Auton {
     public static final SendableChooser<Command> autonChooser = new SendableChooser<>();
+    public static final SendableChooser<Boolean> score3rd = new SendableChooser<>();
     private static boolean autoMessagePrinted = true;
     private static double autonStart = 0;
     public static HashMap<String, Command> eventMap =
@@ -100,30 +101,30 @@ public class Auton {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
-        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
-        autonChooser.addOption("Test Clean Side", AutoPaths.CleanSide2());
-        autonChooser.addOption("Align to Grid", AutonCommands.alignToGridMid());
-        autonChooser.addOption("Cone", AutonCommands.autonConeFloorGoal().withTimeout(0.5));
+        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide2());
+
+        score3rd.setDefaultOption("True", true);
+        score3rd.addOption("False", false);
         // autonChooser.addOption(
-        //         "Cone Throwing",
-        //         ElevatorCommands.coneFloorGoal()
-        //                 .withTimeout(1)
-        //                 .alongWith(
-        //                         FourBarCommands.coneFloorGoal(),
-        //                         new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
-        //                 .withTimeout(1)
-        //                 .andThen(AutonCommands.retractIntake())
-        //                 .withTimeout(1));
+        // "Cone Throwing",
+        // ElevatorCommands.coneFloorGoal()
+        // .withTimeout(1)
+        // .alongWith(
+        // FourBarCommands.coneFloorGoal(),
+        // new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
+        // .withTimeout(1)
+        // .andThen(AutonCommands.retractIntake())
+        // .withTimeout(1));
         // autonChooser.addOption("SS", AutonCommands.secondShot());
         // autonChooser.addOption(
-        //         "AB",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "1 Meter",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-        //                 .andThen(new AutoBalance()));
+        // "AB",
+        // getAutoBuilder()
+        // .fullAuto(
+        // PathPlanner.loadPathGroup(
+        // "1 Meter",
+        // new PathConstraints(
+        // AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
+        // .andThen(new AutoBalance()));
         // autonChooser.addOption("Bump Side 2", AutoPaths.BumpSide2());
         // autonChooser.addOption("Ball Bottom Balance", AutoPaths.BallBottomBalance());
         // autonChooser.addOption("Special", AutoPaths.Special());
@@ -134,34 +135,34 @@ public class Auton {
         // autonChooser.addOption("Right Cube Taxi", new RightCubeTaxiCommand());
         // autonChooser.addOption("Middle Cube Taxi", new MiddleCubeTaxiCommand());
         // autonChooser.addOption(
-        //         "Nothing",
-        //         new PrintCommand("Doing Nothing in Auton")
-        //                 .andThen(new WaitCommand(5))); // setups an auto that does nothing
+        // "Nothing",
+        // new PrintCommand("Doing Nothing in Auton")
+        // .andThen(new WaitCommand(5))); // setups an auto that does nothing
         // // Autos for tuning/testing (not used at comp)
         // autonChooser.addOption(
-        //         "1 Meter",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "1 Meter",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        // "1 Meter",
+        // getAutoBuilder()
+        // .fullAuto(
+        // PathPlanner.loadPathGroup(
+        // "1 Meter",
+        // new PathConstraints(
+        // AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         // autonChooser.addOption(
-        //         "3 Meters",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "3 Meters",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        // "3 Meters",
+        // getAutoBuilder()
+        // .fullAuto(
+        // PathPlanner.loadPathGroup(
+        // "3 Meters",
+        // new PathConstraints(
+        // AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
         // autonChooser.addOption(
-        //         "5 Meters",
-        //         getAutoBuilder()
-        //                 .fullAuto(
-        //                         PathPlanner.loadPathGroup(
-        //                                 "5 Meters",
-        //                                 new PathConstraints(
-        //                                         AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
+        // "5 Meters",
+        // getAutoBuilder()
+        // .fullAuto(
+        // PathPlanner.loadPathGroup(
+        // "5 Meters",
+        // new PathConstraints(
+        // AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel))));
     }
 
     // Adds event mapping to autonomous commands
@@ -175,6 +176,7 @@ public class Auton {
         eventMap.put("CleanShot", AutonCommands.cleanShot());
         eventMap.put("CubeMidSpinUp", AutonCommands.cubeMidSpinUp());
         eventMap.put("CubeMidEject", AutonCommands.cubeMidEject());
+        eventMap.put("AlignToGridMid", AutonCommands.alignToGridMid());
         // Cone placing Commands
         eventMap.put("ConeMid", AutonCommands.coneMid());
         eventMap.put("ConeMidFull", AutonCommands.coneMidFull());
