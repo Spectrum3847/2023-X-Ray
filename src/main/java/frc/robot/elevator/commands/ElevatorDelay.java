@@ -7,6 +7,7 @@ package frc.robot.elevator.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
+import frc.robot.RobotTelemetry;
 import frc.robot.elevator.Elevator;
 import frc.robot.elevator.ElevatorConfig;
 
@@ -106,7 +107,8 @@ public class ElevatorDelay extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+    }
 
     // Returns true when the command should end.
     @Override
@@ -114,21 +116,28 @@ public class ElevatorDelay extends CommandBase {
         // if this is an home command
         if (isGoingHome) {
             double timeElapsed = Timer.getFPGATimestamp() - timestamp;
-            // if the elevator is past the threshold and has run for half a second more
+
+            /* if the elevator is past the threshold and has run for half a second more */
             if (reachedThreshold && timeElapsed >= Elevator.config.homeTimeout) {
+                System.out.println("homing should end");
                 return true;
-                // if the elevator has been running for more time than it possibly needs to go home
-                // (4 seconds)
             } else {
                 return false;
             }
-            //  else if (timestamp >= Elevator.config.maxHomeTimeout) {
+
+            /* if the elevator has been running for more time than it possibly needs to go home
+            (4 seconds) */
+            // if (reachedThreshold && timeElapsed >= Elevator.config.homeTimeout) {
+            //     RobotTelemetry.print("homing should end");
+            //     return true;
+            // } else if (timeElapsed >= Elevator.config.maxHomeTimeout) {
+            //     RobotTelemetry.print("elevator reset");
             //     Robot.elevator.resetSensorPosition(0);
             //     return true;
-            // }
-            // else {
+            // } else {
             //     return false;
             // }
+
         } else {
             return false;
         }
@@ -139,6 +148,7 @@ public class ElevatorDelay extends CommandBase {
         timestamp = 0;
         if (finalPos == 0) {
             isGoingHome = true;
+
         } else {
             isGoingHome = false;
         }
