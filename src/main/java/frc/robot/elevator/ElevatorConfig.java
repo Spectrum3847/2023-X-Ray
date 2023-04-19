@@ -16,11 +16,11 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double coneShelf = 43.13;
 
     public final double coneHybrid = 2;
-    public final double coneMid = 34;
+    public final double coneMid = 34.5;
     public final double coneTop = 57.4;
 
     public final double cubeIntake = 0;
-    public final double autonCubeIntake = 0.2;
+    public final double autonCubeIntake = 0;
     public final double cubeMid = 12.5;
     public final double cubeTop = 12.5; // 24.5;
     public final double cubeHybrid = 0;
@@ -36,6 +36,9 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double safeIntakeHeight = 3.42;
     public final double maxExtension = 0; // TODO: find max relative extension
     public final double angle = 60;
+    public final double homeThreshold = 8000; // falcon units
+    public final double homeTimeout = 0.5; // seconds
+    public final double maxHomeTimeout = 4; // seconds, no home command can take longer than this
 
     public final double zeroSpeed = -0.2;
 

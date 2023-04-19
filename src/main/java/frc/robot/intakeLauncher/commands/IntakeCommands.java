@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
-import frc.robot.elevator.commands.ElevatorDelay;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.Intake;
 
@@ -38,16 +37,24 @@ public class IntakeCommands {
         return setIntakeRollers(1.0, 1.0, 0).withName("FullIntake");
     }
 
+    public static Command airIntake() {
+        return setVelocities(
+                        Intake.config.lowerAirIntakeSpeed,
+                        Intake.config.frontAirIntakeSpeed,
+                        Intake.config.launcherAirIntakeSpeed)
+                .withName("AirIntake");
+    }
+
     public static Command eject() {
         return setVelocities(
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .alongWith(FourBarCommands.home().alongWith(ElevatorCommands.simpleSafeHome()))
                 .withName("Eject")
                 .finallyDo(
                         (b) ->
-                                ElevatorCommands.home()
+                                ElevatorCommands.safeHome()
                                         .alongWith(FourBarCommands.home())
                                         .withTimeout(1.5)
                                         .schedule());
@@ -58,7 +65,7 @@ public class IntakeCommands {
                         Intake.config.lowerEjectSpeed,
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
-                .alongWith(FourBarCommands.home().alongWith(new ElevatorDelay(0, 30)))
+                .alongWith(FourBarCommands.home().alongWith(ElevatorCommands.simpleSafeHome()))
                 .withName("Eject");
     }
 
@@ -132,6 +139,22 @@ public class IntakeCommands {
                         Intake.config.frontCoolShotSpeed,
                         Intake.config.launcherCoolShotSpeed)
                 .withName("CoolShot");
+    }
+
+    public static Command hybridShot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontHybridSpeed,
+                        Intake.config.launcherHybridSpeed)
+                .withName("HybridShot");
+    }
+
+    public static Command shot() {
+        return setVelocities(
+                        Intake.config.lowerSpinUpSpeed,
+                        Intake.config.frontCoolShotSpeed,
+                        Intake.config.launcherCoolShotSpeed)
+                .withName("Shot");
     }
 
     public static Command secondShot() {

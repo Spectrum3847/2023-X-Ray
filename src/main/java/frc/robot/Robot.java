@@ -215,7 +215,8 @@ public class Robot extends LoggedRobot {
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
 
-        ElevatorCommands.safeHome().withTimeout(1).schedule(); // home elevator
+        // ElevatorCommands.safeHome().withTimeout(1).schedule(); // home elevator
+
         RobotTelemetry.print("$$ Teleop Init Complete");
     }
 

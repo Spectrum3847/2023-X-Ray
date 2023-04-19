@@ -756,7 +756,7 @@ public class LimelightHelpers {
             results = mapper.readValue(getJSONDump(limelightName), LimelightResults.class);
         } catch (JsonProcessingException e) {
             if (!Robot.isSimulation()) {
-                System.err.println("lljson error: " + e.getMessage());
+                System.err.println("limelight not found: " + e.getMessage());
             }
         }
 

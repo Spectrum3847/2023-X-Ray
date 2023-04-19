@@ -70,6 +70,12 @@ public class ElevatorCommands {
                 .withName("ElevatorConeStandInt");
     }
 
+    public static Command autonConeStandingIntake() {
+        return setMMPositionFromInches(Elevator.config.coneStandingIntake)
+                .withTimeout(0.5)
+                .withName("AutonElevatorConeStandInt");
+    }
+
     public static Command hopElevator(double inches) {
         return ElevatorCommands.setMMPositionFromInches(Elevator.config.hopHeight)
                 .withTimeout(Elevator.config.hopTime)
@@ -102,7 +108,9 @@ public class ElevatorCommands {
     }
 
     public static Command autonCubeIntake() {
-        return hopElevator(Elevator.config.autonCubeIntake).withName("ElevatorAutonCubeIntake");
+        return hopElevator(Elevator.config.autonCubeIntake)
+                .withTimeout(0.5)
+                .withName("ElevatorAutonCubeIntake");
     }
 
     public static Command cubeFloorGoal() {
@@ -120,21 +128,29 @@ public class ElevatorCommands {
     public static Command safeHome() {
         return new ElevatorDelay(
                         Elevator.config.safePositionForFourBar,
-                        1000,
+                        0,
                         FourBar.config.safePositionForElevator)
                 .withName("ElevatorSafeHome");
+    }
+
+    public static Command simpleSafeHome() {
+        return new ElevatorDelay(0, FourBar.config.safePositionForElevator);
     }
 
     public static Command autonSafeHome() {
         return new ElevatorDelay(
                         Elevator.config.safePositionForFourBar,
-                        2500,
+                        3000,
                         FourBar.config.safePositionForElevator)
                 .withName("ElevatorSafeHome");
     }
 
+    /**
+     * Be careful using this command. Will not wait for fourbar to be at a safe position before
+     * going home
+     */
     public static Command home() {
-        return setMMPositionWithDelay(0).withName("ElevatorHome");
+        return setMMPositionWithDelay(0.34).withName("ElevatorHome");
     }
 
     public static Command zeroElevatorRoutine() {

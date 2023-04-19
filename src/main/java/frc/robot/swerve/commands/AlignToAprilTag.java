@@ -5,8 +5,12 @@
 package frc.robot.swerve.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Robot;
+import frc.robot.leds.commands.LEDCommands;
+import frc.robot.leds.commands.OneColorLEDCommand;
 import java.util.function.DoubleSupplier;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -14,26 +18,25 @@ import java.util.function.DoubleSupplier;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AlignToAprilTag extends PIDCommand {
 
-    private static double kP = 0.035;
+    private static double lowKP = 0.035;
+    private static double highKP = 0.06;
     private static double tolerance = 2;
     SwerveDrive driveCommand;
     DoubleSupplier fwdPositiveSupplier;
     private static double out;
 
     /** Creates a new AlignToAprilTag. */
-    public AlignToAprilTag(DoubleSupplier fwdPositiveSupplier) {
+    public AlignToAprilTag(DoubleSupplier fwdPositiveSupplier, double offset) {
         super(
                 // The controller that the command will use
-                new PIDController(kP, 0, 0),
+                new PIDController(lowKP, 0, 0),
                 // This should return the measurement
                 () -> Robot.vision.getHorizontalOffset(),
                 // This should return the setpoint (can also be a constant)
-                () -> 0,
+                () -> offset,
                 // This uses the output
                 output -> setOutput(output),
-                Robot.swerve
-                // Use the output here
-                );
+                Robot.swerve);
 
         this.getController().setTolerance(tolerance);
         driveCommand =
@@ -69,19 +72,47 @@ public class AlignToAprilTag extends PIDCommand {
     public void initialize() {
         super.initialize();
         out = 0;
+        // getLedCommand(tagID).initialize();
         Robot.swerve.resetRotationController();
         driveCommand.initialize();
+        if (Robot.vision.getVerticalOffset() > 16) {
+            this.getController().setP(highKP);
+        } else {
+            this.getController().setP(lowKP);
+        }
     }
 
     @Override
     public void execute() {
         super.execute();
         driveCommand.execute();
+        // getLedCommand(tagID).execute();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        // getLedCommand(tagID).end(interrupted);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    private Command getLedCommand() {
+        double tagID = Robot.vision.getClosestTagID();
+        switch ((int) tagID) {
+            case 1:
+            case 6:
+                return LEDCommands.leftGrid();
+            case 2:
+            case 7:
+                return LEDCommands.midGrid();
+            case 3:
+            case 8:
+                return LEDCommands.rightGrid();
+        }
+        return new OneColorLEDCommand((2 / 3), 1, new Color(130, 103, 185), "Full Wrong", 80);
     }
 }

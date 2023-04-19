@@ -25,6 +25,10 @@ public class IntakeConfig {
     public double frontIntakeSpeed = 4000;
     public double launcherIntakeSpeed = -3500;
 
+    public double lowerAirIntakeSpeed = 3000;
+    public double frontAirIntakeSpeed = -3000;
+    public double launcherAirIntakeSpeed = -3000;
+
     public double lowerEjectSpeed = -6000;
     public double frontEjectSpeed = -6000;
     public double launcherEjectSpeed = 2000;
@@ -40,10 +44,10 @@ public class IntakeConfig {
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed - 400;
 
-    public double frontMidCubeSpeed = 900; // 1300;
+    public double frontMidCubeSpeed = 1200; // 900 IS FOR PRACTICE bc of gear change
     public double launcherMidCubeSpeed = frontMidCubeSpeed - 500;
 
-    public double frontTopCubeSpeed = 1400; // 1200; // 2150;
+    public double frontTopCubeSpeed = 2000; // 1400 IS FOR PRACTICE bc of gear change
     public double launcherTopCubeSpeed = frontTopCubeSpeed - 300; // 2000;
 
     public double frontChargeStationLaunchSpeed = 1000;
@@ -66,19 +70,26 @@ public class IntakeConfig {
     // too short
 
     public double frontCoolShotSpeed =
-            600; // correct 4820 wrong //3800 was a little too far //3650 was slightly
+            1000; // correct 4820 wrong //3800 was a little too far //3650 was slightly
     // too far
     // //3600 slighty too short //3700 too much
     public double launcherCoolShotSpeed =
-            600; // correct //3800 was a little too far //3650 was slighty too far
+            3500; // correct //3800 was a little too far //3650 was slighty too far
     // //3600 slighty
     // too short
 
-    public double frontSecondShotSpeed =
+    public double frontSecondShotMidSpeed =
             900 * (1.2); // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
-    public double launcherSecondShotSpeed =
+    public double launcherSecondShotMidSpeed =
             2800 * (1.5); // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
+
+    public double frontSecondShotSpeed =
+            900; // correct w/distance = .135 from tape line and .18 // 4000 slightly
+    // too short
+    public double launcherSecondShotSpeed =
+            2800; // correct w/distance = .135 from tape line and .18 // 4000 slightly
     // too short
 
     public double frontCleanShotSpeed =
