@@ -78,7 +78,7 @@ public class AutoPaths {
                                                                 AutonConfig.kMaxBumpSpeed,
                                                                 AutonConfig.kMaxBumpAccel)))))
                 .withTimeout(14.8)
-                .andThen(AutonCommands.secondShotLaunch().withTimeout(0.2));
+                .andThen(new EjectCube().withTimeout(0.2));
     }
 
     public static Command BallBottomBalance() {
