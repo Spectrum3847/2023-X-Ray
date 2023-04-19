@@ -70,6 +70,12 @@ public class ElevatorCommands {
                 .withName("ElevatorConeStandInt");
     }
 
+    public static Command autonConeStandingIntake() {
+        return setMMPositionFromInches(Elevator.config.coneStandingIntake)
+                .withTimeout(0.5)
+                .withName("AutonElevatorConeStandInt");
+    }
+
     public static Command hopElevator(double inches) {
         return ElevatorCommands.setMMPositionFromInches(Elevator.config.hopHeight)
                 .withTimeout(Elevator.config.hopTime)
@@ -102,7 +108,9 @@ public class ElevatorCommands {
     }
 
     public static Command autonCubeIntake() {
-        return hopElevator(Elevator.config.autonCubeIntake).withName("ElevatorAutonCubeIntake");
+        return hopElevator(Elevator.config.autonCubeIntake)
+                .withTimeout(0.5)
+                .withName("ElevatorAutonCubeIntake");
     }
 
     public static Command cubeFloorGoal() {

@@ -1,7 +1,5 @@
 package frc.robot.auton.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -17,6 +15,7 @@ import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.swerve.commands.DriveToCubeNode;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
+import java.util.function.DoubleSupplier;
 
 public class AutonCommands {
 
@@ -39,8 +38,14 @@ public class AutonCommands {
         return spinLauncher(IntakeCommands.hybridShot()).andThen(launch(), stopMotors());
     }
 
+    public static Command secondShotLaunch() {
+        return launch().andThen(stopMotors());
+    }
+
     public static Command secondShot() {
-        return spinLauncher(IntakeCommands.secondShot()).andThen(launch(), stopMotors());
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(spinLauncher(IntakeCommands.secondShot()).andThen(launch(), stopMotors()));
     }
 
     public static Command cleanShot() {
@@ -61,7 +66,9 @@ public class AutonCommands {
 
     /** Goes to 0 */
     private static Command homeSystems() {
-        return FourBarCommands.autonHome().alongWith(ElevatorCommands.autonSafeHome());
+        return FourBarCommands.autonHome()
+                .withTimeout(1.5)
+                .alongWith(ElevatorCommands.autonSafeHome());
     }
 
     private static Command spinLauncher(Command spinCommand) {
@@ -96,7 +103,8 @@ public class AutonCommands {
     public static Command intakeCone() {
         return new ConeIntake()
                 .alongWith(
-                        ElevatorCommands.coneStandingIntake(), FourBarCommands.coneStandingIntake())
+                        ElevatorCommands.autonConeStandingIntake(),
+                        FourBarCommands.coneStandingIntake())
                 .withName("AutonStandingCone");
     }
 
@@ -128,12 +136,10 @@ public class AutonCommands {
         return ElevatorCommands.cubeMid();
     }
 
-    public static Command coneHybridPlacement() {
-        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal());
-    }
-
-    public static Command coneHybrid() {
-        return IntakeCommands.floorEject().withTimeout(0.2);
+    public static Command cubeHybridSpinUp() {
+        return IntakeCommands.intake()
+                .withTimeout(0.1)
+                .andThen(spinLauncher(IntakeCommands.coolShot()));
     }
 
     public static Command simpleLaunchCube() {
@@ -178,6 +184,14 @@ public class AutonCommands {
                 .andThen(IntakeCommands.floorEject().withTimeout(0.2));
     }
 
+    public static Command autonConeFloorGoalPostion() {
+        return ElevatorCommands.coneFloorGoal().alongWith(FourBarCommands.coneFloorGoal());
+    }
+
+    public static Command ejectCone() {
+        return IntakeCommands.floorEject();
+    }
+
     public static Command autonConeFloorGoal() {
         return ElevatorCommands.coneFloorGoal()
                 .alongWith(
@@ -203,11 +217,11 @@ public class AutonCommands {
                 .withName("AutoAimPilotDrive");
     }
 
-    public static Command faceForward(){
+    public static Command faceForward() {
         return aimPilotDrive(Math.PI);
     }
 
-    public static Command faceBackward(){
+    public static Command faceBackward() {
         return aimPilotDrive(0);
     }
 }

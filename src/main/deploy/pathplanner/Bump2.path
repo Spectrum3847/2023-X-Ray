@@ -162,7 +162,32 @@
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
-      "velOverride": null,
+      "velOverride": 2.5,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 2.75,
+        "y": 0.84
+      },
+      "prevControl": {
+        "x": 2.8576569999169106,
+        "y": 0.84
+      },
+      "nextControl": {
+        "x": 2.568201961261641,
+        "y": 0.84
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": 2.5,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
@@ -202,7 +227,7 @@
     {
       "position": 2.5,
       "names": [
-        "IntakeCone"
+        "IntakeCube"
       ]
     },
     {
@@ -215,6 +240,12 @@
       "position": 0.01,
       "names": [
         "RetractIntake"
+      ]
+    },
+    {
+      "position": 6.25,
+      "names": [
+        "CubeHybridSpinUp"
       ]
     }
   ]

@@ -70,11 +70,11 @@ public class IntakeConfig {
     // too short
 
     public double frontCoolShotSpeed =
-            600; // correct 4820 wrong //3800 was a little too far //3650 was slightly
+            1000; // correct 4820 wrong //3800 was a little too far //3650 was slightly
     // too far
     // //3600 slighty too short //3700 too much
     public double launcherCoolShotSpeed =
-            600; // correct //3800 was a little too far //3650 was slighty too far
+            3500; // correct //3800 was a little too far //3650 was slighty too far
     // //3600 slighty
     // too short
 

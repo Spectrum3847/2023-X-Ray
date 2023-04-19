@@ -12,9 +12,12 @@ import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.auton.commands.AutoPaths;
 import frc.robot.auton.commands.AutonCommands;
+import frc.robot.auton.commands.CubeHybridSpinUp;
+import frc.robot.auton.commands.EjectCone;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
 import frc.robot.auton.commands.RightCubeTaxiCommand;
+import frc.robot.auton.commands.SetConeSpitPosition;
 import frc.robot.auton.commands.TaxiCommand;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.trajectories.TrajectoriesConfig;
@@ -106,34 +109,19 @@ public class Auton {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
-        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide2());
+        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
+        autonChooser.addOption("Test Cone Placement", new SetConeSpitPosition());
+        autonChooser.addOption("Test Cone Spit", new EjectCone());
+        autonChooser.addOption("Test Cone Place", AutonCommands.autonConeFloorGoalPostion());
 
         score3rd.setDefaultOption("True", true);
         score3rd.addOption("False", false);
-        // autonChooser.addOption(
-        // "Cone Throwing",
-        // ElevatorCommands.coneFloorGoal()
-        // .withTimeout(1)
-        // .alongWith(
-        // FourBarCommands.coneFloorGoal(),
-        // new WaitCommand(0.2).andThen(IntakeCommands.floorEject()))
-        // .withTimeout(1)
-        // .andThen(AutonCommands.retractIntake())
-        // .withTimeout(1));
-        // autonChooser.addOption("SS", AutonCommands.secondShot());
-        // autonChooser.addOption(
-        // "AB",
-        // getAutoBuilder()
-        // .fullAuto(
-        // PathPlanner.loadPathGroup(
-        // "1 Meter",
-        // new PathConstraints(
-        // AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel)))
-        // .andThen(new AutoBalance()));
-        // autonChooser.addOption("Bump Side 2", AutoPaths.BumpSide2());
-        // autonChooser.addOption("3 Ball Bottom Balance", AutoPaths.BallBottomBalance());
-        // autonChooser.addOption("Special", AutoPaths.Special());
-        // autonChooser.addOption("3 Ball Bottom Angle", AutoPaths.BallBottomAngle());
+
+        autonChooser.addOption("Clean Side 2", AutoPaths.CleanSide2());
+        autonChooser.addOption("Bump Side 2", AutoPaths.BumpSide2());
+        autonChooser.addOption("3 Ball Bottom Balance", AutoPaths.BallBottomBalance());
+        autonChooser.addOption("Special", AutoPaths.Special());
+        autonChooser.addOption("3 Ball Bottom Angle", AutoPaths.BallBottomAngle());
         // Simple comp autos
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
@@ -180,14 +168,15 @@ public class Auton {
         eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
         eventMap.put("CleanShot", AutonCommands.cleanShot());
         eventMap.put("CubeMidSpinUp", AutonCommands.cubeMidSpinUp());
+        eventMap.put("CubeHybridSpinUp", new CubeHybridSpinUp());
         eventMap.put("CubeMidEject", AutonCommands.cubeMidEject());
         eventMap.put("AlignToGridMid", AutonCommands.alignToGridMid());
         // Cone placing Commands
         eventMap.put("ConeMid", AutonCommands.coneMid());
         eventMap.put("ConeMidFull", AutonCommands.coneMidFull());
         eventMap.put("ConeTop", AutonCommands.coneTop());
-        eventMap.put("ConeHybridPlacement", AutonCommands.coneHybridPlacement());
-        eventMap.put("ConeHybrid", AutonCommands.coneHybrid());
+        eventMap.put("ConeHybridPlacement", new SetConeSpitPosition());
+        eventMap.put("ConeHybrid", new EjectCone());
         // Intake Commands
         eventMap.put("IntakeCube", AutonCommands.intakeCube());
         eventMap.put("IntakeCone", AutonCommands.intakeCone());
