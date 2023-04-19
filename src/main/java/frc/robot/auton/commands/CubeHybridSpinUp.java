@@ -6,35 +6,32 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.auton.Auton;
-import frc.robot.intakeLauncher.commands.IntakeCommands;
 
-public class EjectCone extends CommandBase {
-    Command ejectConeCommand;
+public class CubeHybridSpinUp extends CommandBase {
+    Command spinUp;
 
-    public EjectCone() {
+    public CubeHybridSpinUp() {
         addRequirements(Robot.intake);
     }
 
     @Override
     public void initialize() {
         if (Auton.score3rd.getSelected() == true) {
-            ejectConeCommand = IntakeCommands.floorEject();
+            spinUp = AutonCommands.cubeHybridSpinUp();
         } else {
-            ejectConeCommand = new WaitCommand(0);
+            spinUp = new WaitCommand(0);
         }
-
-        ejectConeCommand.initialize();
+        spinUp.initialize();
     }
 
     @Override
     public void execute() {
-        ejectConeCommand.execute();
+        spinUp.execute();
     }
 
     @Override
     public void end(boolean interrupted) {
-        ejectConeCommand.end(interrupted);
-        AutonCommands.retractIntake().execute();
+        spinUp.end(interrupted);
     }
 
     @Override

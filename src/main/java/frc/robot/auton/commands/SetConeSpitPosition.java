@@ -24,6 +24,7 @@ public class SetConeSpitPosition extends CommandBase {
         } else {
             setConeSpitPosition = new WaitCommand(0);
         }
+        setConeSpitPosition.initialize();
     }
 
     @Override
@@ -32,10 +33,12 @@ public class SetConeSpitPosition extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+        setConeSpitPosition.end(interrupted);
+    }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

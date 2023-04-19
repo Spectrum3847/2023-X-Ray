@@ -12,6 +12,7 @@ import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.auton.commands.AutoPaths;
 import frc.robot.auton.commands.AutonCommands;
+import frc.robot.auton.commands.CubeHybridSpinUp;
 import frc.robot.auton.commands.EjectCone;
 import frc.robot.auton.commands.LeftCubeTaxiCommand;
 import frc.robot.auton.commands.MiddleCubeTaxiCommand;
@@ -109,6 +110,9 @@ public class Auton {
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
         autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
+        autonChooser.addOption("Test Cone Placement", new SetConeSpitPosition());
+        autonChooser.addOption("Test Cone Spit", new EjectCone());
+        autonChooser.addOption("Test Cone Place", AutonCommands.autonConeFloorGoalPostion());
 
         score3rd.setDefaultOption("True", true);
         score3rd.addOption("False", false);
@@ -164,6 +168,7 @@ public class Auton {
         eventMap.put("SimpleLaunchCube", AutonCommands.simpleLaunchCube());
         eventMap.put("CleanShot", AutonCommands.cleanShot());
         eventMap.put("CubeMidSpinUp", AutonCommands.cubeMidSpinUp());
+        eventMap.put("CubeHybridSpinUp", new CubeHybridSpinUp());
         eventMap.put("CubeMidEject", AutonCommands.cubeMidEject());
         eventMap.put("AlignToGridMid", AutonCommands.alignToGridMid());
         // Cone placing Commands

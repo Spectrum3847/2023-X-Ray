@@ -67,7 +67,7 @@ public class AutoPaths {
                                         "Bump1",
                                         new PathConstraints(
                                                 AutonConfig.kMaxBumpSpeed,
-                                                AutonConfig.kMaxBumpAccel)))
+                                                AutonConfig.kMaxBumpAccel - .5)))
                         .andThen(AutonCommands.alignToGridMid())
                         .andThen(
                                 Auton.getAutoBuilder()
@@ -77,8 +77,8 @@ public class AutoPaths {
                                                         new PathConstraints(
                                                                 AutonConfig.kMaxBumpSpeed,
                                                                 AutonConfig.kMaxBumpAccel)))))
-                .withTimeout(14.85)
-                .andThen(AutonCommands.ejectCone().withTimeout(0.15));
+                .withTimeout(14.8)
+                .andThen(AutonCommands.secondShotLaunch().withTimeout(0.2));
     }
 
     public static Command BallBottomBalance() {
