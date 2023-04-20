@@ -54,9 +54,6 @@ public class HoldCone extends CommandBase {
                 Robot.intake.stopAll();
             }
         } else {
-            if(!DriverStation.isFMSAttached()) {
-                System.out.println("Hold cone not running because it is below required elevator height");
-            }
             Robot.intake.stopAll();
         }
     }
