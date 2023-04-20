@@ -53,7 +53,7 @@ public class HoldCone extends CommandBase {
                 Robot.intake.stopAll();
             }
         } else {
-            System.out.println("elevator position stopped hold cone from running");
+            System.out.println("Hold cone not running because it is below required elevator height");
             Robot.intake.stopAll();
         }
     }
