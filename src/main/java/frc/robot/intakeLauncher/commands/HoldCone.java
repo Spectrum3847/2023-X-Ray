@@ -4,6 +4,7 @@
 
 package frc.robot.intakeLauncher.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
@@ -53,7 +54,9 @@ public class HoldCone extends CommandBase {
                 Robot.intake.stopAll();
             }
         } else {
-            System.out.println("Hold cone not running because it is below required elevator height");
+            if(!DriverStation.isFMSAttached()) {
+                System.out.println("Hold cone not running because it is below required elevator height");
+            }
             Robot.intake.stopAll();
         }
     }
