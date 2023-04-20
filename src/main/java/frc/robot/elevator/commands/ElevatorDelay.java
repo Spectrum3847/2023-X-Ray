@@ -119,7 +119,6 @@ public class ElevatorDelay extends CommandBase {
 
             /* if the elevator is past the threshold and has run for half a second more */
             if (reachedThreshold && timeElapsed >= Elevator.config.homeTimeout) {
-                System.out.println("homing should end");
                 return true;
             } else {
                 return false;

@@ -10,31 +10,36 @@ import frc.robot.swerve.commands.LockSwerve;
 public class AutoPaths {
     public static Command OverCharge() {
         return AutonCommands.coneMid()
-        .andThen(Auton.getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup(
-                                "OverCharge1",
-                                new PathConstraints(
-                                        AutonConfig.kMaxSpeed, AutonConfig.kMaxAccel - 0.7)))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "OverCharge2",
-                                                new PathConstraints(
-                                                        AutonConfig.kMaxBalanceSpeed,
-                                                        AutonConfig.kMaxBalanceAccel))))
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "OverCharge3",
+                                                "OverCharge1",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxSpeed,
-                                                        AutonConfig.kMaxAccel - 0.7))))
-                .andThen(new AutoBalance())
-                .andThen(new LockSwerve().withTimeout(0.1))
-                .andThen(AutonCommands.secondShot()));
+                                                        AutonConfig.kMaxAccel - 0.7)))
+                                .andThen(
+                                        Auton.getAutoBuilder()
+                                                .fullAuto(
+                                                        PathPlanner.loadPathGroup(
+                                                                "OverCharge2",
+                                                                new PathConstraints(
+                                                                        AutonConfig
+                                                                                .kMaxBalanceSpeed,
+                                                                        AutonConfig
+                                                                                .kMaxBalanceAccel))))
+                                .andThen(
+                                        Auton.getAutoBuilder()
+                                                .fullAuto(
+                                                        PathPlanner.loadPathGroup(
+                                                                "OverCharge3",
+                                                                new PathConstraints(
+                                                                        AutonConfig.kMaxSpeed,
+                                                                        AutonConfig.kMaxAccel
+                                                                                - 0.7))))
+                                .andThen(new AutoBalance())
+                                .andThen(new LockSwerve().withTimeout(0.1))
+                                .andThen(AutonCommands.secondShot()));
     }
 
     public static Command CleanSide() {

@@ -16,7 +16,7 @@ public class XRAY2023 {
     /* Angle Offsets */
     public static final double mod0angleOffset = 130.8094; // 131.7229
     public static final double mod1angleOffset = 279.4316; // 279.4316
-    public static final double mod2angleOffset = 63.121; // 63.943
+    public static final double mod2angleOffset = 62.13; // 63.943
     public static final double mod3angleOffset = 235.2198; // 234.4887
 
     /* CanBus Name */
