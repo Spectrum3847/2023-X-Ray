@@ -9,7 +9,8 @@ import frc.robot.swerve.commands.LockSwerve;
 
 public class AutoPaths {
     public static Command OverCharge() {
-        return Auton.getAutoBuilder()
+        return AutonCommands.coneMid()
+        .andThen(Auton.getAutoBuilder()
                 .fullAuto(
                         PathPlanner.loadPathGroup(
                                 "OverCharge1",
@@ -33,7 +34,7 @@ public class AutoPaths {
                                                         AutonConfig.kMaxAccel - 0.7))))
                 .andThen(new AutoBalance())
                 .andThen(new LockSwerve().withTimeout(0.1))
-                .andThen(AutonCommands.secondShot());
+                .andThen(AutonCommands.secondShot()));
     }
 
     public static Command CleanSide() {
