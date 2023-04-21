@@ -110,6 +110,7 @@ public class Auton {
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
         autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
+        autonChooser.addOption("Clen Side 2 Good", AutoPaths.CleanSide2Good());
         autonChooser.addOption("Test Cone Placement", new SetConeSpitPosition());
         autonChooser.addOption("Test Cone Spit", new EjectCone());
         autonChooser.addOption("Test Cone Place", AutonCommands.autonConeFloorGoalPostion());
