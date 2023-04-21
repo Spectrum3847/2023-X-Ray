@@ -13,7 +13,7 @@ import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 
 public class ConeIntake extends CommandBase {
-    double velocityThreshold = 3000;
+    double velocityThreshold = 1800;
     boolean velocityLimitReached = false;
     int count = 0;
     int thresholdCount = 0;
@@ -40,7 +40,7 @@ public class ConeIntake extends CommandBase {
         count = 0;
         thresholdCount = 0;
         runMotors = true;
-        Robot.intake.setCurrentLimits(12, 12);
+        Robot.intake.setCurrentLimits(10, 10);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
