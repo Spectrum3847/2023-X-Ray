@@ -13,7 +13,7 @@ import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
 
 public class ConeIntake extends CommandBase {
-    double velocityThreshold = 1800;
+    double velocityThreshold = 2100;
     boolean velocityLimitReached = false;
     int count = 0;
     int thresholdCount = 0;

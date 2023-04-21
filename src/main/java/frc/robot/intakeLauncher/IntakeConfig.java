@@ -21,8 +21,8 @@ public class IntakeConfig {
     public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
-    public double lowerIntakeSpeed = 2000;
-    public double frontIntakeSpeed = 2000;
+    public double lowerIntakeSpeed = 2500;
+    public double frontIntakeSpeed = 2500;
     public double launcherIntakeSpeed = -3500;
 
     public double lowerAirIntakeSpeed = 3000;
