@@ -167,4 +167,25 @@ public class AutoPaths {
                                                         AutonConfig.kMaxCleanAccel - 1.5))))
                 .andThen(AutonCommands.alignToGridMid());
     }
+
+    public static Command CleanSide3Good() {
+        return AutonCommands.coneMid()
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Clean Side 2",
+                                                new PathConstraints(
+                                                        AutonConfig.kMaxCleanSpeed - 1,
+                                                        AutonConfig.kMaxCleanAccel - 1.5))))
+                .andThen(AutonCommands.alignToGridMid()).andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Clean Side 2 (2)",
+                                                new PathConstraints(
+                                                        AutonConfig.kMaxCleanSpeed - 1,
+                                                        AutonConfig.kMaxCleanAccel
+                                                                - 1.5))));
+    }
 }

@@ -14,10 +14,10 @@ import frc.robot.swerve.configTemplates.TuningConfig;
 public class XRAY2023 {
 
     /* Angle Offsets */
-    public static final double mod0angleOffset = 130.8094; // 131.7229
-    public static final double mod1angleOffset = 279.4316; // 279.4316
-    public static final double mod2angleOffset = 62.13; // 63.943
-    public static final double mod3angleOffset = 235.2198; // 234.4887
+    public static final double mod0angleOffset = 130.444; // 130.44405
+    public static final double mod1angleOffset = 281.44126; // 283.4509
+    public static final double mod2angleOffset = 63.121035; // 63.21238
+    public static final double mod3angleOffset = 233.39253; // 233.57523
 
     /* CanBus Name */
     public static final String canBus = "3847";
