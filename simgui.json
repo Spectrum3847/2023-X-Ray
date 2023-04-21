@@ -102,6 +102,7 @@
       "/LiveWindow/Ungrouped/Talon FX [52]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [53]": "Motor Controller",
       "/Shuffleboard/Main/Auton Selection": "String Chooser",
+      "/Shuffleboard/Main/Score 3rd GP": "String Chooser",
       "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/Scheduler": "Scheduler"
     },

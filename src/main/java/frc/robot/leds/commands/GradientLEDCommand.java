@@ -5,7 +5,7 @@ import frc.SpectrumLib.util.Util;
 import frc.robot.Robot;
 import frc.robot.leds.LEDs;
 
-public class CountdownLEDCommand extends LEDCommandBase {
+public class GradientLEDCommand extends LEDCommandBase {
     private final LEDs ledSubsystem;
     private final double colorFrequency, stripFrequency; // ms
     private int r = 255;
@@ -17,13 +17,13 @@ public class CountdownLEDCommand extends LEDCommandBase {
     private double startTime; // s
 
     /**
-     * Create an LED sequence that counts down with the leds with a given timeout
+     * Create an LED sequence that starts with a single color and slowly turns into a gradient
      *
      * @param name
      * @param priority
      * @param countdown seconds
      */
-    public CountdownLEDCommand(String name, int priority, int countdown) {
+    public GradientLEDCommand(String name, int priority, int countdown) {
         super(name, priority, -101);
         ledSubsystem = Robot.leds;
         this.countdown = countdown;
@@ -48,7 +48,6 @@ public class CountdownLEDCommand extends LEDCommandBase {
 
     @Override
     public void ledExecute() {
-        // decrement g to reach full red by end of countdown
         if (getMS() - colorTime >= colorFrequency) {
             g--;
             colorTime = getMS();
@@ -59,14 +58,9 @@ public class CountdownLEDCommand extends LEDCommandBase {
             stripTime = getMS();
         }
 
-        for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
-            if (i >= ledStart && i < ledEnd) {
-                ledSubsystem.setRGB(i, r, g, b);
-            } else {
-                ledSubsystem.setRGB(i, 0, 0, 0);
-            }
+        for (int i = ledStart; i < ledEnd; i++) {
+            ledSubsystem.setRGB(i, r, g, b);
         }
-
         ledSubsystem.sendData();
     }
 

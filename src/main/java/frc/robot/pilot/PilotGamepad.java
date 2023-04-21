@@ -1,7 +1,6 @@
 package frc.robot.pilot;
 
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
@@ -9,7 +8,7 @@ import frc.SpectrumLib.gamepads.Gamepad;
 import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
-import frc.robot.leds.commands.OneColorLEDCommand;
+import frc.robot.leds.commands.CountdownLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.trajectories.commands.DistanceDrive;
@@ -108,7 +107,8 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void setupDisabledButtons() {
-        gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5));
+        // gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5));
+        gamepad.aButton.whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
         gamepad.startButton.whileTrue(PilotCommands.resetSteering());
     }
 

@@ -10,7 +10,7 @@
       "style": "0",
       "userScale": "2",
       "width": "1920",
-      "xpos": "1920",
+      "xpos": "0",
       "ypos": "23"
     }
   },
@@ -45,17 +45,17 @@
     },
     "###Addressable LEDs": {
       "Collapsed": "0",
-      "Pos": "1354,26",
+      "Pos": "1369,202",
       "Size": "142,682"
     },
     "###FMS": {
       "Collapsed": "0",
-      "Pos": "5,540",
+      "Pos": "5,498",
       "Size": "283,146"
     },
     "###Joysticks": {
       "Collapsed": "0",
-      "Pos": "31,726",
+      "Pos": "31,498",
       "Size": "796,206"
     },
     "###Keyboard 0 Settings": {
@@ -84,7 +84,7 @@
       "Size": "250,560"
     },
     "###RoboRIO": {
-      "Collapsed": "0",
+      "Collapsed": "1",
       "Pos": "1095,307",
       "Size": "193,192"
     },
