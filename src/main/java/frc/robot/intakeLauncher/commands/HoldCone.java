@@ -32,7 +32,8 @@ public class HoldCone extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(Robot.elevator.getPosition() >= Elevator.inchesToFalcon(Elevator.config.holdConeHeight)) {
+        if (Robot.elevator.getPosition()
+                >= Elevator.inchesToFalcon(Elevator.config.holdConeHeight)) {
             lowerPercentOutput = 0.3;
             frontPercentOutput = 0.2;
         } else {
@@ -57,7 +58,6 @@ public class HoldCone extends CommandBase {
         } else {
             Robot.intake.stopAll();
         }
-        System.out.println("HoldCone lower roller: " + lowerPercentOutput + " front roller: " + frontPercentOutput);
     }
 
     // Called once the command ends or is interrupted.
