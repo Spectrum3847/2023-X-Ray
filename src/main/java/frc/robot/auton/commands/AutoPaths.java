@@ -68,23 +68,22 @@ public class AutoPaths {
 
     public static Command BumpSide3() {
         return (Auton.getAutoBuilder()
-                        .fullAuto(
-                                PathPlanner.loadPathGroup(
-                                        "Bump1",
-                                        new PathConstraints(
-                                                AutonConfig.kMaxBumpSpeed,
-                                                AutonConfig.kMaxBumpAccel - .5)))
-                        .andThen(AutonCommands.alignToGridMid())
-                        .andThen(
-                                Auton.getAutoBuilder()
-                                        .fullAuto(
-                                                PathPlanner.loadPathGroup(
-                                                        "Bump2",
-                                                        new PathConstraints(
-                                                                AutonConfig.kMaxBumpSpeed,
-                                                                AutonConfig.kMaxBumpAccel)))))
-                .withTimeout(14.8)
-                .andThen(new EjectCube().withTimeout(0.2));
+                .fullAuto(
+                        PathPlanner.loadPathGroup(
+                                "Bump1",
+                                new PathConstraints(
+                                        AutonConfig.kMaxBumpSpeed, AutonConfig.kMaxBumpAccel - 1)))
+                .andThen(AutonCommands.alignToGridMid())
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Bump2",
+                                                new PathConstraints(
+                                                        AutonConfig.kMaxBumpSpeed,
+                                                        AutonConfig.kMaxBumpAccel - 1)))));
+        // .withTimeout(14.8)
+        // .andThen(new EjectCube().withTimeout(0.2));
     }
 
     public static Command BallBottomBalance() {
@@ -178,14 +177,14 @@ public class AutoPaths {
                                                 new PathConstraints(
                                                         AutonConfig.kMaxCleanSpeed - 1,
                                                         AutonConfig.kMaxCleanAccel - 1.5))))
-                .andThen(AutonCommands.alignToGridMid()).andThen(
+                .andThen(AutonCommands.alignToGridMid())
+                .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
                                                 "Clean Side 2 (2)",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxCleanSpeed - 1,
-                                                        AutonConfig.kMaxCleanAccel
-                                                                - 1.5))));
+                                                        AutonConfig.kMaxCleanAccel - 1.5))));
     }
 }

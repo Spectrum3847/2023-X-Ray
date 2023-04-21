@@ -241,12 +241,6 @@
       "names": [
         "RetractIntake"
       ]
-    },
-    {
-      "position": 5.8,
-      "names": [
-        "CubeHybridSpinUp"
-      ]
     }
   ]
 }
