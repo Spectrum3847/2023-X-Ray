@@ -15,6 +15,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
     private int countdown; // seconds
     private long colorTime, stripTime; // ms
     private double startTime; // s
+    private final int lastIndex;
 
     /**
      * Create an LED sequence that counts down with the leds with a given timeout
@@ -30,8 +31,9 @@ public class CountdownLEDCommand extends LEDCommandBase {
         this.colorFrequency = Units.secondsToMilliseconds(countdown) / 255;
         this.stripFrequency =
                 Units.secondsToMilliseconds(countdown) / (ledSubsystem.getBufferLength() + 3);
-        this.ledStart = 0;
-        this.ledEnd = ledSubsystem.getBufferLength();
+        this.lastIndex = ledSubsystem.getBufferLength() - 1;
+        this.ledStart = lastIndex;
+        this.ledEnd = 0;
     }
 
     @Override
@@ -55,12 +57,12 @@ public class CountdownLEDCommand extends LEDCommandBase {
         }
 
         if (getMS() - stripTime >= stripFrequency) {
-            ledStart++;
+            ledStart--;
             stripTime = getMS();
         }
 
-        for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
-            if (i >= ledStart && i < ledEnd) {
+        for (int i = ledSubsystem.getBufferLength() - 1; i >= 0; i--) {
+            if (i <= ledStart && i >= ledEnd) {
                 ledSubsystem.setRGB(i, r, g, b);
             } else {
                 ledSubsystem.setRGB(i, 0, 0, 0);
@@ -74,7 +76,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
     public void end(boolean interrupted) {
         super.end(interrupted);
         startTime = 0;
-        ledStart = 0;
+        ledStart = lastIndex;
         if (!interrupted) {
             new FireworkLEDCommand("Firework", priority).schedule();
         }

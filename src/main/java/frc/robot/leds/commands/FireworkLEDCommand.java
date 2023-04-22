@@ -8,7 +8,7 @@ public class FireworkLEDCommand extends LEDCommandBase {
 
     double waitTime;
     long startTime;
-    int onLEDIndex;
+    int onLEDIndex, finalIndex;
     int explosionIndex, explosionCounter;
     int value = 128;
     int[] hues;
@@ -19,14 +19,15 @@ public class FireworkLEDCommand extends LEDCommandBase {
         ledSubsystem = Robot.leds;
         this.waitTime = 1;
         this.startTime = System.currentTimeMillis();
-        onLEDIndex = ledSubsystem.getBufferLength() - 1;
+        onLEDIndex = 0;
+        this.finalIndex = ledSubsystem.getBufferLength() - 1;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void ledInitialize() {
         hues = new int[ledSubsystem.getBufferLength()];
-        onLEDIndex = ledSubsystem.getBufferLength() - 1;
+        onLEDIndex = 0;
         for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
             if (i == onLEDIndex) {
                 ledSubsystem.setRGB(i, 255, 255, 255);
@@ -35,7 +36,7 @@ public class FireworkLEDCommand extends LEDCommandBase {
             ledSubsystem.setRGB(i, 0, 0, 0);
         }
         ledSubsystem.sendData();
-        onLEDIndex--;
+        onLEDIndex++;
     }
 
     /* Please don't look at this */
@@ -53,12 +54,12 @@ public class FireworkLEDCommand extends LEDCommandBase {
             if (explosionIndex + explosionCounter < ledSubsystem.getBufferLength()) {
                 hues[explosionIndex + explosionCounter] = hue;
                 ledSubsystem.setHSV(explosionIndex + explosionCounter, hue, 255, 128);
-            } else {
-                explosionFinished = true;
             }
             if (explosionIndex - explosionCounter >= 0) {
                 hues[explosionIndex - explosionCounter] = hue;
                 ledSubsystem.setHSV(explosionIndex - explosionCounter, hue, 255, 128);
+            } else {
+                explosionFinished = true;
             }
             explosionCounter++;
         } else {
@@ -67,30 +68,32 @@ public class FireworkLEDCommand extends LEDCommandBase {
                     if (i == onLEDIndex) {
                         ledSubsystem.setRGB(i, 255, 255, 255);
                         // simulate momentum
-                        double reverseIndex = Math.abs(ledSubsystem.getBufferLength() - i);
+                        // double reverseIndex = Math.abs(ledSubsystem.getBufferLength() - i);
                         if (i < ledSubsystem.getBufferLength()) {
-                            waitTime = Math.pow(Math.E, ((reverseIndex + 5) / 9.75));
+                            // waitTime = Math.pow(Math.E, ((reverseIndex + 5) / 9.75));
+                            waitTime = Math.pow(Math.E, ((i + 5) / 9.75));
+
                         }
                         continue;
                     }
-                    if (i == onLEDIndex + 1) {
-                        if (onLEDIndex - 6 >= 0) {
+                    if (i == onLEDIndex - 1) {
+                        if (finalIndex - onLEDIndex >= 6) {
                             ledSubsystem.setRGB(i, 255, 255, 255);
                         } else {
                             ledSubsystem.setRGB(i, 0, 0, 0);
                         }
                         continue;
                     }
-                    if (i == onLEDIndex + 2) {
-                        if (onLEDIndex - 7 >= 0) {
+                    if (i == onLEDIndex - 2) {
+                        if (finalIndex - onLEDIndex >= 7) {
                             ledSubsystem.setRGB(i, 255, 255, 255);
                         } else {
                             ledSubsystem.setRGB(i, 0, 0, 0);
                         }
                         continue;
                     }
-                    if (i == onLEDIndex + 3) {
-                        if (onLEDIndex - 8 >= 0) {
+                    if (i == onLEDIndex - 3) {
+                        if (finalIndex - onLEDIndex >= 8) {
                             ledSubsystem.setRGB(i, 255, 255, 255);
                         } else {
                             ledSubsystem.setRGB(i, 0, 0, 0);
@@ -100,20 +103,20 @@ public class FireworkLEDCommand extends LEDCommandBase {
                     ledSubsystem.setRGB(i, 0, 0, 0);
                 }
 
-                if (onLEDIndex - 5 < 0) {
+                if (finalIndex - onLEDIndex < 5) {
                     explosionIndex = onLEDIndex;
                     explosionCounter = 0;
                     explosion = true;
                     // this is worse
-                } else if (onLEDIndex - 6 < 0) {
+                } else if (finalIndex - onLEDIndex < 6) {
                     waitTime = 750;
-                } else if (onLEDIndex - 7 < 0) {
+                } else if (finalIndex - onLEDIndex < 7) {
                     waitTime = 350;
-                } else if (onLEDIndex - 8 < 0) {
+                } else if (finalIndex - onLEDIndex < 8) {
                     waitTime = 150;
                 }
 
-                onLEDIndex--;
+                onLEDIndex++;
                 startTime = System.currentTimeMillis();
             }
         }
