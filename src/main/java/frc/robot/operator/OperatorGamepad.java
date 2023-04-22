@@ -26,8 +26,12 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightStick.setXinvert(OperatorConfig.xInvert);
         gamepad.rightStick.setYinvert(OperatorConfig.yInvert);
     }
-    // set up jiggle sometime
-    public void setupTeleopButtons() {
+    //Could also just switch operator and pilot ports and then refresh gamepads
+    /**
+     * Sets up teleop operator controls on the passed gamepad
+     * @param gamepad
+     */
+    public void setupTeleopButtons(Gamepad gamepad) {
 
         /* Intaking */
         gamepad.leftBumper.whileTrue(OperatorCommands.homeAndSlowIntake());
@@ -90,7 +94,11 @@ public class OperatorGamepad extends Gamepad {
                 .whileTrue(OperatorCommands.slowManualElevator());
     }
 
-    public void setupDisabledButtons() {
+        /**
+     * Sets up disabled operator controls on the passed gamepad
+     * @param gamepad
+     */
+    public void setupDisabledButtons(Gamepad gamepad) {
         gamepad.aButton.whileTrue(LEDCommands.coneFloorLED());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
         gamepad.bButton
@@ -100,7 +108,10 @@ public class OperatorGamepad extends Gamepad {
         gamepad.bButton.toggleOnTrue(OperatorCommands.coastMode());
     }
 
-
+        /**
+     * Sets up test operator controls on the passed gamepad
+     * @param gamepad
+     */
     public void setupTestButtons() {}
 
     private Trigger noRightBumper() {
