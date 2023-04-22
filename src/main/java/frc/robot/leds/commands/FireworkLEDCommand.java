@@ -72,7 +72,6 @@ public class FireworkLEDCommand extends LEDCommandBase {
                         if (i < ledSubsystem.getBufferLength()) {
                             // waitTime = Math.pow(Math.E, ((reverseIndex + 5) / 9.75));
                             waitTime = Math.pow(Math.E, ((i + 5) / 9.75));
-
                         }
                         continue;
                     }

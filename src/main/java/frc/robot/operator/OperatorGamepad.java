@@ -102,9 +102,9 @@ public class OperatorGamepad extends Gamepad {
         gamepad.aButton.whileTrue(LEDCommands.coneFloorLED());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
         gamepad.bButton
-        .and(bothTriggers())
-        .and(bothBumpers())
-        .whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
+                .and(bothTriggers())
+                .and(bothBumpers())
+                .whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
         gamepad.bButton.toggleOnTrue(OperatorCommands.coastMode());
     }
 
