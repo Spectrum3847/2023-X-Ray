@@ -18,6 +18,7 @@ public class LEDScheduler {
     ArrayList<Animation> animationArrary = new ArrayList<Animation>();
     Animation top;
     Animation defaultAnimation;
+    boolean first = true;
 
     public LEDScheduler(LEDs subsystem) {
         // RobotTelemetry.print("Starting LED Scheduler Thread");

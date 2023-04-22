@@ -1,6 +1,5 @@
 package frc.robot.leds.commands;
 
-import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.leds.LEDs;
 
