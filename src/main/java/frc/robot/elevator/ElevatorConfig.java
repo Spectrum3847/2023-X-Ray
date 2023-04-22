@@ -39,6 +39,8 @@ public class ElevatorConfig extends LinearMechConfig {
     public final double homeThreshold = 8000; // falcon units
     public final double homeTimeout = 0.5; // seconds
     public final double maxHomeTimeout = 4; // seconds, no home command can take longer than this
+    public final double holdConeHeight =
+            2; // inches, hold cone will not run if the elevator is above this position
 
     public final double zeroSpeed = -0.2;
 

@@ -16,12 +16,10 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "ConeMidFull"
-        ],
+        "names": [],
         "executionBehavior": "sequential",
-        "waitBehavior": "minimum",
-        "waitTime": 1.0
+        "waitBehavior": "none",
+        "waitTime": 0.0
       }
     },
     {
@@ -50,5 +48,12 @@
   "maxVelocity": 3.5,
   "maxAcceleration": 3.5,
   "isReversed": null,
-  "markers": []
+  "markers": [
+    {
+      "position": 0.01,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }

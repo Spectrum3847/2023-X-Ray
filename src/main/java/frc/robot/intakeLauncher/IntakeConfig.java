@@ -21,8 +21,8 @@ public class IntakeConfig {
     public double frontSlowSpeed = 200;
     public double launcherSlowSpeed = -100;
 
-    public double lowerIntakeSpeed = 3000;
-    public double frontIntakeSpeed = 4000;
+    public double lowerIntakeSpeed = 2500;
+    public double frontIntakeSpeed = 2500;
     public double launcherIntakeSpeed = -3500;
 
     public double lowerAirIntakeSpeed = 3000;
@@ -70,11 +70,11 @@ public class IntakeConfig {
     // too short
 
     public double frontCoolShotSpeed =
-            1000; // correct 4820 wrong //3800 was a little too far //3650 was slightly
+            900; // correct 4820 wrong //3800 was a little too far //3650 was slightly
     // too far
     // //3600 slighty too short //3700 too much
     public double launcherCoolShotSpeed =
-            3500; // correct //3800 was a little too far //3650 was slighty too far
+            3000; // correct //3800 was a little too far //3650 was slighty too far
     // //3600 slighty
     // too short
 
