@@ -110,11 +110,6 @@ public class PilotGamepad extends Gamepad {
 
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5));
-        // gamepad.bButton
-        //         .and(bothTriggers())
-        //         .and(bothBumpers())
-        //         .whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
-        gamepad.bButton.whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
         gamepad.startButton.whileTrue(PilotCommands.resetSteering());
     }
 

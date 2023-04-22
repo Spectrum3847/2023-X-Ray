@@ -8,6 +8,7 @@ import frc.robot.elevator.Elevator;
 import frc.robot.elevator.commands.ElevatorCommands;
 import frc.robot.fourbar.commands.FourBarCommands;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
+import frc.robot.leds.commands.CountdownLEDCommand;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.operator.commands.OperatorCommands;
 import frc.robot.pilot.commands.PilotCommands;
@@ -92,8 +93,13 @@ public class OperatorGamepad extends Gamepad {
     public void setupDisabledButtons() {
         gamepad.aButton.whileTrue(LEDCommands.coneFloorLED());
         gamepad.yButton.whileTrue(LEDCommands.cubeLED());
+        gamepad.bButton
+        .and(bothTriggers())
+        .and(bothBumpers())
+        .whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
         gamepad.bButton.toggleOnTrue(OperatorCommands.coastMode());
     }
+
 
     public void setupTestButtons() {}
 
@@ -103,6 +109,14 @@ public class OperatorGamepad extends Gamepad {
 
     private Trigger rightBumper() {
         return gamepad.rightBumper;
+    }
+
+    private Trigger bothBumpers() {
+        return gamepad.rightBumper.and(gamepad.leftBumper);
+    }
+
+    private Trigger bothTriggers() {
+        return gamepad.rightTriggerButton.and(gamepad.leftTriggerButton);
     }
 
     public void rumble(double intensity) {
