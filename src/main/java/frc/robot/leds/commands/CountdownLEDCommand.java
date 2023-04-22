@@ -70,6 +70,8 @@ public class CountdownLEDCommand extends LEDCommandBase {
         ledSubsystem.sendData();
     }
 
+    public void firework() {}
+
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);

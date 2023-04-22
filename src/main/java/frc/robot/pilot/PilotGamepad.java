@@ -9,6 +9,7 @@ import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.CountdownLEDCommand;
+import frc.robot.leds.commands.FireworkLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.trajectories.commands.DistanceDrive;
@@ -108,7 +109,8 @@ public class PilotGamepad extends Gamepad {
 
     public void setupDisabledButtons() {
         // gamepad.aButton.whileTrue(new OneColorLEDCommand(Color.kWhite, "White", 5));
-        gamepad.aButton.whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
+        gamepad.aButton.whileTrue(new FireworkLEDCommand("Firework", 120));
+        gamepad.bButton.whileTrue(new CountdownLEDCommand("Countdown", 120, 10));
         gamepad.startButton.whileTrue(PilotCommands.resetSteering());
     }
 
