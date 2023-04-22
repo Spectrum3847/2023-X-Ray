@@ -1,5 +1,6 @@
 package frc.robot.leds.commands;
 
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Robot;
 import frc.robot.leds.LEDs;
 
@@ -11,6 +12,7 @@ public class FireworkLEDCommand extends LEDCommandBase {
     int onLEDIndex;
     int explosionIndex, explosionCounter;
     int value = 128;
+    int[] hues;
     boolean backwards, explosion, explosionFinished = false;
 
     public FireworkLEDCommand(String name, int priority) {
@@ -24,6 +26,7 @@ public class FireworkLEDCommand extends LEDCommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void ledInitialize() {
+        hues = new int[ledSubsystem.getBufferLength()];
         onLEDIndex = ledSubsystem.getBufferLength() - 1;
         for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
             if (i == onLEDIndex) {
@@ -41,8 +44,7 @@ public class FireworkLEDCommand extends LEDCommandBase {
     public void ledExecute() {
         if (explosionFinished) {
             for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
-                final int hue = (explosionIndex + (i * 180 / ledSubsystem.getBufferLength())) % 180;
-                ledSubsystem.setHSV(i, hue, 255, value);
+                ledSubsystem.setHSV(i, (int) hues[i], 255, value);
             }
             value--;
         } else if (explosion) {
@@ -50,18 +52,16 @@ public class FireworkLEDCommand extends LEDCommandBase {
                     (explosionIndex + (explosionCounter * 180 / ledSubsystem.getBufferLength()))
                             % 180;
             if (explosionIndex + explosionCounter < ledSubsystem.getBufferLength()) {
+                hues[explosionIndex + explosionCounter] = hue;
                 ledSubsystem.setHSV(explosionIndex + explosionCounter, hue, 255, 128);
-                System.out.println("positive ran, index: " + (explosionIndex + explosionCounter));
             } else {
                 explosionFinished = true;
-                // explosion = false;
             }
             if (explosionIndex - explosionCounter >= 0) {
+                hues[explosionIndex - explosionCounter] = hue;
                 ledSubsystem.setHSV(explosionIndex - explosionCounter, hue, 255, 128);
-                System.out.println("negative ran, index: " + (explosionIndex - explosionCounter));
             }
             explosionCounter++;
-            // ledSubsystem.sendData();
         } else {
             if (System.currentTimeMillis() - startTime >= waitTime) {
                 for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
@@ -70,7 +70,6 @@ public class FireworkLEDCommand extends LEDCommandBase {
                         // simulate momentum
                         double reverseIndex = Math.abs(ledSubsystem.getBufferLength() - i);
                         if (i < ledSubsystem.getBufferLength()) {
-                            // waitTime = Math.exp(reverseIndex / 10);
                             waitTime = Math.pow(Math.E, ((reverseIndex + 5) / 9.75));
                         }
                         continue;
@@ -101,7 +100,6 @@ public class FireworkLEDCommand extends LEDCommandBase {
                     }
                     ledSubsystem.setRGB(i, 0, 0, 0);
                 }
-                // ledSubsystem.sendData();
 
                 if (onLEDIndex - 5 < 0) {
                     explosionIndex = onLEDIndex;
@@ -134,6 +132,6 @@ public class FireworkLEDCommand extends LEDCommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return value == 0;
     }
 }

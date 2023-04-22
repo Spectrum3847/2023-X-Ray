@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LEDs extends SubsystemBase {
     public LEDConfig config;
     private final AddressableLED ledStrip;
-    private final AddressableLEDBuffer ledBuffer;
+    public final AddressableLEDBuffer ledBuffer;
     public final LEDScheduler scheduler;
 
     public enum LEDStripStatus {

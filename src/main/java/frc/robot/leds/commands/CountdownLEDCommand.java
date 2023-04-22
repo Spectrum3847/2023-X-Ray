@@ -29,7 +29,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
         this.countdown = countdown;
         this.colorFrequency = Units.secondsToMilliseconds(countdown) / 255;
         this.stripFrequency =
-                Units.secondsToMilliseconds(countdown) / ledSubsystem.getBufferLength();
+                Units.secondsToMilliseconds(countdown) / (ledSubsystem.getBufferLength());
         this.ledStart = 0;
         this.ledEnd = ledSubsystem.getBufferLength();
     }
@@ -38,6 +38,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
     public void ledInitialize() {
         g = 255;
         startTime = Util.getTime();
+        System.out.println("color: " + colorFrequency + " strip: " + stripFrequency);
         colorTime = getMS();
         stripTime = getMS();
     }
@@ -64,19 +65,21 @@ public class CountdownLEDCommand extends LEDCommandBase {
                 ledSubsystem.setRGB(i, r, g, b);
             } else {
                 ledSubsystem.setRGB(i, 0, 0, 0);
+                System.out.println(i);
             }
         }
 
         ledSubsystem.sendData();
     }
 
-    public void firework() {}
-
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
         startTime = 0;
         ledStart = 0;
+        if(!interrupted) {
+            new FireworkLEDCommand("Firework", priority).schedule();
+        }
     }
 
     @Override
