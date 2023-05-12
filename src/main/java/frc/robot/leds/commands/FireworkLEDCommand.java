@@ -16,6 +16,7 @@ public class FireworkLEDCommand extends LEDCommandBase {
 
     public FireworkLEDCommand(String name, int priority) {
         super(name, priority);
+        super.prioritizeTimeout = true;
         ledSubsystem = Robot.leds;
         this.waitTime = 1;
         this.startTime = System.currentTimeMillis();
@@ -55,7 +56,8 @@ public class FireworkLEDCommand extends LEDCommandBase {
                 hues[explosionIndex + explosionCounter] = hue;
                 ledSubsystem.setHSV(explosionIndex + explosionCounter, hue, 255, 128);
             }
-            if (explosionIndex - explosionCounter >= 0) {
+            if (explosionIndex - explosionCounter >= 0
+                    && explosionIndex - explosionCounter < ledSubsystem.getBufferLength()) {
                 hues[explosionIndex - explosionCounter] = hue;
                 ledSubsystem.setHSV(explosionIndex - explosionCounter, hue, 255, 128);
             } else {

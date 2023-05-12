@@ -1,7 +1,10 @@
 package frc.robot.leds.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Robot;
 import frc.robot.elevator.commands.ElevatorCommands;
 
 /** All of the commands to schedule LEDs */
@@ -11,6 +14,13 @@ public class LEDCommands {
 
     public static void setupLEDTriggers() {
         ElevatorCommands.elevatorUp.whileTrue(elevatorHeightLED());
+        Trigger startLEDEnd =
+                new Trigger(
+                        () ->
+                                DriverStation.getMatchTime() <= Robot.leds.config.END_LED_START_TIME
+                                        && DriverStation.getMatchTime() != -1
+                                        && DriverStation.isTeleop());
+        startLEDEnd.onTrue(endLEDSequence());
         // Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
         // poseOverriden.whileTrue(success());
     }
@@ -53,5 +63,10 @@ public class LEDCommands {
 
     public static Command elevatorHeightLED() {
         return new RainbowLEDCommand("Elevator Height LED", 80);
+    }
+
+    public static Command endLEDSequence() {
+        return new CountdownLEDCommand(
+                "End Countdown", 120, Robot.leds.config.END_LED_START_TIME, true);
     }
 }

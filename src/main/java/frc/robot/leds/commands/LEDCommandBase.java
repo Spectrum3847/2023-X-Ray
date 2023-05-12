@@ -7,6 +7,10 @@ public abstract class LEDCommandBase extends CommandBase {
     String name;
     int priority;
     double timeout;
+    /** Rerun the command if it was cancelled and the timeout wasn't finished */
+    boolean prioritizeTimeout;
+
+    boolean interrupted;
 
     public LEDCommandBase(String name, int priority, double timeout) {
         super();
@@ -15,6 +19,8 @@ public abstract class LEDCommandBase extends CommandBase {
         this.name = name;
         this.priority = priority;
         this.timeout = timeout;
+        this.prioritizeTimeout = false;
+        this.interrupted = false;
     }
 
     public LEDCommandBase(String name, int priority) {
@@ -24,6 +30,8 @@ public abstract class LEDCommandBase extends CommandBase {
         this.name = name;
         this.priority = priority;
         this.timeout = -101;
+        this.prioritizeTimeout = false;
+        this.interrupted = false;
     }
 
     @Override
@@ -42,6 +50,7 @@ public abstract class LEDCommandBase extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        this.interrupted = interrupted;
         Robot.leds.scheduler.removeAnimation(name);
     }
 
@@ -49,5 +58,13 @@ public abstract class LEDCommandBase extends CommandBase {
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    public boolean isTimeoutPriority() {
+        return prioritizeTimeout;
+    }
+
+    public boolean getInterrupted() {
+        return this.interrupted;
     }
 }

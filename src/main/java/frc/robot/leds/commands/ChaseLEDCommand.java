@@ -51,6 +51,11 @@ public class ChaseLEDCommand extends LEDCommandBase {
                 ledSubsystem.setRGB(i, 30, 3, 85);
             }
             ledSubsystem.sendData();
+        } else if (DriverStation.isAutonomous() && DriverStation.getMatchTime() != -1) {
+            for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {
+                ledSubsystem.setRGB(i, 0, 0, 0);
+            }
+            ledSubsystem.sendData();
         } else {
             if (System.currentTimeMillis() - startTime >= waitTime) {
                 for (int i = 0; i < ledSubsystem.getBufferLength(); i++) {

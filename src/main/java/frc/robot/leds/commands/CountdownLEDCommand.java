@@ -16,6 +16,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
     private long colorTime, stripTime; // ms
     private double startTime; // s
     private final int lastIndex;
+    private boolean sendFirework;
 
     /**
      * Create an LED sequence that counts down with the leds with a given timeout
@@ -24,7 +25,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
      * @param priority
      * @param countdown seconds
      */
-    public CountdownLEDCommand(String name, int priority, int countdown) {
+    public CountdownLEDCommand(String name, int priority, int countdown, boolean firework) {
         super(name, priority, -101);
         ledSubsystem = Robot.leds;
         this.countdown = countdown;
@@ -34,6 +35,7 @@ public class CountdownLEDCommand extends LEDCommandBase {
         this.lastIndex = ledSubsystem.getBufferLength() - 1;
         this.ledStart = lastIndex;
         this.ledEnd = 0;
+        this.sendFirework = firework;
     }
 
     @Override
@@ -77,13 +79,13 @@ public class CountdownLEDCommand extends LEDCommandBase {
         super.end(interrupted);
         startTime = 0;
         ledStart = lastIndex;
-        if (!interrupted) {
+        if (!interrupted && sendFirework) {
             new FireworkLEDCommand("Firework", priority).schedule();
         }
     }
 
     @Override
     public boolean isFinished() {
-        return (startTime != 0 && Util.getTime() >= startTime + countdown + 1);
+        return (startTime != 0 && Util.getTime() >= startTime + countdown);
     }
 }

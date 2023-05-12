@@ -42,6 +42,12 @@ public class LEDScheduler {
             intialAnimation();
         }
 
+        if (top.getCommand().isTimeoutPriority()) {
+            if (!top.getCommand().isScheduled() && top.getCommand().getInterrupted()) {
+                top.getCommand().schedule();
+            }
+        }
+
         // Increment through all the Animations
         for (int j = 0; j < animationArrary.size(); j++) {
             Animation animation = animationArrary.get(j);
