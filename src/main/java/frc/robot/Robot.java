@@ -194,6 +194,7 @@ public class Robot extends LoggedRobot {
             SmartDashboard.putBoolean("RecordMatch", true);
         }
 
+        /** LED Countdown */
         if (DriverStation.getMatchTime() != -1) {
             new CountdownLEDCommand(
                             "Auton Countdown", 120, (int) DriverStation.getMatchTime(), false)
@@ -217,9 +218,9 @@ public class Robot extends LoggedRobot {
         RobotTelemetry.print("$$ Teleop Init Starting");
         resetCommandsAndButtons();
 
-        /*if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
-            pose.resetPoseEstimate(Robot.vision.botPose);
-        }*/
+        // if (vision.botPose.getX() >= 0.3 || vision.isInMap() || vision.multipleTargetsInView()) {
+        //     pose.resetPoseEstimate(Robot.vision.botPose);
+        // }
         swerve.setLastAngleToCurrentAngle(); // Should set the current falcon angle to the last
         // angle
 
