@@ -187,4 +187,24 @@ public class AutoPaths {
                                                         AutonConfig.kMaxCleanSpeed - 1,
                                                         AutonConfig.kMaxCleanAccel - 1.5))));
     }
+
+    public static Command NewBumpSide() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewBump1", new PathConstraints(0.5, 0.5)))
+                .andThen(AutonCommands.alignToGridMid());
+        // .andThen(
+        //         Auton.getAutoBuilder()
+        //                 .fullAuto(
+        //                         PathPlanner.loadPathGroup(
+        //                                 "Bump2CenterOption",
+        //                                 new PathConstraints(
+        //                                         AutonConfig.kMaxBumpSpeed,
+        //                                         AutonConfig.kMaxBumpAccel))));
+    }
+
+    public static Command TestCleanSide1() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewCleanSide1", new PathConstraints(0.5, 0.5)))
+                .andThen(AutonCommands.alignToGridMid());
+    }
 }

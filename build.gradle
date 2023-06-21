@@ -99,7 +99,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
     //Include SpectrumLib in the project
-    implementation ('com.github.Spectrum3847:SpectrumLib:2023-SNAPSHOT') {changing = true }
+    implementation ('com.github.Spectrum3847:SpectrumLib:4d9ee0cb0470d59c2ea0b1b2991dd4a7b139d5ef') {changing = true }
 
     //Include AdvantageKit in the project
     def akitJson = new groovy.json.JsonSlurper().parseText(new File(projectDir.getAbsolutePath() + "/vendordeps/AdvantageKit.json").text)
