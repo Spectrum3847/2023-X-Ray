@@ -18,7 +18,7 @@ public class XRAY2023 {
     public static final double mod1angleOffset = 272.5; // 280.436
     public static final double mod2angleOffset = 62.4; // 63.76
     public static final double mod3angleOffset = 226.7; // 234.30601
-
+        
     /* CanBus Name */
     public static final String canBus = "3847";
 
