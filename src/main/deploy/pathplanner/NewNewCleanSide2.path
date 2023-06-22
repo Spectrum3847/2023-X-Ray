@@ -2,13 +2,13 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 1.9,
-        "y": 4.45
+        "x": 1.92,
+        "y": 4.4
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8999999999999995,
-        "y": 4.45
+        "x": 2.9199999999999995,
+        "y": 4.4
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [],
-        "executionBehavior": "parallel",
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
@@ -49,16 +49,16 @@
     },
     {
       "anchorPoint": {
-        "x": 6.3,
-        "y": 4.15
+        "x": 6.25,
+        "y": 4.2
       },
       "prevControl": {
-        "x": 5.637870905813306,
-        "y": 4.8121290941866945
+        "x": 5.587870905813306,
+        "y": 4.862129094186694
       },
       "nextControl": {
-        "x": 6.420051605116302,
-        "y": 4.029948394883698
+        "x": 6.370051605116302,
+        "y": 4.079948394883698
       },
       "holonomicAngle": -45.0,
       "isReversal": false,
@@ -124,11 +124,11 @@
     },
     {
       "anchorPoint": {
-        "x": 2.55,
+        "x": 2.35,
         "y": 4.5
       },
       "prevControl": {
-        "x": 3.2050814402628705,
+        "x": 3.0050814402628707,
         "y": 4.5
       },
       "nextControl": null,
@@ -145,5 +145,24 @@
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 1.7,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 3.2,
+      "names": [
+        "RetractIntake"
+      ]
+    },
+    {
+      "position": 0.01,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }

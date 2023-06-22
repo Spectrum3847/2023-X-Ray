@@ -79,6 +79,10 @@ public class AutonCommands {
         return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.4);
     }
 
+    private static Command spinLauncherForHigh(Command spinCommand) {
+        return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.3);
+    }
+
     public static Command launch() {
         return IntakeCommands.autoLaunch().withTimeout(AutonConfig.launchTime);
     }
@@ -149,20 +153,19 @@ public class AutonCommands {
                 .andThen(IntakeCommands.stopAllMotors().withTimeout(0.01));
     }
 
-    public static Command alignToGridHigh() {
-        return new AlignToAprilTag(() -> -0.75, 0)
-                .withTimeout(1)
-                .alongWith(IntakeCommands.topCubeSpinUp())
-                .alongWith(ElevatorCommands.cubeTop())
-                .withTimeout(1)
-                .andThen(AutonCommands.launch(), AutonCommands.stopMotors());
-    }
-
     public static Command alignToGridMid() {
         return new DriveToCubeNode(0)
                 .alongWith(ElevatorCommands.cubeMid())
                 .withTimeout(0.75)
                 .andThen(spinLauncherFast(IntakeCommands.midCubeSpinUp()))
+                .andThen(launch(), stopMotors());
+    }
+
+    public static Command alignToGridHigh() {
+        return new DriveToCubeNode(0)
+                .alongWith(ElevatorCommands.cubeTop())
+                .withTimeout(0.75)
+                .andThen(spinLauncherForHigh(IntakeCommands.topCubeSpinUp()))
                 .andThen(launch(), stopMotors());
     }
 

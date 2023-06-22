@@ -211,4 +211,29 @@ public class AutoPaths {
     public static Command AlignCubeNodeMid() {
         return AutonCommands.alignToGridMid();
     }
+
+    public static Command NewTestCleanSide1() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(2, 2)))
+                .andThen(AutonCommands.alignToGridMid());
+    }
+
+    public static Command NewTestCleanSide2() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewNewCleanSide2", new PathConstraints(2, 2)))
+                .andThen(AutonCommands.alignToGridMid());
+    }
+
+    public static Command NewTestCleanSide() {
+        return Auton.getAutoBuilder()
+                .fullAuto(
+                        PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(4, 2.5)))
+                .andThen(AutonCommands.alignToGridMid())
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "NewNewCleanSide2", new PathConstraints(4, 2.5))))
+                .andThen(AutonCommands.alignToGridHigh());
+    }
 }

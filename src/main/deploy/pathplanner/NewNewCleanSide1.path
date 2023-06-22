@@ -124,11 +124,11 @@
     },
     {
       "anchorPoint": {
-        "x": 2.5487302883002716,
+        "x": 2.3,
         "y": 4.528266766457198
       },
       "prevControl": {
-        "x": 3.7547993052333304,
+        "x": 3.5060690169330586,
         "y": 4.528266766457198
       },
       "nextControl": null,
@@ -148,5 +148,18 @@
   "maxVelocity": 4.0,
   "maxAcceleration": 3.0,
   "isReversed": null,
-  "markers": []
+  "markers": [
+    {
+      "position": 1.8,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 3.4,
+      "names": [
+        "RetractIntake"
+      ]
+    }
+  ]
 }
