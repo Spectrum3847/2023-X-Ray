@@ -37,7 +37,7 @@
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
-      "velOverride": null,
+      "velOverride": 2.2,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
@@ -50,19 +50,19 @@
     {
       "anchorPoint": {
         "x": 6.25,
-        "y": 4.2
+        "y": 4.15
       },
       "prevControl": {
         "x": 5.587870905813306,
-        "y": 4.862129094186694
+        "y": 4.8121290941866945
       },
       "nextControl": {
         "x": 6.370051605116302,
-        "y": 4.079948394883698
+        "y": 4.029948394883698
       },
       "holonomicAngle": -45.0,
       "isReversal": false,
-      "velOverride": null,
+      "velOverride": 2.2,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
@@ -75,15 +75,15 @@
     {
       "anchorPoint": {
         "x": 6.85,
-        "y": 3.6
+        "y": 3.55
       },
       "prevControl": {
         "x": 6.478827932816447,
-        "y": 3.9711720671835526
+        "y": 3.9211720671835524
       },
       "nextControl": {
         "x": 6.478827932816447,
-        "y": 3.9711720671835526
+        "y": 3.9211720671835524
       },
       "holonomicAngle": -45.0,
       "isReversal": true,
@@ -112,7 +112,32 @@
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
-      "velOverride": null,
+      "velOverride": 4.0,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 2.55,
+        "y": 4.5
+      },
+      "prevControl": {
+        "x": 3.0065327198544023,
+        "y": 4.5
+      },
+      "nextControl": {
+        "x": 2.339663191029305,
+        "y": 4.5
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": 4.0,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
@@ -128,7 +153,7 @@
         "y": 4.5
       },
       "prevControl": {
-        "x": 3.0050814402628707,
+        "x": 2.4396275948177504,
         "y": 4.5
       },
       "nextControl": null,
@@ -145,9 +170,12 @@
       }
     }
   ],
+  "maxVelocity": null,
+  "maxAcceleration": 3.0,
+  "isReversed": null,
   "markers": [
     {
-      "position": 1.7,
+      "position": 1.6,
       "names": [
         "IntakeCube"
       ]

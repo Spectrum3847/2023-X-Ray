@@ -165,7 +165,7 @@ public class AutonCommands {
         return new DriveToCubeNode(0)
                 .alongWith(ElevatorCommands.cubeTop())
                 .withTimeout(0.75)
-                .andThen(spinLauncherForHigh(IntakeCommands.topCubeSpinUp()))
+                .andThen(spinLauncherFast(IntakeCommands.topCubeSpinUp()))
                 .andThen(launch(), stopMotors());
     }
 

@@ -227,13 +227,13 @@ public class AutoPaths {
     public static Command NewTestCleanSide() {
         return Auton.getAutoBuilder()
                 .fullAuto(
-                        PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(4, 2.5)))
+                        PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(4, 3)))
                 .andThen(AutonCommands.alignToGridMid())
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "NewNewCleanSide2", new PathConstraints(4, 2.5))))
+                                                "NewNewCleanSide2", new PathConstraints(4, 3))))
                 .andThen(AutonCommands.alignToGridHigh());
     }
 }
