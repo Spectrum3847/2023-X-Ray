@@ -204,7 +204,11 @@ public class AutoPaths {
 
     public static Command TestCleanSide1() {
         return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("NewCleanSide1", new PathConstraints(0.5, 0.5)))
+                .fullAuto(PathPlanner.loadPathGroup("NewCleanSide1", new PathConstraints(3, 2)))
                 .andThen(AutonCommands.alignToGridMid());
+    }
+
+    public static Command AlignCubeNodeMid() {
+        return AutonCommands.alignToGridMid();
     }
 }
