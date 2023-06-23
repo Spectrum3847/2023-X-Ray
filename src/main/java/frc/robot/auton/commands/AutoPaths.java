@@ -234,4 +234,10 @@ public class AutoPaths {
                                                 "NewNewCleanSide2", new PathConstraints(4, 3))))
                 .andThen(AutonCommands.alignToGridHighFast());
     }
+
+    public static Command NewNewBumpSide1() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewNewBump1", new PathConstraints(2, 2)))
+                .andThen(AutonCommands.coolShot());
+    }
 }
