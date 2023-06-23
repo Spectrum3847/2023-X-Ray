@@ -24,16 +24,16 @@
     },
     {
       "anchorPoint": {
-        "x": 3.95,
-        "y": 5.0
+        "x": 4.2,
+        "y": 4.75
       },
       "prevControl": {
-        "x": 3.1218474712706596,
-        "y": 5.0
+        "x": 3.3718474712706596,
+        "y": 4.75
       },
       "nextControl": {
-        "x": 4.778152528729341,
-        "y": 5.0
+        "x": 5.028152528729341,
+        "y": 4.75
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -181,7 +181,7 @@
       ]
     },
     {
-      "position": 3.2,
+      "position": 3.0,
       "names": [
         "RetractIntake"
       ]
