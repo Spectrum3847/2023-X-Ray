@@ -169,6 +169,22 @@ public class AutonCommands {
                 .andThen(launch(), stopMotors());
     }
 
+    public static Command alignToGridMidFast() {
+        return new DriveToCubeNode(0)
+                .alongWith(ElevatorCommands.cubeMid())
+                .withTimeout(0.45)
+                .andThen(spinLauncherFast(IntakeCommands.midCubeSpinUp()))
+                .andThen(launch(), stopMotors());
+    }
+
+    public static Command alignToGridHighFast() {
+        return new DriveToCubeNode(0)
+                .alongWith(ElevatorCommands.cubeTop())
+                .withTimeout(0.45)
+                .andThen(spinLauncherFast(IntakeCommands.topCubeSpinUp()))
+                .andThen(launch(), stopMotors());
+    }
+
     public static Command alignToGridLowCube() {
         return new AlignToAprilTag(() -> -0.75, 0)
                 .withTimeout(1)

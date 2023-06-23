@@ -15,7 +15,7 @@ import frc.robot.Robot;
 public class DriveToCubeNode extends PIDCommand {
     /* Config settings */
     private static double kP = 0.06;
-    private static double verticalSetpoint = -10; // neg
+    private static double verticalSetpoint = -15; // neg
     private double tolerance = 1;
     private double horizontalOffset = 0; // positive is right (driver POV)
 

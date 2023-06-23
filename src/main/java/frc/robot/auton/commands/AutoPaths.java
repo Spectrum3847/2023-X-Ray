@@ -190,8 +190,7 @@ public class AutoPaths {
 
     public static Command NewBumpSide() {
         return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("NewBump1", new PathConstraints(0.5, 0.5)))
-                .andThen(AutonCommands.alignToGridMid());
+                .fullAuto(PathPlanner.loadPathGroup("NewBump1", new PathConstraints(2, 2)));
         // .andThen(
         //         Auton.getAutoBuilder()
         //                 .fullAuto(
@@ -226,14 +225,13 @@ public class AutoPaths {
 
     public static Command NewTestCleanSide() {
         return Auton.getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(4, 3)))
-                .andThen(AutonCommands.alignToGridMid())
+                .fullAuto(PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(4, 3)))
+                .andThen(AutonCommands.alignToGridMidFast())
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
                                                 "NewNewCleanSide2", new PathConstraints(4, 3))))
-                .andThen(AutonCommands.alignToGridHigh());
+                .andThen(AutonCommands.alignToGridHighFast());
     }
 }
