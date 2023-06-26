@@ -237,7 +237,42 @@ public class AutoPaths {
 
     public static Command NewNewBumpSide1() {
         return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("NewNewBump1", new PathConstraints(2, 2)))
-                .andThen(AutonCommands.coolShot());
+                .fullAuto(PathPlanner.loadPathGroup("NewNewBump1", new PathConstraints(4, 2)))
+                .andThen(AutonCommands.hybridShotFast().alongWith(AutonCommands.faceForward()));
+    }
+
+    public static Command NewNewBumpSide2() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewNewBump2", new PathConstraints(4, 2.5)))
+                .andThen(AutonCommands.alignToGridHighFast());
+    }
+
+    public static Command NewNewBumpSide() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewNewBump1", new PathConstraints(4, 2.6)))
+                .andThen(
+                        AutonCommands.coolShotFast()
+                                .alongWith(AutonCommands.faceForward())
+                                .withTimeout(0.55))
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "NewNewBump2", new PathConstraints(4, 2.6)))
+                                .andThen(AutonCommands.alignToGridHighFast()));
+    }
+
+    public static Command NewTestCleanSideWBalance() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("NewNewCleanSide1", new PathConstraints(4, 3)))
+                .andThen(AutonCommands.alignToGridMidFast())
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "NewNewCleanSide2Balance",
+                                                new PathConstraints(4, 3))))
+                .andThen((new AutoBalance()))
+                .andThen(new LockSwerve().withTimeout(0.1));
     }
 }

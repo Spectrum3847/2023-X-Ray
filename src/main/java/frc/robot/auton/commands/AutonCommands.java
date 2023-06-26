@@ -38,6 +38,14 @@ public class AutonCommands {
         return spinLauncher(IntakeCommands.hybridShot()).andThen(launch(), stopMotors());
     }
 
+    public static Command hybridShotFast() {
+        return spinLauncherMidSpeed(IntakeCommands.hybridShot()).andThen(launch(), stopMotors());
+    }
+
+    public static Command coolShotFast() {
+        return spinLauncherMidSpeed(IntakeCommands.coolShot()).andThen(launch(), stopMotors());
+    }
+
     public static Command secondShotLaunch() {
         return launch().andThen(stopMotors());
     }
@@ -77,6 +85,10 @@ public class AutonCommands {
 
     private static Command spinLauncherFast(Command spinCommand) {
         return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.4);
+    }
+
+    private static Command spinLauncherMidSpeed(Command spinCommand) {
+        return spinCommand.withTimeout(AutonConfig.spinUpTime - 0.25);
     }
 
     private static Command spinLauncherForHigh(Command spinCommand) {

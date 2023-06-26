@@ -108,6 +108,9 @@ public class Auton {
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
+        autonChooser.addOption("NewNewCleanBalance", AutoPaths.NewTestCleanSideWBalance());
+        autonChooser.addOption("NewNewBump", AutoPaths.NewNewBumpSide());
+        autonChooser.addOption("NewNewBump2", AutoPaths.NewNewBumpSide2());
         autonChooser.addOption("NewNewBump1", AutoPaths.NewNewBumpSide1());
         autonChooser.addOption("Test Launch", AutonCommands.coolShot());
         autonChooser.addOption("New Test Clean Side", AutoPaths.NewTestCleanSide());
