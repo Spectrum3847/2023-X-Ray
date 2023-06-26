@@ -73,10 +73,10 @@ public class Auton {
     // A chooser for autonomous commands
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
-        autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
-        autonChooser.addOption("Clean Side w/ Balance", AutoPaths.CleanSideWBalance());
-        autonChooser.addOption("Bump Side", AutoPaths.BumpSide());
-        autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
+        autonChooser.setDefaultOption("Clean Side (3 piece)", AutoPaths.CleanSide());
+        autonChooser.addOption("Bump Side (3 piece)", AutoPaths.BumpSide());
+        autonChooser.addOption("Over Charge (2 piece)", AutoPaths.OverCharge());
+        autonChooser.addOption("Clean Side w/ Balance (2 piece and grab)", AutoPaths.CleanSideWBalance());
 
         score3rd.setDefaultOption("True", true);
         score3rd.addOption("False", false);
