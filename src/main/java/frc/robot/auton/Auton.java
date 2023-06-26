@@ -108,33 +108,13 @@ public class Auton {
     public static void setupSelectors() {
         // Advanced comp autos with odometry (Ordered by likelyhood of running)
         autonChooser.setDefaultOption("Clean Side", AutoPaths.CleanSide());
-        autonChooser.addOption("NewNewCleanBalance", AutoPaths.NewTestCleanSideWBalance());
-        autonChooser.addOption("NewNewBump", AutoPaths.NewNewBumpSide());
-        autonChooser.addOption("NewNewBump2", AutoPaths.NewNewBumpSide2());
-        autonChooser.addOption("NewNewBump1", AutoPaths.NewNewBumpSide1());
-        autonChooser.addOption("Test Launch", AutonCommands.coolShot());
-        autonChooser.addOption("New Test Clean Side", AutoPaths.NewTestCleanSide());
-        autonChooser.addOption("New Test Clean Side 2", AutoPaths.NewTestCleanSide2());
-        autonChooser.addOption("alignCubeNodeMid", AutoPaths.AlignCubeNodeMid());
-        autonChooser.addOption("Test Cone Mid", AutonCommands.coneMid());
-        autonChooser.addOption("Test Clean Side", AutoPaths.TestCleanSide1());
-        autonChooser.addOption("New Bump Side", AutoPaths.NewBumpSide());
+        autonChooser.addOption("Clean Side w/ Balance", AutoPaths.CleanSideWBalance());
+        autonChooser.addOption("Bump Side", AutoPaths.BumpSide());
         autonChooser.addOption("Over Charge", AutoPaths.OverCharge());
-        autonChooser.addOption("Bump Side 3", AutoPaths.BumpSide3());
-        autonChooser.addOption("Clean Side 3 Red", AutoPaths.CleanSide3Good());
-        autonChooser.addOption("Clean Side 2 Good", AutoPaths.CleanSide2Good());
-        autonChooser.addOption("Test Cone Placement", new SetConeSpitPosition());
-        autonChooser.addOption("Test Cone Spit", new EjectCone());
-        autonChooser.addOption("Test Cone Place", AutonCommands.autonConeFloorGoalPostion());
 
         score3rd.setDefaultOption("True", true);
         score3rd.addOption("False", false);
-
-        autonChooser.addOption("Clean Side 2", AutoPaths.CleanSide2());
-        autonChooser.addOption("Bump Side 2", AutoPaths.BumpSide2());
-        autonChooser.addOption("3 Ball Bottom Balance", AutoPaths.BallBottomBalance());
-        autonChooser.addOption("Special", AutoPaths.Special());
-        autonChooser.addOption("3 Ball Bottom Angle", AutoPaths.BallBottomAngle());
+        
         // Simple comp autos
         autonChooser.addOption("Taxi Simple", new TaxiCommand());
         autonChooser.addOption("Left Cube Taxi", new LeftCubeTaxiCommand());
