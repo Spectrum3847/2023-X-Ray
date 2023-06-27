@@ -21,8 +21,8 @@ public class LEDCommands {
                                         && DriverStation.getMatchTime() != -1
                                         && DriverStation.isTeleop());
         startLEDEnd.onTrue(endLEDSequence());
-        Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
-        poseOverriden.whileTrue(success());
+        // Trigger poseOverriden = new Trigger(() -> Robot.vision.poseOverriden);
+        // poseOverriden.whileTrue(success());
     }
 
     public static Command purpleSolid(int priority, int timeout) {
@@ -30,7 +30,7 @@ public class LEDCommands {
     }
 
     public static Command success() {
-        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120);
+        return new OneColorLEDCommand(Color.kWhite, "LED Success", 120);
     }
 
     public static Command failure() {
