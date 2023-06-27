@@ -42,6 +42,23 @@ public class OperatorCommands {
                 .finallyDo((b) -> FourBarCommands.home().withTimeout(0.5).schedule());
     }
 
+    public static Command cone7() {
+        return FourBarCommands.cone7()
+                .finallyDo((b) -> FourBarCommands.home().withTimeout(0.5).schedule());
+    }
+
+    public static Command VerySlowIntake() {
+        return IntakeCommands.VerySlowIntake();
+    }
+
+    public static Command mediumIntake() {
+        return IntakeCommands.mediumIntake();
+    }
+
+    public static Command veryFastIntake() {
+        return IntakeCommands.veryFastIntake();
+    }
+
     public static Command coneStandingIntake() {
         return new ConeIntake()
                 .alongWith(

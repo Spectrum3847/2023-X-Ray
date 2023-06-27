@@ -17,6 +17,7 @@ public class FourBarConfig extends AngleMechConfig {
 
     public final int cone12 = 94;
     public final int cone9 = 50;
+    public final int cone7 = 70;
 
     public final int coneHybrid = 30;
     public final int coneMid = 62; // converted from 1800 angle //24700

@@ -59,8 +59,7 @@ public class OperatorGamepad extends Gamepad {
                                                 Elevator.config.cubeTop, 1, 99)));
 
         /* Cone Scoring */
-        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.cone9());
-        gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.veryFastIntake());
         gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
 
         /* Miscellaneous */

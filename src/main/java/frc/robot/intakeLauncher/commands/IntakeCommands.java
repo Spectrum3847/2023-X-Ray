@@ -41,6 +41,30 @@ public class IntakeCommands {
                 .withName("Intake");
     }
 
+    public static Command VerySlowIntake() {
+        return setVelocities(
+                        Intake.config.lowerIntakeSpeedslow,
+                        Intake.config.frontIntakeSpeedslow,
+                        Intake.config.launcherIntakeSpeedslow)
+                .withName("VerySlowIntake");
+    }
+
+    public static Command mediumIntake() {
+        return setVelocities(
+                        Intake.config.lowerMedium,
+                        Intake.config.frontMedium,
+                        Intake.config.launcherMedium)
+                .withName("MediumIntake");
+    }
+
+    public static Command veryFastIntake() {
+        return setVelocities(
+                        Intake.config.lowerFast,
+                        Intake.config.frontFast,
+                        Intake.config.launcherFast)
+                .withName("VeryFastIntake");
+    }
+
     public static Command fullIntake() {
         return setIntakeRollers(1.0, 1.0, 0).withName("FullIntake");
     }

@@ -50,6 +50,10 @@ public class FourBarCommands {
         return setMMPercent(FourBar.config.cone9);
     }
 
+    public static Command cone7() {
+        return setMMPercent(FourBar.config.cone7);
+    }
+
     public static Command coneStandingIntake() {
         return setMMPercent(FourBar.config.coneStandingIntake);
     }
