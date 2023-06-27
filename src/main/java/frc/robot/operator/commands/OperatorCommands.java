@@ -31,6 +31,17 @@ public class OperatorCommands {
                 .finallyDo((b) -> homeSystems().withTimeout(1.5).schedule());
     }
 
+    public static Command cone12InchesEject() {
+        return ElevatorCommands.move12Inches()
+                .alongWith(FourBarCommands.cone12())
+                .withName("Operator12Inches");
+    }
+
+    public static Command cone9() {
+        return FourBarCommands.cone9()
+                .finallyDo((b) -> FourBarCommands.home().withTimeout(0.5).schedule());
+    }
+
     public static Command coneStandingIntake() {
         return new ConeIntake()
                 .alongWith(
@@ -128,6 +139,10 @@ public class OperatorCommands {
         return ElevatorCommands.coastMode()
                 .alongWith(FourBarCommands.coastMode())
                 .withName("OperatorCoastMode");
+    }
+
+    public static Command fasterIntake() {
+        return IntakeCommands.fastIntake().withName("OperatorFastIntake");
     }
 
     public static Command homeAndSlowIntake() {

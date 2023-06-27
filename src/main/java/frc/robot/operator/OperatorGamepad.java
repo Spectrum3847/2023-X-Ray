@@ -49,9 +49,7 @@ public class OperatorGamepad extends Gamepad {
                 .whileTrue(
                         OperatorCommands.cubeChargeStation()
                                 .alongWith(PilotCommands.rumble(1, 99)));
-        gamepad.aButton
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
+        gamepad.aButton.and(noRightBumper()).whileTrue(OperatorCommands.fasterIntake());
         gamepad.bButton
                 .and(noRightBumper())
                 .whileTrue(
@@ -61,7 +59,7 @@ public class OperatorGamepad extends Gamepad {
                                                 Elevator.config.cubeTop, 1, 99)));
 
         /* Cone Scoring */
-        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.coneFloorGoal());
+        gamepad.xButton.and(rightBumper()).whileTrue(OperatorCommands.cone9());
         gamepad.xButton.and(noRightBumper()).whileTrue(OperatorCommands.coneMid());
         gamepad.yButton.and(noRightBumper()).whileTrue(OperatorCommands.coneTop());
 
@@ -77,9 +75,6 @@ public class OperatorGamepad extends Gamepad {
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .and(noRightBumper())
                 .whileTrue(OperatorCommands.manualFourBar());
-        AxisButton.create(gamepad, XboxAxis.LEFT_Y, 0.1)
-                .and(noRightBumper())
-                .whileTrue(OperatorCommands.manualElevator());
 
         AxisButton.create(gamepad, XboxAxis.RIGHT_Y, 0.1)
                 .and(rightBumper())

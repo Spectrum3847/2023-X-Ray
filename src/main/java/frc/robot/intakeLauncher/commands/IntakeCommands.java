@@ -25,6 +25,14 @@ public class IntakeCommands {
                 .withName("SlowIntake");
     }
 
+    public static Command fastIntake() {
+        return setVelocities(
+                        Intake.config.lowerFastSpeed,
+                        Intake.config.frontFastSpeed,
+                        Intake.config.launcherFastSpeed)
+                .withName("SlowIntake");
+    }
+
     public static Command intake() {
         return setVelocities(
                         Intake.config.lowerIntakeSpeed,

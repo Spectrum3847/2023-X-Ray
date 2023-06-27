@@ -246,11 +246,12 @@ public class AutoPaths {
                                                 "Alexis", new PathConstraints(0.5, 0.5))));
     }
 
-    public static Command Balanceonly() {
-        return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("Balanceonly", new PathConstraints(0.5, 0.5)))
-                .andThen(new AutoBalance());
-    }
+    //     public static Command Balanceonly() {
+    //         return Auton.getAutoBuilder()
+    //                 .fullAuto(PathPlanner.loadPathGroup("Balanceonly", new PathConstraints(0.5,
+    // 0.5)))
+    //                 .andThen(new AutoBalance());
+    //     }
 
     public static Command MoveBall() {
         return Auton.getAutoBuilder()

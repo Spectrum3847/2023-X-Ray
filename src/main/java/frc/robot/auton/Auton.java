@@ -119,7 +119,7 @@ public class Auton {
         autonChooser.addOption("Drake", AutoPaths.Drake());
         autonChooser.addOption("Alexis", AutoPaths.Alexis());
         autonChooser.addOption("Asher", AutoPaths.Asher());
-        autonChooser.addOption("Balanceonly", AutoPaths.Balanceonly());
+        // autonChooser.addOption("Balanceonly", AutoPaths.Balanceonly());
         autonChooser.addOption("MoveBall", AutoPaths.MoveBall());
         autonChooser.addOption("Michael", AutoPaths.Michael());
 

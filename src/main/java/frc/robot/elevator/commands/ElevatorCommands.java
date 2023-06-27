@@ -87,6 +87,10 @@ public class ElevatorCommands {
         return hopElevator(0);
     }
 
+    public static Command move12Inches() {
+        return setMMPositionFromInches(Elevator.config.cone12Inches).withName("Elevator12Inches");
+    }
+
     public static Command coneFloorGoal() {
         return setMMPositionFromInches(Elevator.config.coneHybrid).withName("ElevatorConeFloor");
     }
