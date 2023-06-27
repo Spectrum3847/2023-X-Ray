@@ -2,8 +2,8 @@ package frc.robot.trajectories;
 
 public class TrajectoriesConfig {
     /* Swerve Controller Constants */
-    public static final double kGenPathMaxSpeed = 2;
-    public static final double kGenPathMaxAccel = 2;
+    public static final double kGenPathMaxSpeed = 4;
+    public static final double kGenPathMaxAccel = 4;
     public static final double kGenPathBumpSpeed = 2;
 
     // PID Values for 2023

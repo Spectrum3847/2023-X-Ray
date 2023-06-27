@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.trajectories.commands.FollowOnTheFlyPath;
 import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.text.DecimalFormat;
 
@@ -101,18 +100,17 @@ public class Vision extends SubsystemBase {
             /* Adding Limelight estimate if in teleop enabled */
             if (DriverStation.isTeleopEnabled()) {
                 if (visionAccurate()) {
-                    if (!FollowOnTheFlyPath.OTF) {
-                        resetEstimatedPose();
-                        poseOverriden = true;
-                    }
+                    // if (!FollowOnTheFlyPath.OTF) poseOverriden = true;
                     canUseAutoPilot = true;
-                } else if (isEstimateReady(botPose) && FollowOnTheFlyPath.OTF) {
+                    // } else if (isEstimateReady(botPose) && FollowOnTheFlyPath.OTF) {
+                    // this can't be done in the command itself because of how addVisionMeasurement
+                    // is called internally
                     Robot.pose.addVisionMeasurement(botPose, latency);
                     poseOverriden = false;
                     canUseAutoPilot = true;
                 } else {
                     poseOverriden = false;
-                    if (!FollowOnTheFlyPath.OTF) canUseAutoPilot = false;
+                    // if (!FollowOnTheFlyPath.OTF) canUseAutoPilot = false;
                 }
             } else {
                 poseOverriden = false;
@@ -276,8 +274,7 @@ public class Vision extends SubsystemBase {
      */
     public Pose2d toPose2d(Pose3d pose3d) {
         Pose2d pose2d = botPose3d.toPose2d();
-        // return new Pose2d(pose2d.getTranslation(), Robot.pose.getHeading());
-        return new Pose2d(pose2d.getTranslation(), Robot.swerve.odometry.getRotation());
+        return new Pose2d(pose2d.getTranslation(), Robot.pose.getHeading());
     }
 
     /**
