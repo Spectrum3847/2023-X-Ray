@@ -76,8 +76,7 @@ public class Auton {
         autonChooser.setDefaultOption("Clean Side (3 piece)", AutoPaths.CleanSide());
         autonChooser.addOption("Bump Side (3 piece)", AutoPaths.BumpSide());
         autonChooser.addOption("Over Charge (2 piece)", AutoPaths.OverCharge());
-        autonChooser.addOption("Clean Side w/ Balance (2 piece and grab)", AutoPaths.CleanSideWBalance());
-
+        
         score3rd.setDefaultOption("True", true);
         score3rd.addOption("False", false);
 
