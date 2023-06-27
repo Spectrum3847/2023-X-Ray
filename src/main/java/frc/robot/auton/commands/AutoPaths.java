@@ -202,6 +202,61 @@ public class AutoPaths {
         //                                         AutonConfig.kMaxBumpAccel))));
     }
 
+    public static Command Joseph() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("Joseph", new PathConstraints(0.5, 0.5)))
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Joseph1", new PathConstraints(0.5, 0.5))));
+    }
+
+    public static Command Drake() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("Drake", new PathConstraints(0.5, 0.5)))
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Alexis", new PathConstraints(0.5, 0.5))));
+    }
+
+    public static Command Asher() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("Asher", new PathConstraints(0.5, 0.5)))
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Joseph1", new PathConstraints(1, 1))));
+    }
+
+    public static Command Michael() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("Michael", new PathConstraints(0.5, 0.5)));
+    }
+
+    public static Command Alexis() {
+        return AutonCommands.coneTop()
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Alexis", new PathConstraints(0.5, 0.5))));
+    }
+
+    public static Command Balanceonly() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("Balanceonly", new PathConstraints(0.5, 0.5)))
+                .andThen(new AutoBalance());
+    }
+
+    public static Command MoveBall() {
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("MoveBall", new PathConstraints(1.5, 1.75)));
+    }
+
     public static Command TestCleanSide1() {
         return Auton.getAutoBuilder()
                 .fullAuto(PathPlanner.loadPathGroup("NewCleanSide1", new PathConstraints(3, 2)))

@@ -66,9 +66,9 @@ public class AutoBalance extends CommandBase {
     }
 
     private double currentAngle() {
-        return Robot.swerve.gyro.getRawPitch().getDegrees() * Robot.swerve.getRotation().getCos()
-                + Robot.swerve.gyro.getRawRoll().getDegrees() * Robot.swerve.getRotation().getSin()
-                - angleOffset;
+        return -Robot.swerve.gyro.getRawPitch().getDegrees() * Robot.swerve.getRotation().getCos()
+                - +Robot.swerve.gyro.getRawRoll().getDegrees() * Robot.swerve.getRotation().getSin()
+                + angleOffset;
     }
 
     @Override

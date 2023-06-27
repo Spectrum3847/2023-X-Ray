@@ -7,7 +7,6 @@ package frc.robot.elevator.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.RobotTelemetry;
 import frc.robot.elevator.Elevator;
 import frc.robot.elevator.ElevatorConfig;
 
