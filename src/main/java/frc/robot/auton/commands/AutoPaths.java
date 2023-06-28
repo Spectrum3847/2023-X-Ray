@@ -9,20 +9,28 @@ import frc.robot.swerve.commands.LockSwerve;
 
 public class AutoPaths {
     public static Command CleanSide() {
-        return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("CleanSide1", new PathConstraints(4, 3)))
+        return AutonCommands.coneTop()
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "CleanSide1", new PathConstraints(4, 3.15))))
                 .andThen(AutonCommands.alignToGridMidFast())
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "CleanSide2", new PathConstraints(4, 3.05))))
+                                                "CleanSide2", new PathConstraints(4, 3.15))))
                 .andThen(AutonCommands.alignToGridHighFast());
     }
 
     public static Command BumpSide() {
-        return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("Bump1", new PathConstraints(4, 2.6)))
+        return AutonCommands.coneTop()
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "Bump1", new PathConstraints(4, 2.6))))
                 .andThen(
                         AutonCommands.coolShotFast()
                                 .alongWith(AutonCommands.faceForward())
@@ -35,9 +43,36 @@ public class AutoPaths {
                                 .andThen(AutonCommands.alignToGridHighFast()));
     }
 
+    public static Command OverCharge() {
+        return AutonCommands.coneTop()
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "OverCharge1", new PathConstraints(2.5, 1.5))))
+                .andThen(AutonCommands.faceForward().withTimeout(0.1))
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "OverCharge2", new PathConstraints(2.5, 2))))
+                .andThen(AutonCommands.alignToGridHigh())
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "OverCharge3", new PathConstraints(4, 2))))
+                .andThen(new AutoBalance())
+                .andThen(new LockSwerve().withTimeout(0.1));
+    }
+
     public static Command CleanSideWBalance() {
-        return Auton.getAutoBuilder()
-                .fullAuto(PathPlanner.loadPathGroup("CleanSide1", new PathConstraints(4, 3)))
+        return AutonCommands.coneTop()
+                .andThen(
+                        Auton.getAutoBuilder()
+                                .fullAuto(
+                                        PathPlanner.loadPathGroup(
+                                                "CleanSide1", new PathConstraints(4, 3))))
                 .andThen(AutonCommands.alignToGridMidFast())
                 .andThen(
                         Auton.getAutoBuilder()
@@ -48,13 +83,13 @@ public class AutoPaths {
                 .andThen(new LockSwerve().withTimeout(0.1));
     }
 
-    public static Command OverCharge() {
+    public static Command OldOverCharge() {
         return AutonCommands.coneMid()
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "OverCharge1",
+                                                "OldOverCharge1",
                                                 new PathConstraints(
                                                         AutonConfig.kMaxSpeed,
                                                         AutonConfig.kMaxAccel - 0.7)))
@@ -62,7 +97,7 @@ public class AutoPaths {
                                         Auton.getAutoBuilder()
                                                 .fullAuto(
                                                         PathPlanner.loadPathGroup(
-                                                                "OverCharge2",
+                                                                "OldOverCharge2",
                                                                 new PathConstraints(
                                                                         AutonConfig
                                                                                 .kMaxBalanceSpeed,
@@ -72,7 +107,7 @@ public class AutoPaths {
                                         Auton.getAutoBuilder()
                                                 .fullAuto(
                                                         PathPlanner.loadPathGroup(
-                                                                "OverCharge3",
+                                                                "OldOverCharge3",
                                                                 new PathConstraints(
                                                                         AutonConfig.kMaxSpeed,
                                                                         AutonConfig.kMaxAccel
@@ -226,25 +261,5 @@ public class AutoPaths {
                                                 new PathConstraints(
                                                         AutonConfig.kMaxCleanSpeed - 1,
                                                         AutonConfig.kMaxCleanAccel - 1.5))));
-    }
-
-    public static Command NewOverChargeTest() {
-        return Auton.getAutoBuilder()
-                .fullAuto(
-                        PathPlanner.loadPathGroup("NewOverCharge1", new PathConstraints(2.5, 1.5)))
-                .andThen(AutonCommands.faceForward().withTimeout(0.1))
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "NewOverCharge2", new PathConstraints(2.5, 2))))
-                .andThen(AutonCommands.alignToGridHighFast())
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "NewOverCharge3", new PathConstraints(4, 2))))
-                .andThen(new AutoBalance())
-                .andThen(new LockSwerve().withTimeout(0.1));
     }
 }
