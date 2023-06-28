@@ -243,7 +243,7 @@ public class AutoPaths {
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "NewOverCharge3", new PathConstraints(3, 1.5))))
+                                                "NewOverCharge3", new PathConstraints(4, 2))))
                 .andThen(new AutoBalance())
                 .andThen(new LockSwerve().withTimeout(0.1));
     }
