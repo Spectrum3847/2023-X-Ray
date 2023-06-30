@@ -34,7 +34,7 @@ public final class RobotConfig {
         public static final int driveMotor3 = 31;
         public static final int angleMotor3 = 32;
 
-        public static final int elevatorMotor = 43;
+        public static final int elevatorMotor = 41;
         public static final int fourBarMotor = 42;
 
         public static final int lowerRoller = 51;
