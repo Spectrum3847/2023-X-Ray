@@ -2,6 +2,7 @@ package frc.robot.pilot;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.SpectrumLib.gamepads.AxisButton;
 import frc.SpectrumLib.gamepads.AxisButton.ThresholdType;
@@ -12,6 +13,7 @@ import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
+import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.trajectories.commands.DistanceDrive;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
@@ -80,8 +82,11 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
 
         /* Aligning */
+        // rightBumperOnly()
+        //         .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive(), 0));
+
         rightBumperOnly()
-                .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive(), 0));
+                .whileTrue(PilotCommands.aimPilotDrive(() -> Robot.vision.getRotationToTag()));
         // rightBumperOnly().whileTrue(new DriveToCubeNode(0));
         rightBumperOnly()
                 .and(rightTrigger)

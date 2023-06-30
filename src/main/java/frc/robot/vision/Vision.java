@@ -133,6 +133,11 @@ public class Vision extends SubsystemBase {
         printDebug(poseArray);
     }
 
+    public double getRotationToTag() {
+        double x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        return (x/27)*Math.PI;
+    }
+
     /**
      * REQUIRES ACCURATE POSE ESTIMATION. Uses trigonometric functions to calculate the angle
      * between the robot heading and the angle required to face the hybrid spot. Will return 0 if
