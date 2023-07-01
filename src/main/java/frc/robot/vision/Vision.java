@@ -134,8 +134,9 @@ public class Vision extends SubsystemBase {
     }
 
     public double getRotationToTag() {
-        double x = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-        return (x/27)*Math.PI;
+        double x =
+                NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+        return (x / 27) * Math.PI;
     }
 
     /**
