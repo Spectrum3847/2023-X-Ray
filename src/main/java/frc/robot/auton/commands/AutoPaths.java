@@ -55,7 +55,7 @@ public class AutoPaths {
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "OverCharge2", new PathConstraints(2.5, 2))))
+                                                "OverCharge2", new PathConstraints(4, 2.5))))
                 .andThen(AutonCommands.alignToGridHigh())
                 .andThen(
                         Auton.getAutoBuilder()
