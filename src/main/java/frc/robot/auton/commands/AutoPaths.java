@@ -14,7 +14,7 @@ public class AutoPaths {
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "CleanSide1", new PathConstraints(4, 3.15))))
+                                                "CleanSide1", new PathConstraints(4, 3.17))))
                 .andThen(AutonCommands.alignToGridMidFast())
                 .andThen(
                         Auton.getAutoBuilder()

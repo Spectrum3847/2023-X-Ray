@@ -49,7 +49,8 @@ public class OperatorGamepad extends Gamepad {
         //         .and(rightBumper())
         //         .whileTrue(
         //                 OperatorCommands.cubeChargeStation()
-        //                         .alongWith(PilotCommands.rumble(1, 99)));
+        //                         .alongWith(PilotCommands.rumble(1, 99))); //disabled for training
+        // wheels
         gamepad.aButton
                 .and(noRightBumper())
                 .whileTrue(OperatorCommands.cubeMid().alongWith(PilotCommands.rumble(1, 99)));
