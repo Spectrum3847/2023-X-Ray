@@ -44,10 +44,10 @@ public class IntakeConfig {
     public double frontHybridSpeed = 800;
     public double launcherHybridSpeed = frontHybridSpeed - 400;
 
-    public double frontMidCubeSpeed = 1200; // 900 IS FOR PRACTICE bc of gear change
+    public double frontMidCubeSpeed = 1125; // 900 IS FOR PRACTICE bc of gear change
     public double launcherMidCubeSpeed = frontMidCubeSpeed - 500;
 
-    public double frontTopCubeSpeed = 2200; // 1400 IS FOR PRACTICE bc of gear change
+    public double frontTopCubeSpeed = 2100; // 1400 IS FOR PRACTICE bc of gear change
     public double launcherTopCubeSpeed = frontTopCubeSpeed - 300; // 2000;
 
     public double frontChargeStationLaunchSpeed = 1000;
