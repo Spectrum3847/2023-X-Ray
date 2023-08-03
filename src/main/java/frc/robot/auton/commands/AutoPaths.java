@@ -9,54 +9,34 @@ import frc.robot.swerve.commands.LockSwerve;
 
 public class AutoPaths {
     public static Command CleanSide() {
-        return AutonCommands.coneTop()
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("CleanSide1", new PathConstraints(4, 3.17)))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "CleanSide1", new PathConstraints(4, 3.17))))
-                .andThen(AutonCommands.alignToGridMidFast())
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "CleanSide2", new PathConstraints(4, 3.15))))
-                .andThen(AutonCommands.alignToGridHighFast());
+                                                "CleanSide2", new PathConstraints(4, 3.15))));
     }
 
     public static Command BumpSide() {
-        return AutonCommands.coneTop()
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("Bump1", new PathConstraints(4, 2.6)))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
-                                                "Bump1", new PathConstraints(4, 2.6))))
-                .andThen(
-                        AutonCommands.coolShotFast()
-                                .alongWith(AutonCommands.faceForward())
-                                .withTimeout(0.55))
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "Bump2", new PathConstraints(4, 2.6)))
-                                .andThen(AutonCommands.alignToGridHighFast()));
+                                                "Bump2", new PathConstraints(4, 2.6))));
     }
 
     public static Command OverCharge() {
-        return AutonCommands.coneTop()
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "OverCharge1", new PathConstraints(2.5, 1.5))))
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("OverCharge1", new PathConstraints(2.5, 1.5)))
                 .andThen(AutonCommands.faceForward().withTimeout(0.1))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
                                         PathPlanner.loadPathGroup(
                                                 "OverCharge2", new PathConstraints(4, 2.5))))
-                .andThen(AutonCommands.alignToGridHigh())
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
@@ -67,13 +47,8 @@ public class AutoPaths {
     }
 
     public static Command CleanSideWBalance() {
-        return AutonCommands.coneTop()
-                .andThen(
-                        Auton.getAutoBuilder()
-                                .fullAuto(
-                                        PathPlanner.loadPathGroup(
-                                                "CleanSide1", new PathConstraints(4, 3))))
-                .andThen(AutonCommands.alignToGridMidFast())
+        return Auton.getAutoBuilder()
+                .fullAuto(PathPlanner.loadPathGroup("CleanSide1", new PathConstraints(4, 3)))
                 .andThen(
                         Auton.getAutoBuilder()
                                 .fullAuto(
