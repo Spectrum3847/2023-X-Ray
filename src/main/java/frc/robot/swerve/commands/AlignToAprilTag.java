@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Robot;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
+import frc.robot.vision.VisionConfig;
 import java.util.function.DoubleSupplier;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -24,14 +25,21 @@ public class AlignToAprilTag extends PIDCommand {
     SwerveDrive driveCommand;
     DoubleSupplier fwdPositiveSupplier;
     private static double out;
+    private int pipelineIndex;
 
-    /** Creates a new AlignToAprilTag. */
-    public AlignToAprilTag(DoubleSupplier fwdPositiveSupplier, double offset) {
+    /**
+     * Creates a new AlignToAprilTag //TODO: change naming, not just apriltag anymore
+     *
+     * @param fwdPositiveSupplier
+     * @param offset
+     * @param pipeline which limelight pipeline to set to. Apriltag, retro, detector
+     */
+    public AlignToAprilTag(DoubleSupplier fwdPositiveSupplier, double offset, int pipelineIndex) {
         super(
                 // The controller that the command will use
                 new PIDController(lowKP, 0, 0),
                 // This should return the measurement
-                () -> Robot.vision.getHorizontalOffset(),
+                () -> (-Robot.vision.getHorizontalOffset()),
                 // This should return the setpoint (can also be a constant)
                 () -> offset,
                 // This uses the output
@@ -48,11 +56,12 @@ public class AlignToAprilTag extends PIDCommand {
                         () -> true); // Field relative is true
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
+        this.pipelineIndex = pipelineIndex;
         this.setName("AlignToAprilTag");
     }
 
     public double getSteering() {
-        return Robot.swerve.calculateRotationController(() -> Math.PI);
+        return Robot.swerve.calculateRotationController(() -> 0);
     }
 
     public static void setOutput(double output) {
@@ -80,6 +89,8 @@ public class AlignToAprilTag extends PIDCommand {
         } else {
             this.getController().setP(lowKP);
         }
+
+        Robot.vision.setLimelightPipeline(pipelineIndex);
     }
 
     @Override
@@ -92,6 +103,8 @@ public class AlignToAprilTag extends PIDCommand {
     @Override
     public void end(boolean interrupted) {
         // getLedCommand(tagID).end(interrupted);
+        Robot.vision.setLimelightPipeline(VisionConfig.aprilTagPipeline);
+        driveCommand.end(interrupted);
     }
 
     // Returns true when the command should end.

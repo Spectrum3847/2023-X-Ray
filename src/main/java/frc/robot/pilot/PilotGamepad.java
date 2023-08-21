@@ -12,7 +12,9 @@ import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.AlignToAprilTag;
+import frc.robot.swerve.commands.DriveToCubeNode;
 import frc.robot.trajectories.commands.DistanceDrive;
+import frc.robot.vision.VisionConfig;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -80,21 +82,27 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
 
         /* Aligning */
-        rightBumperOnly()
-                .whileTrue(new AlignToAprilTag(() -> Robot.pilotGamepad.getDriveFwdPositive(), 0));
-        // rightBumperOnly().whileTrue(new DriveToCubeNode(0));
+        // rightBumperOnly()
+        //         .whileTrue(
+        //                 new AlignToAprilTag(
+        //                         () -> Robot.pilotGamepad.getDriveFwdPositive(),
+        //                         0,
+        //                         VisionConfig.detectorPipeline));
+        rightBumperOnly().whileTrue(new DriveToCubeNode(0, VisionConfig.detectorPipeline));
         rightBumperOnly()
                 .and(rightTrigger)
                 .whileTrue(
                         new AlignToAprilTag(
                                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                                PilotConfig.alignmentOffset));
+                                PilotConfig.alignmentOffset,
+                                VisionConfig.aprilTagPipeline));
         rightBumperOnly()
                 .and(leftTrigger)
                 .whileTrue(
                         new AlignToAprilTag(
                                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                                -PilotConfig.alignmentOffset));
+                                -PilotConfig.alignmentOffset,
+                                VisionConfig.aprilTagPipeline));
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));

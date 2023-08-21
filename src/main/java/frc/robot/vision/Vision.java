@@ -384,4 +384,9 @@ public class Vision extends SubsystemBase {
             System.out.println(" needed new theta: " + df.format(theta));
         }
     }
+
+    /** @param pipelineIndex use pipeline indexes in {@link VisionConfig} */
+    public void setLimelightPipeline(int pipelineIndex) {
+        LimelightHelpers.setPipelineIndex(null, pipelineIndex);
+    }
 }

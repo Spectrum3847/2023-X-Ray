@@ -15,6 +15,7 @@ import frc.robot.swerve.commands.AlignToAprilTag;
 import frc.robot.swerve.commands.DriveToCubeNode;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
+import frc.robot.vision.VisionConfig;
 import java.util.function.DoubleSupplier;
 
 public class AutonCommands {
@@ -166,7 +167,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridMid() {
-        return new DriveToCubeNode(0)
+        return new DriveToCubeNode(0, VisionConfig.aprilTagPipeline)
                 .alongWith(ElevatorCommands.cubeMid())
                 .withTimeout(0.75)
                 .andThen(spinLauncherFast(IntakeCommands.midCubeSpinUp()))
@@ -174,7 +175,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridHigh() {
-        return new DriveToCubeNode(0)
+        return new DriveToCubeNode(0, VisionConfig.aprilTagPipeline)
                 .alongWith(ElevatorCommands.cubeTop())
                 .withTimeout(0.75)
                 .andThen(spinLauncherFast(IntakeCommands.topCubeSpinUp()))
@@ -182,7 +183,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridMidFast() {
-        return new DriveToCubeNode(0)
+        return new DriveToCubeNode(0, VisionConfig.aprilTagPipeline)
                 .alongWith(ElevatorCommands.cubeMid())
                 .withTimeout(0.45)
                 .andThen(spinLauncherFast(IntakeCommands.midCubeSpinUp()))
@@ -190,7 +191,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridHighFast() {
-        return new DriveToCubeNode(0)
+        return new DriveToCubeNode(0, VisionConfig.aprilTagPipeline)
                 .alongWith(ElevatorCommands.cubeTop())
                 .withTimeout(0.45)
                 .andThen(spinLauncherFast(IntakeCommands.topCubeSpinUp()))
@@ -198,7 +199,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridLowCube() {
-        return new AlignToAprilTag(() -> -0.75, 0)
+        return new AlignToAprilTag(() -> -0.75, 0, VisionConfig.aprilTagPipeline)
                 .withTimeout(1)
                 .alongWith(IntakeCommands.hybridShot())
                 .withTimeout(1)
@@ -206,7 +207,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridLowCone() {
-        return new AlignToAprilTag(() -> -0.75, 0)
+        return new AlignToAprilTag(() -> -0.75, 0, VisionConfig.aprilTagPipeline)
                 .withTimeout(1)
                 .alongWith(ElevatorCommands.coneFloorGoal())
                 .alongWith(FourBarCommands.coneFloorGoal())
