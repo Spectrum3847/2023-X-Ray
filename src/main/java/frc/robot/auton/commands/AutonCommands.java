@@ -11,7 +11,7 @@ import frc.robot.intakeLauncher.commands.ConeIntake;
 import frc.robot.intakeLauncher.commands.CubeIntake;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.operator.commands.OperatorCommands;
-import frc.robot.swerve.commands.AlignToAprilTag;
+import frc.robot.swerve.commands.AlignToVisionTarget;
 import frc.robot.swerve.commands.DriveToCubeNode;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
@@ -198,7 +198,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridLowCube() {
-        return new AlignToAprilTag(() -> -0.75, 0)
+        return new AlignToVisionTarget(() -> -0.75, 0)
                 .withTimeout(1)
                 .alongWith(IntakeCommands.hybridShot())
                 .withTimeout(1)
@@ -206,7 +206,7 @@ public class AutonCommands {
     }
 
     public static Command alignToGridLowCone() {
-        return new AlignToAprilTag(() -> -0.75, 0)
+        return new AlignToVisionTarget(() -> -0.75, 0)
                 .withTimeout(1)
                 .alongWith(ElevatorCommands.coneFloorGoal())
                 .alongWith(FourBarCommands.coneFloorGoal())

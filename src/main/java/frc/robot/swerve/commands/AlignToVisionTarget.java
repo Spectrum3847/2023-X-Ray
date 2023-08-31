@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Robot;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
+import frc.robot.vision.VisionConfig;
+
 import java.util.function.DoubleSupplier;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AlignToAprilTag extends PIDCommand {
+public class AlignToVisionTarget extends PIDCommand {
 
     private static double lowKP = 0.035;
     private static double highKP = 0.06;
@@ -25,8 +27,12 @@ public class AlignToAprilTag extends PIDCommand {
     DoubleSupplier fwdPositiveSupplier;
     private static double out;
 
-    /** Creates a new AlignToAprilTag. */
-    public AlignToAprilTag(DoubleSupplier fwdPositiveSupplier, double offset) {
+    /** Creates a new AlignToVisionTarget command that aligns to a vision target (apriltag, retroreflective tape, detector target) on the Field Oriented X-axis. 
+     * @param fwdPositiveSupplier
+     * @param offset
+     * @param pipeline
+     *  */
+    public AlignToVisionTarget(DoubleSupplier fwdPositiveSupplier, double offset, int pipeline) {
         super(
                 // The controller that the command will use
                 new PIDController(lowKP, 0, 0),
@@ -48,7 +54,14 @@ public class AlignToAprilTag extends PIDCommand {
                         () -> true); // Field relative is true
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
-        this.setName("AlignToAprilTag");
+        this.setName("AlignToVisionTarget");
+    }
+
+    private double getMeasurementSource(int index) {
+        if(index == VisionConfig.detectorPipeline) {
+            return Robot.vision.getHorizontalOffset();
+        }
+        return Robot.vision.getHorizontalOffset();
     }
 
     public double getSteering() {

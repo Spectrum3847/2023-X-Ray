@@ -40,7 +40,7 @@ public class DriveToCubeNode extends PIDCommand {
                 output -> {
                     setOutput(output);
                 });
-        alignToTag = new AlignToAprilTag(() -> getOutput(), horizontalOffset);
+        alignToTag = new AlignToVisionTarget(() -> getOutput(), horizontalOffset);
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.swerve);
         // Configure additional PID options by calling `getController` here.
