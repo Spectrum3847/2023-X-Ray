@@ -4,11 +4,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.Robot;
 import frc.robot.elevator.Elevator;
+import frc.robot.mechanisms.MechanismsCommands;
 import frc.robot.pose.commands.PoseCommands;
+import frc.robot.swerve.commands.DriveToVisionTarget;
 import frc.robot.swerve.commands.HeadingLock;
 import frc.robot.swerve.commands.LockSwerve;
 import frc.robot.swerve.commands.SwerveCommands;
 import frc.robot.swerve.commands.SwerveDrive;
+import frc.robot.vision.VisionConfig;
 import java.util.function.DoubleSupplier;
 
 /** Should contain commands used only by the pilot controller and to rumble pilot command */
@@ -53,6 +56,50 @@ public class PilotCommands {
                                 PilotConfig.intakeCoRmeters))
                 .withName("SnakeDrive");
     }*/
+
+    public static Command automatedConeIntake() {
+        return new DriveToVisionTarget(0, VisionConfig.coneDetectorPipeline)
+                .andThen(MechanismsCommands.coneStandingIntake())
+                .withName("PilotAutomatedConeIntake");
+    }
+
+    public static Command automatedCubeIntake() {
+        return new DriveToVisionTarget(0, VisionConfig.cubeDetectorPipeline)
+                .andThen(MechanismsCommands.cubeIntake())
+                .withName("PilotAutomatedCubeIntake");
+    }
+
+    public static Command automatedCubeFloor() {
+        return new DriveToVisionTarget(0, VisionConfig.aprilTagPipeline)
+        .andThen(MechanismsCommands.cubeFloor())
+        .withName("PilotAutomatedCubeFloor");
+    }
+
+    public static Command automatedCubeMid() {
+        return new DriveToVisionTarget(0, VisionConfig.aprilTagPipeline)
+                                .alongWith(MechanismsCommands.cubeMid())
+                                .andThen(MechanismsCommands.launchAndRetract()).withName("PilotAutomatedCubeMid");
+    }
+
+    public static Command automatedCubeTop() {
+        return new DriveToVisionTarget(0, VisionConfig.aprilTagPipeline)
+                                .alongWith(MechanismsCommands.cubeTop())
+                                .andThen(MechanismsCommands.launchAndRetract()).withName("PilotAutomatedCubeTop");
+    }
+
+    public static Command automatedConeMid() {
+        return new DriveToVisionTarget(0, VisionConfig.reflectivePipeline)
+        .andThen(MechanismsCommands.coneMid())
+        .withName("PilotAutomatedConeMid");
+    }
+
+    public static Command automatedConeTop() {
+        return new DriveToVisionTarget(0, VisionConfig.reflectivePipeline)
+        .andThen(MechanismsCommands.coneTop())
+        .withName("PilotAutomatedConeMid");
+    }
+
+
 
     /**
      * Drive the robot and control orientation using the right stick

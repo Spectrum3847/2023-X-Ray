@@ -12,7 +12,6 @@ import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
 import frc.robot.mechanisms.MechanismsCommands;
 import frc.robot.pilot.commands.PilotCommands;
-import frc.robot.swerve.commands.AlignToVisionTarget;
 import frc.robot.swerve.commands.DriveToVisionTarget;
 import frc.robot.trajectories.commands.DistanceDrive;
 import frc.robot.vision.VisionConfig;
@@ -77,28 +76,24 @@ public class PilotGamepad extends Gamepad {
         gamepad.bButton.whileTrue(IntakeCommands.launch());
 
         /* Dpad */
-        gamepad.Dpad.Up.and(noBumpers().or(rightBumperOnly())).whileTrue(IntakeCommands.launch());
-        gamepad.Dpad.Down.and(noBumpers().or(rightBumperOnly())).whileTrue(IntakeCommands.eject());
+        gamepad.Dpad.Up.and(noBumpers()).whileTrue(IntakeCommands.launch());
+        gamepad.Dpad.Down.and(noBumpers()).whileTrue(IntakeCommands.eject());
         gamepad.Dpad.Left.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(5)));
         gamepad.Dpad.Right.and(noBumpers()).whileTrue(new DistanceDrive(Units.inchesToMeters(-5)));
 
-        /* Aligning */
-        rightBumperOnly()
-                .whileTrue(
-                        new DriveToVisionTarget(0, VisionConfig.cubeDetectorPipeline)
-                                .andThen(MechanismsCommands.cubeIntake()));
-        rightBumperOnly()
-                .and(rightTrigger)
-                .whileTrue(
-                        new DriveToVisionTarget(0, VisionConfig.coneDetectorPipeline)
-                                .andThen(MechanismsCommands.coneStandingIntake()));
+        /* Automation */
+        rightBumperOnly().and(rightTrigger).whileTrue(PilotCommands.automatedConeIntake());
         rightBumperOnly()
                 .and(leftTrigger)
                 .whileTrue(
-                        new AlignToVisionTarget(
-                                () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                                0,
-                                VisionConfig.aprilTagPipeline));
+                        PilotCommands.automatedCubeIntake());
+        //cube floor isn't bound
+        gamepad.Dpad.Up.and(rightBumperOnly()).whileTrue(PilotCommands.automatedCubeTop());
+        gamepad.Dpad.Left.and(rightBumperOnly()).whileTrue(PilotCommands.automatedConeTop());
+        gamepad.Dpad.Down.and(rightBumperOnly()).whileTrue(PilotCommands.automatedCubeMid());
+        gamepad.Dpad.Right.and(rightBumperOnly()).whileTrue(PilotCommands.automatedConeMid());
+        // .andThen(MechanismsCommands.ejectAndRetract()));
+
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));

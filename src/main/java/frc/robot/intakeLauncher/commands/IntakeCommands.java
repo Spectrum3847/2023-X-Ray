@@ -66,7 +66,7 @@ public class IntakeCommands {
                         Intake.config.frontEjectSpeed,
                         Intake.config.launcherEjectSpeed)
                 .alongWith(FourBarCommands.home().alongWith(ElevatorCommands.simpleSafeHome()))
-                .withName("Eject");
+                .withName("AutoEject");
     }
 
     public static Command floorEject() {
