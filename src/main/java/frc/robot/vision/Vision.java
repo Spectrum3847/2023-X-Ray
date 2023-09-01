@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.leds.commands.LEDCommands;
 import frc.robot.vision.LimelightHelpers.LimelightTarget_Fiducial;
 import java.text.DecimalFormat;
 
@@ -328,6 +329,28 @@ public class Vision extends SubsystemBase {
 
     public double getClosestTagID() {
         return LimelightHelpers.getFiducialID("");
+    }
+
+    /** @param pipelineIndex use pipeline indexes in {@link VisionConfig} */
+    public void setLimelightPipeline(int pipelineIndex) {
+        System.out.println("setPipeline: " + pipelineIndex);
+        LimelightHelpers.setPipelineIndex(null, pipelineIndex);
+        if (pipelineIndex == VisionConfig.coneDetectorPipeline) {
+            LEDCommands.conePipeline().schedule();
+        } else if (pipelineIndex == VisionConfig.cubeDetectorPipeline) {
+            LEDCommands.cubePipeline().schedule();
+        } else if (pipelineIndex == VisionConfig.aprilTagPipeline) {
+            LEDCommands.aprilTagPipeline().schedule();
+        } else if (pipelineIndex == VisionConfig.reflectivePipeline) {
+            LEDCommands.retroPipeline().schedule();
+        }
+    }
+
+    /** @return if current LL pipeline is on cube or cone detector */
+    public boolean isDetectorPipeline() {
+        double currentPipeline = LimelightHelpers.getCurrentPipelineIndex(null);
+        return currentPipeline == VisionConfig.coneDetectorPipeline
+                || currentPipeline == VisionConfig.cubeDetectorPipeline;
     }
 
     /**

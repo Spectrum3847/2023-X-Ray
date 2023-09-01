@@ -14,10 +14,11 @@ public final class VisionConfig {
 
     /* Limelight Configuration */
 
-        /* Pipeline config */
-        public static final int aprilTagPipeline = 0;
-        public static final int reflectivePipeline = 1;
-        public static final int detectorPipeline = 2;
+    /* Pipeline config */
+    public static final int aprilTagPipeline = 0;
+    public static final int reflectivePipeline = 1;
+    public static final int coneDetectorPipeline = 2;
+    public static final int cubeDetectorPipeline = 3;
 
     /* How many degrees back is limelight rotated from perfectly vertical */
     public static final double limelightAngle = -22.5;

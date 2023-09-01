@@ -30,7 +30,7 @@ public class LEDCommands {
     }
 
     public static Command success() {
-        return new OneColorLEDCommand(Color.kWhite, "LED Success", 120);
+        return new OneColorLEDCommand(Color.kGreen, "LED Success", 120);
     }
 
     public static Command failure() {
@@ -59,6 +59,26 @@ public class LEDCommands {
 
     public static Command rightGrid() {
         return new OneColorLEDCommand((2 / 3), 1, new Color(130, 103, 185), "Right Grid", 80);
+    }
+
+    public static Command white() {
+        return new OneColorLEDCommand(Color.kWhite, "LED White", 120);
+    }
+
+    public static Command conePipeline() {
+        return new PieceLEDCommand("LED Cone Pipeline", 120, 255, 255, 0);
+    }
+
+    public static Command cubePipeline() {
+        return new PieceLEDCommand("LED Cube Pipeline", 120, 128, 0, 128);
+    }
+
+    public static Command retroPipeline() {
+        return new PieceLEDCommand("LED Retro Pipeline", 120, 0, 128, 0);
+    }
+
+    public static Command aprilTagPipeline() {
+        return new PieceLEDCommand("LED AprilTag Pipeline", 120, 255, 255, 255);
     }
 
     public static Command elevatorHeightLED() {

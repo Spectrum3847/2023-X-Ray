@@ -10,9 +10,12 @@ import frc.SpectrumLib.gamepads.XboxGamepad.XboxAxis;
 import frc.robot.Robot;
 import frc.robot.intakeLauncher.commands.IntakeCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
+import frc.robot.mechanisms.MechanismsCommands;
 import frc.robot.pilot.commands.PilotCommands;
 import frc.robot.swerve.commands.AlignToVisionTarget;
+import frc.robot.swerve.commands.DriveToVisionTarget;
 import frc.robot.trajectories.commands.DistanceDrive;
+import frc.robot.vision.VisionConfig;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
 public class PilotGamepad extends Gamepad {
@@ -81,20 +84,21 @@ public class PilotGamepad extends Gamepad {
 
         /* Aligning */
         rightBumperOnly()
-                .whileTrue(new AlignToVisionTarget(() -> Robot.pilotGamepad.getDriveFwdPositive(), 0));
-        // rightBumperOnly().whileTrue(new DriveToCubeNode(0));
+                .whileTrue(
+                        new DriveToVisionTarget(0, VisionConfig.cubeDetectorPipeline)
+                                .andThen(MechanismsCommands.cubeIntake()));
         rightBumperOnly()
                 .and(rightTrigger)
                 .whileTrue(
-                        new AlignToVisionTarget(
-                                () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                                PilotConfig.alignmentOffset));
+                        new DriveToVisionTarget(0, VisionConfig.coneDetectorPipeline)
+                                .andThen(MechanismsCommands.coneStandingIntake()));
         rightBumperOnly()
                 .and(leftTrigger)
                 .whileTrue(
                         new AlignToVisionTarget(
                                 () -> Robot.pilotGamepad.getDriveFwdPositive(),
-                                -PilotConfig.alignmentOffset));
+                                0,
+                                VisionConfig.aprilTagPipeline));
 
         /* Reorient */
         gamepad.Dpad.Up.and(leftBumperOnly()).whileTrue(PilotCommands.reorient(0));

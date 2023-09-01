@@ -8,39 +8,44 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Robot;
+import frc.robot.vision.VisionConfig;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DriveToCubeNode extends PIDCommand {
+public class DriveToVisionTarget extends PIDCommand {
     /* Config settings */
     private static double kP = 0.06;
     private static double verticalSetpoint = -15; // neg
+    private static double detectorVerticalSetpoint = -18; // neg
     private double tolerance = 1;
     private double horizontalOffset = 0; // positive is right (driver POV)
 
     private static double out = 0;
     private Command alignToTag;
-    /** Creates a new DriveToCubeNode. */
+    /** Creates a new DriveToVisionTarget. */
     /**
-     * Aligns to a cube node in both X and Y axes
+     * Aligns to a vision target in both X and Y axes (field-oriented). If used for automation
+     * purposes, it is best to give it a timeout as a maximum timeout
      *
      * @param horizontalOffset adjustable offset in the Y axis in case robot isn't completely
      *     aligned. Default value should be 0
+     * @param pipeline the pipeline to use for vision {@link VisionConfig}
      */
-    public DriveToCubeNode(double horizontalOffset) {
+    public DriveToVisionTarget(double horizontalOffset, int pipeline) {
         super(
                 // The controller that the command will use
                 new PIDController(kP, 0, 0),
                 // This should return the measurement
                 () -> getVerticalOffset(),
                 // This should return the setpoint (can also be a constant)
-                () -> verticalSetpoint,
+                () -> getVerticalSetpoint(pipeline),
                 // This uses the output
                 output -> {
                     setOutput(output);
                 });
-        alignToTag = new AlignToVisionTarget(() -> getOutput(), horizontalOffset);
+        this.horizontalOffset = horizontalOffset;
+        alignToTag = getVisionTargetCommand(pipeline);
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(Robot.swerve);
         // Configure additional PID options by calling `getController` here.
@@ -69,6 +74,11 @@ public class DriveToCubeNode extends PIDCommand {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        if (Robot.vision.isDetectorPipeline()) {
+            if (Math.floor(getVerticalOffset()) == detectorVerticalSetpoint + 1) {
+                return true;
+            }
+        }
         // return Math.abs(out) <= 0.05;
         return false;
     }
@@ -83,6 +93,21 @@ public class DriveToCubeNode extends PIDCommand {
 
     public static double getOutput() {
         return out;
+    }
+
+    public AlignToVisionTarget getVisionTargetCommand(int pipeline) {
+        // if detector, reverse output
+        if (Robot.vision.isDetectorPipeline()) {
+            return new AlignToVisionTarget(() -> -(getOutput()), horizontalOffset, pipeline);
+        }
+        return new AlignToVisionTarget(() -> getOutput(), horizontalOffset, pipeline);
+    }
+
+    public static double getVerticalSetpoint(int pipeline) {
+        if (Robot.vision.isDetectorPipeline()) {
+            return detectorVerticalSetpoint;
+        }
+        return verticalSetpoint;
     }
 
     private static double getVerticalOffset() {

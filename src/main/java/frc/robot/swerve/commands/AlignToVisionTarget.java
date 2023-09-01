@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Robot;
 import frc.robot.leds.commands.LEDCommands;
 import frc.robot.leds.commands.OneColorLEDCommand;
-import frc.robot.vision.VisionConfig;
-
 import java.util.function.DoubleSupplier;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -26,12 +24,16 @@ public class AlignToVisionTarget extends PIDCommand {
     SwerveDrive driveCommand;
     DoubleSupplier fwdPositiveSupplier;
     private static double out;
+    private int pipelineIndex;
 
-    /** Creates a new AlignToVisionTarget command that aligns to a vision target (apriltag, retroreflective tape, detector target) on the Field Oriented X-axis. 
+    /**
+     * Creates a new AlignToVisionTarget command that aligns to a vision target (apriltag,
+     * retroreflective tape, detector target) on the Field Oriented X-axis.
+     *
      * @param fwdPositiveSupplier
      * @param offset
      * @param pipeline
-     *  */
+     */
     public AlignToVisionTarget(DoubleSupplier fwdPositiveSupplier, double offset, int pipeline) {
         super(
                 // The controller that the command will use
@@ -45,27 +47,55 @@ public class AlignToVisionTarget extends PIDCommand {
                 Robot.swerve);
 
         this.getController().setTolerance(tolerance);
+        this.pipelineIndex = pipeline;
         driveCommand =
                 new SwerveDrive(
                         fwdPositiveSupplier, // Allows pilot to drive fwd and rev
                         () -> getOutput(), // Moves us center to the tag
                         () -> getSteering(), // Aligns to grid
                         () -> 1.0, // full velocity
-                        () -> true); // Field relative is true
+                        () -> getFieldRelative()); // Field relative is true
         // Use addRequirements() here to declare subsystem dependencies.
         // Configure additional PID options by calling `getController` here.
         this.setName("AlignToVisionTarget");
     }
 
+    /**
+     * Gets the measurement source for the PIDController. This changes to the opposite source if the
+     * pipeline is the detector pipeline.
+     *
+     * @param index pipeline index
+     * @return
+     */
     private double getMeasurementSource(int index) {
-        if(index == VisionConfig.detectorPipeline) {
-            return Robot.vision.getHorizontalOffset();
+        if (Robot.vision.isDetectorPipeline()) {
+            return -(Robot.vision.getHorizontalOffset());
         }
         return Robot.vision.getHorizontalOffset();
     }
 
     public double getSteering() {
+        // dont set rotation on detector pipelines
+        if (Robot.vision.isDetectorPipeline()) {
+            return 0;
+        }
         return Robot.swerve.calculateRotationController(() -> Math.PI);
+    }
+
+    public boolean getFieldRelative() {
+        // drive robot oriented if on detector pipelines
+        if (Robot.vision.isDetectorPipeline()) {
+            return false;
+        }
+        return true;
+    }
+
+    public static double getOutput() {
+        // reverse direction for robot pov
+        if (Robot.vision.isDetectorPipeline()) {
+            return -out;
+        }
+        return out;
     }
 
     public static void setOutput(double output) {
@@ -75,10 +105,6 @@ public class AlignToVisionTarget extends PIDCommand {
         }
 
         out = out * Robot.swerve.config.tuning.maxVelocity * 0.3;
-    }
-
-    public static double getOutput() {
-        return out;
     }
 
     @Override
@@ -93,6 +119,8 @@ public class AlignToVisionTarget extends PIDCommand {
         } else {
             this.getController().setP(lowKP);
         }
+
+        Robot.vision.setLimelightPipeline(pipelineIndex);
     }
 
     @Override
@@ -104,6 +132,7 @@ public class AlignToVisionTarget extends PIDCommand {
 
     @Override
     public void end(boolean interrupted) {
+        // Robot.vision.setLimelightPipeline(VisionConfig.aprilTagPipeline);
         // getLedCommand(tagID).end(interrupted);
     }
 
